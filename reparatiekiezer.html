@@ -358,11 +358,11 @@ const KLEUREN={
 const MERKEN=['Apple','Samsung','Google','Xiaomi','OnePlus','Huawei','Oppo','Motorola','Nokia','Sony','Realme','Fairphone'];
 const ALLE=[];MODELLEN.forEach(([merk,serie,...ms])=>ms.forEach(([n,c])=>ALLE.push({merk,serie,n,c})));
 const REP={
- scherm:{h:309,n:'Scherm',v:79,k:[{n:'Origineel',p:249,je:'Apple-onderdeel'},{n:'Service pack',p:154,je:'12 maanden garantie',pop:1},{n:'Compatibel',p:79,je:'6 maanden garantie'}]},
- accu:{h:129,n:'Accu',v:59,k:[{n:'Origineel',p:99,je:'Apple-onderdeel'},{n:'Service pack',p:75,je:'12 maanden garantie',pop:1},{n:'Compatibel',p:59,je:'6 maanden garantie'}]},
- laad:{h:119,n:'Laadpoort',v:65,k:[{n:'Origineel',p:95,je:'Apple-onderdeel'},{n:'Service pack',p:79,je:'12 maanden garantie',pop:1},{n:'Compatibel',p:65,je:'6 maanden garantie'}]},
- camera:{h:189,n:'Camera',v:89,k:[{n:'Origineel',p:149,je:'Apple-onderdeel'},{n:'Service pack',p:109,je:'12 maanden garantie',pop:1},{n:'Compatibel',p:89,je:'6 maanden garantie'}]},
- achter:{h:169,n:'Achterkant',v:69,k:[{n:'Origineel',p:129,je:'Apple-onderdeel'},{n:'Service pack',p:89,je:'12 maanden garantie',pop:1},{n:'Compatibel',p:69,je:'6 maanden garantie'}]},
+ scherm:{h:309,n:'Scherm',v:79,k:[{n:'Origineel',p:249,sub:'Apple-onderdeel'},{n:'Service pack',p:154,sub:'12 maanden garantie',pop:1},{n:'Compatibel',p:79,sub:'6 maanden garantie'}]},
+ accu:{h:129,n:'Accu',v:59,k:[{n:'Origineel',p:99,sub:'Apple-onderdeel'},{n:'Service pack',p:75,sub:'12 maanden garantie',pop:1},{n:'Compatibel',p:59,sub:'6 maanden garantie'}]},
+ laad:{h:119,n:'Laadpoort',v:65,k:[{n:'Origineel',p:95,sub:'Apple-onderdeel'},{n:'Service pack',p:79,sub:'12 maanden garantie',pop:1},{n:'Compatibel',p:65,sub:'6 maanden garantie'}]},
+ camera:{h:189,n:'Camera',v:89,k:[{n:'Origineel',p:149,sub:'Apple-onderdeel'},{n:'Service pack',p:109,sub:'12 maanden garantie',pop:1},{n:'Compatibel',p:89,sub:'6 maanden garantie'}]},
+ achter:{h:169,n:'Achterkant',v:69,k:[{n:'Origineel',p:129,sub:'Apple-onderdeel'},{n:'Service pack',p:89,sub:'12 maanden garantie',pop:1},{n:'Compatibel',p:69,sub:'6 maanden garantie'}]},
  water:{n:'Waterschade',v:null,k:null},
 };
 const VOLG=['scherm','accu','laad','camera','achter','water'];
@@ -479,7 +479,7 @@ function stap2(){
   return `<button class="terug" onclick="terug()">&larr; ${S.model.n}</button><h2 class="vraag">Wat is er kapot?</h2><p class="sub">Tik op de telefoon, of vink het hier aan. Meer dan een mag; tik nog eens om het weg te halen.</p>${kleur}
   <div class="schade">${VOLG.map(k=>{const r=REP[k],aan=!!S.schade[k],gk=S.schade[k];
     return `<div class="deel-rij${aan?' aan':''}"><button class="deel-kop" onclick="tik('${k}')"><span class="vink">${CHECK}</span><span class="naam">${r.n}</span>${aan?'<span class="weg">weghalen &times;</span>':`<span class="vanaf${r.v?'':' aanvraag'} num">${r.v?'vanaf '+eur(r.v):'prijs na diagnose'}</span>`}</button>
-    ${aan&&r.k?`<div class="kwal">${r.k.map((q,i)=>`<button class="kw${gk.n===q.n?' aan':''}" onclick="kiesKw('${k}',${i})">${q.pop?'<span class="tip">Meest gekozen</span>':''}<small>${q.n}</small><b class="num">${eur(q.p)}</b><em>${q.u}</em></button>`).join('')}</div>`:''}
+    ${aan&&r.k?`<div class="kwal">${r.k.map((q,i)=>`<button class="kw${gk.n===q.n?' aan':''}" onclick="kiesKw('${k}',${i})">${q.pop?'<span class="tip">Meest gekozen</span>':''}<small>${q.n}</small><b class="num">${eur(q.p)}</b><em>${q.sub}</em></button>`).join('')}</div>`:''}
     ${aan&&!r.k?'<div class="uitleg-water">Waterschade vraagt eerst onderzoek. De winkel noemt een prijs na de diagnose, meestal dezelfde dag.</div>':''}</div>`}).join('')}</div>`;
 }
 function stap3(){
