@@ -157,6 +157,7 @@ footer{border-top:1px solid var(--lijn);padding:28px 0 60px;color:var(--inkt-3);
   Onderdeel van snelrepareren.nl, de onafhankelijke vergelijker voor telefoonreparatie in Nederland.
 </div></footer>
 
+<script src="data/winkels.js"></script>
 <script>
 const eur=n=>'&euro;&nbsp;'+String(n).replace('.',',');
 const VINK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>';
@@ -201,14 +202,6 @@ document.getElementById('merkblokken').innerHTML=MERK.map(m=>`
   ${m.niet.map(w=>`<div class="niet">${UITROEP}<span>${w}</span></div>`).join('')}
  </div>`).join('');
 
-/* winkels, dezelfde voorbeelden als op de plaatspagina, gefilterd op iPhone */
-const WINKELS=[
- {n:'Telefoonhulp Leeuwarden',i:'T',a:'Nieuwestad 112, Centrum',km:1.4,c:'9,1',b:48,keur:1,erk:'Apple IRP',tijd:'Klaar terwijl je wacht',snel:1,prijs:154,kw:'origineel Apple'},
- {n:'FixPoint Friesland',i:'F',a:'Wirdumerdijk 22, Centrum',km:0.6,c:'8,7',b:112,keur:1,erk:null,tijd:'Vandaag klaar',snel:1,prijs:129,kw:'soft OLED'},
- {n:'De Schermwerkplaats',i:'S',a:'Voorstreek 45, Centrum',km:0.9,c:'9,4',b:26,keur:1,erk:null,tijd:'Morgen klaar',snel:0,prijs:189,kw:'refurbished origineel'},
- {n:'Studio Repair Huizum',i:'R',a:'Huizumerlaan 8, Schrans en Huizum',km:2.3,c:'8,9',b:19,keur:1,erk:null,tijd:'Vandaag klaar',snel:1,prijs:149,kw:'soft OLED'},
- {n:'Mobiel Service Schrans',i:'M',a:'Schrans 68, Schrans en Huizum',km:1.5,c:'8,2',b:63,keur:0,erk:null,tijd:'1 tot 2 werkdagen',snel:0,prijs:99,kw:'kopie'},
-];
 document.getElementById('winkels').innerHTML=WINKELS.map(w=>`
  <article class="w">
   <span class="av">${w.i}</span>

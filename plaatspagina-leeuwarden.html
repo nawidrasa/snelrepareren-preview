@@ -18,6 +18,11 @@ button{font:inherit}
 .in{max-width:1160px;margin:0 auto;padding:0 32px}
 
 /* schetsmelding */
+.leegprijs{font-size:14px;color:var(--inkt-2);margin:0}
+.leegblok{padding:22px 24px}
+.leegblok h3{margin:0 0 8px;font-size:17px}
+.leegblok p{margin:0 0 10px;font-size:14.5px;color:var(--inkt-2)}
+.leegblok p:last-child{margin-bottom:0}
 .schets{background:var(--amber-soft);color:var(--amber);font-size:13px;font-weight:600;text-align:center;padding:8px 16px}
 
 /* kop */
@@ -294,7 +299,6 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
   <div class="sluit"><button class="btn btn-groen" onclick="document.getElementById('filterdlg').close()">Toon winkels</button></div>
 </div></dialog>
 
-
 <dialog class="match" id="matchdlg"><div class="mdlg" id="matchinhoud"></div></dialog>
 <dialog id="rang"><div class="dlg">
   <h3>Hoe wij rangschikken</h3>
@@ -303,6 +307,7 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
   <div class="sluit"><button class="btn btn-groen" onclick="document.getElementById('rang').close()">Sluiten</button></div>
 </div></dialog>
 
+<script src="data/winkels.js"></script>
 <script>
 /* ---- gemeten bandbreedtes, bron: eigen prijsonderzoek 3 sept 2026 (198 prijspunten) ---- */
 const BAND={
@@ -312,19 +317,7 @@ const BAND={
 };
 const REPS={scherm:'Scherm vervangen',accu:'Accu vervangen',laad:'Laadpoort vervangen'};
 const KWAL={alle:'Alle kwaliteiten',compatibel:'Compatibel',service:'Service pack',origineel:'Origineel'};
-/* verzonnen voorbeeldwinkels */
-const WINKELS=[
- {n:'Telefoonhulp Leeuwarden',i:'T',buurt:'Centrum',a:'Nieuwestad 112',km:1.4,c:'9,1',b:48,vers:'nieuwste review 3 dagen geleden',keur:1,erk:'Apple IRP',jaren:12,vest:1,tijd:'Klaar terwijl je wacht',min:35,vandaag:1,gar:'12 maanden garantie',kw:'service',niv:.33,open:'Open tot 18:00',uit:0},
- {n:'FixPoint Friesland',i:'F',buurt:'Centrum',a:'Wirdumerdijk 22',km:0.6,c:'8,7',b:112,vers:'nieuwste review 1 week geleden',keur:1,erk:'Samsung erkend',jaren:8,vest:3,tijd:'Vandaag klaar',min:120,vandaag:1,gar:'12 maanden garantie',kw:'service',niv:.44,open:'Open tot 17:30',uit:1},
- {n:'De Schermwerkplaats',i:'S',buurt:'Centrum',a:'Voorstreek 45',km:0.9,c:'9,4',b:26,vers:'nieuwste review 5 dagen geleden',keur:1,erk:null,jaren:6,vest:1,tijd:'Morgen klaar',min:1440,vandaag:0,gar:'24 maanden garantie',kw:'origineel',niv:.78,open:'Open tot 17:00',uit:0},
- {n:'Studio Repair Huizum',i:'R',buurt:'Schrans en Huizum',a:'Huizumerlaan 8',km:2.3,c:'8,9',b:19,vers:'nieuwste review 2 weken geleden',keur:1,erk:null,jaren:4,vest:1,tijd:'Vandaag klaar',min:180,vandaag:1,gar:'12 maanden garantie',kw:'service',niv:.5,open:'Open tot 18:00',uit:0},
- {n:'Mobiel Service Schrans',i:'M',buurt:'Schrans en Huizum',a:'Schrans 68',km:1.5,c:'8,2',b:63,vers:'nieuwste review 4 maanden geleden',keur:0,erk:null,jaren:9,vest:1,tijd:'1 tot 2 werkdagen',min:2880,vandaag:0,gar:'6 maanden garantie',kw:'compatibel',niv:.1,open:'Gesloten, opent morgen 09:00',oud:1,uit:0},
- {n:'Camminghaburen Telecom',i:'C',buurt:'Camminghaburen',a:'Egelantierstraat 2',km:3.8,c:'8,5',b:8,vers:'nieuwste review 3 weken geleden',keur:0,erk:null,jaren:3,vest:1,tijd:'1 tot 2 werkdagen',min:2880,vandaag:0,gar:'12 maanden garantie',kw:'service',niv:.28,open:'Open tot 18:00',uit:0},
-];
-const VERMELDINGEN=[
- {n:'Telecomwinkel Zaailand',i:'Z',a:'Zaailand 106',km:0.5},
- {n:'GSM Hoek Leeuwarden',i:'G',a:'Sint Jacobsstraat 14',km:0.7},
-];
+
 const FILTERS=[['vandaag','Vandaag klaar',w=>w.vandaag],['keur','Met keurmerk',w=>w.keur],['origineel','Origineel onderdeel',w=>w.kw==='origineel'],['open','Nu open',w=>!w.open.startsWith('Gesloten')]];
 const S={model:'iPhone 13',rep:'scherm',kw:'alle',filters:{},uitgVerbergen:false};
 const eur=n=>'&euro; '+n;
@@ -332,7 +325,6 @@ const CHECK='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 1
 const BOLT='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 3 14h7l-1 8 10-12h-7z"/></svg>';
 const TEL='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>';
 const CHEV='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>';
-
 
 /* match-moment: de belknop logt de match en biedt een beoordeelherinnering aan */
 function belMatch(naam,nummer){
@@ -363,17 +355,7 @@ function matchJa(){
 }
 const band=()=>BAND[S.model][S.rep];
 const prijs=w=>{const [lo,,hi]=band();return Math.max(lo,Math.round((lo+(hi-lo)*w.niv)/5)*5-1)};
-/* De volgorde die wij op 'Hoe wij rangschikken' beloven: eerst het keurmerk, dan
-   een controleerbare erkenning, dan het cijfer, en bij gelijk cijfer het aantal
-   beoordelingen. Een prijs die te lang niet is bevestigd, weegt lichter.
-   Tot 7 september sorteerde deze pagina niets: de winkels stonden in de volgorde
-   waarin ze waren ingetypt, terwijl de site iets anders beloofde. */
-function rangschik(ws){
-  return ws.slice().sort((a,b)=>
-    (b.keur-a.keur) || ((b.erk?1:0)-(a.erk?1:0)) || ((a.oud?1:0)-(b.oud?1:0)) ||
-    (parseFloat(b.c.replace(',','.'))-parseFloat(a.c.replace(',','.'))) || (b.b-a.b));
-}
-const waarom=w=>[w.keur?'keurmerk':null,w.erk||null,'cijfer '+w.c,w.oud?'prijs niet recent bevestigd':null].filter(Boolean).join(' &middot; ');
+
 const zichtbaar=()=>rangschik(WINKELS.filter(w=>FILTERS.every(([id,,f])=>!S.filters[id]||f(w))).filter(w=>S.kw==='alle'||w.kw===S.kw));
 
 function kies(){
@@ -440,7 +422,11 @@ function lijst(){
   const buurten=[...new Set(rest.map(w=>w.buurt))];
   let h='';
   if(uit.length)h+=uit.map(w=>winkelkaart(w,true)).join('');
-  if(!ws.length)h+=`<div class="verm" style="text-align:center"><p style="margin:0">Geen winkel voldoet aan al je filters. Zet er een uit om meer te zien.</p></div>`;
+  if(!ws.length)h+=WINKELS.length
+    ? `<div class="verm" style="text-align:center"><p style="margin:0">Geen winkel voldoet aan al je filters. Zet er een uit om meer te zien.</p></div>`
+    : `<div class="verm leegblok"><h3>Nog geen winkel aangesloten in Leeuwarden</h3>
+        <p>Wij zijn net begonnen. Zodra de eerste winkels meedoen, staan hier hun prijzen, doorlooptijd en garantie naast elkaar. Wat een reparatie landelijk kost, zie je hiernaast en op <a href="prijsindex.html">de prijsindex</a>.</p>
+        <p>Heb je een reparatiewinkel in Leeuwarden? <a href="voor-winkels.html">Meld je winkel aan</a>. De eerste winkels staan er gratis op.</p></div>`;
   buurten.forEach(b=>{const inB=rest.filter(w=>w.buurt===b);
     h+=`<div class="groep"><h2>${b}</h2><span>${inB.length} ${inB.length===1?'winkel':'winkels'}</span></div>`+inB.map(w=>winkelkaart(w,false)).join('')});
   h+=`<div class="groep"><h2>Nog niet aangesloten</h2><span>${VERMELDINGEN.length} vermeldingen</span></div>`+VERMELDINGEN.map(vermelding).join('');
@@ -448,14 +434,17 @@ function lijst(){
 }
 function zijkolom(){
   const ws=zichtbaar().length?zichtbaar():WINKELS,ps=ws.map(prijs).sort((a,b)=>a-b);
-  const lok=[ps[0],ps[Math.floor(ps.length/2)],ps[ps.length-1]],[lo,,hi]=band();
+  const [lo,,hi]=band();
+  /* Zonder aangesloten winkels valt er niets van winkels te tonen. Dan laten wij
+     alleen zien wat wij zelf landelijk hebben gemeten, en zeggen wij dat erbij. */
+  const lokaal=ps.length?`<div class="drie">
+      <div><small>laagste</small><b class="num">${eur(ps[0])}</b></div>
+      <div class="mid"><small>midden</small><b class="num">${eur(ps[Math.floor(ps.length/2)])}</b></div>
+      <div><small>hoogste</small><b class="num">${eur(ps[ps.length-1])}</b></div>
+    </div>`:`<p class="leegprijs">Nog geen winkel in Leeuwarden heeft een prijs opgegeven, dus wij kunnen hier niets vergelijken.</p>`;
   document.getElementById('zprijs').innerHTML=`<h3>${REPS[S.rep]} in Leeuwarden</h3>
-    <p>Wat de winkels op deze pagina vragen voor een ${S.model}.</p>
-    <div class="drie">
-      <div><small>laagste</small><b class="num">${eur(lok[0])}</b></div>
-      <div class="mid"><small>midden</small><b class="num">${eur(lok[1])}</b></div>
-      <div><small>hoogste</small><b class="num">${eur(lok[2])}</b></div>
-    </div>
+    <p>${ps.length?`Wat de winkels op deze pagina vragen voor een ${S.model}.`:`Wat een ${S.model} landelijk kost.`}</p>
+    ${lokaal}
     <p class="bron">Landelijk gemeten: ${eur(lo)} tot ${eur(hi)} voor dit model, over 198 prijspunten (3 september 2026).</p>`;
 }
 function kop(){

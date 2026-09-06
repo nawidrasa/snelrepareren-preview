@@ -280,7 +280,6 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
 
 </style>
 
-
 <div class="schets">Ontwerpschets. De winkels in stap 3 zijn verzonnen voorbeelden; de prijzen komen uit ons eigen prijsonderzoek van 3 september 2026.</div>
 <header class="top">
   <a class="logo" href="index.html">snel<i>repareren</i>.nl</a>
@@ -312,7 +311,6 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
 
 <div class="onder">Prijzen uit het prijsonderzoek (iPhone 13 scherm: 79 tot 309 euro over 198 metingen). Winkels, beoordelingen, afstanden en toestelkleuren zijn illustratief. Volgorde: onbetaald, op keurmerk en beoordeling; het blok Uitgelicht is betaald en zo gelabeld (besluit B2).</div>
 
-
 <dialog class="match" id="matchdlg"><div class="mdlg" id="matchinhoud"></div></dialog>
 <dialog id="hulp"><div class="dlg">
   <h3>Ik weet mijn model niet</h3>
@@ -328,13 +326,13 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
   <div class="sluit"><button class="btn btn-groen" onclick="document.getElementById('rang').close()">Sluiten</button></div>
 </div></dialog>
 
-
 <footer class="jurvoet">
   <div class="jur"><a href="voorwaarden.html">Voorwaarden</a><a href="privacy.html">Privacy</a><a href="cookies.html">Cookies</a><a href="toegankelijkheid.html">Toegankelijkheid</a><a href="melden.html">Iets melden</a></div>
   Wij vragen je nergens om een telefoonnummer; je belt de winkel zelf. Zie de <a href="privacy.html">privacyverklaring</a>.
 </footer>
 
 <script src="data/kiezer.js"></script>
+<script src="data/winkels.js"></script>
 <script>
 /* ---------- gegevens ---------- */
 /* De toestellijst komt uit bouwvoorbereiding/data/catalogus.json, via data/kiezer.js.
@@ -385,18 +383,7 @@ function prijsVan(k){
 }
 const VOLG=['scherm','accu','laadpoort','camera','achterkant','waterschade'];
 const HOT={scherm:[112,215],camera:[66,47],accu:[112,300],laadpoort:[152,431],achterkant:[76,375]};
-const WINKELS=[
- /* Dezelfde zes voorbeeldwinkels als op de plaatspagina en het winkelprofiel.
-    Eerder had de kiezer een eigen, andere set; wie doorklikte kwam bij een winkel
-    die hij niet had gezien. De prijsfactor f is afgeleid van het prijsniveau (niv)
-    op de plaatspagina, zodat de goedkope winkel hier ook de goedkope is. */
- {n:'Telefoonhulp Leeuwarden',plaats:'Leeuwarden',a:'Nieuwestad 112, Centrum',km:'1,4 km',c:'9,1',b:48,keur:1,snel:'Klaar terwijl je wacht',vandaag:1,erk:'Apple IRP',jaren:12,vest:1,betaal:['Pin','Contant','Apple Pay','iDEAL'],f:1.0,uit:0},
- {n:'FixPoint Friesland',plaats:'Leeuwarden',a:'Wirdumerdijk 22, Centrum',km:'0,6 km',c:'8,7',b:112,keur:1,snel:'Vandaag klaar',vandaag:1,erk:'Samsung erkend',jaren:8,vest:3,betaal:['Pin','Apple Pay','iDEAL'],f:1.05,uit:1},
- {n:'De Schermwerkplaats',plaats:'Leeuwarden',a:'Voorstreek 45, Centrum',km:'0,9 km',c:'9,4',b:26,keur:1,snel:'Morgen klaar',vandaag:0,erk:null,jaren:6,vest:1,betaal:['Pin','Contant'],f:1.2,uit:0},
- {n:'Studio Repair Huizum',plaats:'Leeuwarden',a:'Huizumerlaan 8, Schrans en Huizum',km:'2,3 km',c:'8,9',b:19,keur:1,snel:'Vandaag klaar',vandaag:1,erk:null,jaren:4,vest:1,betaal:['Pin','Apple Pay'],f:1.08,uit:0},
- {n:'Mobiel Service Schrans',plaats:'Leeuwarden',a:'Schrans 68, Schrans en Huizum',km:'1,5 km',c:'8,2',b:63,keur:0,snel:'1 tot 2 werkdagen',vandaag:0,erk:null,jaren:9,vest:1,betaal:['Pin','Contant'],f:.9,uit:0},
- {n:'Camminghaburen Telecom',plaats:'Leeuwarden',a:'Egelantierstraat 2, Camminghaburen',km:'3,8 km',c:'8,5',b:8,keur:0,snel:'1 tot 2 werkdagen',vandaag:0,erk:null,jaren:3,vest:1,betaal:['Pin'],f:.96,uit:0},
-];
+
 const FILTERS=[['vandaag','Vandaag klaar',w=>w.vandaag],['keur','Met keurmerk',w=>w.keur],['applepay','Apple Pay',w=>w.betaal.includes('Apple Pay')],['contant','Contant',w=>w.betaal.includes('Contant')]];
 const OS={ios:["Open Instellingen op je iPhone.","Tik op Algemeen en daarna op Info.","Bij Modelnummer staat een code die met een A begint, bijvoorbeeld A2633. Typ die in het zoekveld."],
           android:["Open Instellingen op je toestel.","Scrol naar Over de telefoon of Systeem.","Bij Modelnummer staat de code, bijvoorbeeld SM-S911B. Typ die in het zoekveld."]};
@@ -452,12 +439,7 @@ const hoogste=()=>gekozen().reduce((a,k)=>{const m=meting(k);if(!m)return a;
    eerst het keurmerk, dan een controleerbare erkenning, dan het cijfer. Betalen
    verandert hier niets aan; het blok Uitgelicht staat apart en is als zodanig gelabeld. */
 const inPlaats=()=>WINKELS.filter(w=>w.plaats.toLowerCase()===S.plaats.trim().toLowerCase());
-function rangschik(ws){
-  return ws.slice().sort((a,b)=>
-    (b.keur-a.keur) || ((b.erk?1:0)-(a.erk?1:0)) ||
-    (parseFloat(b.c.replace(',','.'))-parseFloat(a.c.replace(',','.'))) || (b.b-a.b));
-}
-const waarom=w=>[w.keur?'keurmerk':null,w.erk?w.erk:null,'cijfer '+w.c].filter(Boolean).join(' &middot; ');
+
 const lijst=()=>rangschik(inPlaats().filter(w=>FILTERS.every(([id,,f])=>!S.filters[id]||f(w))));
 const donker=h=>'#'+[1,3,5].map(i=>Math.round(parseInt(h.slice(i,i+2),16)*.72).toString(16).padStart(2,'0')).join('');
 

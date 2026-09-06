@@ -117,6 +117,10 @@ h1{font-size:clamp(26px,3.4vw,34px);font-weight:800;letter-spacing:-.025em;margi
 .keurblok .datum{font-size:13px;color:var(--inkt-2);margin:14px 0 0}
 
 /* reviews */
+.geenreviews{border:1.5px solid var(--lijn);border-radius:18px;padding:22px 24px}
+.geenreviews b{display:block;font-size:17px;margin-bottom:8px}
+.geenreviews p{margin:0 0 10px;font-size:14.5px;color:var(--inkt-2);max-width:70ch}
+.geenreviews p:last-child{margin-bottom:0}
 .scores{display:grid;grid-template-columns:auto minmax(0,1fr);gap:26px;align-items:center;margin-bottom:22px}
 .groot{text-align:center}
 .groot b{display:block;font-size:44px;font-weight:800;line-height:1;letter-spacing:-.02em}
@@ -392,6 +396,7 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
   <div class="sluit"><button class="btn btn-groen" onclick="document.getElementById('criteria').close()">Sluiten</button></div>
 </div></dialog>
 
+<script src="data/winkels.js"></script>
 <script>
 /* landelijke bandbreedtes: eigen prijsonderzoek 3 sept 2026, 198 prijspunten */
 const BAND={
@@ -405,12 +410,19 @@ const NIV={compatibel:.09,service:.33,origineel:.78};
 const TIJDEN=[['maandag','09:30 tot 18:00'],['dinsdag','09:30 tot 18:00'],['woensdag','09:30 tot 18:00'],['donderdag','09:30 tot 21:00'],['vrijdag','09:30 tot 18:00'],['zaterdag','10:00 tot 17:00'],['zondag',null]];
 const VANDAAG=4; /* vrijdag, vast voor deze schets */
 const VERDELING=[[5,39],[4,6],[3,2],[2,1],[1,0]];
-const REVIEWS=[
+/* Beoordelingen. Deze zijn VERZONNEN en horen bij de zes voorbeeldwinkels.
+   Zij verdwijnen samen met die winkels als VOORBEELDEN in data/winkels.js op false
+   gaat. Dat moet ook: een beoordeling die niet van een klant komt maar er wel
+   uitziet als een klantbeoordeling, is misleidend, hoe groot de gele strook ook is.
+   Bovendien kan er nog geen enkele beoordeling geverifieerd zijn, want het
+   belmoment slaat niets op zolang er geen server is. */
+const VOORBEELDREVIEWS=[
  {n:'Marije D.',p:'Leeuwarden',c:'10',d:'3 dagen geleden',via:1,t:'Scherm van mijn iPhone 13 in een half uur vervangen terwijl ik koffie dronk. Vooraf precies verteld welk scherm erin ging en wat het kostte. Bon met serienummer meegekregen.'},
  {n:'Rutger B.',p:'Stiens',c:'9',d:'1 week geleden',via:1,t:'Accu vervangen, netjes gedaan en de prijs klopte met wat hier op de site stond. Kleine min: het was druk, dus ik moest iets langer wachten dan gezegd.'},
  {n:'Anouk V.',p:'Leeuwarden',c:'8',d:'3 weken geleden',via:0,t:'Goede uitleg over het verschil tussen origineel en een goedkoper scherm. Ik heb voor de tussenvariant gekozen en ben er tevreden mee.',antwoord:'Fijn dat je het verschil duidelijk vond. Kom je gerust langs als er iets is, de garantie loopt twaalf maanden.'},
  {n:'Peter K.',p:'Leeuwarden',c:'6',d:'2 maanden geleden',via:1,t:'Reparatie zelf is prima, maar mijn toestel was niet op de beloofde tijd klaar en ik ben daar niet over gebeld.',antwoord:'Dat spijt ons, je had bericht moeten krijgen. We hebben sindsdien afgesproken dat we altijd bellen zodra een reparatie uitloopt.'},
 ];
+const REVIEWS=(typeof VOORBEELDEN!=="undefined"&&VOORBEELDEN)?VOORBEELDREVIEWS:[];
 const S={model:'iPhone 13'};
 
 /* match-moment: de belknop logt de match en biedt een beoordeelherinnering aan */
@@ -487,6 +499,16 @@ function verdeling(){
     `<div class="vrij"><span class="num">${s} sterren</span><span class="baan"><i style="width:${Math.round(n/totaal*100)}%"></i></span><span class="n num">${n}</span></div>`).join('');
 }
 function reviews(){
+  /* Zonder aangesloten winkels zijn er geen beoordelingen. Dat is de eerlijke
+     staat op dag een, en hij hoort er goed uit te zien in plaats van leeg. */
+  if(!REVIEWS.length){
+    document.getElementById('reviewlijst').innerHTML=`<div class="geenreviews">
+      <b>Nog geen beoordelingen</b>
+      <p>Deze winkel is net aangesloten. Zodra iemand via ons contact opneemt en de reparatie laat doen, vragen wij hem een keer om een beoordeling. Wij plaatsen er zelf geen, en wij kopen ze niet.</p>
+      <p>Wil je weten hoe wij dit doen? Lees <a href="hoe-wij-rangschikken.html">hoe wij rangschikken</a>.</p>
+    </div>`;
+    return;
+  }
   document.getElementById('reviewlijst').innerHTML=REVIEWS.map(r=>`<div class="review">
     <div class="rkop"><span class="cijf num">${r.c}</span><b>${r.n}</b><span style="color:var(--inkt-3);font-size:13.5px">uit ${r.p}</span>
       ${r.via?'<span class="via">via snelrepareren.nl</span>':''}<span class="dat">${r.d}</span></div>
