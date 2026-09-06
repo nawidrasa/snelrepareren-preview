@@ -100,10 +100,16 @@ button{font:inherit}
 .deel-kop .vanaf.aanvraag{font-weight:500;color:var(--inkt-3);font-size:13.5px}
 .deel-kop .weg{font-size:13px;font-weight:600;color:var(--inkt-3)}
 .deel-kop:hover .weg{color:var(--rood)}
-.kwal{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:0 14px 14px}
-.kw{position:relative;border:1.5px solid var(--lijn);border-radius:12px;padding:12px 8px 10px;text-align:center;background:#fff;cursor:pointer;transition:border-color .15s,background .15s}
+/* minmax(0,1fr) en niet 1fr: een lange onderdeelnaam duwde de kolom anders
+   breder dan het vak eromheen. */
+.kwal{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding:0 14px 14px}
+.kw{position:relative;border:1.5px solid var(--lijn);border-radius:12px;padding:12px 8px 10px;text-align:center;background:#fff;cursor:pointer;transition:border-color .15s,background .15s,box-shadow .15s}
 .kw:hover{border-color:var(--groen-500)}
-.kw.aan{border-color:var(--groen);background:var(--groen-100)}
+/* Gekozen moet je van een meter afstand zien, want dit is de keuze die 149 euro
+   scheelt. Een randje van anderhalve pixel deed dat niet. */
+.kw.aan{border-color:var(--groen);border-width:2px;padding:11.5px 7.5px 9.5px;
+  background:#fff;box-shadow:0 0 0 4px var(--groen-100)}
+.kw.aan b{color:var(--groen-800)}
 .kw small{display:block;font-size:12px;color:var(--inkt-2)}
 .kw .kwnaam{display:block;font-size:12.5px;font-weight:700;color:var(--inkt)}
 .kw b{display:block;font-size:17px;font-weight:800;margin:2px 0}
@@ -146,11 +152,20 @@ button{font:inherit}
 .kanten button.aan{border-color:var(--groen);color:var(--groen-800);background:var(--groen-50)}
 .kanten .bol{width:6px;height:6px;border-radius:50%;background:var(--amber)}
 .tel-klein{font-size:11.5px;color:var(--inkt-3);text-align:center;margin:10px 0 0}
-.tel .leeg .vul{animation:leegloop 1s ease forwards}
-@keyframes leegloop{0%{width:17px;fill:#22C55E}70%{width:4.5px;fill:#B45309}100%{width:4.5px;fill:#B45309}}
+/* De maten hier horen bij de batterij in schadeVoor: vol is de binnenmaat
+   (38 breed min twee keer 2,6 marge), leeg is de rustbreedte van .vul. */
+@keyframes leegloop{0%{width:32.8px;fill:#22C55E}70%{width:4.4px;fill:#B45309}100%{width:4.4px;fill:#B45309}}
 .tel .mk .pop{animation:pop .45s cubic-bezier(.2,1.5,.4,1);transform-box:fill-box;transform-origin:center}
 @keyframes pop{from{transform:scale(0)}to{transform:scale(1)}}
-@media (prefers-reduced-motion:reduce){.tel .hot .puls,.tel .ring,.tel .barst,.tel .barst path,.tel .leeg .vul,.tel .mk .pop{animation:none}.tel .barst{opacity:0}.inhoud{animation:none}.tegel{transition:none}}
+/* Zonder beweging BLIJFT de barst staan. Hij stond hier eerst op opacity 0: de
+   streepjeslijn die hem laat groeien, laat hem zonder animatie leeg, en toen was
+   de oplossing hem te verbergen. Dan zag wie geen beweging wil, geen schade. */
+@media (prefers-reduced-motion:reduce){
+  .tel .hot .puls,.tel .ring,.tel .accu.loopt .vul,.tel .mk .pop,.tel .poort.schokt,
+  .tel .lens.breekt,.tel .water.stijgt .lijn{animation:none}
+  .tel .barst.trekt path{stroke-dasharray:none;stroke-dashoffset:0;animation:none}
+  .inhoud{animation:none}.tegel{transition:none}
+}
 .tel-tekst{text-align:center;font-size:13.5px;color:var(--inkt-2);max-width:26ch;margin:0}
 .tel-tekst b{color:var(--inkt);display:block;font-size:15px;margin-bottom:2px}
 .som{width:100%;max-width:300px;border:1.5px solid var(--lijn);border-radius:14px;padding:4px 14px;background:#fff}
@@ -252,7 +267,7 @@ dialog::backdrop{background:rgba(11,31,78,.45)}
   .lichaam{grid-template-columns:1fr;gap:24px}
   .paneel{order:-1}
   .tel{width:150px}
-  .t4{grid-template-columns:repeat(2,1fr)}
+  .t4{grid-template-columns:repeat(2,minmax(0,1fr))}
   .kwal{grid-template-columns:1fr}
   .swatches{margin-left:0}
   .winkel{grid-template-columns:1fr}
@@ -334,7 +349,9 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
   </div>
 </div></section>
 
-<div class="onder">Prijzen uit het prijsonderzoek (iPhone 13 scherm: 79 tot 309 euro over 198 metingen). Winkels, beoordelingen, afstanden en toestelkleuren zijn illustratief. Volgorde: op poliscontrole en beoordeling; het blok Uitgelicht staat apart en is zo gelabeld (besluit B2). Er wordt nog niets verkocht, dus staan daar alleen nieuwe winkels.</div>
+<!-- "79 tot 309 euro over 198 metingen" las alsof die 198 metingen bij dat ene
+     scherm hoorden. Het zijn er tien; 198 is het hele onderzoek. -->
+<div class="onder">Prijzen uit het prijsonderzoek: 198 metingen bij Nederlandse winkels, peildatum 3 september 2026. Voor een iPhone 13-scherm zijn dat er tien, en die liepen van 79 tot 309 euro. Winkels, beoordelingen, afstanden en toestelkleuren zijn illustratief. Volgorde: op poliscontrole en beoordeling; het blok Uitgelicht staat apart en is zo gelabeld (besluit B2). Er wordt nog niets verkocht, dus staan daar alleen nieuwe winkels.</div>
 
 <dialog class="match" id="matchdlg"><div class="mdlg" id="matchinhoud"></div></dialog>
 <dialog id="hulp"><div class="dlg">
@@ -514,12 +531,14 @@ const HOT={
   voor:{scherm:[112,232],accu:[166,42],laadpoort:[112,430]},
   achter:{camera:[62,62],achterkant:[150,300]},
 };
-/* Waar het kruisje komt te staan als je die schade weer wilt weghalen. Niet
-   altijd op de stip zelf: op de camera zou het precies de gebarsten lens
-   afdekken, en bij de achterkant het hart van de barst. */
+/* Waar het kruisje komt te staan als je die schade weer wilt weghalen. Nooit op
+   de tekening zelf, want dan dekt het af wat het moet aanwijzen: bij de camera
+   de gebarsten lens, bij de accu de "3%", bij het scherm het inslagpunt. Aan de
+   voorkant staan ze daarom onder elkaar langs de rechterrand, in dezelfde
+   volgorde als de lijst ernaast. */
 const WEG={
-  voor:{scherm:[112,232],accu:[172,74],laadpoort:[74,398]},
-  achter:{camera:[96,30],achterkant:[178,382]},
+  voor:{scherm:[186,198],accu:[166,86],laadpoort:[166,404]},
+  achter:{camera:[124,52],achterkant:[178,382]},
 };
 
 const zijde=()=>S.kant||'voor';
@@ -536,15 +555,57 @@ const romp=(body,rand)=>`
 /* ---------- de schadetekeningen ----------
    Elk een eigen beeld, en elk beeld blijft staan. Geen vinkjes. */
 
-const BARST_SCHERM=`<path d="M62 60 L96 150 L88 205 L130 262 L118 330 L150 400"/>
-  <path d="M96 150 L60 176 M88 205 L44 236 M130 262 L176 240 M130 262 L160 300 M118 330 L80 350 M150 400 L184 380"/>
-  <path d="M96 150 L128 128 M88 205 L112 224 M118 330 L140 352" stroke-width="1"/>`;
+/* Gebroken glas is een spinnenweb: een inslagpunt, stralen naar buiten, en
+   ringen die de stralen kruisen. Er stond eerst een vertakte lijn over het hele
+   scherm; dat las als een boompje en niet als een barst. De ringen liggen op de
+   stralen, want in echt glas komen ze daar samen.
+   Het web zit links van het midden, want de naam van het toestel staat boven in
+   beeld en het kruisje om de schade weg te halen rechtsonder. */
+const BARST_SCHERM=`<circle cx="82" cy="300" r="3" fill="#0B1F4E" stroke="none" opacity=".55"/>
+  <path stroke-width="1.7" d="M82 300 L116 246 M82 300 L130 286 M82 300 L128 320 M82 300 L102 352
+    M82 300 L66 344 M82 300 L40 314 M82 300 L36 278 M82 300 L62 238 M82 300 L88 236"/>
+  <path stroke-width="1.15" opacity=".8" d="M116 246 L138 196 M130 286 L168 272 M128 320 L206 372
+    M102 352 L116 430 M66 344 L44 430 M40 314 L16 320 M36 278 L16 270 M62 238 L52 190 M88 236 L80 170"/>
+  <path stroke-width="1.1" d="M84 274 L95 278 L106 291 M91 324 L73 324 L58 309 M58 289 L71 276"/>
+  <path stroke-width=".9" opacity=".85" d="M133 282 L131 323 L100 351 M33 277 L59 251 L87 246 M64 351 L31 318"/>
+  <path stroke-width=".8" opacity=".65" d="M95 278 L104 264 M73 324 L68 338 M106 291 L118 296"/>`;
 
-const BARST_ACHTER=`<path d="M150 300 L96 236 M150 300 L206 262 M150 300 L120 372 M150 300 L196 366 M150 300 L142 214"/>
-  <path d="M126 268 L172 246 L184 300 L160 342 L118 330 Z" stroke-width="1"/>
-  <path d="M104 246 L196 214 M100 350 L206 330" stroke-width="1"/>`;
+/* Zelfde web op de achterkant, in de onderste helft: daarboven staan de camera
+   en de naam van het toestel. */
+const BARST_ACHTER=`<circle cx="120" cy="300" r="3" fill="#E7ECF5" stroke="none" opacity=".6"/>
+  <path stroke-width="1.7" d="M120 300 L154 246 M120 300 L168 286 M120 300 L166 320 M120 300 L140 352
+    M120 300 L104 344 M120 300 L78 314 M120 300 L74 278 M120 300 L100 238 M120 300 L126 236"/>
+  <path stroke-width="1.15" opacity=".8" d="M154 246 L176 196 M168 286 L206 274 M166 320 L206 348
+    M140 352 L154 440 M104 344 L82 440 M78 314 L8 326 M74 278 L20 264 M100 238 L90 190 M126 236 L118 186"/>
+  <path stroke-width="1.1" d="M122 274 L133 278 L144 291 M129 324 L111 324 L96 309 M96 289 L109 276"/>
+  <path stroke-width=".9" opacity=".85" d="M171 282 L169 323 L138 351 M71 277 L97 251 L125 246 M102 351 L69 318"/>
+  <path stroke-width=".8" opacity=".65" d="M133 278 L142 264 M111 324 L106 338 M144 291 L156 296"/>`;
 
-function schadeVoor(){
+/* Een gebarsten lens hoort bij de lens die er staat, en die zit per merk ergens
+   anders en is niet even groot. Eerst stond hier een vaste cirkel op 52,52; bij
+   Samsung viel die naast de lens en eromheen. Nu tekent hij zich op maat. */
+function lensBarst(cx,cy,r){
+  const p=(x,y)=>`${(cx+x*r).toFixed(1)} ${(cy+y*r).toFixed(1)}`;
+  /* Een lens is klein: op een Samsung elf eenheden op een tekening van 224. Alles
+     wat daar met meer dan twee lijnen in wordt gezet, wordt een figuurtje in
+     plaats van glas. Dus: de rand van de lens uitgelicht, EEN barst die er van
+     rand tot rand doorheen loopt, en een aftakking. De lijnen schalen niet mee,
+     anders vallen ze bij de kleinste lens weg. */
+  return `<circle cx="${cx}" cy="${cy}" r="${(r+4).toFixed(1)}" fill="#F5B50A" stroke="none" opacity=".22"/>
+    <circle cx="${cx}" cy="${cy}" r="${(r+2).toFixed(1)}" stroke-width="1.6" opacity=".95"/>
+    <path stroke-width="1.6" d="M${p(-.98,-.18)} L${p(-.35,-.42)} L${p(.10,.05)}
+      L${p(-.05,.52)} L${p(.42,.92)}"/>
+    <path stroke-width="1.2" opacity=".85" d="M${p(.10,.05)} L${p(.85,-.25)}"/>`;
+}
+
+/* Hoeveel de batterij naar beneden moet. Op een toestel met een thuisknop begint
+   het scherm pas op 70 en niet op 24; zonder dit verzet stond de batterij op het
+   metaal boven het scherm. Dit getal geldt ook voor de stip en het kruisje van
+   de accu, en die staan in HOT en WEG. */
+const ACCU_VERZET=v=>v==='thuisknop'?54:0;
+
+function schadeVoor(vorm){
+  const av=ACCU_VERZET(vorm);
   let g='';
   if(S.schade.scherm){
     /* Bijgesneden op het scherm. Bij een iPhone SE loopt het scherm van 70 tot
@@ -556,30 +617,37 @@ function schadeVoor(){
   }
   if(S.schade.accu){
     /* De batterij loopt een keer leeg en blijft dan op drie procent staan. Dat is
-       het beeld dat iemand herkent van zijn eigen toestel; een vinkje is dat niet. */
-    g+=`<g class="accu${S.laatst==='accu'?' loopt':''}" pointer-events="none" transform="translate(152,34)">
-      <rect width="26" height="13" rx="3.5" fill="none" stroke="#B45309" stroke-width="1.4"/>
-      <rect x="27.5" y="4" width="2.5" height="5" rx="1.2" fill="#B45309"/>
-      <rect class="vul" x="1.8" y="1.8" width="3" height="9.4" rx="1.2" fill="#B45309"/>
-      <text x="13" y="29" text-anchor="middle" font-family="Outfit" font-weight="700"
-        font-size="10" fill="#B45309">3%</text></g>`;
+       het beeld dat iemand herkent van zijn eigen toestel; een vinkje is dat niet.
+       Hij stond eerst op de maat van een echte statusbalk en was daardoor te
+       klein om te lezen op een tekening van 224 breed. */
+    g+=`<g class="accu${S.laatst==='accu'?' loopt':''}" pointer-events="none" transform="translate(148,${30+av})">
+      <rect width="38" height="19" rx="5" fill="none" stroke="#B45309" stroke-width="1.8"/>
+      <rect x="40" y="6" width="3.5" height="7" rx="1.6" fill="#B45309"/>
+      <rect class="vul" x="2.6" y="2.6" width="4.4" height="13.8" rx="1.6" fill="#B45309"/>
+      <text x="19" y="38" text-anchor="middle" font-family="Outfit" font-weight="800"
+        font-size="13" fill="#B45309">3%</text></g>`;
   }
   if(S.schade.laadpoort){
-    /* De poort onderin is beschadigd en de stekker past er niet meer in. */
-    g+=`<g class="poort${S.laatst==='laadpoort'?' schokt':''}" pointer-events="none">
-      <path d="M88 431 h48" stroke="#B45309" stroke-width="8" stroke-linecap="round" opacity=".28"/>
-      <path d="M90 427 l6 8 l7 -9 l6 9 l7 -8 l6 8 l7 -8" fill="none" stroke="#B45309"
-        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      <g transform="translate(112,392)">
-        <rect x="-9" y="0" width="18" height="9" rx="3" fill="none" stroke="#B45309" stroke-width="1.8"/>
-        <path d="M0 9 v8" stroke="#B45309" stroke-width="1.8" stroke-linecap="round"/>
-        <path d="M-8 20 l16 -16" stroke="#B45309" stroke-width="2" stroke-linecap="round"/>
-      </g></g>`;
+    /* De poort zelf is de schade: de opening uitgelicht, met verbogen contacten
+       erin. Er zweefde eerst een stekker boven de poort. Dat kon niet blijven:
+       op een toestel met een thuisknop landde die stekker midden in de knop. En
+       de eerste versie had een schuine streep over de stekker, wat leest als
+       uitgeschakeld in plaats van kapot. */
+    g+=`<g class="poort${S.laatst==='laadpoort'?' schokt':''}" pointer-events="none"
+        stroke="#B45309" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M80 430 h64" stroke-width="22" opacity=".16"/>
+      <rect x="78" y="419" width="68" height="19" rx="9.5" stroke-width="2.1" fill="#FEF4E4"/>
+      <path d="M89 430 l6 -6 l7 7 l7 -8 l7 8 l7 -7 l6 6" stroke-width="1.9"/></g>`;
   }
   return g;
 }
 
-function schadeAchter(){
+/* Waar de bovenste lens zit en hoe groot hij is, per vorm. Dit moet gelijk lopen
+   met de lenzen in achterkantTekening; staat er een lens bij, dan hoort deze
+   tabel mee te veranderen. */
+const HOOFDLENS={gaatje:[50,48,11],thuisknop:[52,52,13],inkeping:[52,52,14],eiland:[52,52,13]};
+
+function schadeAchter(vorm){
   let g='';
   if(S.schade.achterkant){
     g+=`<g clip-path="url(#achtervlak)"><g class="barst${S.laatst==='achterkant'?' trekt':''}"
@@ -587,29 +655,35 @@ function schadeAchter(){
       pointer-events="none" opacity=".9">${BARST_ACHTER}</g></g>`;
   }
   if(S.schade.camera){
-    /* De lens is gebarsten en wat erdoorheen komt, is wazig. */
-    /* Een barst is onregelmatig. Met vier symmetrische lijnen door het midden
-       werd het een zonnetje in plaats van gebroken glas. */
+    const [lx,ly,lr]=HOOFDLENS[vorm]||HOOFDLENS.eiland;
     g+=`<g class="lens${S.laatst==='camera'?' breekt':''}" pointer-events="none"
         stroke="#F5B50A" fill="none" stroke-linecap="round" stroke-linejoin="round">
-      <circle cx="52" cy="52" r="15.5" stroke-width="1.6" opacity=".9"/>
-      <path d="M47 38 L55 50 L44 58 L53 67" stroke-width="1.7"/>
-      <path d="M55 50 L67 45 M55 50 L64 61 M44 58 L37 54 M53 67 L58 62" stroke-width="1.2" opacity=".85"/>
-      <path d="M40 44 L47 38 M62 66 L53 67" stroke-width="1" opacity=".6"/></g>`;
+      ${lensBarst(lx,ly,lr)}</g>`;
   }
   return g;
 }
 
-/* Waterschade raakt het hele toestel, dus die staat op beide kanten. */
-function schadeWater(){
+/* Waterschade raakt het hele toestel, dus die staat op beide kanten. Op de
+   achterkant ligt het water op donkerblauw in plaats van op wit, en dan is
+   dezelfde doorzichtigheid bijna niet te zien. Daar mag het steviger, met een
+   lichte waterlijn erop zodat het oppervlak een oppervlak blijft. */
+function schadeWater(kant){
   if(!S.schade.waterschade)return '';
+  const achter=kant==='achter';
+  /* Van 6 tot 226 en niet van 14 tot 190: de golf liep tot twintig eenheden voor
+     de rechterrand en op de achterkant zag je het water daar ophouden. Wat
+     erbuiten valt, snijdt het masker eraf. */
+  const golf='M6 300 q22 -10 44 0 t44 0 t44 0 t44 0 t44 0';
   return `<g clip-path="url(#achtervlak)" class="water${S.laatst==='waterschade'?' stijgt':''}" pointer-events="none">
-    <path class="lijn" d="M14 300 q22 -10 44 0 t44 0 t44 0 t44 0 v134 h-176 z"
-      fill="#38BDF8" opacity=".22"/>
-    <circle cx="70" cy="150" r="5" fill="#38BDF8" opacity=".45"/>
-    <circle cx="150" cy="196" r="7" fill="#38BDF8" opacity=".35"/>
-    <circle cx="104" cy="112" r="4" fill="#38BDF8" opacity=".5"/>
-    <circle cx="168" cy="128" r="3.5" fill="#38BDF8" opacity=".4"/></g>`;
+    <g class="lijn">
+      <path d="${golf} v148 h-220 z" fill="#38BDF8" opacity="${achter?'.42':'.22'}"/>
+      <path d="${golf}" fill="none" stroke="${achter?'#BAE6FD':'#38BDF8'}"
+        stroke-width="2" opacity="${achter?'.85':'.5'}"/>
+    </g>
+    <circle cx="70" cy="150" r="5" fill="#38BDF8" opacity="${achter?'.75':'.45'}"/>
+    <circle cx="150" cy="196" r="7" fill="#38BDF8" opacity="${achter?'.65':'.35'}"/>
+    <circle cx="104" cy="112" r="4" fill="#38BDF8" opacity="${achter?'.8':'.5'}"/>
+    <circle cx="168" cy="128" r="3.5" fill="#38BDF8" opacity="${achter?'.7':'.4'}"/></g>`;
 }
 
 /* ---------- de twee kanten ---------- */
@@ -634,7 +708,7 @@ function voorkant(vorm,on){
     <rect x="14" y="14" width="196" height="420" rx="34" fill="#111827"/>
     ${scherm}${boven}
     <rect x="88" y="426" width="48" height="10" rx="5" fill="#4A5878"${on('laadpoort')}><title>Laadpoort</title></rect>
-    ${schadeVoor()}`;
+    ${schadeVoor(vorm)}`;
 }
 
 function achterkantTekening(vorm,body,on){
@@ -655,7 +729,7 @@ function achterkantTekening(vorm,body,on){
     <rect x="14" y="14" width="196" height="420" rx="34" fill="${body}"${on('achterkant')}><title>Achterkant</title></rect>
     <rect x="14" y="14" width="196" height="420" rx="34" fill="url(#glans)" pointer-events="none"/>
     <g${on('camera')}><title>Camera</title>${cams}</g>
-    ${schadeAchter()}`;
+    ${schadeAchter(vorm)}`;
 }
 
 function telefoon(){
@@ -669,18 +743,25 @@ function telefoon(){
   const punt=k=>{
     const plek=HOT[kant][k];
     if(!plek||!st2)return '';
-    const [x,y]=S.schade[k]?(WEG[kant][k]||plek):plek;
+    let [x,y]=S.schade[k]?(WEG[kant][k]||plek):plek;
+    if(kant==='voor'&&k==='accu')y+=ACCU_VERZET(vorm);
+    /* Wit met een dunne rand, niet massief donkerblauw. Massief trok alle
+       aandacht naar het kruisje en dan is het knopje om iets weg te halen het
+       opvallendste aan de tekening, in plaats van de schade zelf. */
     if(S.schade[k])return `<g class="weg" transform="translate(${x},${y})" onclick="tik('${k}')">
       <title>${REP[k].n} weghalen</title>
-      <circle r="11" fill="#0B1F4E" opacity=".9"/>
-      <path d="M-4 -4 L4 4 M4 -4 L-4 4" stroke="#fff" stroke-width="2" stroke-linecap="round"/></g>`;
+      <circle r="10.5" fill="#fff" stroke="#0B1F4E" stroke-width="1.4" opacity=".94"/>
+      <path d="M-3.6 -3.6 L3.6 3.6 M3.6 -3.6 L-3.6 3.6" stroke="#0B1F4E" stroke-width="1.8" stroke-linecap="round"/></g>`;
     return `<g class="hot" transform="translate(${x},${y})" onclick="tik('${k}')"><title>${REP[k].n}</title>
       ${geen?'<circle class="puls" r="6" fill="none" stroke="#008934" stroke-width="1.5"/>':''}
       <circle r="14" fill="#fff" fill-opacity=".01"/>
       <circle class="dot" r="5" fill="#008934" stroke="#fff" stroke-width="2"/></g>`;
   };
 
-  const hoog=kant==='voor'&&vorm==='thuisknop'?150:kant==='voor'?120:150;
+  /* Bij een thuisknop begint het scherm pas op 70 en is het korter. De naam stond
+     op 150 en botste daar met het kruisje onder de batterij; op 190 staat hij
+     ongeveer in het midden van dat kleinere scherm en is het eronder vrij. */
+  const hoog=kant==='voor'&&vorm==='thuisknop'?190:kant==='voor'?120:150;
   /* Een randje in de kleur van de ondergrond, zodat de naam leesbaar blijft waar
      een barst er dwars doorheen loopt. */
   const halo=`paint-order="stroke" stroke="${kant==='voor'?'#F6F8FA':body}" stroke-width="4"
@@ -705,7 +786,7 @@ function telefoon(){
       <clipPath id="achtervlak"><rect x="14" y="14" width="196" height="420" rx="34"/></clipPath></defs>
     ${romp(body,rand)}
     ${kant==='voor'?voorkant(vorm,on):achterkantTekening(vorm,body,on)}
-    ${schadeWater()}
+    ${schadeWater(kant)}
     ${naam}
     ${Object.keys(HOT[kant]).map(punt).join('')}
   </svg>`;
@@ -725,12 +806,29 @@ function kantknop(){
 
 function opsomming(){
   const g=gekozen();if(!g.length)return '';
-  const rij=k=>{const gk=S.schade[k],p=prijsVan(k);
-    const onder=gk&&gk.naam?`<small>${gk.naam}</small>`:(k==='waterschade'?'<small>na diagnose</small>':'<small>kies nog een onderdeel</small>');
+  /* Valt er iets te kiezen? Voor een reparatie die wij voor dit model niet
+     gemeten hebben, staat er geen enkele knop, en dan is "kies nog een
+     onderdeel" een opdracht die je niet kunt uitvoeren. Bij een iPhone 17 stond
+     dat onder de accu, terwijl er niets te kiezen was. */
+  const teKiezen=k=>{const m=meting(k);return !!(m&&m.opties&&m.opties.length)};
+  const rij=k=>{const gk=S.schade[k],p=prijsVan(k),m=meting(k);
+    const onder=gk&&gk.naam?`<small>${esc(gk.naam)}</small>`
+      :k==='waterschade'?'<small>na diagnose</small>'
+      :teKiezen(k)?'<small>kies nog een onderdeel</small>'
+      :m&&m.band?'<small>winkels noemen geen onderdeel</small>'
+      :'<small>nog niet gemeten</small>';
     return `<div class="rij"><span>${REP[k].n}${onder}</span><b class="num${p?'':' aanvraag'}">${p?eur(p):'?'}</b><button class="x" onclick="tik('${k}')" aria-label="${REP[k].n} weghalen" title="Weghalen">&times;</button></div>`;};
-  const compleet=g.every(k=>prijsVan(k)!=null||k==='waterschade');
+  const nogKiezen=g.filter(k=>prijsVan(k)==null&&teKiezen(k));
+  /* Wat er niet in het totaal zit, hoort erbij te staan. Anders leest "Jouw
+     keuze 249" als de prijs van alles wat je hebt aangetikt. */
+  const buiten=g.filter(k=>prijsVan(k)==null&&!teKiezen(k)).map(k=>REP[k].n.toLowerCase());
+  const staart=nogKiezen.length
+    ? 'Kies bij elke reparatie een onderdeel voor een totaal'
+    : buiten.length
+      ? `${buiten.join(' en ').replace(/^./,c=>c.toUpperCase())} ${buiten.length===1?'zit':'zitten'} niet in dit bedrag; daarvoor noemen wij geen prijs.`
+      : '';
   const tot=som();
-  return `<div class="som">${g.map(rij).join('')}<div class="rij tot"><span>Jouw keuze</span><b class="num">${tot?eur(tot):'nog geen prijs'}</b></div>${compleet?'':'<div class="rij"><span style="color:var(--inkt-3);font-size:13px">Kies bij elke reparatie een onderdeel voor een totaal</span></div>'}</div>`;
+  return `<div class="som">${g.map(rij).join('')}<div class="rij tot"><span>Jouw keuze</span><b class="num">${tot?eur(tot):'nog geen prijs'}</b></div>${staart?`<div class="rij"><span style="color:var(--inkt-3);font-size:13px">${staart}</span></div>`:''}</div>`;
 }
 function paneel(){
   const g=gekozen();let tekst='';
@@ -752,7 +850,7 @@ function stap1(){
     <div class="tegels t4">${merkenOpVolgorde().map(m=>`<button class="tegel${S.merk===m?' aan':''}" onclick="kiesMerk('${esc(m)}')">${esc(m)}</button>`).join('')}</div>`;
   if(S.sub==='serie'){const series=seriesVan(S.merk);
     return `<button class="terug" onclick="terug()">&larr; Alle merken</button><h2 class="vraag">Welke ${esc(S.merk)}?</h2><p class="sub">Nieuwste eerst. Eerst de serie, dan het model, zodat je niet door vijftig toestellen scrolt.</p>
-    <div class="tegels t4">${series.length?series.map(x=>`<button class="tegel${S.serie===x.serie?' aan':''}" onclick="kiesSerie('${esc(x.serie)}')">${esc(x.serie)}<span class="cnt">${jaarBereik(x)?esc(jaarBereik(x))+' &middot; ':''}${x.modellen.length} ${x.modellen.length===1?'model':'modellen'}</span></button>`).join(''):`<p class="sub">Van ${esc(S.merk)} hebben we nog geen modellen. Typ je model in het zoekveld.</p>`}</div>`}
+    <div class="tegels t4">${series.length?series.map(x=>`<button class="tegel${S.serie===x.serie?' aan':''}" onclick="kiesSerie('${esc(x.serie)}')">${esc(x.serie)}${jaarBereik(x)?`<small>${esc(jaarBereik(x))}</small>`:''}<span class="cnt">${x.modellen.length} ${x.modellen.length===1?'model':'modellen'}</span></button>`).join(''):`<p class="sub">Van ${esc(S.merk)} hebben we nog geen modellen. Typ je model in het zoekveld.</p>`}</div>`}
   const ms=(seriesVan(S.merk).find(x=>x.serie===S.serie)||{modellen:[]}).modellen;
   return `<button class="terug" onclick="terug()">&larr; ${esc(S.merk)}</button><h2 class="vraag">Welke ${esc(S.serie)}?</h2><p class="sub">Twijfel je? De code onder het model staat ook in je instellingen.</p>
     <div class="tegels t4">${ms.map(m=>`<button class="tegel${S.model&&S.model.n===m.n?' aan':''}" onclick="kiesModel('${esc(m.n)}')">${esc(m.n)}<small>${[m.j?esc(m.j):'',modelcode(m)?esc(modelcode(m)):''].filter(Boolean).join(' &middot; ')}</small></button>`).join('')}</div>`;
@@ -783,13 +881,20 @@ function stap2(){
          goedkoopste kopie met de duurste originele en overdrijf je het verschil
          met bijna honderd euro. */
       const op=m.opties.slice().sort((a,b)=>a.prijs-b.prijs);
-      const verschil=op[op.length-1].prijs-op[0].prijs;
+      /* "onbekend" is geen kwaliteit maar het ONTBREKEN ervan: die winkel zei
+         niet welk onderdeel hij gebruikt. In de zin over het prijsverschil hoort
+         hij dus niet thuis. Bij een iPhone 17 stond er anders "tussen kopie of
+         compatibel en winkel noemt het onderdeel niet zit 430 euro", en dat is
+         geen zin. */
+      const echt=op.filter(o=>o.sleutel!=='onbekend');
+      const verschil=echt.length>1?echt[echt.length-1].prijs-echt[0].prijs:0;
       rechts=`<span class="vanaf num">vanaf ${eur(laag)}</span>`;
       if(aan)uitklap=`
         <div class="kwalkop"><b>Welk onderdeel wil je?</b>
-          ${verschil>0?`<span>Tussen ${esc(op[0].naam.toLowerCase())} en ${esc(op[op.length-1].naam.toLowerCase())} zit <b class="num">${eur(verschil)}</b>. Dat verschil bepaalt de prijs meer dan de winkel.</span>`
-            :'<span>Wij maten voor dit model maar een prijsniveau.</span>'}</div>
-        <div class="kwal">${m.opties.map((o,i)=>`<button class="kw${gk&&gk.sleutel===o.sleutel?' aan':''}" onclick="kiesKw('${k}',${i})">
+          ${verschil>0?`<span>Tussen ${esc(echt[0].naam.toLowerCase())} en ${esc(echt[echt.length-1].naam.toLowerCase())} zit <b class="num">${eur(verschil)}</b>. Dat verschil bepaalt de prijs meer dan de winkel.</span>`
+            :echt.length===1?'<span>Wij maten voor dit model maar een prijsniveau.</span>'
+            :'<span>Geen van de winkels die wij hier maten, zei welk onderdeel zij gebruiken.</span>'}</div>
+        <div class="kwal" role="group" aria-label="Welk onderdeel wil je voor ${esc(r.n.toLowerCase())}">${m.opties.map((o,i)=>`<button class="kw${gk&&gk.sleutel===o.sleutel?' aan':''}" aria-pressed="${gk&&gk.sleutel===o.sleutel?'true':'false'}" onclick="kiesKw('${k}',${i})">
           <span class="kwnaam">${esc(o.naam)}</span>
           <b class="num">${o.laagste===o.hoogste?eur(o.prijs):eur(o.laagste)+' tot '+eur(o.hoogste)}</b>
           ${o.uitleg?`<span class="kwuit">${esc(o.uitleg)}</span>`:''}
@@ -805,12 +910,26 @@ function stap2(){
       rechts='<span class="vanaf aanvraag num">nog niet gemeten</span>';
       if(aan)uitklap=`<div class="uitleg-water">Voor de ${S.model.n} hebben wij deze reparatie nog niet gemeten, dus wij noemen geen bedrag.${l?` Landelijk, over alle modellen heen, maten wij ${eur(l.laagste)} tot ${eur(l.hoogste)}.`:''} De winkels hieronder doen de reparatie wel; vraag hun prijs.</div>`;
     }
-    return `<div class="deel-rij${aan?' aan':''}"><button class="deel-kop" onclick="tik('${k}')"><span class="ic">${icoontje(k)}</span><span class="naam">${r.n}</span>${aan?'<span class="weg">weghalen &times;</span>':rechts}</button>${uitklap}</div>`;
+    /* aria-pressed, want dit is een knop die aan en uit gaat. Zonder dat hoort
+       iemand met een schermlezer alleen "Accu, knop" en niet of hij aanstaat;
+       het groene vlak en het pictogram zeggen dat alleen aan wie kijkt. */
+    return `<div class="deel-rij${aan?' aan':''}"><button class="deel-kop" aria-pressed="${aan?'true':'false'}" onclick="tik('${k}')"><span class="ic">${icoontje(k)}</span><span class="naam">${r.n}</span>${aan?'<span class="weg">weghalen &times;</span>':rechts}</button>${uitklap}</div>`;
   };
 
-  return `<button class="terug" onclick="terug()">&larr; ${S.model.n}</button><h2 class="vraag">Wat is er kapot?</h2><p class="sub">Tik het aan op de telefoon, of kies het hieronder. Meer dan een mag; tik nog eens om het weg te halen.</p>${kleur}
+  return `<button class="terug" onclick="terug()">&larr; ${S.model.n}</button><h2 class="vraag">Wat is er kapot?</h2><p class="sub">Kies wat er kapot is, hier of op de tekening van je toestel. Meer dan een mag; tik nog eens om het weg te halen.</p>${kleur}
   <div class="schade">${VOLG.map(regel).join('')}</div>`;
 }
+/* "1 van de 3 winkels kunnen dit vandaag" klopt niet: bij een is het "kan". En
+   bij nul lees je liever "geen van de drie" dan "0 van de 3". Bij precies een
+   winkel in de plaats is "1 van de 1 winkels" helemaal geen zin. */
+function vandaagKop(kan,totaal){
+  if(totaal===1)return `De winkel ${waar()} kan dit vandaag${kan?'':' niet'}`;
+  if(!kan)return `Geen van de ${totaal} winkels ${waar()} kan dit vandaag`;
+  if(kan===1)return `1 van de ${totaal} winkels ${waar()} kan dit vandaag`;
+  if(kan===totaal)return `Alle winkels ${waar()} kunnen dit vandaag`;
+  return `${kan} van de ${totaal} winkels ${waar()} kunnen dit vandaag`;
+}
+
 function stap3(){
   const g=gekozen(),ws=lijst(),kan=ws.filter(vandaagKlaar).length,lo=laagste(),hi=hoogste();
   const gefilterd=Object.values(S.filters).some(Boolean);
@@ -818,7 +937,7 @@ function stap3(){
   const kop=geenInPlaats
     ? `Wij hebben nog geen winkel ${waar()}`
     : (gefilterd?(ws.length?`${ws.length} ${ws.length===1?'winkel voldoet':'winkels voldoen'} aan je filters`:'Geen winkel voldoet aan al je filters')
-       :`${kan} van de ${ws.length} winkels ${waar()} kunnen dit vandaag`);
+       :vandaagKop(kan,ws.length));
   /* De prijs van deze winkel voor de gekozen schade.
    *
    * Dit was `Math.round(som() * w.f)`: de landelijke mediaan maal een factor per
