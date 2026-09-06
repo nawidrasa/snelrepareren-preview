@@ -1,0 +1,273 @@
+<title>Varianten: onderdeelkeuze en jouw keuze</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="lettertype/outfit.css">
+<link rel="stylesheet" href="basis.css?v=7dc2985e">
+<style>
+:root{
+  color-scheme:light;
+  --groen-50:#F0FDF4;--groen-100:#DCFCE7;--groen-200:#BBF7D0;--groen-300:#86EFAC;--groen-500:#22C55E;--groen-700:#008934;--groen-800:#007B2E;
+  --groen:var(--groen-700);--marine:#0B1F4E;--marine-100:#E8ECF5;--marine-200:#C5CEE3;
+  --inkt:#111827;--inkt-2:#4A5878;--inkt-3:#6B7480;--lijn:#E3E6EE;--vlak:#F6F8FA;--wit:#FFFFFF;
+  --amber:#B45309;--amber-soft:#FEF3C7;--rood:#B91C1C;
+  --rc:20px;--ri:12px;--font:'Outfit',system-ui,sans-serif;
+}
+body{margin:0;background:var(--wit);color:var(--inkt);font-family:var(--font);font-size:16px;line-height:1.55}
+.wrap{max-width:1180px;margin:0 auto;padding:0 32px}
+.kop{padding:48px 0 8px}
+.kop h1{font-size:32px;font-weight:800;letter-spacing:-.02em;margin:0 0 8px}
+.kop p{margin:0 0 8px;color:var(--inkt-2);max-width:70ch}
+.jump{position:sticky;top:0;z-index:5;background:#FFFFFFf2;backdrop-filter:blur(6px);border-bottom:1px solid var(--lijn);margin-top:20px}
+.jump div{max-width:1180px;margin:0 auto;padding:12px 32px;display:flex;gap:22px}
+.jump a{font-size:13.5px;font-weight:600;color:var(--inkt);text-decoration:none}
+section{padding:56px 0 0}
+.sec-kop{display:flex;align-items:baseline;gap:14px;margin:0 0 6px}
+.sec-kop .nr{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--groen)}
+.sec-kop h2{font-size:24px;font-weight:800;letter-spacing:-.01em;margin:0}
+.sec-uitleg{margin:0 0 26px;color:var(--inkt-2);max-width:74ch}
+.optie{border:1px solid var(--lijn);border-radius:var(--rc);padding:24px;background:var(--wit);margin:0 0 26px}
+.optie>.lab{display:flex;align-items:baseline;gap:10px;margin:0 0 4px}
+.optie>.lab b{font-size:17px;font-weight:800}
+.optie>.lab .merk{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--groen);background:var(--groen-50);border-radius:999px;padding:2px 9px}
+.optie>.wat{margin:0 0 20px;font-size:14px;color:var(--inkt-2);max-width:80ch}
+.optie>.wat b{color:var(--inkt)}
+.proef{background:var(--groen-50);border:1.5px solid var(--groen-200);border-radius:var(--rc);padding:20px}
+.smal{max-width:360px}
+.duo{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:26px;align-items:start}
+@media(max-width:900px){.duo{grid-template-columns:minmax(0,1fr)}}
+
+/* ---------- gedeeld ---------- */
+.rijkop{display:flex;align-items:center;gap:12px;margin:0 0 14px}
+.rijkop .ic{width:34px;height:34px;border-radius:11px;border:1.5px solid var(--groen-200);background:var(--groen-100);display:grid;place-items:center;flex:none;color:var(--groen-800)}
+.rijkop .ic svg{width:19px;height:19px}
+.rijkop b{font-size:16px;font-weight:700;flex:1}
+.rijkop .weg{font-size:13px;font-weight:600;color:var(--inkt-3)}
+.num{font-variant-numeric:tabular-nums}
+.kopvraag{font-size:14.5px;font-weight:700;margin:0 0 2px}
+.kopuit{font-size:13.5px;color:var(--inkt-2);margin:0 0 14px}
+.kopuit b{color:var(--inkt)}
+.let{font-size:12.5px;color:var(--amber);background:var(--amber-soft);border-radius:10px;padding:8px 12px;margin:14px 0 0}
+
+/* ---------- A1: tegels compact ---------- */
+.a1{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.a1 button{border:1.5px solid var(--lijn);border-radius:var(--ri);background:#fff;padding:11px 12px;text-align:left;cursor:pointer;font:inherit;display:grid;gap:1px}
+.a1 button:hover{border-color:var(--groen-500)}
+.a1 .nm{font-size:13px;font-weight:700;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.a1 .nm b{font-size:15px;font-weight:800}
+.a1 .uit{font-size:12px;color:var(--inkt-3);line-height:1.35}
+.a1 .aan{border-color:var(--groen);border-width:2px;padding:10px 11px;box-shadow:0 0 0 4px var(--groen-100)}
+.a1 .aan b{color:var(--groen-800)}
+.onbekend{margin:10px 0 0;font-size:12.5px;color:var(--inkt-2);border-top:1px dashed var(--lijn);padding-top:10px}
+.onbekend b{color:var(--inkt)}
+
+/* ---------- A2: ladder als lijst met balk ---------- */
+.a2{display:grid;gap:0;border:1.5px solid var(--lijn);border-radius:var(--ri);overflow:hidden;background:#fff}
+.a2 button{display:grid;grid-template-columns:18px minmax(0,1fr) 90px;gap:12px;align-items:center;
+  border:0;border-top:1px solid var(--lijn);background:#fff;padding:12px 14px;text-align:left;cursor:pointer;font:inherit}
+.a2 button:first-child{border-top:0}
+.a2 button:hover{background:var(--groen-50)}
+.a2 .bol{width:16px;height:16px;border-radius:50%;border:1.5px solid var(--marine-200);justify-self:center}
+.a2 .aan{background:var(--groen-50)}
+.a2 .aan .bol{border-color:var(--groen);border-width:5px}
+.a2 .nm{display:block;font-size:13.5px;font-weight:700;line-height:1.3}
+.a2 .uit{display:block;font-size:12px;color:var(--inkt-3);line-height:1.3}
+.a2 .pr{text-align:right;font-size:15px;font-weight:800}
+.a2 .aan .pr{color:var(--groen-800)}
+.a2 .spoor{grid-column:2/-1;height:5px;border-radius:3px;background:var(--marine-100);position:relative;margin-top:5px}
+.a2 .spoor i{position:absolute;top:0;bottom:0;border-radius:3px;background:var(--groen-300)}
+.a2 .aan .spoor i{background:var(--groen)}
+
+/* ---------- A3: trap van goedkoop naar duur ---------- */
+.a3{display:flex;gap:6px;align-items:flex-end}
+.a3 button{flex:1;border:1.5px solid var(--lijn);border-bottom-width:4px;border-radius:var(--ri);background:#fff;
+  padding:12px 10px;cursor:pointer;font:inherit;text-align:center;display:grid;gap:2px;transition:transform .12s}
+.a3 button:hover{transform:translateY(-2px)}
+.a3 .nm{font-size:12px;font-weight:700;color:var(--inkt-2);line-height:1.25}
+.a3 .pr{font-size:17px;font-weight:800}
+.a3 .aan{border-color:var(--groen);border-bottom-color:var(--groen);background:var(--groen-50)}
+.a3 .aan .pr,.a3 .aan .nm{color:var(--groen-800)}
+.a3 .s1{padding-top:12px}.a3 .s2{padding-top:30px}.a3 .s3{padding-top:48px}.a3 .s4{padding-top:66px}
+.a3-uit{font-size:12.5px;color:var(--inkt-2);margin:12px 0 0;min-height:2.6em}
+.a3-uit b{color:var(--inkt)}
+.a3-as{display:flex;justify-content:space-between;font-size:11.5px;color:var(--inkt-3);margin:8px 2px 0}
+
+/* ---------- B: jouw keuze ---------- */
+.som{border:1.5px solid var(--lijn);border-radius:16px;padding:14px 16px 12px;background:#fff}
+.som .kop2{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--inkt-3);margin:0 0 8px}
+.som .rij{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:baseline;column-gap:10px;padding:7px 0;font-size:13.5px}
+.som .rij+.rij{border-top:1px solid var(--lijn)}
+.som .wat{font-weight:700;line-height:1.25}
+.som small{display:block;font-weight:400;color:var(--inkt-3);font-size:12px}
+.som b{font-weight:700;white-space:nowrap}
+.som b.zacht{font-weight:500;color:var(--inkt-3);font-size:12.5px}
+.som .x{background:none;border:0;color:var(--lijn);font-size:17px;line-height:1;cursor:pointer;padding:0}
+.som .rij:hover .x{color:var(--inkt-3)}
+.som .tot{border-top:1.5px solid var(--inkt);margin-top:6px;padding-top:10px}
+.som .tot .wat{font-weight:800}
+.som .tot b{font-size:17px;font-weight:800}
+.som .staart{font-size:12px;color:var(--inkt-3);line-height:1.4;margin:8px 0 0}
+
+/* B2: bonnetje, met de prijsloze regels apart */
+.b2{border:1.5px solid var(--lijn);border-radius:16px;background:#fff;overflow:hidden}
+.b2 .binnen{padding:14px 16px}
+.b2 .kop2{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--inkt-3);margin:0 0 10px}
+.b2 .rij{display:grid;grid-template-columns:minmax(0,1fr) auto auto;column-gap:10px;align-items:baseline;padding:6px 0;font-size:13.5px}
+.b2 .wat{font-weight:700}
+.b2 small{display:block;font-weight:400;color:var(--inkt-3);font-size:12px}
+.b2 b{font-weight:700;white-space:nowrap}
+.b2 .x{background:none;border:0;color:var(--lijn);font-size:17px;cursor:pointer;padding:0;line-height:1}
+.b2 .rij:hover .x{color:var(--inkt-3)}
+.b2 .totvlak{background:var(--groen-50);border-top:1.5px solid var(--groen-200);padding:13px 16px;
+  display:flex;align-items:baseline;justify-content:space-between}
+.b2 .totvlak span{font-size:13px;font-weight:700;color:var(--groen-800)}
+.b2 .totvlak b{font-size:21px;font-weight:800;color:var(--groen-800)}
+.b2 .rest{background:var(--vlak);padding:11px 16px;font-size:12.5px;color:var(--inkt-2)}
+.b2 .rest ul{margin:6px 0 0;padding:0;list-style:none;display:grid;gap:4px}
+.b2 .rest li{display:flex;justify-content:space-between;gap:10px}
+.b2 .rest li span{font-weight:600;color:var(--inkt)}
+.b2 .rest li em{font-style:normal;color:var(--inkt-3)}
+
+/* B3: alleen wat je koos, de rest samengevat in een regel */
+.b3{border:1.5px solid var(--lijn);border-radius:16px;padding:16px;background:#fff}
+.b3 .kop2{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--inkt-3);margin:0 0 10px}
+.b3 .regel{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--lijn)}
+.b3 .regel:last-of-type{border-bottom:0}
+.b3 .pil{font-size:11px;font-weight:700;border-radius:999px;padding:2px 9px;background:var(--groen-100);color:var(--groen-800);flex:none}
+.b3 .pil.grijs{background:var(--vlak);color:var(--inkt-3)}
+.b3 .naam{flex:1;font-size:13.5px;font-weight:700;min-width:0}
+.b3 .naam small{display:block;font-weight:400;font-size:12px;color:var(--inkt-3)}
+.b3 .pr{font-size:14px;font-weight:700;white-space:nowrap}
+.b3 .pr.zacht{font-weight:500;color:var(--inkt-3);font-size:12.5px}
+.b3 .totrij{display:flex;align-items:baseline;justify-content:space-between;margin-top:12px;padding-top:12px;border-top:1.5px solid var(--inkt)}
+.b3 .totrij span{font-size:14px;font-weight:800}
+.b3 .totrij b{font-size:20px;font-weight:800}
+.b3 .verder{margin:10px 0 0;font-size:12px;color:var(--inkt-3);line-height:1.45}
+footer{border-top:1px solid var(--lijn);margin-top:64px;padding:24px 0 60px;color:var(--inkt-3);font-size:13px}
+</style>
+
+<div class="schets">Intern werkdocument. Varianten om uit te kiezen; niets hiervan staat op de site.</div>
+
+<div class="wrap kop">
+  <h1>Twee blokken, zes varianten</h1>
+  <p>De onderdeelkeuze en het vak "Jouw keuze" naast de tekening. Alle bedragen komen uit het echte prijsonderzoek van een iPhone 17 Pro Max bij de proefwinkels, zodat je ziet hoe het er met echte getallen uitziet.</p>
+  <p>Kies er een per blok. Wat je kiest, bouw ik in de kiezer.</p>
+</div>
+
+<nav class="jump"><div>
+  <a href="#a">Onderdeelkeuze</a>
+  <a href="#b">Jouw keuze</a>
+</div></nav>
+
+<section class="wrap" id="a">
+  <div class="sec-kop"><span class="nr">Blok 1</span><h2>Welk onderdeel wil je?</h2></div>
+  <p class="sec-uitleg">Wat er nu staat: vier grote tegels naast elkaar, waarvan de vierde "Winkel noemt het onderdeel niet" heet en met 579 euro de duurste is. Dat is geen kwaliteit maar het ontbreken ervan, en het breekt de rij. In alle drie de varianten hieronder staat die niet meer tussen de treden.</p>
+
+  <div class="optie">
+    <div class="lab"><b>A1. Compacte tegels</b><span class="merk">dichtst bij nu</span></div>
+    <p class="wat">Zelfde vorm, kleiner. Naam en prijs op een regel, de uitleg eronder in klein. De regel over winkels die het onderdeel niet noemen, staat als voetnoot onder de tegels. <b>Voordeel:</b> je ziet alle treden tegelijk. <b>Nadeel:</b> het blijft een raster met veel tekst.</p>
+    <div class="proef">
+      <div class="rijkop"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2.5" width="12" height="19" rx="3"/><path d="M9 6l2.5 5-2 3.5 3 3"/></svg></span><b>Scherm</b><span class="weg">weghalen &times;</span></div>
+      <p class="kopvraag">Welk onderdeel wil je?</p>
+      <p class="kopuit">Tussen kopie en refurbished origineel zit <b>&euro;&nbsp;300</b>.</p>
+      <div class="a1">
+        <button><span class="nm">Kopie of compatibel<b class="num">&euro;&nbsp;149</b></span><span class="uit">Nagemaakt, kleur kan afwijken.</span></button>
+        <button class="aan"><span class="nm">Soft OLED<b class="num">&euro;&nbsp;249</b></span><span class="uit">Buigzaam OLED, dicht bij origineel.</span></button>
+        <button><span class="nm">Refurbished origineel<b class="num">&euro;&nbsp;449</b></span><span class="uit">Fabriekspaneel met nieuw glas.</span></button>
+      </div>
+      <p class="onbekend">Een winkel vroeg <b>&euro;&nbsp;579</b> zonder te zeggen welk onderdeel dat is. Vraag daar altijd naar.</p>
+      <p class="let">Voor dit model hebben wij pas 2 winkels met een prijs. Te weinig voor een eerlijke vergelijking.</p>
+    </div>
+  </div>
+
+  <div class="optie">
+    <div class="lab"><b>A2. Lijst met prijsbalk</b><span class="merk">rustigst</span></div>
+    <p class="wat">Onder elkaar in plaats van naast elkaar, met een rondje ervoor zoals bij een keuzelijst. De balk laat zien waar die trede ligt tussen de goedkoopste en de duurste. <b>Voordeel:</b> een prijsladder is een ladder, en zo ziet hij eruit; werkt ook op een telefoon zonder in te klappen. <b>Nadeel:</b> je ziet minder in een oogopslag dan bij tegels.</p>
+    <div class="proef">
+      <div class="rijkop"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2.5" width="12" height="19" rx="3"/><path d="M9 6l2.5 5-2 3.5 3 3"/></svg></span><b>Scherm</b><span class="weg">weghalen &times;</span></div>
+      <p class="kopvraag">Welk onderdeel wil je?</p>
+      <p class="kopuit">Van goedkoop naar duur. Het verschil is <b>&euro;&nbsp;300</b>.</p>
+      <div class="a2">
+        <button><span class="bol"></span><span><span class="nm">Kopie of compatibel</span><span class="uit">Nagemaakt, kleur kan afwijken</span></span><span class="pr num">&euro;&nbsp;149</span><span class="spoor"><i style="left:0;width:14%"></i></span></button>
+        <button class="aan"><span class="bol"></span><span><span class="nm">Soft OLED</span><span class="uit">Buigzaam OLED, dicht bij origineel</span></span><span class="pr num">&euro;&nbsp;249</span><span class="spoor"><i style="left:0;width:47%"></i></span></button>
+        <button><span class="bol"></span><span><span class="nm">Refurbished origineel</span><span class="uit">Fabriekspaneel met nieuw glas</span></span><span class="pr num">&euro;&nbsp;449</span><span class="spoor"><i style="left:0;width:100%"></i></span></button>
+      </div>
+      <p class="onbekend">Een winkel vroeg <b>&euro;&nbsp;579</b> zonder te zeggen welk onderdeel dat is. Vraag daar altijd naar.</p>
+      <p class="let">Voor dit model hebben wij pas 2 winkels met een prijs. Te weinig voor een eerlijke vergelijking.</p>
+    </div>
+  </div>
+
+  <div class="optie">
+    <div class="lab"><b>A3. Trap</b><span class="merk">meest visueel</span></div>
+    <p class="wat">Van goedkoop naar duur als een trap: elke trede staat hoger dan de vorige. De uitleg staat alleen onder de trede die je hebt gekozen. <b>Voordeel:</b> je ziet in een halve seconde dat dit de keuze is die de prijs bepaalt. <b>Nadeel:</b> de namen moeten kort blijven, en bij vijf of zes treden wordt het smal.</p>
+    <div class="proef">
+      <div class="rijkop"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2.5" width="12" height="19" rx="3"/><path d="M9 6l2.5 5-2 3.5 3 3"/></svg></span><b>Scherm</b><span class="weg">weghalen &times;</span></div>
+      <p class="kopvraag">Welk onderdeel wil je?</p>
+      <p class="kopuit">Deze keuze scheelt <b>&euro;&nbsp;300</b>, meer dan de winkel.</p>
+      <div class="a3">
+        <button class="s1"><span class="pr num">&euro;&nbsp;149</span><span class="nm">Kopie of compatibel</span></button>
+        <button class="s2 aan"><span class="pr num">&euro;&nbsp;249</span><span class="nm">Soft OLED</span></button>
+        <button class="s3"><span class="pr num">&euro;&nbsp;449</span><span class="nm">Refurbished origineel</span></button>
+      </div>
+      <div class="a3-as"><span>goedkoopst</span><span>duurst</span></div>
+      <p class="a3-uit"><b>Soft OLED.</b> Buigzaam OLED-paneel, het dichtst bij origineel zonder fabrieksonderdeel. Gemeten bij 1 winkel.</p>
+      <p class="onbekend">Een winkel vroeg <b>&euro;&nbsp;579</b> zonder te zeggen welk onderdeel dat is. Vraag daar altijd naar.</p>
+      <p class="let">Voor dit model hebben wij pas 2 winkels met een prijs. Te weinig voor een eerlijke vergelijking.</p>
+    </div>
+  </div>
+</section>
+
+<section class="wrap" id="b">
+  <div class="sec-kop"><span class="nr">Blok 2</span><h2>Jouw keuze</h2></div>
+  <p class="sec-uitleg">Wat er nu staat: elke reparatie een even zware regel, ook de vier waar wij geen prijs van hebben, en daaronder een zin van drie regels. Vijf reparaties maken het vak langer dan de tekening ernaast. In alle drie de varianten krijgen de regels zonder prijs minder ruimte dan de regels met.</p>
+
+  <div class="optie">
+    <div class="lab"><b>B1. Zoals nu, strakker</b><span class="merk">dichtst bij nu</span></div>
+    <p class="wat">Dezelfde opzet, maar de regels zonder prijs staan in klein en grijs op een regel in plaats van twee. <b>Voordeel:</b> je ziet alles wat je hebt aangetikt terug. <b>Nadeel:</b> bij vijf reparaties blijft het een lange lijst.</p>
+    <div class="duo"><div></div><div class="som">
+      <p class="kop2">Jouw keuze</p>
+      <div class="rij"><span class="wat">Scherm<small>Soft OLED</small></span><b class="num">&euro;&nbsp;249</b><button class="x">&times;</button></div>
+      <div class="rij"><span class="wat">Accu<small>Kopie of compatibel, landelijk</small></span><b class="num zacht">&euro;&nbsp;84</b><button class="x">&times;</button></div>
+      <div class="rij"><span class="wat">Laadpoort</span><b class="zacht">nog niet gemeten</b><button class="x">&times;</button></div>
+      <div class="rij"><span class="wat">Camera</span><b class="zacht">nog niet gemeten</b><button class="x">&times;</button></div>
+      <div class="rij"><span class="wat">Achterkant</span><b class="zacht">nog niet gemeten</b><button class="x">&times;</button></div>
+      <div class="rij tot"><span class="wat">Totaal</span><b class="num">&euro;&nbsp;249</b><span></span></div>
+      <p class="staart">Accu, laadpoort, camera en achterkant tellen niet mee: daar hebben wij voor dit toestel geen prijs van.</p>
+    </div></div>
+  </div>
+
+  <div class="optie">
+    <div class="lab"><b>B2. Bonnetje</b><span class="merk">duidelijkste totaal</span></div>
+    <p class="wat">Boven staat alleen wat een prijs heeft, met het totaal in een groen vlak eronder. Wat geen prijs heeft, staat daaronder in een grijze strook als lijstje. <b>Voordeel:</b> het totaal is niet meer te missen en je ziet meteen wat er wel en niet in zit. <b>Nadeel:</b> je keuze staat op twee plekken in plaats van in een lijst.<br><b>Let op, dit is een keuze en geen opmaak:</b> deze 333 telt de gemeten schermprijs op bij een landelijk accubedrag dat niet voor dit toestel is gemeten. Dat is een groter getal dan wij hard kunnen maken. B3 telt alleen op wat wij voor dit toestel hebben gemeten en komt daarom op 249 uit.</p>
+    <div class="duo"><div></div><div class="b2">
+      <div class="binnen">
+        <p class="kop2">Jouw keuze</p>
+        <div class="rij"><span class="wat">Scherm<small>Soft OLED</small></span><b class="num">&euro;&nbsp;249</b><button class="x">&times;</button></div>
+        <div class="rij"><span class="wat">Accu<small>Kopie of compatibel, landelijk</small></span><b class="num">&euro;&nbsp;84</b><button class="x">&times;</button></div>
+      </div>
+      <div class="totvlak"><span>Totaal voor deze twee</span><b class="num">&euro;&nbsp;333</b></div>
+      <div class="rest">
+        Nog geen prijs voor dit toestel:
+        <ul>
+          <li><span>Laadpoort</span><em>vraag de winkel</em></li>
+          <li><span>Camera</span><em>vraag de winkel</em></li>
+          <li><span>Achterkant</span><em>vraag de winkel</em></li>
+        </ul>
+      </div>
+    </div></div>
+  </div>
+
+  <div class="optie">
+    <div class="lab"><b>B3. Pilletjes</b><span class="merk">kortst</span></div>
+    <p class="wat">Een pilletje voor de reparatie geeft aan of er een prijs bij hoort. Wat geen prijs heeft, krijgt een halve regel. <b>Voordeel:</b> het kortste van de drie, en het past naast de tekening zonder mee te groeien. <b>Nadeel:</b> minder makkelijk te lezen als je alle vijf regels wilt nalopen.<br><b>Let op:</b> het totaal telt hier alleen op wat wij voor DIT toestel hebben gemeten. Het landelijke accubedrag staat er wel, maar telt niet mee; dat is het verschil met B2.</p>
+    <div class="duo"><div></div><div class="b3">
+      <p class="kop2">Jouw keuze</p>
+      <div class="regel"><span class="pil">gemeten</span><span class="naam">Scherm<small>Soft OLED</small></span><span class="pr num">&euro;&nbsp;249</span></div>
+      <div class="regel"><span class="pil grijs">landelijk</span><span class="naam">Accu<small>Kopie of compatibel</small></span><span class="pr num zacht">&euro;&nbsp;84</span></div>
+      <div class="regel"><span class="pil grijs">geen prijs</span><span class="naam">Laadpoort, camera en achterkant</span><span class="pr zacht">vraag de winkel</span></div>
+      <div class="totrij"><span>Totaal</span><b class="num">&euro;&nbsp;249</b></div>
+      <p class="verder">Alleen het scherm is voor dit toestel gemeten. De rest telt niet mee in dit bedrag.</p>
+    </div></div>
+  </div>
+</section>
+
+<footer class="wrap">Intern werkdocument, 7 september 2026. Hoort niet in de sitemap en niet in de preview.</footer>

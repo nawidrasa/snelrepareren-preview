@@ -871,6 +871,11 @@ function kantknop(){
   return `<div class="kanten">${knop('voor','Voorkant')}${knop('achter','Achterkant')}</div>`;
 }
 
+/* "Accu, laadpoort, camera en achterkant" en niet "accu en laadpoort en camera
+   en achterkant". Dat laatste stond er, want join(' en ') plakt overal en
+   tussen. Komma's tot de laatste, dan een en. */
+const lijstZin=d=>d.length<2?(d[0]||''):d.slice(0,-1).join(', ')+' en '+d[d.length-1];
+
 function opsomming(){
   const g=gekozen();if(!g.length)return '';
   /* Valt er iets te kiezen? Voor een reparatie die wij voor dit model niet
@@ -900,7 +905,7 @@ function opsomming(){
   const staart=nogKiezen.length
     ? 'Kies bij elke reparatie een onderdeel, dan staat hier een totaal.'
     : buiten.length
-      ? `${buiten.join(' en ').replace(/^./,c=>c.toUpperCase())} ${buiten.length===1?'telt':'tellen'} niet mee: daar hebben wij voor dit toestel geen prijs van.`
+      ? `${lijstZin(buiten).replace(/^./,c=>c.toUpperCase())} ${buiten.length===1?'telt':'tellen'} niet mee: daar hebben wij voor dit toestel geen prijs van.`
       : '';
   const tot=som();
   return `<div class="som"><p class="kop">Jouw keuze</p>${g.map(rij).join('')}
@@ -1104,7 +1109,7 @@ function stap3(){
   const plaats=S.plaatsEdit?`<label class="veld"><input id="pl" value="${S.plaats}" placeholder=" " onkeydown="if(event.key==='Enter')zetPlaats(this.value)"><span>Plaats of postcode</span></label><button class="btn btn-groen" onclick="zetPlaats(document.getElementById('pl').value)">Zoek</button>`:`<button class="pin" onclick="S.plaatsEdit=true;teken();document.getElementById('pl').focus()">${PIN}${S.plaats}<span class="wijzig">wijzigen</span></button>`;
   const filters=`<div class="filters"><span class="lab">Filter</span>${FILTERS.map(([id,n])=>`<button class="fchip${S.filters[id]?' aan':''}" onclick="zetFilter('${id}')">${n}</button>`).join('')}</div>`;
   const uit=ws.filter(w=>w.uit),rest=ws.filter(w=>!w.uit);
-  return `<button class="terug" onclick="terug()">&larr; Schade</button><h2 class="vraag">${kop}</h2><p class="sub">Voor ${S.model.n}, ${g.map(k=>REP[k].n.toLowerCase()).join(' en ')}. Bel, loop binnen of vraag een offerte.</p>
+  return `<button class="terug" onclick="terug()">&larr; Schade</button><h2 class="vraag">${kop}</h2><p class="sub">Voor ${S.model.n}, ${lijstZin(g.map(k=>REP[k].n.toLowerCase()))}. Bel, loop binnen of vraag een offerte.</p>
   <div class="plaats">${plaats}</div>${filters}
   <div class="winkels">${ws.length
     ? uit.map(kaart).join('')+rest.map(kaart).join('')
