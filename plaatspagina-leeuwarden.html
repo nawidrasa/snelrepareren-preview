@@ -121,6 +121,7 @@ h1{font-size:clamp(26px,3.4vw,36px);font-weight:800;letter-spacing:-.025em;margi
 .prijsrij{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap}
 .prijsrij .wat{font-size:14.5px;color:var(--inkt-2)}
 .prijsrij .bed{font-size:23px;font-weight:800;letter-spacing:-.01em;line-height:1.1}
+.prijsrij .bed .geenprijs{font-size:17px;font-weight:700;color:var(--inkt-3)}
 .prijsrij .bed small{display:block;font-size:12px;font-weight:500;color:var(--inkt-3);letter-spacing:0}
 .bereik{width:190px}
 .bereik .track{position:relative;height:6px;border-radius:999px;background:var(--lijn)}
@@ -273,7 +274,7 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
 <div class="tekst"><div class="in">
   <h2>Veelgestelde vragen over reparatie in Leeuwarden</h2>
   <div class="vraag"><b>Wat kost een schermreparatie in Leeuwarden?</b><p id="faq1"></p></div>
-  <div class="vraag"><b>Kan ik mijn telefoon laten repareren terwijl ik wacht?</b><p>Twee winkels in Leeuwarden doen een schermreparatie terwijl je wacht, meestal in twintig tot veertig minuten. Filter op "vandaag klaar" om te zien welke dat vandaag kunnen. Een accu duurt vaak korter, waterschade altijd langer omdat het toestel eerst open moet.</p></div>
+  <div class="vraag"><b>Kan ik mijn telefoon laten repareren terwijl ik wacht?</b><p id="faq2"></p></div>
   <div class="vraag"><b>Origineel, service pack of compatibel scherm?</b><p>Een origineel scherm komt van de fabrikant en kost het meest. Een service pack is een origineel onderdeel dat de reparateur los inkoopt. Een compatibel scherm is namaak en is goedkoper, maar verschilt in kleur, helderheid en soms in aanraakgevoeligheid. Wij zetten bij elke prijs welk type het is, want zonder dat label vergelijk je appels met peren.</p></div>
   <div class="vraag"><b>Wat betekent het label Polis gecontroleerd?</b><p>De meeste aansprakelijkheidsverzekeringen van bedrijven sluiten schade uit aan het voorwerp waaraan gewerkt wordt, en dat is bij een reparatie precies je toestel. Wij vragen de polis op en controleren of die dekking er wel is. Wij toetsen zelf en zijn geen toezichthouder.</p></div>
 
@@ -324,9 +325,24 @@ const MODELLEN_HIER=['iPhone 13','iPhone 14','iPhone 15'];
 const REPS={scherm:'Scherm vervangen',accu:'Accu vervangen',laadpoort:'Laadpoort vervangen'};
 /* Wat wij voor dit model echt hebben gemeten. Zonder metingen geen keuze. */
 const repsHier=model=>Object.keys(REPS).filter(r=>bandVan(model,r));
-const KWAL={alle:'Alle kwaliteiten',compatibel:'Compatibel',service:'Service pack',origineel:'Origineel'};
+/* De kwaliteitsladder uit de gidsen, en dezelfde treden als in de database.
+   Hier stonden drie namen die nergens anders bestaan: Compatibel, Service pack
+   en Origineel. Een winkel geeft zijn prijzen per trede op, dus filteren op
+   "Compatibel" vond nooit iets zodra de gegevens echt werden. */
+const KWAL={alle:'Alle kwaliteiten',kopie:'Kopie of compatibel',incell:'Incell',
+  softoled:'Soft OLED',oem:'OEM of hard OLED',refurb:'Refurbished origineel',origineel:'Origineel'};
 
-const FILTERS=[['vandaag','Vandaag klaar',w=>w.vandaag],['keur','Polis gecontroleerd',w=>w.keur],['origineel','Origineel onderdeel',w=>w.kw==='origineel'],['open','Nu open',w=>!w.open.startsWith('Gesloten')]];
+/* Vier filters die zeggen wat zij zeggen.
+   "Vandaag klaar" hing aan een vlag op de winkel en hoort aan de gekozen
+   reparatie te hangen. "Origineel onderdeel" keek naar een enkel veld w.kw,
+   terwijl een winkel per kwaliteit een prijs opgeeft. "Nu open" staat er alleen
+   als wij van minstens een winkel weten wanneer hij open is; dat vragen wij
+   nog niet, dus in de praktijk staat hij er niet. */
+const FILTERS=[
+  ['vandaag','Vandaag klaar',w=>{const a=aanbodVan(w);return a&&a.v}],
+  ['keur','Polis gecontroleerd',w=>w.keur],
+  ['origineel','Origineel onderdeel',w=>!!aanbod(w,S.model,S.rep,'origineel')],
+].concat(WINKELS.some(w=>w.open)?[['open','Nu open',w=>w.open&&!w.open.startsWith('Gesloten')]]:[]);
 const S={model:'iPhone 13',rep:'scherm',kw:'alle',filters:{},uitgVerbergen:false};
 const eur=n=>'&euro; '+n;
 const CHECK='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>';
@@ -334,37 +350,19 @@ const BOLT='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 3 14h7l-
 const TEL='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>';
 const CHEV='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>';
 
-/* match-moment: de belknop logt de match en biedt een beoordeelherinnering aan */
-function belMatch(naam,nummer){
-  const d=document.getElementById('matchdlg');
-  document.getElementById('matchinhoud').innerHTML=`
-    <h3>Bel ${naam}</h3>
-    <p class="waar">Je spreekt de winkel rechtstreeks. Wij zitten er niet tussen en rekenen niets.</p>
-    <div class="nummer"><b class="num">${nummer}</b><a class="belknop" href="tel:${nummer.replace(/\s/g,'')}"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>Bellen</a></div>
-    <div class="streep"></div>
-    <p class="vraag">Wil je anderen straks helpen?</p>
-    <p class="vraaguitleg">Laat je e-mailadres achter, dan vragen wij over twee dagen hoe het ging. Zo weten anderen bij welke winkel het goed zit.</p>
-    <input type="email" id="matchmail" placeholder="je@email.nl">
-    <div class="knoppen">
-      <button class="btn btn-lijn" onclick="document.getElementById('matchdlg').close()">Nee, bedankt</button>
-      <button class="btn btn-groen" onclick="matchJa()">Ja, herinner mij</button>
-    </div>
-    <p class="klein">Wij gebruiken je adres alleen voor deze ene vraag en verwijderen het daarna. Afmelden kan met een klik.</p>`;
-  d.showModal();
-}
-function matchJa(){
-  document.getElementById('matchinhoud').innerHTML=`
-    <div class="gelukt">
-      <div class="bal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
-      <h3>Afgesproken</h3>
-      <p class="waar" style="margin-bottom:18px">Over twee dagen sturen wij je één e-mail met de vraag hoe het ging. Verder hoor je niets van ons.</p>
-      <button class="btn btn-groen" style="width:100%" onclick="document.getElementById('matchdlg').close()">Sluiten</button>
-    </div>`;
-}
 const band=()=>bandVan(S.model,S.rep);
-const prijs=w=>prijsVanWinkel(w,S.model,S.rep);
+/* Wat deze winkel vraagt voor de gekozen combinatie, of null als hij die
+   reparatie niet doet. S.kw is het kwaliteitsfilter; op 'alle' pakt hij de
+   goedkoopste die de winkel heeft. */
+const aanbodVan=w=>aanbod(w,S.model,S.rep,S.kw);
+const prijs=w=>{const a=aanbodVan(w);return a?a.b:null};
 
-const zichtbaar=()=>rangschik(WINKELS.filter(w=>FILTERS.every(([id,,f])=>!S.filters[id]||f(w))).filter(w=>S.kw==='alle'||w.kw===S.kw));
+/* Een winkel valt weg als hij niet aan de filters voldoet, of als hij de
+   gekozen kwaliteit niet levert. Dat laatste keek naar w.kw, alsof een winkel
+   maar een soort onderdeel gebruikt; het staat per prijs in zijn eigen tabel. */
+const zichtbaar=()=>rangschik(WINKELS
+  .filter(w=>FILTERS.every(([id,,f])=>!S.filters[id]||f(w)))
+  .filter(w=>S.kw==='alle'||!!aanbod(w,S.model,S.rep,S.kw)));
 
 function kies(){
   const menu=(id,huidig,opties,fn)=>`<span class="sel" id="sel-${id}"><button onclick="openSel('${id}')">${huidig} ${CHEV}</button><span class="menu">${Object.entries(opties).map(([k,v])=>`<button class="${k===huidig||v===huidig?'aan':''}" onclick="${fn}('${k}')">${v}</button>`).join('')}</span></span>`;
@@ -387,43 +385,53 @@ function filters(){
     <span class="telling num">${n} van de ${WINKELS.length} winkels</span>`;
 }
 
+/* De kaart toont alleen wat wij van deze winkel weten.
+   Wat er weggevallen is ten opzichte van de ontwerpschets, en waarom: de
+   afstand (wij hebben een adres en geen coordinaten), het aantal jaren en het
+   aantal vestigingen (dat zegt een winkel over zichzelf en wij kunnen het niet
+   nakijken), de openingstijden (dat is een onderwerp op zich, en "Nu open" dat
+   niet klopt stuurt iemand voor een dichte deur) en de datum van de nieuwste
+   Google-beoordeling. */
 function winkelkaart(w,uitgelicht){
-  const [lo,md,hi]=band(),p=prijs(w);
-  const pos=Math.min(96,Math.max(4,(p-lo)/(hi-lo)*100)),mpos=((md-lo)/(hi-lo))*100;
-  const kwn=heeftKwaliteit(S.rep)
-    ? {service:'Service pack',origineel:'Origineel onderdeel',compatibel:'Compatibel onderdeel'}[w.kw]
-    : 'Onderdeel niet gespecificeerd';
-  const feiten=[w.erk,`${w.jaren} jaar in Leeuwarden`,w.vest>1?`${w.vest} vestigingen`:null].filter(Boolean).join(' &middot; ');
+  const [lo,md,hi]=band(),a=aanbodVan(w);
+  const p=a?a.b:null;
+  const pos=(p!=null&&hi>lo)?Math.min(96,Math.max(4,(p-lo)/(hi-lo)*100)):50;
+  const mpos=hi>lo?((md-lo)/(hi-lo))*100:50;
+  const kwn=heeftKwaliteit(S.rep)?kwaliteitsnaam(a?a.k:null):'Onderdeel niet gespecificeerd';
+  const feiten=feitenVan(w);
+  const tijd=doorlooptijd(a),gar=garantieVan(a);
+  const i=WINKELS.indexOf(w);
   return `<div class="winkel${uitgelicht?' uitg':''}">
     ${uitgelicht?`<span class="adv">Uitgelicht &middot; ${uitgelichtReden(w)} <button onclick="document.getElementById('rang').showModal()" aria-label="Wat betekent Uitgelicht?" title="Wat betekent Uitgelicht?">?</button></span>`:''}
     <div class="rij">
       <div class="pui">${w.i}</div>
       <div>
         <div class="naam"><b>${w.n}</b></div>
-        <p class="adres">${w.a} &middot; ${w.km.toString().replace('.',',')} km</p>
+        <p class="adres">${[w.a,afstandVan(w)].filter(Boolean).join(' &middot; ')}</p>
       </div>
-      <div class="score"><b class="num">${w.g}</b> <span class="aant num">(${w.gb})</span> <span class="bron"><a href="${w.glink}" rel="nofollow noopener">op Google</a></span><span class="vers">${w.vers}</span></div>
+      ${w.g?`<div class="score"><b class="num">${w.g}</b> <span class="aant num">(${w.gb||0})</span> <span class="bron"><a href="${w.glink||'#'}" rel="nofollow noopener">op Google</a></span>${w.vers?`<span class="vers">${w.vers}</span>`:''}</div>`
+        :`<div class="score"><span class="bron">Nog geen cijfer op Google</span></div>`}
     </div>
     <div class="streep"></div>
     <div class="prijsrij">
-      <div><div class="wat">${REPS[S.rep]} ${S.model}</div><div class="bed num">${eur(p)}<small>${kwn}</small></div></div>
-      <div class="bereik"><div class="track"><div class="fill" style="left:2%;width:96%"></div><div class="med" style="left:${mpos}%"></div><div class="jij" style="left:${pos}%"></div></div>
-        <div class="lab num"><span>landelijk ${eur(lo)} tot ${eur(hi)}</span><span>mediaan ${eur(md)}</span></div></div>
+      <div><div class="wat">${REPS[S.rep]} ${S.model}</div><div class="bed num">${p!=null?eur(p):'<span class="geenprijs">Niet opgegeven</span>'}<small>${p!=null?kwn:'deze winkel gaf geen prijs door'}</small></div></div>
+      ${p!=null?`<div class="bereik"><div class="track"><div class="fill" style="left:2%;width:96%"></div><div class="med" style="left:${mpos}%"></div><div class="jij" style="left:${pos}%"></div></div>
+        <div class="lab num"><span>landelijk ${eur(lo)} tot ${eur(hi)}</span><span>mediaan ${eur(md)}</span></div></div>`:''}
     </div>
-    <p class="regel">${w.tijd} &middot; ${w.gar}</p>
+    ${[tijd,gar].filter(Boolean).length?`<p class="regel">${[tijd,gar].filter(Boolean).join(' &middot; ')}</p>`:''}
     <div class="labels">
       ${w.keur?`<span class="chip chip-keur">${CHECK}${keurlabel(w)}</span>`:''}
-      ${w.vandaag?`<span class="chip chip-snel">${BOLT}Vandaag klaar</span>`:''}
-      <span class="chip chip-feit">${w.open}</span>
+      ${a&&a.v?`<span class="chip chip-snel">${BOLT}Vandaag klaar</span>`:''}
+      ${w.open?`<span class="chip chip-feit">${w.open}</span>`:''}
       ${w.oud?`<span class="chip chip-let">Prijs 3 maanden niet bevestigd</span>`:''}
     </div>
     ${feiten?`<p class="feiten">${feiten}</p>`:''}
-    <div class="acties"><a class="btn btn-stil" href="winkelprofiel.html">Profiel</a><a class="btn btn-lijn" href="#">Route</a><button class="btn btn-groen" onclick="belMatch('${w.n}','058 123 45 67')">${TEL}Bel de winkel</button></div>
+    <div class="acties"><a class="btn btn-stil" href="${winkelLink(w)}">Profiel</a><a class="btn btn-lijn" href="#">Route</a><button class="btn btn-groen" onclick="belWinkel(${i})">${TEL}Bel de winkel</button></div>
   </div>`;
 }
 function vermelding(v){
   return `<div class="verm"><div class="rij"><div class="pui">${v.i}</div>
-    <div><div class="naam"><b>${v.n}</b></div><p class="adres">${v.a} &middot; ${v.km.toString().replace('.',',')} km</p>
+    <div><div class="naam"><b>${v.n}</b></div><p class="adres">${[v.a,afstandVan(v)].filter(Boolean).join(' &middot; ')}</p>
     <p>Deze winkel is nog niet aangesloten. Wij hebben geen prijzen, geen doorlooptijd en geen poliscontrole.</p>
     <p class="eig">Ben je de eigenaar? <a href="claim.html">Vul je gegevens aan</a> of <a href="claim.html">laat de vermelding verwijderen</a>.</p></div></div></div>`;
 }
@@ -439,11 +447,11 @@ function lijst(){
         <p>Heb je een reparatiewinkel in Leeuwarden? <a href="voor-winkels.html">Meld je winkel aan</a>. De eerste winkels staan er gratis op.</p></div>`;
   buurten.forEach(b=>{const inB=rest.filter(w=>w.buurt===b);
     h+=`<div class="groep"><h2>${b}</h2><span>${inB.length} ${inB.length===1?'winkel':'winkels'}</span></div>`+inB.map(w=>winkelkaart(w,false)).join('')});
-  h+=`<div class="groep"><h2>Nog niet aangesloten</h2><span>${VERMELDINGEN.length} vermeldingen</span></div>`+VERMELDINGEN.map(vermelding).join('');
+  if(VERMELDINGEN.length)h+=`<div class="groep"><h2>Nog niet aangesloten</h2><span>${VERMELDINGEN.length} ${VERMELDINGEN.length===1?'vermelding':'vermeldingen'}</span></div>`+VERMELDINGEN.map(vermelding).join('');
   document.getElementById('lijst').innerHTML=h;
 }
 function zijkolom(){
-  const ws=zichtbaar().length?zichtbaar():WINKELS,ps=ws.map(prijs).sort((a,b)=>a-b);
+  const ws=zichtbaar().length?zichtbaar():WINKELS,ps=ws.map(prijs).filter(x=>x!=null).sort((a,b)=>a-b);
   const [lo,,hi]=band();
   /* Zonder aangesloten winkels valt er niets van winkels te tonen. Dan laten wij
      alleen zien wat wij zelf landelijk hebben gemeten, en zeggen wij dat erbij. */
@@ -458,10 +466,20 @@ function zijkolom(){
     <p class="bron">${bronZin(S.model,S.rep)}</p>`;
 }
 function kop(){
-  const kan=WINKELS.filter(w=>w.vandaag).length;
-  document.getElementById('onderkop').innerHTML=`<b>${WINKELS.length} winkels</b> in Leeuwarden repareren telefoons, ${kan} daarvan kunnen dit vandaag nog. Vergelijk op prijs, doorlooptijd en garantie. Je regelt de reparatie rechtstreeks met de winkel.`;
+  /* De onderkop telt zelf. Hij stond met "6 winkels" in de tekst en klopte dus
+     alleen bij de zes verzonnen voorbeelden. */
+  const n=WINKELS.length,kan=WINKELS.filter(w=>{const a=aanbodVan(w);return a&&a.v}).length;
+  document.getElementById('onderkop').innerHTML=n
+    ? `<b>${n} ${n===1?'winkel':'winkels'}</b> in Leeuwarden ${n===1?'repareert':'repareren'} telefoons${kan?`, ${kan} ${kan===1?'daarvan kan':'daarvan kunnen'} dit vandaag nog`:''}. Vergelijk op prijs, doorlooptijd en garantie. Je regelt de reparatie rechtstreeks met de winkel.`
+    : `Er is in Leeuwarden nog <b>geen winkel aangesloten</b>. Wat een reparatie landelijk kost, staat er wel: dat komt uit ons eigen prijsonderzoek.`;
   const [lo,md,hi]=band();
-  document.getElementById('faq1').innerHTML=`Voor een ${S.model} vonden wij landelijk prijzen van ${eur(lo)} tot ${eur(hi)}, met ${eur(md)} als middelste prijs. Het verschil zit vrijwel helemaal in het onderdeel: een compatibel scherm zit aan de onderkant, een origineel scherm aan de bovenkant. In Leeuwarden liggen de prijzen van de winkels hierboven binnen die band.`;
+  /* Deze vraag telde ook mee: er stond "Twee winkels in Leeuwarden doen een
+     schermreparatie terwijl je wacht". Dat waren de verzonnen voorbeelden. */
+  const wacht=WINKELS.filter(w=>{const a=aanbodVan(w);return a&&a.m<=45}).length;
+  document.getElementById('faq2').innerHTML=wacht
+    ? `${wacht===1?'Eén winkel':`${wacht} winkels`} in Leeuwarden ${wacht===1?'doet':'doen'} deze reparatie terwijl je wacht. Filter op "vandaag klaar" om te zien welke dat vandaag kunnen. Een accu duurt vaak korter, waterschade altijd langer omdat het toestel eerst open moet.`
+    : `Voor deze reparatie heeft nog geen winkel in Leeuwarden opgegeven dat het terwijl je wacht kan. Een accu duurt meestal een half uur, een scherm iets langer, en waterschade altijd langer omdat het toestel eerst open moet.`;
+  document.getElementById('faq1').innerHTML=`Voor een ${S.model} vonden wij landelijk prijzen van ${eur(lo)} tot ${eur(hi)}, met ${eur(md)} als middelste prijs. Het verschil zit vrijwel helemaal in het onderdeel: een kopiescherm zit aan de onderkant, een origineel scherm aan de bovenkant.${WINKELS.length?' De prijzen van de winkels hierboven vergelijk je met die band.':''}`;
 }
 function mob(){
   const aantal=Object.values(S.filters).filter(Boolean).length+(S.uitgVerbergen?1:0);

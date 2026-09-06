@@ -242,26 +242,13 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
 </header>
 
 <div class="in">
-  <div class="kruimels"><a href="index.html">Home</a><span>&rsaquo;</span><a href="plaatsen.html">Friesland</a><span>&rsaquo;</span><a href="plaatspagina-leeuwarden.html">Leeuwarden</a><span>&rsaquo;</span>Telefoonhulp Leeuwarden</div>
+  <div class="kruimels"><a href="index.html">Home</a><span>&rsaquo;</span><a href="plaatsen.html">Friesland</a><span>&rsaquo;</span><a id="wp-plaatslink" href="plaatspagina-leeuwarden.html">Leeuwarden</a><span>&rsaquo;</span><span id="wp-kruimel"></span></div>
 
   <div class="winkelkop">
     <div>
-      <h1>Telefoonhulp Leeuwarden</h1>
-      <div class="meta">
-        <span class="cijfer num">4,6</span>
-        <span>op Google, 210 beoordelingen</span>
-        <a href="#reviews">wat wij hiermee doen</a>
-        <span>&middot;</span>
-        <span>Nieuwestad 112, Leeuwarden</span>
-        <span>&middot;</span>
-        <span>1,4 km</span>
-      </div>
-      <div class="labels">
-        <span class="chip chip-keur"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>Polis gecontroleerd 12 aug 2026</span>
-        <span class="chip chip-snel"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 3 14h7l-1 8 10-12h-7z"/></svg>Klaar terwijl je wacht</span>
-        <span class="chip chip-feit">Apple IRP</span>
-        <span class="chip chip-feit">12 jaar in Leeuwarden</span>
-      </div>
+      <h1 id="wp-naam"></h1>
+      <div class="meta" id="wp-meta"></div>
+      <div class="labels" id="wp-labels"></div>
     </div>
     <div class="kaartje">
       <svg viewBox="0 0 280 170" aria-label="Kaart met de locatie van de winkel">
@@ -276,7 +263,7 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
         <text x="10" y="128" font-family="Outfit" font-size="9" fill="#8A93A2">Nieuwestad</text>
         <text x="212" y="38" font-family="Outfit" font-size="9" fill="#8A93A2">Zaailand</text>
       </svg>
-      <div class="adr"><b>Nieuwestad 112</b>8911 KX Leeuwarden</div>
+      <div class="adr" id="wp-adres"></div>
     </div>
   </div>
 </div>
@@ -288,56 +275,43 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
       <p class="uitleg">Alle prijzen zijn inclusief btw en inclusief het monteren. Waar de winkel kwaliteiten onderscheidt, staat erbij welk onderdeel je krijgt; dat verklaart vrijwel het hele prijsverschil tussen winkels. Bij een accu of een laadpoort doen winkels dat meestal niet, en dan staat er de gemeten bandbreedte.</p>
       <div class="toestelkies" id="toestelkies"></div>
       <div class="ptabel" id="ptabel"></div>
-      <p class="bevestigd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>Deze winkel heeft de prijzen bevestigd op 2 september 2026. Prijzen die negentig dagen niet zijn bevestigd, halen wij weg.</p>
+      <p class="bevestigd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg><span id="wp-bevestigd"></span></p>
       <div class="verg" id="verg"></div>
     </div>
 
     <div class="blok">
       <h2>Garantie</h2>
       <p class="uitleg">Dit geeft de winkel zelf op. Wij nemen de tekst over en controleren hem niet inhoudelijk, dus vraag er bij twijfel naar in de winkel.</p>
+      <ul class="lijstje" id="wp-garantie"></ul>
       <ul class="lijstje">
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><b>12 maanden garantie</b> op het onderdeel en op het werk, bij een origineel of service pack onderdeel.</span></li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><b>6 maanden</b> bij een compatibel onderdeel.</span></li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Je krijgt altijd een <b>bon met het serienummer</b> van je toestel en de gebruikte onderdeelkwaliteit.</span></li>
         <li class="nee"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg><span>Geen garantie op <b>nieuwe val- of waterschade</b> na de reparatie, en de garantie vervalt als het toestel daarna door iemand anders is geopend.</span></li>
-        <li class="nee"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg><span>Bij waterschade geldt <b>geen resultaatgarantie</b>. De diagnose kost 39 euro en die wordt verrekend als je de reparatie laat doen.</span></li>
+        <li class="nee"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg><span>Bij waterschade geldt <b>geen resultaatgarantie</b>. Winkels doen eerst een diagnose en noemen daarna een prijs; vraag vooraf wat die diagnose kost en of hij wordt verrekend.</span></li>
       </ul>
       <p class="bron">Deze winkel levert het Europese reparatie-informatieformulier. Daarin staan de prijs, de doorlooptijd en de garantie op papier, voordat je akkoord gaat. Wij maken dat formulier automatisch voor aangesloten winkels.</p>
     </div>
 
-    <div class="blok">
+    <!-- De foto en de naam van de eigenaar stonden hier vast ingevuld. Wij vragen
+         een winkel niet om een foto en niet om de naam van de eigenaar, dus die
+         zijn weg; wat een winkel wel zelf schrijft, is de korte omschrijving. -->
+    <div class="blok" id="wp-over" hidden>
       <h2>Over deze winkel</h2>
-      <div class="eigenaar">
-        <div class="foto">foto van de eigenaar</div>
-        <div>
-          <b>Jelle Hoekstra</b>
-          <div class="rol">eigenaar, repareert zelf</div>
-          <p>Wij repareren sinds 2014 aan de Nieuwestad en doen bijna alles terwijl je wacht. Schermen en accu's hebben we voor de gangbare modellen op voorraad, dus je bent meestal binnen een half uur klaar. Voor waterschade nemen we het toestel mee naar achteren en bellen we je met een prijs voordat we beginnen.</p>
-        </div>
-      </div>
+      <p class="uitleg" id="wp-omschrijving"></p>
     </div>
 
-    <div class="blok">
+    <div class="blok" id="wp-polisblok" hidden>
       <h2>Onze poliscontrole bij deze winkel</h2>
       <div class="keurblok">
-        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 3v5.4c0 4.3-3.1 8.3-7.5 9.6-4.4-1.3-7.5-5.3-7.5-9.6V6z"/><path d="M9 12l2 2 4-4"/></svg>Polis gecontroleerd 12 aug 2026</h3>
-        <ul class="lijstje">
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Wij hebben het polisblad gezien. Daarop staat dat schade aan het toestel van de klant is meeverzekerd. Of de verzekeraar in een concreet geval uitkeert, beslist de verzekeraar, niet wij.</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Ingeschreven bij de Kamer van Koophandel op dit adres.</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Erkend als Apple Independent Repair Provider. Dat hebben wij nagetrokken bij Apple.</span></li>
-        </ul>
-        <p class="datum">Laatste controle 12 augustus 2026. De polis loopt tot 1 januari 2027; daarna controleren wij opnieuw. Wij toetsen zelf en zijn geen toezichthouder. <a class="link" href="#" onclick="document.getElementById('criteria').showModal();return false">Onze criteria</a></p>
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 3v5.4c0 4.3-3.1 8.3-7.5 9.6-4.4-1.3-7.5-5.3-7.5-9.6V6z"/><path d="M9 12l2 2 4-4"/></svg><span id="wp-polistitel"></span></h3>
+        <ul class="lijstje" id="wp-polislijst"></ul>
+        <p class="datum" id="wp-polisdatum"></p>
       </div>
     </div>
 
     <div class="blok" id="reviews">
       <h2>Beoordelingen</h2>
       <p class="uitleg">Het cijfer hieronder is van Google, niet van ons. Wij hebben zelf nog bijna geen beoordelingen en wij tonen liever een cijfer dat ergens op berust dan een van onszelf dat dat niet doet.</p>
-      <div class="extern extern-groot">
-        <b class="num">4,6</b><span>op Google, 210 beoordelingen</span>
-        <a class="btn btn-lijn btn-klein" href="#" rel="nofollow noopener">Lees ze op Google</a>
-        <span class="bronregel">Opgehaald bij Google op 3 september 2026. Wij nemen de teksten van die beoordelingen niet over en wij rekenen ze niet om naar een eigen cijfer.</span>
-      </div>
+      <div class="extern extern-groot" id="wp-google"></div>
       <h3 class="eigenkop">Beoordelingen via snelrepareren</h3>
       <div id="reviewlijst"></div>
     </div>
@@ -346,31 +320,21 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
   <aside class="zij">
     <div class="zkaart">
       <h3>Contact</h3>
-      <div class="acties">
-        <button class="btn btn-groen btn-vol" onclick="belMatch('Telefoonhulp Leeuwarden','058 123 45 67')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>Bel de winkel</button>
-        <a class="btn btn-lijn btn-vol" href="#">Route</a>
-        <a class="btn btn-stil btn-vol" href="#">Naar de website</a>
-      </div>
+      <div class="acties" id="wp-contact"></div>
       <p class="let">Je maakt de afspraak rechtstreeks met de winkel. Wij zitten er niet tussen en rekenen niets.</p>
     </div>
 
-    <div class="zkaart">
-      <h3>Openingstijden</h3>
-      <div class="statuslijn"><i></i>Nu open, tot 18:00</div>
-      <div class="tijden" id="tijden"></div>
-    </div>
+    <!-- De openingstijden stonden hier als vaste week met "Nu open, tot 18:00".
+         Wij vragen een winkel niet naar zijn openingstijden, en half gedaan is
+         hier erger dan niet gedaan: "Nu open" dat niet klopt stuurt iemand voor
+         een dichte deur. Zodra wij het wel vragen, komt dit blok terug. -->
 
-    <div class="zkaart">
+    <div class="zkaart" id="wp-praktischkaart" hidden>
       <h3>Praktisch</h3>
-      <div class="zlijst">
-        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3 10h18"/></svg><span>Pin, contant, Apple Pay en iDEAL</span></div>
-        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg><span>Meeste reparaties terwijl je wacht</span></div>
-        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16M6 20V9l6-4 6 4v11"/></svg><span>Zonder afspraak binnenlopen kan</span></div>
-        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M5 8h14"/></svg><span>Repareert Apple, Samsung, Google en OnePlus</span></div>
-      </div>
+      <div class="zlijst" id="wp-praktisch"></div>
     </div>
 
-    <div class="zkaart">
+<div class="zkaart">
       <h3>Voor je naar de winkel gaat</h3>
       <div class="zlijst">
         <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Maak een back-up van je toestel</span></div>
@@ -381,10 +345,7 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
   </aside>
 </div>
 
-<div class="plak">
-  <a class="btn btn-lijn" href="#">Route</a>
-  <button class="btn btn-groen" onclick="belMatch('Telefoonhulp Leeuwarden','058 123 45 67')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>Bel de winkel</button>
-</div>
+<div class="plak" id="wp-plak"></div>
 
 <footer><div class="in">
   <div class="jur"><a href="voorwaarden.html">Voorwaarden</a><a href="privacy.html">Privacy</a><a href="cookies.html">Cookies</a><a href="toegankelijkheid.html">Toegankelijkheid</a><a href="melden.html">Iets melden</a><a href="over-ons.html">Over ons</a></div>
@@ -402,105 +363,142 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
   <div class="sluit"><button class="btn btn-groen" onclick="document.getElementById('criteria').close()">Sluiten</button></div>
 </div></dialog>
 
+<!--WINKELPROFIEL-->
 <script src="data/kiezer.js"></script>
 <script src="data/winkels.js"></script>
 <script>
-/* De bandbreedtes komen uit data/kiezer.js. Ze stonden hier met de hand
-   overgetypt en weken voor accu en laadpoort af van de metingen. */
-const MODELLEN_HIER=['iPhone 13','iPhone 14','iPhone 15'];
-const REPS=[['scherm','Scherm vervangen','30 tot 45 minuten'],['accu','Accu vervangen','30 minuten'],['laadpoort','Laadpoort vervangen','45 minuten'],['achterkant','Achterkant vervangen','1 werkdag']];
-/* waar deze winkel in de landelijke band zit, per kwaliteit */
-const NIV={compatibel:.09,service:.33,origineel:.78};
-const TIJDEN=[['maandag','09:30 tot 18:00'],['dinsdag','09:30 tot 18:00'],['woensdag','09:30 tot 18:00'],['donderdag','09:30 tot 21:00'],['vrijdag','09:30 tot 18:00'],['zaterdag','10:00 tot 17:00'],['zondag',null]];
-const VANDAAG=4; /* vrijdag, vast voor deze schets */
-/* Beoordelingen. Deze zijn VERZONNEN en horen bij de zes voorbeeldwinkels.
-   Zij verdwijnen samen met die winkels als VOORBEELDEN in data/winkels.js op false
-   gaat. Dat moet ook: een beoordeling die niet van een klant komt maar er wel
-   uitziet als een klantbeoordeling, is misleidend, hoe groot de gele strook ook is.
-   Bovendien kan er nog geen enkele beoordeling geverifieerd zijn, want het
-   belmoment slaat niets op zolang er geen server is. */
-const VOORBEELDREVIEWS=[
- {n:'Marije D.',p:'Leeuwarden',c:'10',d:'3 dagen geleden',via:1,t:'Scherm van mijn iPhone 13 in een half uur vervangen terwijl ik koffie dronk. Vooraf precies verteld welk scherm erin ging en wat het kostte. Bon met serienummer meegekregen.'},
- {n:'Rutger B.',p:'Stiens',c:'9',d:'1 week geleden',via:1,t:'Accu vervangen, netjes gedaan en de prijs klopte met wat hier op de site stond. Kleine min: het was druk, dus ik moest iets langer wachten dan gezegd.'},
- {n:'Anouk V.',p:'Leeuwarden',c:'8',d:'3 weken geleden',via:0,t:'Goede uitleg over het verschil tussen origineel en een goedkoper scherm. Ik heb voor de tussenvariant gekozen en ben er tevreden mee.',antwoord:'Fijn dat je het verschil duidelijk vond. Kom je gerust langs als er iets is, de garantie loopt twaalf maanden.'},
- {n:'Peter K.',p:'Leeuwarden',c:'6',d:'2 maanden geleden',via:1,t:'Reparatie zelf is prima, maar mijn toestel was niet op de beloofde tijd klaar en ik ben daar niet over gebeld.',antwoord:'Dat spijt ons, je had bericht moeten krijgen. We hebben sindsdien afgesproken dat we altijd bellen zodra een reparatie uitloopt.'},
-];
-/* Leeg, ook met de voorbeeldwinkels aan. Het belmoment slaat niets op zolang er
-   geen server is, dus er kan geen enkele beoordeling geverifieerd zijn. De
-   voorbeeldteksten blijven hieronder staan zodat het ontwerp van een review te
-   beoordelen is zodra er wel een server is. */
-const REVIEWS=[];
-const S={model:'iPhone 13'};
+/* Deze pagina gaat over EEN winkel, en dat is precies waarom alles hier uit
+   gegevens moet komen en niet uit de opmaak. Het was een ontwerppagina met de
+   naam, het cijfer, de openingstijden, de eigenaar en zijn verhaal er letterlijk
+   in getypt. Dat kon zolang er geen winkels waren. Zodra er een echte winkel op
+   staat, is elke vaste zin een bewering over een bestaand bedrijf.
 
-/* match-moment: de belknop logt de match en biedt een beoordeelherinnering aan */
-function belMatch(naam,nummer){
-  const d=document.getElementById('matchdlg');
-  document.getElementById('matchinhoud').innerHTML=`
-    <h3>Bel ${naam}</h3>
-    <p class="waar">Je spreekt de winkel rechtstreeks. Wij zitten er niet tussen en rekenen niets.</p>
-    <div class="nummer"><b class="num">${nummer}</b><a class="belknop" href="tel:${nummer.replace(/\s/g,'')}"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>Bellen</a></div>
-    <div class="streep"></div>
-    <p class="vraag">Wil je anderen straks helpen?</p>
-    <p class="vraaguitleg">Laat je e-mailadres achter, dan vragen wij over twee dagen hoe het ging. Zo weten anderen bij welke winkel het goed zit.</p>
-    <input type="email" id="matchmail" placeholder="je@email.nl">
-    <div class="knoppen">
-      <button class="btn btn-lijn" onclick="document.getElementById('matchdlg').close()">Nee, bedankt</button>
-      <button class="btn btn-groen" onclick="matchJa()">Ja, herinner mij</button>
-    </div>
-    <p class="klein">Wij gebruiken je adres alleen voor deze ene vraag en verwijderen het daarna. Afmelden kan met een klik.</p>`;
-  d.showModal();
+   Met een server zet die WINKELPROFIEL hierboven neer, uit de database. Zonder
+   server valt de pagina terug op SCHETS: de verzonnen winkel uit het ontwerp, met
+   de gele strook erboven die zegt dat hij verzonnen is. */
+
+const MODELLEN_SCHETS=['iPhone 13','iPhone 14','iPhone 15'];
+/* Waar de schetswinkel in de landelijke band zit, per trede van de ladder. */
+const NIV={kopie:.09,oem:.33,origineel:.78};
+const REPS=[['scherm','Scherm vervangen'],['accu','Accu vervangen'],
+            ['laadpoort','Laadpoort vervangen'],['achterkant','Achterkant vervangen']];
+
+function schetsAanbod(){
+  const uit={};
+  for(const m of MODELLEN_SCHETS)for(const [rep] of REPS){
+    const b=bandVan(m,rep); if(!b)continue;
+    const [lo,,hi]=b;
+    const treden=heeftKwaliteit(rep)?Object.keys(NIV):[null];
+    for(const k of treden){
+      const niv=k?NIV[k]:.4;
+      uit[`${m}|${rep}|${k||''}`]={b:Math.max(lo,Math.round((lo+(hi-lo)*niv)/5)*5-1),
+        m:rep==='achterkant'?1440:35,v:rep!=='achterkant'?1:0,g:k==='kopie'?6:12,k};
+    }
+  }
+  return uit;
 }
-function matchJa(){
-  document.getElementById('matchinhoud').innerHTML=`
-    <div class="gelukt">
-      <div class="bal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
-      <h3>Afgesproken</h3>
-      <p class="waar" style="margin-bottom:18px">Over twee dagen sturen wij je één e-mail met de vraag hoe het ging. Verder hoor je niets van ons.</p>
-      <button class="btn btn-groen" style="width:100%" onclick="document.getElementById('matchdlg').close()">Sluiten</button>
-    </div>`;
-}
+
+const SCHETS={
+  id:null,slug:null,n:'Telefoonhulp Leeuwarden',a:'Nieuwestad 112',postcode:'8911 KX',
+  plaats:'Leeuwarden',tel:'058 123 45 67',website:null,
+  omschrijving:'Wij repareren sinds 2014 aan de Nieuwestad en doen bijna alles terwijl je wacht. Schermen en accus hebben we voor de gangbare modellen op voorraad, dus je bent meestal binnen een half uur klaar.',
+  kvk:true,betaal:['Pin','Contant','Apple Pay','iDEAL'],
+  keur:1,keurdatum:'12 aug 2026',polistot:'1 jan 2027',erk:['Apple IRP'],
+  g:'4,6',gb:210,glink:'#',gdatum:'3 sep 2026',bevestigd:'2 sep 2026',
+  modellen:MODELLEN_SCHETS,p:null,reviews:[],
+};
+
+const P=typeof WINKELPROFIEL!=='undefined'?WINKELPROFIEL:SCHETS;
+if(!P.p)P.p=schetsAanbod();
+const S={model:(P.modellen&&P.modellen[0])||MODELLEN_SCHETS[0]};
+
 const eur=n=>'&euro; '+n;
 const CHECK='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>';
-/* Geeft null als wij voor dit model en deze reparatie niets hebben gemeten. De
-   tabel toont dan een streepje in plaats van een verzonnen bedrag. */
-const prijs=(rep,kw)=>{const b=bandVan(S.model,rep);if(!b)return null;
-  const [lo,,hi]=b;return Math.max(lo,Math.round((lo+(hi-lo)*NIV[kw])/5)*5-1)};
-const bedrag=n=>n===null?'<span class="nietgemeten">niet gemeten</span>':eur(n);
+const VINKJE='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+const BLIKSEM='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 3 14h7l-1 8 10-12h-7z"/></svg>';
+const TELICOON='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>';
+
+/* Wat deze winkel voor een reparatie vraagt. Null betekent: die doet hij niet,
+   en dan staat er een streepje in plaats van een afgeleid bedrag. */
+const bij=(rep,kw)=>P.p[`${S.model}|${rep}|${kw||''}`]||null;
+const bedrag=a=>a?eur(a.b):'<span class="nietgemeten">niet opgegeven</span>';
+/* De treden die deze winkel voor dit toestel echt aanbiedt, in laddervolgorde. */
+const LADDER=['kopie','incell','softoled','oem','refurb','origineel'];
+const tredenHier=()=>LADDER.filter(k=>REPS.some(([rep])=>bij(rep,k)));
+
+function kop(){
+  document.getElementById('wp-kruimel').textContent=P.n;
+  document.getElementById('wp-naam').textContent=P.n;
+  const pl=document.getElementById('wp-plaatslink');
+  pl.textContent=P.plaats;
+
+  const meta=[];
+  if(P.g)meta.push(`<span class="cijfer num">${P.g}</span><span>op Google, ${P.gb} beoordelingen</span>
+    <a href="#reviews">wat wij hiermee doen</a><span>&middot;</span>`);
+  meta.push(`<span>${P.a}, ${P.plaats}</span>`);
+  document.getElementById('wp-meta').innerHTML=meta.join('');
+
+  /* De afstand in kilometers stond hier vast op 1,4 km. Wij hebben van een
+     winkel een adres en geen coordinaten, dus die regel is weg. Het aantal jaren
+     ook: dat zegt een winkel over zichzelf en wij kunnen het niet nakijken. */
+  const snelste=REPS.map(([rep])=>bij(rep,null)||tredenHier().map(k=>bij(rep,k)).find(Boolean))
+    .filter(Boolean).sort((a,b)=>a.m-b.m)[0];
+  document.getElementById('wp-labels').innerHTML=[
+    P.keur?`<span class="chip chip-keur">${CHECK}Polis gecontroleerd ${P.keurdatum}</span>`:'',
+    snelste&&snelste.m<=45?`<span class="chip chip-snel">${BLIKSEM}Klaar terwijl je wacht</span>`:'',
+    ...P.erk.map(e=>`<span class="chip chip-feit">${e}</span>`),
+  ].filter(Boolean).join('');
+
+  document.getElementById('wp-adres').innerHTML=
+    `<b>${P.a}</b>${[P.postcode,P.plaats].filter(Boolean).join(' ')}`;
+}
 
 function toestelkies(){
-  document.getElementById('toestelkies').innerHTML=MODELLEN_HIER.map(m=>
+  const lijst=P.modellen||[];
+  document.getElementById('toestelkies').innerHTML=lijst.map(m=>
     `<button class="tchip${m===S.model?' aan':''}" onclick="S.model='${m}';teken()">${m}</button>`).join('')+
     `<a class="tchip" href="reparatiekiezer.html" style="text-decoration:none">Ander toestel zoeken</a>`;
 }
+
 function tabel(){
-  /* Een accu of een laadpoort kent geen kwaliteitsklassen, dus daar hoort geen
-     kolom Compatibel, Service pack en Origineel bij. Die stonden er wel, met drie
-     bedragen die alleen maar leken te betekenen dat je iets te kiezen had. */
-  const rij=([id,naam,tijd])=>{
-    const b=bandVan(S.model,id);
-    const cellen=heeftKwaliteit(id)
-      ? `<span class="prijs" data-kw="Compatibel">${bedrag(prijs(id,'compatibel'))}<em>vanaf</em></span>
-         <span class="prijs beste" data-kw="Service pack">${bedrag(prijs(id,'service'))}<em>meest gekozen</em></span>
-         <span class="prijs" data-kw="Origineel">${bedrag(prijs(id,'origineel'))}</span>`
-      : `<span class="prijs breed">${eur(b[0])}${b[0]===b[2]?'':' tot '+eur(b[2])}<em>onderdeel niet gespecificeerd</em></span>`;
-    return `<div class="prij">
+  const treden=tredenHier();
+  if(!P.modellen||!P.modellen.length){
+    document.getElementById('ptabel').innerHTML=`<p class="geenprijzen">Deze winkel heeft nog geen prijzen opgegeven. Bel of loop binnen; wat een reparatie landelijk kost, staat op <a href="prijsindex.html">de prijsindex</a>.</p>`;
+    return;
+  }
+  /* De kolommen komen uit wat deze winkel aanbiedt. Ze stonden vast op
+     Compatibel, Service pack en Origineel: drie namen die niet op de
+     kwaliteitsladder staan en die dus nergens mee te vergelijken waren. */
+  const rij=([id,naam])=>{
+    const cellen=heeftKwaliteit(id)&&treden.length
+      ? treden.map(k=>`<span class="prijs" data-kw="${kwaliteitsnaam(k)}">${bedrag(bij(id,k))}</span>`).join('')
+      : `<span class="prijs breed">${bedrag(bij(id,null))}<em>onderdeel niet gespecificeerd</em></span>`;
+    const a=bij(id,null)||treden.map(k=>bij(id,k)).find(Boolean);
+    return `<div class="prij" style="--kolommen:${treden.length||1}">
       <span class="naam">${naam}<small>${S.model}</small></span>
       ${cellen}
-      <span class="tijd">${tijd}</span></div>`;};
+      <span class="tijd">${doorlooptijd(a)||'niet opgegeven'}</span></div>`;};
+  const gedaan=REPS.filter(([id])=>bij(id,null)||treden.some(k=>bij(id,k)));
   document.getElementById('ptabel').innerHTML=
-    `<div class="pkop"><span>Reparatie</span><span>Compatibel</span><span>Service pack</span><span>Origineel</span><span>Klaar in</span></div>`+
-    REPS.filter(([id])=>bandVan(S.model,id)).map(rij).join('')+
-    `<div class="prij offerte"><span class="naam">Waterschade<small>${S.model}</small></span>
-      <span class="offertetekst">Diagnose ${eur(39)}, daarna een prijs op maat. De diagnose wordt verrekend.</span>
-      <span class="tijd">1 tot 3 werkdagen</span></div>`+
+    `<div class="pkop" style="--kolommen:${treden.length||1}"><span>Reparatie</span>${
+      (treden.length?treden.map(k=>`<span>${kwaliteitsnaam(k)}</span>`).join(''):'<span>Prijs</span>')
+      }<span>Klaar in</span></div>`+
+    (gedaan.length?gedaan.map(rij).join('')
+      :`<p class="geenprijzen">Voor de ${S.model} heeft deze winkel nog geen prijs opgegeven.</p>`)+
     `<p class="tabelbron">${bronZin(S.model,'scherm')}</p>`;
 }
+
 function vergelijk(){
-  const [lo,md,hi]=bandVan(S.model,'scherm'),p=prijs('scherm','service');
-  const pct=v=>((v-lo)/(hi-lo))*100;
+  const b=bandVan(S.model,'scherm');
+  const a=bij('scherm',null)||tredenHier().map(k=>bij('scherm',k)).find(Boolean);
+  const vak=document.getElementById('verg');
+  if(!b||!a){vak.innerHTML='';vak.hidden=true;return}
+  vak.hidden=false;
+  const [lo,md,hi]=b,p=a.b;
+  const pct=v=>hi>lo?((v-lo)/(hi-lo))*100:50;
   const klem=v=>Math.min(88,Math.max(12,pct(v))),gelijk=Math.abs(p-md)<(hi-lo)*.03;
-  document.getElementById('verg').innerHTML=`<h3>Hoe deze prijs zich verhoudt tot de rest van Nederland</h3>
-    <p>Schermreparatie voor een ${S.model} met een service pack onderdeel, vergeleken met alle prijzen die wij landelijk hebben gemeten.</p>
+  vak.innerHTML=`<h3>Hoe deze prijs zich verhoudt tot de rest van Nederland</h3>
+    <p>Schermreparatie voor een ${S.model} met een ${kwaliteitsnaam(a.k)} onderdeel, vergeleken met alle prijzen die wij landelijk hebben gemeten.</p>
     <div class="bereik">
       ${gelijk?'':`<span class="medlab num" style="left:${klem(md)}%">mediaan ${eur(md)}</span>`}
       <div class="track"><div class="fill" style="left:2%;width:96%"></div>
@@ -509,14 +507,90 @@ function vergelijk(){
         <span class="jij" style="left:${klem(p)}%">deze winkel ${eur(p)}${gelijk?', de landelijke mediaan':''}</span></div>
     </div>`;
 }
-function tijden(){
-  document.getElementById('tijden').innerHTML=TIJDEN.map(([d,t],i)=>
-    `<div class="${i===VANDAAG?'nu':(t?'':'dicht')}"><span>${d}</span><span>${t||'gesloten'}</span></div>`).join('');
+
+function garantie(){
+  /* De garantie stond vast op twaalf maanden en zes maanden bij een compatibel
+     onderdeel. Een winkel geeft die per prijs op, dus hij komt daaruit. */
+  const maanden=new Map();
+  for(const [rep] of REPS)for(const k of [null,...LADDER]){
+    const a=bij(rep,k); if(a&&a.g)maanden.set(a.g,(maanden.get(a.g)||new Set()).add(a.k));
+  }
+  const regels=[...maanden.entries()].sort((x,y)=>y[0]-x[0]).map(([m,ks])=>{
+    const namen=[...ks].filter(Boolean).map(kwaliteitsnaam);
+    /* "bij een kopie of compatibel of origineel onderdeel" leest als onzin,
+       want de naam van een trede bevat zelf al het woord of. Vandaar de dubbele
+       punt en komma's. */
+    return `<li>${VINKJE}<span><b>${m} maanden garantie</b>${namen.length?` op deze onderdelen: ${namen.join(', ')}`:''}.</span></li>`;
+  });
+  document.getElementById('wp-garantie').innerHTML=regels.join('');
 }
+
+function over(){
+  const blok=document.getElementById('wp-over');
+  if(!P.omschrijving){blok.hidden=true;return}
+  blok.hidden=false;
+  document.getElementById('wp-omschrijving').textContent=P.omschrijving;
+}
+
+function polis(){
+  const blok=document.getElementById('wp-polisblok');
+  if(!P.keur){blok.hidden=true;return}
+  blok.hidden=false;
+  document.getElementById('wp-polistitel').textContent='Polis gecontroleerd '+P.keurdatum;
+  const regels=[
+    `<li>${VINKJE}<span>Wij hebben het polisblad gezien. Daarop staat dat schade aan het toestel van de klant is meeverzekerd. Of de verzekeraar in een concreet geval uitkeert, beslist de verzekeraar, niet wij.</span></li>`,
+  ];
+  if(P.kvk)regels.push(`<li>${VINKJE}<span>Ingeschreven bij de Kamer van Koophandel op dit adres.</span></li>`);
+  for(const e of P.erk)regels.push(`<li>${VINKJE}<span>Erkend als ${e}. Dat hebben wij nagetrokken bij de fabrikant.</span></li>`);
+  document.getElementById('wp-polislijst').innerHTML=regels.join('');
+  document.getElementById('wp-polisdatum').innerHTML=
+    `Laatste controle ${P.keurdatum}.${P.polistot?` De polis loopt tot ${P.polistot}; daarna controleren wij opnieuw.`:''} Wij toetsen zelf en zijn geen toezichthouder. <a class="link" href="#" onclick="document.getElementById('criteria').showModal();return false">Onze criteria</a>`;
+}
+
+function google(){
+  const vak=document.getElementById('wp-google');
+  if(!P.g){
+    vak.innerHTML=`<span class="bronregel">Van deze winkel hebben wij geen cijfer op Google. Dat betekent niets over de winkel; het betekent dat wij er geen hebben opgehaald.</span>`;
+    return;
+  }
+  vak.innerHTML=`<b class="num">${P.g}</b><span>op Google, ${P.gb} beoordelingen</span>
+    ${P.glink?`<a class="btn btn-lijn btn-klein" href="${P.glink}" rel="nofollow noopener">Lees ze op Google</a>`:''}
+    <span class="bronregel">${P.gdatum?`Opgehaald bij Google op ${P.gdatum}. `:''}Wij nemen de teksten van die beoordelingen niet over en wij rekenen ze niet om naar een eigen cijfer.</span>`;
+}
+
+function contact(){
+  const knop=`<button class="btn btn-groen btn-vol" onclick="belMatch(P)">${TELICOON}Bel de winkel</button>`;
+  document.getElementById('wp-contact').innerHTML=
+    (P.tel?knop:`<p class="let">Deze winkel gaf geen telefoonnummer door. Loop binnen op ${P.a}.</p>`)+
+    `<a class="btn btn-lijn btn-vol" href="#">Route</a>`+
+    (P.website?`<a class="btn btn-stil btn-vol" href="${P.website}" rel="nofollow noopener">Naar de website</a>`:'');
+  document.getElementById('wp-plak').innerHTML=
+    `<a class="btn btn-lijn" href="#">Route</a>`+
+    (P.tel?`<button class="btn btn-groen" onclick="belMatch(P)">${TELICOON}Bel de winkel</button>`:'');
+}
+
+function praktisch(){
+  /* Alleen wat de winkel zelf heeft ingevuld. Hier stonden vier vaste regels,
+     waaronder "Repareert Apple, Samsung, Google en OnePlus" en "Zonder afspraak
+     binnenlopen kan". Dat vragen wij niet, dus dat weten wij niet. */
+  const regels=[];
+  if(P.betaal.length)regels.push(`<div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3 10h18"/></svg><span>${P.betaal.join(', ')}</span></div>`);
+  const merken=[...new Set((P.modellen||[]).map(m=>m.split(' ')[0]))];
+  if(merken.length)regels.push(`<div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M5 8h14"/></svg><span>Prijzen bekend voor ${merken.join(', ')}</span></div>`);
+  document.getElementById('wp-praktischkaart').hidden=!regels.length;
+  document.getElementById('wp-praktisch').innerHTML=regels.join('');
+}
+
+function bevestigd(){
+  document.getElementById('wp-bevestigd').textContent=P.bevestigd
+    ? `Deze winkel heeft de prijzen bevestigd op ${P.bevestigd}. Prijzen die negentig dagen niet zijn bevestigd, halen wij weg.`
+    : 'Deze winkel heeft nog geen prijzen bevestigd.';
+}
+
 function reviews(){
   /* Zonder aangesloten winkels zijn er geen beoordelingen. Dat is de eerlijke
      staat op dag een, en hij hoort er goed uit te zien in plaats van leeg. */
-  if(!REVIEWS.length){
+  if(!P.reviews.length){
     document.getElementById('reviewlijst').innerHTML=`<div class="geenreviews">
       <b>Nog geen beoordelingen via ons</b>
       <p>Alleen wie via deze site contact opnam met de winkel, krijgt van ons de vraag hoe het ging. Wij plaatsen er zelf geen, wij kopen ze niet, en een winkel kan er geen laten verwijderen.</p>
@@ -524,12 +598,13 @@ function reviews(){
     </div>`;
     return;
   }
-  document.getElementById('reviewlijst').innerHTML=REVIEWS.map(r=>`<div class="review">
-    <div class="rkop"><span class="cijf num">${r.c}</span><b>${r.n}</b><span style="color:var(--inkt-3);font-size:13.5px">uit ${r.p}</span>
-      ${r.via?'<span class="via">via snelrepareren.nl</span>':''}<span class="dat">${r.d}</span></div>
-    <p>${r.t}</p>
+  document.getElementById('reviewlijst').innerHTML=P.reviews.map(r=>`<div class="review">
+    <div class="rkop"><span class="cijf num">${r.c}</span><b>${r.n}</b>${r.p?`<span style="color:var(--inkt-3);font-size:13.5px">uit ${r.p}</span>`:''}
+      <span class="via">via snelrepareren.nl</span><span class="dat">${r.d}</span></div>
+    ${r.t?`<p>${r.t}</p>`:''}
     ${r.antwoord?`<div class="antwoord"><b>Reactie van de winkel</b>${r.antwoord}</div>`:''}</div>`).join('');
 }
-function teken(){toestelkies();tabel();vergelijk()}
-teken();tijden();reviews();
+
+function teken(){toestelkies();tabel();vergelijk();garantie()}
+kop();teken();over();polis();google();contact();praktisch();bevestigd();reviews();
 </script>

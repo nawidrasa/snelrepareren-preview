@@ -48,6 +48,8 @@ h3{font-size:17.5px;font-weight:700;margin:0 0 4px}
 .w .rechts{grid-column:3;grid-row:1/span 3;text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:8px}
 .w .prijs{font-size:19px;font-weight:800;color:var(--marine);font-variant-numeric:tabular-nums;white-space:nowrap}
 .w .prijs small{display:block;font-size:12px;font-weight:600;color:var(--inkt-3)}
+.w .geenprijs{font-size:14px;font-weight:600;color:var(--inkt-3);white-space:normal}
+.leegstaat{border:1.5px dashed var(--lijn);border-radius:16px;padding:24px;text-align:center;color:var(--inkt-2);font-size:15px}
 .tag{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px;background:var(--vlak);color:var(--inkt-2)}
 .tag.keur{background:var(--groen-100);color:var(--groen-800)}
 .tag.erk{background:var(--marine-100);color:var(--marine)}
@@ -95,8 +97,8 @@ footer{border-top:1px solid var(--lijn);padding:28px 0 60px;color:var(--inkt-3);
 <div class="in">
   <div class="kruimels"><a href="index.html">Home</a><span>&rsaquo;</span><a href="plaatsen.html">Plaatsen</a><span>&rsaquo;</span><a href="plaatspagina-leeuwarden.html">Leeuwarden</a><span>&rsaquo;</span>iPhone</div>
   <h1>iPhone reparatie in Leeuwarden</h1>
-  <p class="antwoord">Vijf van de zes reparatiewinkels in Leeuwarden repareren iPhones. <b>Eén ervan werkt met echte Apple-onderdelen</b> via het Apple-programma voor onafhankelijke reparateurs. Bij de rest kies je zelf tussen een kopie- en een origineel scherm, en dat verschil is bijna het hele prijsverschil.</p>
-  <p class="onder">Hieronder de winkels, wat een iPhone-reparatie kost per model, en de drie dingen die bij een iPhone anders gaan dan bij een Android-toestel.</p>
+  <p class="antwoord" id="antwoord"></p>
+  <p class="onder" id="onder"></p>
 
   <div class="strook" id="modelstrook"></div>
 </div>
@@ -164,7 +166,6 @@ footer{border-top:1px solid var(--lijn);padding:28px 0 60px;color:var(--inkt-3);
 <script src="data/winkels.js"></script>
 <script>
 const eur=n=>'&euro;&nbsp;'+String(n).replace('.',',');
-const KWNAAM={service:'service pack',origineel:'origineel onderdeel',compatibel:'compatibel onderdeel'};
 const VINK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>';
 const UITROEP='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v5M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>';
 
@@ -208,21 +209,63 @@ document.getElementById('merkblokken').innerHTML=MERK.map(m=>`
   ${m.niet.map(w=>`<div class="niet">${UITROEP}<span>${w}</span></div>`).join('')}
  </div>`).join('');
 
-document.getElementById('winkels').innerHTML=WINKELS.map(w=>`
+/* De openingszin telde de winkels van deze pagina en stond met de hand
+   uitgeschreven: "Vijf van de zes reparatiewinkels in Leeuwarden repareren
+   iPhones. Eén ervan werkt met echte Apple-onderdelen." Dat waren de verzonnen
+   voorbeelden. Zodra er echte winkels komen, of nog geen enkele, staat daar een
+   bewering die niet klopt, en juist de eerste zin van de pagina is de zin die
+   iedereen leest. Hij telt nu zelf. */
+function antwoordzin(){
+  const n=WINKELS.length, erkend=WINKELS.filter(w=>w.erk&&/apple/i.test(w.erk)).length;
+  if(!n) return `Er is in Leeuwarden nog geen winkel bij ons aangesloten. Wat een
+    iPhone-reparatie landelijk kost, staat hieronder wel: dat komt uit ons eigen
+    prijsonderzoek en niet van de winkels op deze pagina.`;
+  const kop=n===1?'Eén reparatiewinkel in Leeuwarden is bij ons aangesloten'
+                 :`${n} reparatiewinkels in Leeuwarden zijn bij ons aangesloten`;
+  const apple=erkend
+    ? ` <b>${erkend===1?'Eén ervan werkt':`${erkend} ervan werken`} met echte Apple-onderdelen</b>
+        via het Apple-programma voor onafhankelijke reparateurs.`
+    : '';
+  return `${kop} en repareren iPhones.${apple} Bij de rest kies je zelf tussen een
+    kopie- en een origineel scherm, en dat verschil is bijna het hele prijsverschil.`;
+}
+document.getElementById('antwoord').innerHTML=antwoordzin();
+document.getElementById('onder').textContent=WINKELS.length
+  ? 'Hieronder de winkels, wat een iPhone-reparatie kost per model, en de drie dingen die bij een iPhone anders gaan dan bij een Android-toestel.'
+  : 'Hieronder wat een iPhone-reparatie kost per model, en de drie dingen die bij een iPhone anders gaan dan bij een Android-toestel.';
+
+/* De regels hieronder laten weg wat wij niet weten in plaats van er iets voor
+   in de plaats te zetten. Van een echte winkel kennen wij de afstand niet (wij
+   hebben een adres, geen coördinaten) en de doorlooptijd hangt aan de reparatie
+   en niet aan de winkel. Deze pagina heeft eerder een leeg bedrag en een lege
+   afstand getoond, allebei met het woord dat controle.py hier niet duldt; dat
+   kwam hiervandaan. */
+const winkelrij=w=>{
+  const a=aanbod(w,'iPhone 13','scherm');
+  const regel=[w.a,afstandVan(w),googleCijfer(w)].filter(Boolean).join(' &middot; ');
+  const tijd=a?doorlooptijd(a):null;
+  return `
  <article class="w">
   <span class="av">${w.i}</span>
   <span class="naam">${w.n}</span>
-  <span class="regel">${w.a} &middot; ${String(w.km).replace('.',',')} km &middot; ${googleCijfer(w)}</span>
+  <span class="regel">${regel}</span>
   <span class="merken">
     ${w.keur?'<span class="tag keur">'+VINK+keurlabel(w)+'</span>':''}
     ${w.erk?'<span class="tag erk">'+w.erk+'</span>':''}
-    <span class="tag${w.vandaag?' snel':''}">${w.tijd}</span>
+    ${tijd?`<span class="tag${a.v?' snel':''}">${tijd}</span>`:''}
   </span>
   <span class="rechts">
-    <span class="prijs">${eur(prijsVanWinkel(w,'iPhone 13','scherm'))}<small>iPhone 13 scherm, ${KWNAAM[w.kw]}</small></span>
-    <a class="btn btn-groen" href="winkelprofiel.html">Bekijk winkel</a>
+    <span class="prijs">${a?eur(a.b):'<span class="geenprijs">Prijs niet opgegeven</span>'}
+      <small>${a?`iPhone 13 scherm, ${kwaliteitsnaam(a.k)}`
+                :'deze winkel gaf geen prijs door'}</small></span>
+    <a class="btn btn-groen" href="${winkelLink(w)}">Bekijk winkel</a>
   </span>
- </article>`).join('');
+ </article>`};
+document.getElementById('winkels').innerHTML=WINKELS.length
+  ? WINKELS.map(winkelrij).join('')
+  : `<p class="leegstaat">Er is in Leeuwarden nog geen winkel aangesloten. De landelijke prijzen
+     staan wel op de <a href="prijsindex.html">prijsindex</a>, en winkels kunnen zich
+     <a href="aanmelden.html">gratis aanmelden</a>.</p>`;
 
 const VRAGEN=[
  ['Is een reparatie bij een Apple-erkende winkel altijd beter?',

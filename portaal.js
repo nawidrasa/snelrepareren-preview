@@ -201,6 +201,24 @@
     zet(document.getElementById("p-adres"), w.adres);
     zet(document.getElementById("p-postcodeplaats"), [w.postcode, w.plaats].filter(Boolean).join(" "));
     zet(document.getElementById("p-omschrijving"), w.omschrijving);
+
+    /* De betaalmethoden zijn vinkjes en geen tekstveld, dus zet() werkt hier
+       niet. Wat de winkel eerder aanvinkte, staat in de database als lijst. */
+    /* "Bekijk als klant" wees naar winkelprofiel.html, de ontwerppagina met een
+       verzonnen winkel erop. Met een server bestaat dat adres niet meer; het
+       echte profiel van deze winkel staat op /winkel-<nummer>-<naam>. */
+    const alsklant = document.getElementById("alsklant");
+    if (alsklant && w.id) {
+      const naam = String(w.naam ?? "winkel").toLowerCase()
+        .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "winkel";
+      alsklant.href = `/winkel-${w.id}-${naam}`;
+    }
+
+    const gekozen = w.betaalmethoden ?? [];
+    for (const vak of document.querySelectorAll('#p-betaal input[name="betaal"]')) {
+      vak.checked = gekozen.includes(vak.value);
+    }
   }
 
   /* ---------- de prijzentabel ----------
@@ -562,6 +580,8 @@
             adres: lees(document.getElementById("p-adres")),
             postcode, plaats,
             omschrijving: lees(document.getElementById("p-omschrijving")),
+            betaalmethoden: [...document.querySelectorAll('#p-betaal input[name="betaal"]:checked')]
+              .map((v) => v.value),
           },
         });
         melding("Je gegevens zijn opgeslagen.");

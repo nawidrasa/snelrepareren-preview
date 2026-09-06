@@ -189,6 +189,7 @@ button{font:inherit}
 .winkel .cijfer{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;font-size:13.5px;color:var(--inkt-2)}
 .winkel .cijfer b{font-size:19px;color:var(--inkt)}
 .winkel .cijfer a{color:var(--inkt-2)}
+.winkel .cijfer .geencijfer{font-size:13.5px;color:var(--inkt-3);font-weight:600}
 .winkel .cijfer .eigen{flex-basis:100%;font-size:12.5px;color:var(--inkt-3)}
 .winkel .feit{color:var(--inkt-2)}
 .winkel .feit::before{content:"\00b7  "}
@@ -389,7 +390,13 @@ function prijsVan(k){
 const VOLG=['scherm','accu','laadpoort','camera','achterkant','waterschade'];
 const HOT={scherm:[112,215],camera:[66,47],accu:[112,300],laadpoort:[152,431],achterkant:[76,375]};
 
-const FILTERS=[['vandaag','Vandaag klaar',w=>w.vandaag],['keur','Polis gecontroleerd',w=>w.keur],['applepay','Apple Pay',w=>w.betaal.includes('Apple Pay')],['contant','Contant',w=>w.betaal.includes('Contant')]];
+/* Filters die zeggen wat zij zeggen.
+   "Vandaag klaar" ging over een vlag op de winkel, terwijl het aan de reparatie
+   hangt: een accu is vandaag klaar en een achterkant niet. Het kijkt nu naar wat
+   deze winkel voor de GEKOZEN schade heeft opgegeven.
+   De betaalfilters stonden op w.betaal.includes(...) en vielen daarmee om zodra
+   een winkel dat niet had ingevuld. */
+const FILTERS=[['vandaag','Vandaag klaar',w=>vandaagKlaar(w)],['keur','Polis gecontroleerd',w=>w.keur],['applepay','Apple Pay',w=>(w.betaal||[]).includes('Apple Pay')],['contant','Contant',w=>(w.betaal||[]).includes('Contant')]];
 const OS={ios:["Open Instellingen op je iPhone.","Tik op Algemeen en daarna op Info.","Bij Modelnummer staat een code die met een A begint, bijvoorbeeld A2633. Typ die in het zoekveld."],
           android:["Open Instellingen op je toestel.","Scrol naar Over de telefoon of Systeem.","Bij Modelnummer staat de code, bijvoorbeeld SM-S911B. Typ die in het zoekveld."]};
 const S={stap:1,sub:'zoek',merk:null,serie:null,model:null,kleur:null,schade:{},plaats:'Leeuwarden',plaatsEdit:false,filters:{},laatst:null};
@@ -403,33 +410,6 @@ const KAART='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-w
 
 /* ---------- afgeleide getallen ---------- */
 
-/* match-moment: de belknop logt de match en biedt een beoordeelherinnering aan */
-function belMatch(naam,nummer){
-  const d=document.getElementById('matchdlg');
-  document.getElementById('matchinhoud').innerHTML=`
-    <h3>Bel ${naam}</h3>
-    <p class="waar">Je spreekt de winkel rechtstreeks. Wij zitten er niet tussen en rekenen niets.</p>
-    <div class="nummer"><b class="num">${nummer}</b><a class="belknop" href="tel:${nummer.replace(/\s/g,'')}"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>Bellen</a></div>
-    <div class="streep"></div>
-    <p class="vraag">Wil je anderen straks helpen?</p>
-    <p class="vraaguitleg">Laat je e-mailadres achter, dan vragen wij over twee dagen hoe het ging. Zo weten anderen bij welke winkel het goed zit.</p>
-    <input type="email" id="matchmail" placeholder="je@email.nl">
-    <div class="knoppen">
-      <button class="btn btn-lijn" onclick="document.getElementById('matchdlg').close()">Nee, bedankt</button>
-      <button class="btn btn-groen" onclick="matchJa()">Ja, herinner mij</button>
-    </div>
-    <p class="klein">Wij gebruiken je adres alleen voor deze ene vraag en verwijderen het daarna. Afmelden kan met een klik.</p>`;
-  d.showModal();
-}
-function matchJa(){
-  document.getElementById('matchinhoud').innerHTML=`
-    <div class="gelukt">
-      <div class="bal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
-      <h3>Afgesproken</h3>
-      <p class="waar" style="margin-bottom:18px">Over twee dagen sturen wij je één e-mail met de vraag hoe het ging. Verder hoor je niets van ons.</p>
-      <button class="btn btn-groen" style="width:100%" onclick="document.getElementById('matchdlg').close()">Sluiten</button>
-    </div>`;
-}
 const waar=()=>(/^\d{4}/.test(S.plaats)?'rond ':'in ')+S.plaats;
 const gekozen=()=>VOLG.filter(k=>S.schade[k]);
 const som=()=>gekozen().reduce((a,k)=>a+(prijsVan(k)||0),0);
@@ -443,6 +423,9 @@ const hoogste=()=>gekozen().reduce((a,k)=>{const m=meting(k);if(!m)return a;
    1.5 De volgorde is de volgorde die wij op 'Hoe wij rangschikken' beloven:
    eerst de poliscontrole, dan een controleerbare erkenning, dan het cijfer. Betalen
    verandert hier niets aan; het blok Uitgelicht staat apart en is als zodanig gelabeld. */
+const vandaagKlaar=w=>{const g=gekozen();
+  if(!g.length)return !!w.vandaag;
+  return g.every(k=>{const a=aanbod(w,S.model?S.model.n:'',k);return a&&a.v});};
 const inPlaats=()=>WINKELS.filter(w=>w.plaats.toLowerCase()===S.plaats.trim().toLowerCase());
 
 const lijst=()=>rangschik(inPlaats().filter(w=>FILTERS.every(([id,,f])=>!S.filters[id]||f(w))));
@@ -540,23 +523,34 @@ function stap2(){
   <div class="schade">${VOLG.map(regel).join('')}</div>`;
 }
 function stap3(){
-  const g=gekozen(),ws=lijst(),kan=ws.filter(w=>w.vandaag).length,lo=laagste(),hi=hoogste();
+  const g=gekozen(),ws=lijst(),kan=ws.filter(vandaagKlaar).length,lo=laagste(),hi=hoogste();
   const gefilterd=Object.values(S.filters).some(Boolean);
   const geenInPlaats=!inPlaats().length;
   const kop=geenInPlaats
     ? `Wij hebben nog geen winkel ${waar()}`
     : (gefilterd?(ws.length?`${ws.length} ${ws.length===1?'winkel voldoet':'winkels voldoen'} aan je filters`:'Geen winkel voldoet aan al je filters')
        :`${kan} van de ${ws.length} winkels ${waar()} kunnen dit vandaag`);
-  const kaart=w=>{const p=Math.round(som()*w.f);const pos=hi>lo?Math.min(96,Math.max(4,(p-lo)/(hi-lo)*100)):50;const med=hi>lo?((som()-lo)/(hi-lo)*100):50;
-    const feiten=[w.erk,w.jaren?`${w.jaren} jaar actief`:null,w.vest>1?`${w.vest} vestigingen`:null].filter(Boolean).join(' &middot; ');
+  /* De prijs van deze winkel voor de gekozen schade.
+   *
+   * Dit was `Math.round(som() * w.f)`: de landelijke mediaan maal een factor per
+   * winkel. Dat is een schatting die eruitziet als een prijs, en het is precies
+   * wat deze site een ander verwijt. Een echte winkel heeft echte prijzen, en
+   * doet hij een van de gekozen reparaties niet, dan is het antwoord dat wij het
+   * niet weten en niet een bedrag dat wij eromheen rekenen. */
+  const somVan=w=>{let t=0;for(const k of g){const a=aanbod(w,S.model.n,k);if(!a)return null;t+=a.b}return t};
+  const kaart=w=>{const i=WINKELS.indexOf(w),p=somVan(w);
+    const pos=(p!=null&&hi>lo)?Math.min(96,Math.max(4,(p-lo)/(hi-lo)*100)):50;const med=hi>lo?((som()-lo)/(hi-lo)*100):50;
+    const tijd=doorlooptijd(g.length?aanbod(w,S.model.n,g[0]):null);
+    const regel=[w.a,afstandVan(w)].filter(Boolean).join(' &middot; ');
     return `<div class="winkel${w.uit?' uitg':''}">
-      <div class="kop"><b>${w.n}</b><span>${w.a} &middot; ${String(w.km).replace('.',',')} km</span></div>
-      <div class="cijfer"><b class="num">${w.g}</b><span><a href="${w.glink}" rel="nofollow noopener">${w.gb} beoordelingen op Google</a></span><span class="eigen">${eigenBeoordelingen(w)}</span>${feiten?`<span class="feit">${feiten}</span>`:''}</div>
-      <div class="chips">${w.uit?`<span class="chip chip-uitg">Uitgelicht &middot; ${uitgelichtReden(w)}</span>`:''}${w.keur?`<span class="chip chip-keur">${CHECK}${keurlabel(w)}</span>`:''}<span class="chip chip-snel">${BOLT}${w.tijd}</span></div>
-      <div class="betaal">${KAART}${w.betaal.join(' &middot; ')}</div>
-      <div class="prijsvak"><div class="prijs num">${som()?eur(p):'op aanvraag'}<small>${g.map(k=>REP[k].n).join(' + ')}</small></div>
-        ${som()?`<div class="bereik"><div class="track"><div class="fill" style="left:4%;width:92%"></div><div class="tick" style="left:${med}%"></div><div class="jij" style="left:${pos}%"></div></div><div class="lab num"><span>${eur(lo)}</span><span>${eur(hi)}</span></div></div>`:''}</div>
-      <div class="acties"><button class="btn btn-groen" onclick="belMatch('${w.n}','058 123 45 67')">${TEL}Bel de winkel</button><a class="btn btn-lijn" href="#">Route</a><a class="btn btn-stil" href="winkelprofiel.html">Profiel</a></div>
+      <div class="kop"><b>${w.n}</b><span>${regel}</span></div>
+      <div class="cijfer">${w.g?`<b class="num">${w.g}</b><span><a href="${w.glink||'#'}" rel="nofollow noopener">${w.gb||0} beoordelingen op Google</a></span>`
+        :'<span class="geencijfer">Nog geen cijfer op Google</span>'}<span class="eigen">${eigenBeoordelingen(w)}</span>${feitenVan(w)?`<span class="feit">${feitenVan(w)}</span>`:''}</div>
+      <div class="chips">${w.uit?`<span class="chip chip-uitg">Uitgelicht &middot; ${uitgelichtReden(w)}</span>`:''}${w.keur?`<span class="chip chip-keur">${CHECK}${keurlabel(w)}</span>`:''}${tijd?`<span class="chip chip-snel">${BOLT}${tijd}</span>`:''}</div>
+      ${(w.betaal||[]).length?`<div class="betaal">${KAART}${w.betaal.join(' &middot; ')}</div>`:''}
+      <div class="prijsvak"><div class="prijs num">${p!=null?eur(p):'op aanvraag'}<small>${g.map(k=>REP[k].n).join(' + ')}</small></div>
+        ${p!=null&&som()?`<div class="bereik"><div class="track"><div class="fill" style="left:4%;width:92%"></div><div class="tick" style="left:${med}%"></div><div class="jij" style="left:${pos}%"></div></div><div class="lab num"><span>${eur(lo)}</span><span>${eur(hi)}</span></div></div>`:''}</div>
+      <div class="acties"><button class="btn btn-groen" onclick="belWinkel(${i})">${TEL}Bel de winkel</button><a class="btn btn-lijn" href="#">Route</a><a class="btn btn-stil" href="${winkelLink(w)}">Profiel</a></div>
     </div>`};
   const plaats=S.plaatsEdit?`<label class="veld"><input id="pl" value="${S.plaats}" placeholder=" " onkeydown="if(event.key==='Enter')zetPlaats(this.value)"><span>Plaats of postcode</span></label><button class="btn btn-groen" onclick="zetPlaats(document.getElementById('pl').value)">Zoek</button>`:`<button class="pin" onclick="S.plaatsEdit=true;teken();document.getElementById('pl').focus()">${PIN}${S.plaats}<span class="wijzig">wijzigen</span></button>`;
   const filters=`<div class="filters"><span class="lab">Filter</span>${FILTERS.map(([id,n])=>`<button class="fchip${S.filters[id]?' aan':''}" onclick="zetFilter('${id}')">${n}</button>`).join('')}</div>`;
@@ -577,9 +571,13 @@ function balk(){
   if(S.stap===1){l.innerHTML=S.model?`<b>${S.model.n}</b> gekozen.`:'Begin met je toestel.';k.innerHTML=S.model?`<button class="btn btn-groen" onclick="ga(2)">Wat is er kapot? ${PIJL}</button>`:'';return}
   if(S.stap===2){
     if(!g.length){l.innerHTML=`<b>${S.model.n}</b>. Tik aan wat er kapot is.`;k.innerHTML=`<button class="btn btn-groen" disabled>Bekijk winkels ${PIJL}</button>`;return}
-    const kan=WINKELS.filter(w=>w.vandaag).length;
-    l.innerHTML=`${som()?`Vanaf <b class="num">${eur(laagste())}</b> bij ${WINKELS.length} winkels<span class="pl"> ${waar()}</span>.`:`${WINKELS.length} winkels<span class="pl"> ${waar()}</span>.`} <span class="amber">${BOLT} ${kan} kunnen het vandaag.</span>`;
-    k.innerHTML=`<button class="btn btn-groen" onclick="ga(3)">Bekijk ${WINKELS.length} winkels ${PIJL}</button>`;return}
+    /* Dit telde WINKELS en niet de winkels in de gekozen plaats, dus wie
+       Drachten koos, las hier nog steeds het aantal van Leeuwarden. */
+    const hier=inPlaats(),kan=hier.filter(vandaagKlaar).length;
+    l.innerHTML=`${hier.length
+      ? `${som()?`Vanaf <b class="num">${eur(laagste())}</b> bij ${hier.length} ${hier.length===1?'winkel':'winkels'}<span class="pl"> ${waar()}</span>.`:`${hier.length} ${hier.length===1?'winkel':'winkels'}<span class="pl"> ${waar()}</span>.`} <span class="amber">${BOLT} ${kan} ${kan===1?'kan':'kunnen'} het vandaag.</span>`
+      : `Nog geen winkel<span class="pl"> ${waar()}</span>. De landelijke prijzen staan er wel.`}`;
+    k.innerHTML=`<button class="btn btn-groen" onclick="ga(3)">${hier.length?`Bekijk ${hier.length} ${hier.length===1?'winkel':'winkels'}`:'Bekijk wat er wel is'} ${PIJL}</button>`;return}
   l.innerHTML=`<b>${S.model.n}</b>, ${g.map(x=>REP[x].n.toLowerCase()).join(' en ')}${som()?`, jouw keuze <b class="num">${eur(som())}</b>`:''}.`;
   k.innerHTML=`<button class="btn btn-stil" onclick="ga(2)">Wijzig schade</button>`;
 }

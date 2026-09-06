@@ -91,6 +91,10 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.02em;margin:0 0 3px}
 .pr .tijd{text-align:right;color:var(--inkt-2);font-size:13.5px}
 .bevestig{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--inkt-3);margin-top:12px}
 .bevestig svg{width:15px;height:15px;color:var(--groen)}
+.betaalveld{border:1.5px solid var(--lijn);border-radius:12px;padding:12px 14px;margin-top:14px}
+.betaalveld legend{font-size:13px;font-weight:700;padding:0 6px}
+.betaalveld label{display:inline-flex;align-items:center;gap:7px;margin:6px 16px 0 0;font-size:14px;font-weight:500}
+.betaalveld input{width:auto;margin:0}
 .opslaan{display:flex;gap:10px;justify-content:flex-end;margin-top:16px}
 
 /* pakket */
@@ -298,8 +302,8 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.02em;margin:0 0 3px}
 
     <!-- PROFIEL EN PRIJZEN -->
     <section class="paneel" data-p="profiel">
-      <div class="paginakop"><div><h1>Profiel en prijzen</h1><p>Dit ziet de klant op je openbare profiel.</p></div><a class="btn btn-lijn btn-klein" href="winkelprofiel.html">Bekijk als klant</a></div>
-      <div class="kaart"><h2>Winkelgegevens</h2><p class="toel">Naam, adres en openingstijden.</p>
+      <div class="paginakop"><div><h1>Profiel en prijzen</h1><p>Dit ziet de klant op je openbare profiel.</p></div><a class="btn btn-lijn btn-klein" id="alsklant" href="winkelprofiel.html">Bekijk als klant</a></div>
+      <div class="kaart"><h2>Winkelgegevens</h2><p class="toel">Naam, adres en hoe een klant kan betalen.</p>
         <div class="tweekolom">
           <div class="veld"><label>Winkelnaam</label><input id="p-naam" value="Telefoonhulp Leeuwarden"></div>
           <div class="veld"><label>Telefoon</label><input id="p-telefoon" value="058 123 45 67"></div>
@@ -309,6 +313,15 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.02em;margin:0 0 3px}
           <div class="veld"><label>Postcode en plaats</label><input id="p-postcodeplaats" value="8911 KX Leeuwarden"></div>
         </div>
         <div class="veld"><label>Korte omschrijving (max 3 zinnen)</label><textarea id="p-omschrijving" rows="2">Wij repareren sinds 2014 aan de Nieuwestad en doen bijna alles terwijl je wacht.</textarea></div>
+        <fieldset class="veld betaalveld" id="p-betaal">
+          <legend>Waarmee kan een klant bij je betalen?</legend>
+          <p class="toel">Klanten kunnen hierop filteren. Vink alleen aan wat echt kan.</p>
+          <label><input type="checkbox" name="betaal" value="Pin"> Pin</label>
+          <label><input type="checkbox" name="betaal" value="Contant"> Contant</label>
+          <label><input type="checkbox" name="betaal" value="Apple Pay"> Apple Pay</label>
+          <label><input type="checkbox" name="betaal" value="Google Pay"> Google Pay</label>
+          <label><input type="checkbox" name="betaal" value="iDEAL"> iDEAL</label>
+        </fieldset>
           <div class="opslaan"><button class="btn btn-groen" id="profielopslaan">Winkelgegevens opslaan</button></div>
       </div>
       <div class="kaart"><h2>Prijzen per reparatie</h2><p class="toel">Bij elke prijs hoort een kwaliteitslabel en een doorlooptijd. Zonder die twee kunnen we je prijs niet eerlijk vergelijken.</p>
@@ -495,4 +508,4 @@ function ga(p){
 document.querySelectorAll('.navlink').forEach(n=>n.onclick=()=>ga(n.dataset.p));
 matches();beoordelingen();
 </script>
-<script src="portaal.js?v=84fe2edb"></script>
+<script src="portaal.js?v=b80869fc"></script>
