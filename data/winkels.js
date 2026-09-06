@@ -585,3 +585,62 @@ function sterrenBalk(cijfer) {
     + `<span class="sterrenleeg">${rij}</span>`
     + `<span class="sterrenvol" style="width:${pct.toFixed(1)}%">${rij}</span></span>`;
 }
+
+/* ---------- het erkenningsmerkje ----------
+ *
+ * "Apple IRP" zegt niets. IRP is Independent Repair Provider: een reparateur die
+ * officiele onderdelen bij Apple mag inkopen zonder een Apple-vestiging te zijn.
+ * Uitgeschreven zegt het wel iets.
+ *
+ * DE ECHTE MERKLOGO'S. Nawid heeft ze aangeleverd en gekozen. Wat een merkje wel
+ * en niet mag zeggen: een merk noemen en tonen om aan te wijzen over wie het
+ * gaat, mag. De indruk wekken dat de merkhouder erachter staat, niet. Bij Apple
+ * ligt dat extra nauw, want een Independent Repair Provider is uitdrukkelijk
+ * GEEN erkende Apple-vestiging. Daarom staat de programmanaam voluit in het
+ * merkje en noemen wij het nergens een keurmerk.
+ *
+ * Alles staat hier op een plek. Moeten de logo's er ooit uit, dan is dat deze
+ * tabel en niets anders.
+ */
+const MERKEN = {
+  'Apple IRP': {
+    claim: 'Independent Repair<br>Provider',
+    logo: '<svg class="lg lg-appel" viewBox="0 0 24 24" fill="currentColor" role="img" aria-label="Apple">'
+      + '<path d="M18.71 19.5C17.88 20.74 17 21.95 15.66 21.97C14.32 22 13.89 21.18 12.37 21.18C10.84 21.18 '
+      + '10.37 21.95 9.09997 22C7.78997 22.05 6.79997 20.68 5.95997 19.47C4.24997 17 2.93997 12.45 4.69997 '
+      + '9.39C5.56997 7.87 7.12997 6.91 8.81997 6.88C10.1 6.86 11.32 7.75 12.11 7.75C12.89 7.75 14.37 6.68 '
+      + '15.92 6.84C16.57 6.87 18.39 7.1 19.56 8.82C19.47 8.88 17.39 10.1 17.41 12.63C17.44 15.65 20.06 '
+      + '16.66 20.09 16.67C20.06 16.74 19.67 18.11 18.71 19.5ZM13 3.5C13.73 2.67 14.94 2.04 15.94 2C16.07 '
+      + '3.17 15.6 4.35 14.9 5.19C14.21 6.04 13.07 6.7 11.95 6.61C11.8 5.46 12.36 4.26 13 3.5Z"/></svg>',
+  },
+  'Samsung erkend': {
+    claim: 'Erkend<br>reparateur',
+    logo: '<svg class="lg lg-samsung" viewBox="0 0 200.777 66" fill="#2d4f9e" role="img" '
+      + 'aria-label="Samsung"><path d="M200.653 15.87C197.923.194 150.822-4.698 95.446 4.943 72.19 8.994 51.191 14.969 34.838 21.691c2.512.055 4.375.631 5.507 1.76.885.886 1.332 2.102 1.332 3.617v1.555h-5.43V27.25c0-1.144-.686-1.853-1.901-1.853-1.021 0-1.65.461-1.853 1.369a2.63 2.63 0 0 0 .022 1.084c.581 2.375 8.644 3.85 9.521 8.233.115.564.271 1.771.025 3.498-.503 3.535-3.609 4.899-7.563 4.899-5.519 0-7.761-2.614-7.761-6.218l.004-1.705h5.821l.003 2.124c0 1.194.868 1.853 2.05 1.853 1.12 0 1.774-.451 2-1.373.105-.424.151-1.049-.04-1.527-1.077-2.702-8.606-3.964-9.533-8.333-.207-.982-.224-1.818-.052-2.875a5.606 5.606 0 0 1 .482-1.511C9.333 33.398-1.278 42.732.124 50.791c2.733 15.678 49.833 20.565 105.208 10.924 24.342-4.237 46.226-10.58 62.881-17.688-.241.012-.475.038-.725.038-3.79 0-7.174-1.42-7.525-5.294-.062-.705-.073-1-.075-1.402l.002-8.906c0-.384.045-1.058.088-1.406.449-3.744 3.409-5.288 7.512-5.288 3.175 0 7.068.911 7.496 5.291.057.55.051 1.137.05 1.33v.841h-5.484v-1.255c0-.027-.008-.496-.068-.789-.09-.447-.471-1.483-2.033-1.483-1.543 0-1.943 1.038-2.043 1.484-.057.245-.084.597-.084.987v9.679c-.005.336.012.599.046.792.027.152.304 1.486 2.1 1.486 1.783 0 2.059-1.334 2.084-1.486.047-.262.053-.574.051-.792v-2.999h-2.158v-3.23h7.631v5.746c-.002.391-.008.68-.074 1.4-.092 1.016-.412 1.876-.914 2.611 17.663-8.387 27.947-17.57 26.563-25.512zM57.065 43.653l-2.778-18.876h-.1l-2.849 18.876h-5.855l3.938-21.317h9.553l3.914 21.317h-5.823zm28.162 0l-.129-18.511h-.094l-3.445 18.511h-5.495l-3.428-18.511h-.098l-.125 18.511h-5.445l.472-21.317h8.758l2.55 15.835h.125l2.557-15.835h8.754l.47 21.317h-5.427zm25.641-4.131c-.586 4.129-4.631 4.851-7.49 4.851-4.747 0-7.683-2.029-7.683-6.158l.003-1.684h5.751l.004 2.098c0 1.139.803 1.836 2.043 1.836 1.106 0 1.754-.444 1.979-1.356.104-.425.147-1.045-.037-1.513-1.06-2.651-8.53-3.95-9.438-8.251-.208-.975-.223-1.803-.052-2.849.632-3.899 4.374-4.709 7.386-4.709 2.694 0 4.655.588 5.831 1.764.877.878 1.321 2.083 1.321 3.582v1.538h-5.378v-1.357c0-1.162-.721-1.834-1.88-1.834-1.028 0-1.65.457-1.854 1.356a2.59 2.59 0 0 0 .026 1.072c.576 2.364 8.568 3.809 9.443 8.151.113.554.268 1.743.025 3.463zm19.918-1.937c.008.4-.031 1.199-.053 1.404-.328 3.512-2.84 5.297-7.447 5.297-4.625 0-7.139-1.785-7.465-5.297a16.957 16.957 0 0 1-.053-1.4V22.331h5.502V38.07c-.006.352.012.612.047.793.068.35.416 1.486 1.969 1.486 1.548 0 1.896-1.137 1.969-1.482.031-.186.05-.459.05-.798V22.331h5.481v15.254zm23.705 5.851h-7.656l-5.139-16.885h-.086l.285 16.885h-5.336v-21.1h7.977l4.75 16.22h.111l-.281-16.22h5.375v21.1z"/></svg>',
+  },
+};
+
+/* Een erkenning die wij niet kennen, krijgt een schildje en de tekst zoals hij
+   is opgeslagen. Raden welk merk erbij hoort zou erger zijn dan neutraal. */
+const MERKSCHILD = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" '
+  + 'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.5 4 6v6c0 4.4 '
+  + '3.4 8.2 8 9.5 4.6-1.3 8-5.1 8-9.5V6z"/><path d="m8.8 12 2.2 2.2 4.2-4.4"/></svg>';
+
+/* De merkjes van een winkel. w.erk is een tekst met komma's, want zo komt hij
+   uit winkeldata.ts. */
+function erkenningsMerken(w) {
+  const lijst = String(w.erk || '').split(',').map(t => t.trim()).filter(Boolean);
+  if (!lijst.length) return '';
+  return lijst.map(naam => {
+    const m = MERKEN[naam];
+    return '<span class="merkje"><span class="ic">' + (m ? m.logo : MERKSCHILD) + '</span>'
+      + '<span class="tk"><b>' + (m ? m.claim : esc(naam)) + '</b></span></span>';
+  }).join('');
+}
+
+/* Het rooster als losse regels, voor een kolom. weekTekst geeft er een regel van
+   met komma's; in een smalle kolom leest dat als een brei. */
+function weekRegels(w) {
+  const t = weekTekst(w);
+  return t ? t.split(', ') : [];
+}
