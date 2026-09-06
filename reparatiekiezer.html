@@ -91,10 +91,10 @@ button{font:inherit}
 .deel-rij{border:1.5px solid var(--lijn);border-radius:14px;overflow:hidden;transition:border-color .15s,background .15s}
 .deel-rij.aan{border-color:var(--groen);background:var(--groen-50)}
 .deel-kop{display:flex;align-items:center;gap:12px;padding:13px 14px;cursor:pointer;background:none;border:0;width:100%;text-align:left}
-.deel-kop .vink{width:22px;height:22px;border-radius:7px;border:1.5px solid var(--lijn);background:#fff;display:grid;place-items:center;flex:none;transition:background .15s}
-.deel-rij.aan .vink{background:var(--groen);border-color:var(--groen)}
-.deel-kop .vink svg{width:13px;height:13px;color:#fff;opacity:0}
-.deel-rij.aan .vink svg{opacity:1}
+.deel-kop .ic{width:34px;height:34px;border-radius:11px;border:1.5px solid var(--lijn);background:#fff;display:grid;place-items:center;flex:none;color:var(--inkt-2);transition:background .15s,border-color .15s,color .15s}
+.deel-rij.aan .ic{background:var(--groen-100);border-color:var(--groen-200,#BBF7D0);color:var(--groen-800)}
+.deel-kop .ic svg{width:19px;height:19px}
+.deel-kop:hover .ic{border-color:var(--groen-500)}
 .deel-kop .naam{font-weight:600;flex:1}
 .deel-kop .vanaf{font-weight:700;color:var(--inkt)}
 .deel-kop .vanaf.aanvraag{font-weight:500;color:var(--inkt-3);font-size:13.5px}
@@ -455,6 +455,29 @@ const inPlaats=()=>WINKELS.filter(w=>w.plaats.toLowerCase()===S.plaats.trim().to
 const lijst=()=>rangschik(inPlaats().filter(w=>FILTERS.every(([id,,f])=>!S.filters[id]||f(w))));
 const donker=h=>'#'+[1,3,5].map(i=>Math.round(parseInt(h.slice(i,i+2),16)*.72).toString(16).padStart(2,'0')).join('');
 
+/* Een pictogram per schadesoort voor de lijst.
+ *
+ * Daar stond een vinkje: een leeg vakje dat groen werd met een haakje erin. Dat
+ * zegt "aangevinkt" en niet "je accu is leeg", precies het bezwaar dat ook voor
+ * de tekening gold. Nu staat er waar de regel over gaat, en of hij aanstaat zie
+ * je aan de kleur, de rand en het woord weghalen ernaast.
+ *
+ * Lijnen van 1,75 en geen vulling, zoals de rest van de site (besluit H4). */
+const ICOON={
+  scherm:'<rect x="6" y="2.5" width="12" height="19" rx="3"/><path d="M9 6l2.5 5-2 3.5 3 3"/>',
+  accu:'<rect x="3" y="8" width="15" height="8" rx="2.5"/><path d="M20.5 11v2"/><path d="M6 11v2"/>',
+  /* Een stekker met twee pennen boven een poort. De eerste versie was een
+     stekker met een schuine streep erdoor en las als een doorgestreept iets. */
+  laadpoort:'<rect x="6.5" y="14" width="11" height="6.5" rx="2.5"/>'
+    +'<path d="M12 14v-4.5"/><rect x="8.5" y="4.5" width="7" height="5" rx="1.8"/>'
+    +'<path d="M10.3 4.5V2.8M13.7 4.5V2.8"/>',
+  camera:'<circle cx="12" cy="12.5" r="4.5"/><path d="M3 8.5h3l1.5-2.5h9L18 8.5h3v11H3z"/>',
+  achterkant:'<rect x="6" y="2.5" width="12" height="19" rx="3"/><rect x="8.5" y="5.5" width="5" height="5" rx="1.6"/>',
+  waterschade:'<path d="M12 3.5s6 6.4 6 10a6 6 0 0 1-12 0c0-3.6 6-10 6-10z"/>',
+};
+const icoontje=k=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"
+  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICOON[k]||''}</svg>`;
+
 /* ---------- de telefoon ----------
 
    Wat hier stond en waarom het weg is:
@@ -782,10 +805,10 @@ function stap2(){
       rechts='<span class="vanaf aanvraag num">nog niet gemeten</span>';
       if(aan)uitklap=`<div class="uitleg-water">Voor de ${S.model.n} hebben wij deze reparatie nog niet gemeten, dus wij noemen geen bedrag.${l?` Landelijk, over alle modellen heen, maten wij ${eur(l.laagste)} tot ${eur(l.hoogste)}.`:''} De winkels hieronder doen de reparatie wel; vraag hun prijs.</div>`;
     }
-    return `<div class="deel-rij${aan?' aan':''}"><button class="deel-kop" onclick="tik('${k}')"><span class="vink">${CHECK}</span><span class="naam">${r.n}</span>${aan?'<span class="weg">weghalen &times;</span>':rechts}</button>${uitklap}</div>`;
+    return `<div class="deel-rij${aan?' aan':''}"><button class="deel-kop" onclick="tik('${k}')"><span class="ic">${icoontje(k)}</span><span class="naam">${r.n}</span>${aan?'<span class="weg">weghalen &times;</span>':rechts}</button>${uitklap}</div>`;
   };
 
-  return `<button class="terug" onclick="terug()">&larr; ${S.model.n}</button><h2 class="vraag">Wat is er kapot?</h2><p class="sub">Tik op de telefoon, of vink het hier aan. Meer dan een mag; tik nog eens om het weg te halen.</p>${kleur}
+  return `<button class="terug" onclick="terug()">&larr; ${S.model.n}</button><h2 class="vraag">Wat is er kapot?</h2><p class="sub">Tik het aan op de telefoon, of kies het hieronder. Meer dan een mag; tik nog eens om het weg te halen.</p>${kleur}
   <div class="schade">${VOLG.map(regel).join('')}</div>`;
 }
 function stap3(){
