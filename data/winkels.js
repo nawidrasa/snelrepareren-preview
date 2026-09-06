@@ -555,3 +555,26 @@ function weekTekst(w) {
     .map(b => (b.van === b.tot ? b.van : b.van + '-' + b.tot) + ' ' + b.tijd)
     .join(', ');
 }
+
+/* ---------- het cijfer als sterren ----------
+ *
+ * Een getal alleen ("8,7") lees je pas als je het vergelijkt; sterren zie je.
+ * Het cijfer staat er in cijfers naast, want vijf sterren voor een acht-komma-
+ * zeven is een afronding en die hoort niet de enige waarheid te zijn.
+ *
+ * Het is het cijfer VAN GOOGLE. Dat staat er in woorden bij en dat moet zo
+ * blijven: sterren zonder bron leest een bezoeker als ons oordeel over die
+ * winkel, en wij hebben geen oordeel.
+ */
+const STER_VOL = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 3.5 2.7 5.5 6 .9-4.3 4.2 1 6-5.4-2.8-5.4 2.8 1-6L3.3 9.9l6-.9z"/></svg>';
+
+function sterrenBalk(cijfer) {
+  const n = Number(String(cijfer).replace(',', '.'));
+  if (!(n > 0)) return '';
+  /* Het cijfer loopt van 1 tot 10 en er staan vijf sterren, dus tien procent
+     per punt. Bij 8,7 is dat 87 procent van de rij. */
+  const pct = Math.max(0, Math.min(100, n * 10));
+  const rij = STER_VOL.repeat(5);
+  return `<span class="sterren" role="img" aria-label="${esc(String(cijfer))} van de 10 op Google">`
+    + `<span class="leeg">${rij}</span><span class="vol" style="width:${pct.toFixed(1)}%">${rij}</span></span>`;
+}

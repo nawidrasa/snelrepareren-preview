@@ -232,6 +232,11 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
 
 .cijferbron{font-size:13px;color:var(--inkt-2);margin:14px 0 0;max-width:70ch}
 .cijferbron a{color:var(--inkt-2)}
+/* Het cijfer van Google als sterren, dezelfde opmaak als in de kiezer. */
+.sterren{position:relative;display:inline-block;line-height:0;white-space:nowrap;vertical-align:-2px;margin-right:4px}
+.sterren .leeg{color:var(--marine-100)}
+.sterren .vol{position:absolute;left:0;top:0;overflow:hidden;color:#F5B50A}
+.sterren svg{width:14px;height:14px;display:inline-block}
 </style>
 
 <div class="schets">Ontwerpschets. De winkels, beoordelingen en prijzen op deze pagina zijn verzonnen voorbeelden, geen echte bedrijven.</div>
@@ -416,7 +421,7 @@ function winkelkaart(w,uitgelicht){
         <div class="naam"><b>${esc(w.n)}</b></div>
         <p class="adres">${[esc(w.a),afstandVan(w)].filter(Boolean).join(' &middot; ')}</p>
       </div>
-      ${w.g?`<div class="score"><b class="num">${esc(w.g)}</b> <span class="aant num">(${esc(w.gb||0)})</span> <span class="bron"><a href="${link(w.glink||'#')}" rel="nofollow noopener">op Google</a></span>${w.vers?`<span class="vers">${esc(w.vers)}</span>`:''}</div>`
+      ${w.g?`<div class="score">${sterrenBalk(w.g)}<b class="num">${esc(w.g)}</b> <span class="aant num">(${esc(w.gb||0)})</span> <span class="bron"><a href="${link(w.glink||'#')}" rel="nofollow noopener">op Google</a></span>${w.vers?`<span class="vers">${esc(w.vers)}</span>`:''}</div>`
         :`<div class="score"><span class="bron">Nog geen cijfer op Google</span></div>`}
     </div>
     <div class="streep"></div>
@@ -542,7 +547,7 @@ function onderDrempel(){
         <div class="naam"><b>${esc(w.n)}</b></div>
         <p class="adres">${[esc(w.a),afstandVan(w)].filter(Boolean).join(' &middot; ')}</p>
       </div>
-      ${w.g?`<div class="score"><b class="num">${esc(w.g)}</b> <span class="aant num">(${esc(w.gb||0)})</span>
+      ${w.g?`<div class="score">${sterrenBalk(w.g)}<b class="num">${esc(w.g)}</b> <span class="aant num">(${esc(w.gb||0)})</span>
         <span class="bron"><a href="${link(w.glink||'#')}" rel="nofollow noopener">op Google</a></span></div>`:''}
     </div>
     <div class="labels">
