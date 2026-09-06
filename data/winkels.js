@@ -575,6 +575,13 @@ function sterrenBalk(cijfer) {
      per punt. Bij 8,7 is dat 87 procent van de rij. */
   const pct = Math.max(0, Math.min(100, n * 10));
   const rij = STER_VOL.repeat(5);
+  /* De twee lagen heten sterrenleeg en sterrenvol en niet leeg en vol. Ze
+     heetten wel zo, en "leeg" is op de kiezer al de lege staat van de
+     winkellijst: een gestippeld vak met 22 pixels padding en gecentreerde
+     tekst. Dat vak sloeg pardoes om de sterren heen en duwde de onderste rij 23
+     pixels naar rechts, waardoor de twee rijen niet meer op elkaar lagen.
+     Een component hoort zijn eigen onderdelen te benoemen. */
   return `<span class="sterren" role="img" aria-label="${esc(String(cijfer))} van de 10 op Google">`
-    + `<span class="leeg">${rij}</span><span class="vol" style="width:${pct.toFixed(1)}%">${rij}</span></span>`;
+    + `<span class="sterrenleeg">${rij}</span>`
+    + `<span class="sterrenvol" style="width:${pct.toFixed(1)}%">${rij}</span></span>`;
 }

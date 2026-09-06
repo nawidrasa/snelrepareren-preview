@@ -297,10 +297,14 @@ button{font:inherit}
 /* Het cijfer van Google als sterren. Een rij lege sterren met daaroverheen een
    afgesneden rij volle: zo klopt een 8,7 op de pixel in plaats van afgerond naar
    vier of vijf hele sterren. */
-.sterren{position:relative;display:inline-block;line-height:0;white-space:nowrap;vertical-align:-2px}
-.sterren .leeg{color:var(--marine-100)}
-.sterren .vol{position:absolute;left:0;top:0;overflow:hidden;color:#F5B50A}
-.sterren svg{width:15px;height:15px;display:inline-block}
+/* Twee rijen sterren op elkaar: de onderste leeg, de bovenste vol en
+   afgesneden op het percentage. Allebei flex, want met inline-block hangen ze
+   aan de basislijn en gaan ze bij de kleinste verschuiving uit elkaar lopen. */
+.sterren{position:relative;display:inline-flex;line-height:1;vertical-align:-2px}
+.sterren .sterrenleeg,.sterren .sterrenvol{display:flex}
+.sterren .sterrenleeg{color:var(--marine-100)}
+.sterren .sterrenvol{position:absolute;left:0;top:0;overflow:hidden;color:#F5B50A}
+.sterren svg{width:15px;height:15px;display:block;flex:none}
 .winkel .detail .bereik{margin-top:14px;max-width:320px}
 .winkel .detail .lablinks{font-size:12px;color:var(--inkt-3);margin-bottom:6px}
 .winkel .prijs{font-size:24px;font-weight:800;line-height:1}

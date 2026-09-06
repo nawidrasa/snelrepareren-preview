@@ -233,10 +233,14 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
 .cijferbron{font-size:13px;color:var(--inkt-2);margin:14px 0 0;max-width:70ch}
 .cijferbron a{color:var(--inkt-2)}
 /* Het cijfer van Google als sterren, dezelfde opmaak als in de kiezer. */
-.sterren{position:relative;display:inline-block;line-height:0;white-space:nowrap;vertical-align:-2px;margin-right:4px}
-.sterren .leeg{color:var(--marine-100)}
-.sterren .vol{position:absolute;left:0;top:0;overflow:hidden;color:#F5B50A}
-.sterren svg{width:14px;height:14px;display:inline-block}
+/* Twee rijen sterren op elkaar: de onderste leeg, de bovenste vol en
+   afgesneden op het percentage. Allebei flex, want met inline-block hangen ze
+   aan de basislijn en gaan ze bij de kleinste verschuiving uit elkaar lopen. */
+.sterren{position:relative;display:inline-flex;line-height:1;vertical-align:-2px}
+.sterren .sterrenleeg,.sterren .sterrenvol{display:flex}
+.sterren .sterrenleeg{color:var(--marine-100)}
+.sterren .sterrenvol{position:absolute;left:0;top:0;overflow:hidden;color:#F5B50A}
+.sterren svg{width:15px;height:15px;display:block;flex:none}
 </style>
 
 <div class="schets">Ontwerpschets. De winkels, beoordelingen en prijzen op deze pagina zijn verzonnen voorbeelden, geen echte bedrijven.</div>
