@@ -1,0 +1,306 @@
+<title>Varianten: erkenningsmerkje en de winkelkaart</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="lettertype/outfit.css">
+<link rel="stylesheet" href="basis.css?v=7dc2985e">
+<style>
+:root{
+  color-scheme:light;
+  --groen-50:#F0FDF4;--groen-100:#DCFCE7;--groen-200:#BBF7D0;--groen-300:#86EFAC;--groen-500:#22C55E;--groen-700:#008934;--groen-800:#007B2E;
+  --groen:var(--groen-700);--marine:#0B1F4E;--marine-100:#E8ECF5;--marine-200:#C5CEE3;
+  --inkt:#111827;--inkt-2:#4A5878;--inkt-3:#6B7480;--lijn:#E3E6EE;--vlak:#F6F8FA;--wit:#FFFFFF;
+  --amber:#B45309;--amber-soft:#FEF3C7;--rood:#B91C1C;
+  --rc:20px;--ri:12px;--font:'Outfit',system-ui,sans-serif;
+}
+body{margin:0;background:var(--wit);color:var(--inkt);font-family:var(--font);font-size:16px;line-height:1.55}
+.wrap{max-width:1180px;margin:0 auto;padding:0 32px}
+.kop{padding:48px 0 8px}
+.kop h1{font-size:32px;font-weight:800;letter-spacing:-.02em;margin:0 0 8px}
+.kop p{margin:0 0 8px;color:var(--inkt-2);max-width:74ch}
+.jump{position:sticky;top:0;z-index:5;background:#FFFFFFf2;backdrop-filter:blur(6px);border-bottom:1px solid var(--lijn);margin-top:20px}
+.jump div{max-width:1180px;margin:0 auto;padding:12px 32px;display:flex;gap:22px}
+.jump a{font-size:13.5px;font-weight:600;color:var(--inkt);text-decoration:none}
+section{padding:56px 0 0}
+.sec-kop{display:flex;align-items:baseline;gap:14px;margin:0 0 6px}
+.sec-kop .nr{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--groen)}
+.sec-kop h2{font-size:24px;font-weight:800;letter-spacing:-.01em;margin:0}
+.sec-uitleg{margin:0 0 26px;color:var(--inkt-2);max-width:76ch}
+.waarschuw{border:1.5px solid var(--amber);border-left-width:5px;background:#FFFBEB;border-radius:14px;padding:16px 20px;margin:0 0 26px;max-width:76ch}
+.waarschuw b{display:block;color:var(--amber);margin-bottom:4px}
+.waarschuw p{margin:0;font-size:14.5px;color:var(--amber)}
+.optie{border:1px solid var(--lijn);border-radius:var(--rc);padding:24px;background:var(--wit);margin:0 0 26px}
+.optie>.lab{display:flex;align-items:baseline;gap:10px;margin:0 0 4px;flex-wrap:wrap}
+.optie>.lab b{font-size:17px;font-weight:800}
+.optie>.lab .merk{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--groen);background:var(--groen-50);border-radius:999px;padding:2px 9px}
+.optie>.wat{margin:0 0 20px;font-size:14px;color:var(--inkt-2);max-width:82ch}
+.optie>.wat b{color:var(--inkt)}
+.proef{background:var(--vlak);border-radius:var(--rc);padding:22px;display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.num{font-variant-numeric:tabular-nums}
+
+/* ---------- merkje M1: pil met schildje ---------- */
+.m1{display:inline-flex;align-items:center;gap:7px;border:1.5px solid var(--groen-200);background:var(--groen-50);
+  border-radius:999px;padding:5px 13px 5px 10px;font-size:13px;font-weight:700;color:var(--groen-800)}
+.m1 svg{width:16px;height:16px;flex:none}
+
+/* ---------- merkje M2: blok met twee regels ---------- */
+.m2{display:inline-flex;align-items:center;gap:10px;border:1.5px solid var(--lijn);background:#fff;
+  border-radius:14px;padding:8px 14px 8px 11px}
+.m2 .ic{width:30px;height:30px;border-radius:9px;background:var(--marine-100);color:var(--marine);
+  display:grid;place-items:center;flex:none}
+.m2 .ic svg{width:17px;height:17px}
+.m2 .tk{display:grid;line-height:1.15}
+.m2 .tk span{font-size:10.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--inkt-3)}
+.m2 .tk b{font-size:13.5px;font-weight:800;color:var(--inkt)}
+
+/* ---------- merkje M3: strook met streep ---------- */
+.m3{display:inline-flex;align-items:center;gap:11px;padding:2px 0 2px 12px;border-left:3px solid var(--groen)}
+.m3 .tk{display:grid;line-height:1.2}
+.m3 .tk span{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--groen-800)}
+.m3 .tk b{font-size:14px;font-weight:700;color:var(--inkt)}
+
+/* ---------- merkje M4: regel met vinkje, zonder vlak ---------- */
+.m4{display:inline-flex;align-items:baseline;gap:8px;font-size:13.5px;color:var(--inkt)}
+.m4 .ic{width:17px;height:17px;color:var(--groen);flex:none;align-self:center}
+.m4 b{font-weight:700}
+.m4 em{font-style:normal;color:var(--inkt-3);font-size:12.5px}
+
+/* ---------- de kaart, gedeeld ---------- */
+.kaart{border:1.5px solid var(--lijn);border-radius:var(--rc);background:#fff;padding:22px 22px 18px;
+  display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px 24px;align-items:start;max-width:660px}
+.kaart .kop2{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.kaart .kop2 b{font-size:17px;font-weight:700}
+.kaart .kop2 span{font-size:13px;color:var(--inkt-3)}
+.kaart .cijfer{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:13.5px;color:var(--inkt-2)}
+.kaart .cijfer b{font-size:19px;color:var(--inkt)}
+.kaart .cijfer a{color:var(--inkt-2)}
+.kaart .chips{display:flex;gap:6px;flex-wrap:wrap;grid-column:1}
+.chip{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;border-radius:999px;padding:4px 10px;background:var(--vlak);color:var(--inkt-2)}
+.chip svg{width:13px;height:13px}
+.chip-uitg{background:var(--marine-100);color:var(--marine)}
+.chip-keur{background:var(--groen-100);color:var(--groen-800)}
+.chip-snel{background:var(--amber-soft);color:var(--amber)}
+.kaart .prijsvak{grid-row:1/span 3;grid-column:2;text-align:right;min-width:140px}
+.kaart .prijs{font-size:24px;font-weight:800;line-height:1}
+.kaart .prijs small{display:block;font-size:12px;font-weight:500;color:var(--inkt-3)}
+.kaart .meer{grid-column:1/-1;justify-self:start;display:inline-flex;align-items:center;gap:5px;background:none;border:0;
+  padding:4px 0;margin:2px 0 0;font:inherit;font-size:13.5px;font-weight:600;color:var(--inkt-2);cursor:pointer}
+.kaart .meer svg{width:15px;height:15px}
+.kaart .acties{grid-column:1/-1;display:flex;gap:8px;flex-wrap:wrap;padding-top:12px;border-top:1px solid var(--lijn);margin-top:4px;align-items:center}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 20px;border-radius:999px;
+  font-weight:600;font-size:14.5px;border:1.5px solid transparent;cursor:pointer;text-decoration:none;font-family:inherit}
+.btn svg{width:16px;height:16px}
+.btn-groen{background:var(--groen);color:#fff}
+.btn-stil{background:none;color:var(--groen);font-weight:600}
+.detail{grid-column:1/-1;padding:12px 0 2px;border-top:1px solid var(--lijn);margin-top:2px}
+
+/* K1: lijst met pictogrammen (zoals nu) */
+.k1-lijst{list-style:none;margin:0;padding:0;display:grid;gap:9px;font-size:13.5px;color:var(--inkt-2)}
+.k1-lijst li{display:flex;align-items:flex-start;gap:9px}
+.k1-lijst .di{width:17px;height:17px;flex:none;color:var(--inkt-3);margin-top:1px}
+.betaalrij{display:flex;flex-wrap:wrap;gap:6px}
+.betaalmerk{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--lijn);border-radius:8px;padding:3px 8px;
+  font-size:12px;font-weight:600;color:var(--inkt-2);background:#fff}
+.betaalmerk svg{width:15px;height:15px;flex:none}
+
+/* K2: twee kolommen */
+.k2-raster{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 26px}
+.k2-blok h4{margin:0 0 6px;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--inkt-3)}
+.k2-blok p{margin:0;font-size:13.5px;color:var(--inkt-2);line-height:1.5}
+
+/* K3: alles als merkjes */
+.k3-merken{display:flex;flex-wrap:wrap;gap:8px}
+.k3-merk{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--lijn);border-radius:10px;
+  padding:6px 11px;font-size:12.5px;font-weight:600;color:var(--inkt-2);background:#fff}
+.k3-merk svg{width:15px;height:15px;flex:none;color:var(--inkt-3)}
+.k3-merk b{color:var(--inkt);font-weight:700}
+.duo-staat{display:grid;gap:22px}
+.staat-lab{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--inkt-3);margin:0 0 8px}
+.sterren{position:relative;display:inline-flex;line-height:1;vertical-align:-2px}
+.sterren .sterrenleeg,.sterren .sterrenvol{display:flex}
+.sterren .sterrenleeg{color:var(--marine-100)}
+.sterren .sterrenvol{position:absolute;left:0;top:0;overflow:hidden;color:#F5B50A}
+.sterren svg{width:15px;height:15px;display:block;flex:none}
+footer{border-top:1px solid var(--lijn);margin-top:64px;padding:24px 0 60px;color:var(--inkt-3);font-size:13px}
+</style>
+
+<div class="schets">Intern werkdocument. Varianten om uit te kiezen; niets hiervan staat op de site.</div>
+
+<div class="wrap kop">
+  <h1>Het erkenningsmerkje en de winkelkaart</h1>
+  <p>Twee dingen om uit te kiezen: hoe een erkenning eruitziet met de afkorting uitgeschreven, en hoe de kaart eruitziet in de drie opzetten, allebei dicht en open.</p>
+</div>
+
+<nav class="jump"><div>
+  <a href="#m">Erkenningsmerkje</a>
+  <a href="#k">De kaart</a>
+</div></nav>
+
+<section class="wrap" id="m">
+  <div class="sec-kop"><span class="nr">Blok 1</span><h2>Het erkenningsmerkje</h2></div>
+  <p class="sec-uitleg">Nu staat er alleen "Apple IRP" in een grijze regel. IRP betekent Independent Repair Provider: een reparateur die officiële onderdelen bij Apple mag inkopen zonder dat hij een Apple-vestiging is. Uitgeschreven zegt dat iets, als afkorting niets.</p>
+
+  <div class="waarschuw">
+    <b>Waarom deze merkjes er anders uitzien dan het voorbeeld dat je stuurde</b>
+    <p>Dat voorbeeld is Apple's eigen Premium Partner-merk, met het Apple-logo erin. Dat logo is van Apple en mogen wij niet natekenen of overnemen. Belangrijker nog: Apple staat een Independent Repair Provider uitdrukkelijk NIET toe zich met het Apple-logo te presenteren, juist omdat hij geen erkende Apple-vestiging is. Een merkje dat eruitziet als een keurmerk van Apple zou dus twee keer fout zijn: het merk is niet van ons, en het zegt iets wat niet waar is.</p>
+    <p style="margin-top:8px">Wat hieronder staat is daarom een merkje van ONS: onze vorm, onze kleuren, en de mededeling dat wij het hebben nagetrokken en wanneer. De programmanaam noemen mag; doen alsof de fabrikant erachter staat, niet.</p>
+  </div>
+
+  <div class="optie">
+    <div class="lab"><b>M1. Pil met schildje</b><span class="merk">dichtst bij nu</span></div>
+    <p class="wat">Dezelfde vorm als "Polis gecontroleerd", zodat de twee dingen die wij natrekken er ook hetzelfde uitzien. <b>Voordeel:</b> past meteen tussen de andere merkjes. <b>Nadeel:</b> met de naam uitgeschreven wordt de pil lang.</p>
+    <div class="proef">
+      <span class="m1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5 4 6v6c0 4.4 3.4 8.2 8 9.5 4.6-1.3 8-5.1 8-9.5V6z"/><path d="m8.8 12 2.2 2.2 4.2-4.4"/></svg>Apple Independent Repair Provider</span>
+      <span class="m1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5 4 6v6c0 4.4 3.4 8.2 8 9.5 4.6-1.3 8-5.1 8-9.5V6z"/><path d="m8.8 12 2.2 2.2 4.2-4.4"/></svg>Samsung erkend reparateur</span>
+    </div>
+  </div>
+
+  <div class="optie">
+    <div class="lab"><b>M2. Blok met twee regels</b><span class="merk">lijkt op je voorbeeld</span></div>
+    <p class="wat">De vorm van het voorbeeld dat je stuurde: een vierkant pictogram links, twee regels rechts. Boven het merk in kleine kapitalen, eronder waar het om gaat. <b>Voordeel:</b> leest als een keurmerk en de lange naam past netjes op twee regels. <b>Nadeel:</b> hij is hoger dan de andere merkjes, dus hij staat niet meer op dezelfde regel als "Polis gecontroleerd".</p>
+    <div class="proef">
+      <span class="m2"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5 4 6v6c0 4.4 3.4 8.2 8 9.5 4.6-1.3 8-5.1 8-9.5V6z"/><path d="m8.8 12 2.2 2.2 4.2-4.4"/></svg></span><span class="tk"><span>Apple</span><b>Independent Repair Provider</b></span></span>
+      <span class="m2"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5 4 6v6c0 4.4 3.4 8.2 8 9.5 4.6-1.3 8-5.1 8-9.5V6z"/><path d="m8.8 12 2.2 2.2 4.2-4.4"/></svg></span><span class="tk"><span>Samsung</span><b>Erkend reparateur</b></span></span>
+    </div>
+  </div>
+
+  <div class="optie">
+    <div class="lab"><b>M3. Strook met streep</b><span class="merk">rustigst</span></div>
+    <p class="wat">Geen vlak en geen rand, alleen een groene streep ervoor. <b>Voordeel:</b> het valt niet met de andere merkjes om de aandacht, en dat klopt: dit is een feit, geen uitroepteken. <b>Nadeel:</b> minder herkenbaar als merkje.</p>
+    <div class="proef" style="gap:32px">
+      <span class="m3"><span class="tk"><span>Apple</span><b>Independent Repair Provider</b></span></span>
+      <span class="m3"><span class="tk"><span>Samsung</span><b>Erkend reparateur</b></span></span>
+    </div>
+  </div>
+
+  <div class="optie">
+    <div class="lab"><b>M4. Regel met vinkje en datum</b><span class="merk">meest eerlijk</span></div>
+    <p class="wat">Geen merkje maar een zin: wat het is en wanneer wij het hebben nagetrokken. <b>Voordeel:</b> dit is precies wat wij weten, en de datum erbij maakt het na te trekken in plaats van te geloven. <b>Nadeel:</b> het valt het minst op, en het is geen plaatje dat je in een oogopslag herkent.</p>
+    <div class="proef" style="flex-direction:column;align-items:flex-start;gap:10px">
+      <span class="m4"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span><b>Apple Independent Repair Provider</b> <em>&middot; door ons nagetrokken op 12 aug 2026</em></span></span>
+      <span class="m4"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span><b>Samsung erkend reparateur</b> <em>&middot; door ons nagetrokken op 3 jul 2026</em></span></span>
+    </div>
+  </div>
+</section>
+
+<section class="wrap" id="k">
+  <div class="sec-kop"><span class="nr">Blok 2</span><h2>De winkelkaart, dicht en open</h2></div>
+  <p class="sec-uitleg">Drie opzetten voor het uitklapblok. De bovenkant is in alle drie hetzelfde: wie, waar, wat het kost, welk cijfer, en de merkjes die de keuze bepalen. Het verschil zit in wat er gebeurt als je opent. In alle drie staat het erkenningsmerkje in de variant M2, zodat je ziet hoe het in een kaart valt; dat kan later elk van de vier worden.</p>
+
+  <div class="optie">
+    <div class="lab"><b>K1. Lijst met pictogrammen</b><span class="merk">zoals nu</span></div>
+    <p class="wat">Elke regel een pictogram, onder elkaar. <b>Voordeel:</b> je leest het van boven naar beneden en elke regel staat op zichzelf. <b>Nadeel:</b> het wordt lang, en bij een winkel die alles heeft ingevuld is het uitklapblok hoger dan de kaart zelf.</p>
+    <div class="duo-staat">
+      <div>
+        <p class="staat-lab">Dicht</p>
+        <div class="kaart">
+          <div class="kop2"><b>Telefoonhulp Leeuwarden</b><span>Nieuwestad 112</span></div>
+          <div class="cijfer"><span class="sterren"><span class="sterrenleeg"><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 3.5 2.7 5.5 6 .9-4.3 4.2 1 6-5.4-2.8-5.4 2.8 1-6L3.3 9.9l6-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 3.5 2.7 5.5 6 .9-4.3 4.2 1 6-5.4-2.8-5.4 2.8 1-6L3.3 9.9l6-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 3.5 2.7 5.5 6 .9-4.3 4.2 1 6-5.4-2.8-5.4 2.8 1-6L3.3 9.9l6-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 3.5 2.7 5.5 6 .9-4.3 4.2 1 6-5.4-2.8-5.4 2.8 1-6L3.3 9.9l6-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 3.5 2.7 5.5 6 .9-4.3 4.2 1 6-5.4-2.8-5.4 2.8 1-6L3.3 9.9l6-.9z"/></svg></span><span class="sterrenvol" style="width:91%"><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 3.5 2.7 5.5 6 .9-4.3 4.2 1 6-5.4-2.8-5.4 2.8 1-6L3.3 9.9l6-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 3.5 2.7 5.5 6 .9-4.3 4.2 1 6-5.4-2.8-5.4 2.8 1-6L3.3 9.9l6-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 3.5 2.7 5.5 6 .9-4.3 4.2 1 6-5.4-2.8-5.4 2.8 1-6L3.3 9.9l6-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 3.5 2.7 5.5 6 .9-4.3 4.2 1 6-5.4-2.8-5.4 2.8 1-6L3.3 9.9l6-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 3.5 2.7 5.5 6 .9-4.3 4.2 1 6-5.4-2.8-5.4 2.8 1-6L3.3 9.9l6-.9z"/></svg></span></span><b class="num">9,1</b><span><a href="#">48 beoordelingen op Google</a></span></div>
+          <div class="chips"><span class="chip chip-uitg">Uitgelicht &middot; Nieuw op de site</span><span class="chip chip-keur"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>Polis gecontroleerd</span><span class="chip chip-snel"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 3 14h7l-1 8 10-12h-7z"/></svg>Klaar terwijl je wacht</span></div>
+          <div class="prijsvak"><div class="prijs num">&euro;&nbsp;173<small>Scherm + Accu</small></div></div>
+          <button class="meer">Meer over deze winkel<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+          <div class="acties"><a class="btn btn-groen" href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>Bel de winkel</a><a class="btn btn-stil" href="#">Route</a><a class="btn btn-stil" href="#">Profiel</a></div>
+        </div>
+      </div>
+      <div>
+        <p class="staat-lab">Open</p>
+        <div class="kaart">
+          <div class="kop2"><b>Telefoonhulp Leeuwarden</b><span>Nieuwestad 112</span></div>
+          <div class="cijfer"><b class="num">9,1</b><span><a href="#">48 beoordelingen op Google</a></span></div>
+          <div class="chips"><span class="chip chip-uitg">Uitgelicht &middot; Nieuw op de site</span><span class="chip chip-keur"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>Polis gecontroleerd</span></div>
+          <div class="prijsvak"><div class="prijs num">&euro;&nbsp;173<small>Scherm + Accu</small></div></div>
+          <button class="meer">Minder<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transform:rotate(180deg)"><path d="m6 9 6 6 6-6"/></svg></button>
+          <div class="detail">
+            <ul class="k1-lijst">
+              <li><span class="di"></span><span><span class="m2"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5 4 6v6c0 4.4 3.4 8.2 8 9.5 4.6-1.3 8-5.1 8-9.5V6z"/><path d="m8.8 12 2.2 2.2 4.2-4.4"/></svg></span><span class="tk"><span>Apple</span><b>Independent Repair Provider</b></span></span></span></li>
+              <li><span class="di"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5 4 6v6c0 4.4 3.4 8.2 8 9.5 4.6-1.3 8-5.1 8-9.5V6z"/><path d="m8.8 12 2.2 2.2 4.2-4.4"/></svg></span><span>Polis gecontroleerd op 28 jul 2026</span></li>
+              <li><span class="di"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5.4l3.2 2"/></svg></span><span>ma-wo 09:30-18:00, do 09:30-21:00, vr 09:30-18:00, za 10:00-17:00</span></li>
+              <li><span class="di"></span><span class="betaalrij"><span class="betaalmerk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5" width="19" height="14" rx="3"/><path d="M2.5 10h19"/></svg>Pin</span><span class="betaalmerk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2.5"/><circle cx="12" cy="12" r="2.6"/></svg>Contant</span><span class="betaalmerk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="6.5" y="2.5" width="11" height="19" rx="3"/><path d="M10.5 18.5h3"/></svg>Apple Pay</span><span class="betaalmerk" style="color:#C0006E"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 4l9 5.5"/><path d="M5 10.5v8M9.7 10.5v8M14.3 10.5v8M19 10.5v8"/><path d="M3 20.5h18"/></svg>iDEAL</span></span></li>
+              <li><span class="di"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3.5 2.7 5.5 6 .9-4.3 4.2 1 6-5.4-2.8-5.4 2.8 1-6L3.3 9.9l6-.9z"/></svg></span><span>3 beoordelingen via ons</span></li>
+            </ul>
+          </div>
+          <div class="acties"><a class="btn btn-groen" href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>Bel de winkel</a><a class="btn btn-stil" href="#">Route</a><a class="btn btn-stil" href="#">Profiel</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="optie">
+    <div class="lab"><b>K2. Twee kolommen</b><span class="merk">kortst open</span></div>
+    <p class="wat">Het uitklapblok in twee kolommen met kopjes. <b>Voordeel:</b> half zo hoog als K1, en je vindt sneller wat je zoekt omdat er kopjes boven staan. <b>Nadeel:</b> op een telefoon vallen de kolommen onder elkaar en is de winst weg.</p>
+    <div class="duo-staat">
+      <div>
+        <p class="staat-lab">Dicht</p>
+        <div class="kaart">
+          <div class="kop2"><b>Telefoonhulp Leeuwarden</b><span>Nieuwestad 112</span></div>
+          <div class="cijfer"><b class="num">9,1</b><span><a href="#">48 beoordelingen op Google</a></span></div>
+          <div class="chips"><span class="chip chip-uitg">Uitgelicht &middot; Nieuw op de site</span><span class="chip chip-keur"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>Polis gecontroleerd</span><span class="chip chip-snel"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 3 14h7l-1 8 10-12h-7z"/></svg>Klaar terwijl je wacht</span></div>
+          <div class="prijsvak"><div class="prijs num">&euro;&nbsp;173<small>Scherm + Accu</small></div></div>
+          <button class="meer">Meer over deze winkel<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+          <div class="acties"><a class="btn btn-groen" href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>Bel de winkel</a><a class="btn btn-stil" href="#">Route</a><a class="btn btn-stil" href="#">Profiel</a></div>
+        </div>
+      </div>
+      <div>
+        <p class="staat-lab">Open</p>
+        <div class="kaart">
+          <div class="kop2"><b>Telefoonhulp Leeuwarden</b><span>Nieuwestad 112</span></div>
+          <div class="cijfer"><b class="num">9,1</b><span><a href="#">48 beoordelingen op Google</a></span></div>
+          <div class="chips"><span class="chip chip-uitg">Uitgelicht &middot; Nieuw op de site</span><span class="chip chip-keur"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>Polis gecontroleerd</span></div>
+          <div class="prijsvak"><div class="prijs num">&euro;&nbsp;173<small>Scherm + Accu</small></div></div>
+          <button class="meer">Minder<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transform:rotate(180deg)"><path d="m6 9 6 6 6-6"/></svg></button>
+          <div class="detail">
+            <div class="k2-raster">
+              <div class="k2-blok"><h4>Erkenning</h4><span class="m2"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5 4 6v6c0 4.4 3.4 8.2 8 9.5 4.6-1.3 8-5.1 8-9.5V6z"/><path d="m8.8 12 2.2 2.2 4.2-4.4"/></svg></span><span class="tk"><span>Apple</span><b>Independent Repair Provider</b></span></span></div>
+              <div class="k2-blok"><h4>Door ons nagetrokken</h4><p>Polis gecontroleerd op 28 jul 2026<br>3 beoordelingen via ons</p></div>
+              <div class="k2-blok"><h4>Openingstijden</h4><p>ma-wo 09:30-18:00<br>do 09:30-21:00<br>vr 09:30-18:00<br>za 10:00-17:00</p></div>
+              <div class="k2-blok"><h4>Betalen</h4><span class="betaalrij"><span class="betaalmerk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5" width="19" height="14" rx="3"/><path d="M2.5 10h19"/></svg>Pin</span><span class="betaalmerk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2.5"/><circle cx="12" cy="12" r="2.6"/></svg>Contant</span><span class="betaalmerk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="6.5" y="2.5" width="11" height="19" rx="3"/><path d="M10.5 18.5h3"/></svg>Apple Pay</span><span class="betaalmerk" style="color:#C0006E"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 4l9 5.5"/><path d="M5 10.5v8M9.7 10.5v8M14.3 10.5v8M19 10.5v8"/><path d="M3 20.5h18"/></svg>iDEAL</span></span></div>
+            </div>
+          </div>
+          <div class="acties"><a class="btn btn-groen" href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>Bel de winkel</a><a class="btn btn-stil" href="#">Route</a><a class="btn btn-stil" href="#">Profiel</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="optie">
+    <div class="lab"><b>K3. Alles als merkjes</b><span class="merk">meest visueel</span></div>
+    <p class="wat">Geen regels maar merkjes naast elkaar, die uitlopen over zoveel regels als nodig. <b>Voordeel:</b> je scant het in een oogopslag en het werkt even goed op een telefoon als op een scherm. <b>Nadeel:</b> een merkje kan maar een paar woorden dragen, dus de openingstijden moeten kort ("vandaag tot 18:00") en de hele week past er niet in.</p>
+    <div class="duo-staat">
+      <div>
+        <p class="staat-lab">Dicht</p>
+        <div class="kaart">
+          <div class="kop2"><b>Telefoonhulp Leeuwarden</b><span>Nieuwestad 112</span></div>
+          <div class="cijfer"><b class="num">9,1</b><span><a href="#">48 beoordelingen op Google</a></span></div>
+          <div class="chips"><span class="chip chip-uitg">Uitgelicht &middot; Nieuw op de site</span><span class="chip chip-keur"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>Polis gecontroleerd</span><span class="chip chip-snel"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 3 14h7l-1 8 10-12h-7z"/></svg>Klaar terwijl je wacht</span></div>
+          <div class="prijsvak"><div class="prijs num">&euro;&nbsp;173<small>Scherm + Accu</small></div></div>
+          <button class="meer">Meer over deze winkel<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+          <div class="acties"><a class="btn btn-groen" href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>Bel de winkel</a><a class="btn btn-stil" href="#">Route</a><a class="btn btn-stil" href="#">Profiel</a></div>
+        </div>
+      </div>
+      <div>
+        <p class="staat-lab">Open</p>
+        <div class="kaart">
+          <div class="kop2"><b>Telefoonhulp Leeuwarden</b><span>Nieuwestad 112</span></div>
+          <div class="cijfer"><b class="num">9,1</b><span><a href="#">48 beoordelingen op Google</a></span></div>
+          <div class="chips"><span class="chip chip-uitg">Uitgelicht &middot; Nieuw op de site</span><span class="chip chip-keur"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>Polis gecontroleerd</span></div>
+          <div class="prijsvak"><div class="prijs num">&euro;&nbsp;173<small>Scherm + Accu</small></div></div>
+          <button class="meer">Minder<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transform:rotate(180deg)"><path d="m6 9 6 6 6-6"/></svg></button>
+          <div class="detail">
+            <div class="k3-merken">
+              <span class="m2"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5 4 6v6c0 4.4 3.4 8.2 8 9.5 4.6-1.3 8-5.1 8-9.5V6z"/><path d="m8.8 12 2.2 2.2 4.2-4.4"/></svg></span><span class="tk"><span>Apple</span><b>Independent Repair Provider</b></span></span>
+              <span class="k3-merk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5 4 6v6c0 4.4 3.4 8.2 8 9.5 4.6-1.3 8-5.1 8-9.5V6z"/><path d="m8.8 12 2.2 2.2 4.2-4.4"/></svg>Polis gezien <b>28 jul 2026</b></span>
+              <span class="k3-merk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5.4l3.2 2"/></svg>Vandaag tot <b>18:00</b></span>
+              <span class="k3-merk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3.5 2.7 5.5 6 .9-4.3 4.2 1 6-5.4-2.8-5.4 2.8 1-6L3.3 9.9l6-.9z"/></svg><b>3</b> beoordelingen via ons</span>
+              <span class="k3-merk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5" width="19" height="14" rx="3"/><path d="M2.5 10h19"/></svg>Pin</span>
+              <span class="k3-merk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2.5"/><circle cx="12" cy="12" r="2.6"/></svg>Contant</span>
+              <span class="k3-merk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="6.5" y="2.5" width="11" height="19" rx="3"/><path d="M10.5 18.5h3"/></svg>Apple Pay</span>
+              <span class="k3-merk" style="color:#C0006E"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 4l9 5.5"/><path d="M5 10.5v8M9.7 10.5v8M14.3 10.5v8M19 10.5v8"/><path d="M3 20.5h18"/></svg>iDEAL</span>
+            </div>
+          </div>
+          <div class="acties"><a class="btn btn-groen" href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>Bel de winkel</a><a class="btn btn-stil" href="#">Route</a><a class="btn btn-stil" href="#">Profiel</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="wrap">Intern werkdocument, 7 september 2026. Hoort niet in de sitemap.</footer>
