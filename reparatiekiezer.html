@@ -1034,7 +1034,9 @@ function stap3(){
         <ul class="detailijst">${detail.map(t=>`<li>${t}</li>`).join('')}</ul>
         ${p!=null&&som()?`<div class="bereik"><div class="lablinks">Wat deze prijs landelijk is</div><div class="track"><div class="fill" style="left:4%;width:92%"></div><div class="tick" style="left:${med}%"></div><div class="jij" style="left:${pos}%"></div></div><div class="lab num"><span>${eur(lo)}</span><span>${eur(hi)}</span></div></div>`:''}
       </div>
-      <div class="acties"><button class="btn btn-groen" onclick="belWinkel(${i})">${TEL}Bel de winkel</button><a class="btn btn-lijn" href="#">Route</a><a class="btn btn-stil" href="${winkelLink(w)}">Profiel</a></div>
+      <div class="acties"><button class="btn btn-groen" onclick="belWinkel(${i})">${TEL}Bel de winkel</button>${
+        w.aan?`<button class="btn btn-lijn" onclick="vraagPrijs(${i})">Vraag een prijs</button>`:''
+        }<a class="btn btn-lijn" href="#">Route</a><a class="btn btn-stil" href="${winkelLink(w)}">Profiel</a></div>
     </div>`};
   const plaats=S.plaatsEdit?`<label class="veld"><input id="pl" value="${S.plaats}" placeholder=" " onkeydown="if(event.key==='Enter')zetPlaats(this.value)"><span>Plaats of postcode</span></label><button class="btn btn-groen" onclick="zetPlaats(document.getElementById('pl').value)">Zoek</button>`:`<button class="pin" onclick="S.plaatsEdit=true;teken();document.getElementById('pl').focus()">${PIN}${S.plaats}<span class="wijzig">wijzigen</span></button>`;
   const filters=`<div class="filters"><span class="lab">Filter</span>${FILTERS.map(([id,n])=>`<button class="fchip${S.filters[id]?' aan':''}" onclick="zetFilter('${id}')">${n}</button>`).join('')}</div>`;
@@ -1107,6 +1109,19 @@ function zetFilter(id){S.filters[id]=!S.filters[id];teken()}
    tekent de hele lijst opnieuw en dan zou het uitklappen bij elke filterklik
    weer dichtvallen. */
 function toonMeer(sleutel){S.open[sleutel]=!S.open[sleutel];teken()}
+/* De kiezer weet wat je hebt aangetikt; winkels.js weet dat niet en moet het
+   dus meekrijgen. De regels zijn de tekst die de winkel te lezen krijgt, en
+   het is precies wat er op je scherm stond. */
+function vraagPrijs(i){
+  const w=WINKELS[i],g=gekozen();
+  /* Gewone tekst, geen HTML: dit gaat in een e-mail en in de database. eur()
+     geeft "&euro; 149" terug en dat hoort in een pagina, niet in een mail. */
+  const regels=g.map(k=>{const gk=S.schade[k];
+    return REP[k].n+(gk&&gk.naam?': '+gk.naam:'')
+      +(gk&&gk.prijs?' (onze meting: € '+gk.prijs+')':'')
+      +(gk&&gk.land?' (landelijk € '+gk.land.prijs+', niet voor dit toestel gemeten)':'')}).join('\n');
+  verzoekDialoog(w,S.model.n,regels);
+}
 function ga(n){if(n===3&&!gekozen().length)return;S.stap=n;teken();document.querySelector('.kaart').scrollIntoView({behavior:'smooth',block:'start'})}
 function terug(){if(S.stap===3)S.stap=2;else if(S.stap===2)S.stap=1;else if(S.sub==='model'){S.sub='serie'}else if(S.sub==='serie'){S.sub='zoek';S.merk=null}teken()}
 function zetPlaats(v){v=v.trim();if(v)S.plaats=v;S.plaatsEdit=false;teken()}

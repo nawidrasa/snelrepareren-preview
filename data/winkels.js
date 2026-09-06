@@ -424,3 +424,78 @@ async function matchJa() {
 
 const MATCHTEL = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>';
 const MATCHVINK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+
+/* ---------- een reparatieverzoek naar de winkel ----------
+ *
+ * De knop staat ALLEEN bij een winkel met een portaalaccount (w.aan). Die heeft
+ * ons zelf zijn adres gegeven en kan het verzoek ook zien. Een winkel die wij
+ * uit een openbare bron hebben vermeld, weet niet dat hij op de site staat;
+ * daar ongevraagd post naartoe sturen is de benadering waar wij vanaf zijn
+ * gestapt, en de bezoeker zou wachten op een antwoord dat nooit komt.
+ *
+ * Wat de bezoeker vraagt, geeft de PAGINA mee. Dit bestand weet niet wat er in
+ * de reparatiekiezer is aangetikt, en zou het moeten raden. */
+/* De gegevens blijven HIER staan en gaan niet via een onclick-attribuut mee.
+   Dat kan ook niet: de regels bevatten regeleindes, en een regeleinde in een
+   attribuut breekt de JS-tekst waar het in staat. En een naam met een apostrof
+   zou uit die tekst breken; esc() dekt HTML af, niet een JS-tekenreeks. */
+let verzoekGegevens = null;
+
+function verzoekDialoog(w, toestel, regels) {
+  verzoekGegevens = { w, toestel, regels };
+  document.getElementById('matchinhoud').innerHTML = `
+    <h3>Vraag een prijs aan ${esc(w.n)}</h3>
+    <p class="waar">De winkel antwoordt rechtstreeks aan jou. Wij zitten er niet tussen en rekenen niets.</p>
+    <div class="nummer" style="display:block">
+      <b style="font-size:15px">${esc(toestel)}</b>
+      <div style="font-size:13.5px;color:var(--inkt-2);margin-top:4px;white-space:pre-line">${esc(regels)}</div>
+    </div>
+    <label class="veld"><input id="vznaam" placeholder=" " autocomplete="name"><span>Je naam</span></label>
+    <label class="veld"><input id="vzmail" type="email" placeholder=" " autocomplete="email"><span>Je e-mailadres</span></label>
+    <label class="veld"><input id="vztel" placeholder=" " autocomplete="tel"><span>Telefoon (mag leeg)</span></label>
+    <label class="veld"><input id="vztoel" placeholder=" "><span>Iets erbij te zeggen? (mag leeg)</span></label>
+    <div style="position:absolute;left:-9999px" aria-hidden="true"><label>Laat dit veld leeg<input id="website_url" tabindex="-1" autocomplete="off"></label></div>
+    <div class="knoppen">
+      <button class="btn btn-lijn" onclick="document.getElementById('matchdlg').close()">Annuleren</button>
+      <button class="btn btn-groen" onclick="verzoekVerstuur()">Verstuur</button>
+    </div>
+    <p class="klein">Je naam, adres en toelichting gaan naar deze winkel en naar niemand anders. Wij bewaren ze 90 dagen en wissen ze daarna.</p>`;
+  document.getElementById('matchdlg').showModal();
+}
+
+async function verzoekVerstuur() {
+  const { w, toestel, regels } = verzoekGegevens;
+  const veld = id => document.getElementById(id);
+  const naam = (veld('vznaam').value || '').trim();
+  const email = (veld('vzmail').value || '').trim();
+  if (!naam) { veld('vznaam').focus(); return; }
+  if (!email) { veld('vzmail').focus(); return; }
+  try {
+    const a = await fetch('/api/verzoek', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        winkel_id: w.id, naam, email,
+        telefoon: (veld('vztel').value || '').trim(),
+        toelichting: (veld('vztoel').value || '').trim(),
+        website_url: (veld('website_url').value || '').trim(),
+        toestel, regels,
+      }),
+    });
+    if (!a.ok) throw new Error((await a.json()).fout || 'Er ging iets mis.');
+  } catch (fout) {
+    /* Zelfde regel als bij de belknop: liever eerlijk dan netjes. Een groen
+       vinkje boven een verzoek dat nooit is verstuurd, is het ergste wat dit
+       formulier kan doen. */
+    document.getElementById('matchinhoud').insertAdjacentHTML('beforeend',
+      `<p class="klein" style="color:var(--amber)">Dat lukte niet: ${esc(fout.message)} Je kunt de winkel gewoon bellen.</p>`);
+    return;
+  }
+  document.getElementById('matchinhoud').innerHTML = `
+    <div class="gelukt">
+      <div class="bal">${MATCHVINK}</div>
+      <h3>Verstuurd</h3>
+      <p class="waar" style="margin-bottom:18px">Je vraag staat bij ${esc(w.n)}. Je krijgt een kopie in je mail. De winkel antwoordt rechtstreeks aan jou; wij kunnen geen antwoord beloven.</p>
+      <button class="btn btn-groen" style="width:100%" onclick="document.getElementById('matchdlg').close()">Sluiten</button>
+    </div>`;
+}
