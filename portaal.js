@@ -113,6 +113,7 @@
 
     vulProfiel(w);
     await vulPrijzen();
+    await vulCodevraag();
     if (mij.prijzenOud) toonBevestigWaarschuwing(mij.dagenSindsBevestiging);
     vulPolis(w);
     await vulMatches();
@@ -311,6 +312,74 @@
     }
   }
 
+  /* ---------- een ontbrekend modelnummer doorgeven ----------
+   *
+   * Van 125 toestellen kennen wij het nummer niet, omdat acht merken het nergens
+   * publiceren dat na te trekken is. Winkels zien die toestellen dagelijks.
+   * Wat zij insturen gaat NIET meteen op de site: het wordt eerst bekeken.
+   */
+  async function vulCodevraag() {
+    const kiezer = document.getElementById("codetoestel");
+    if (!kiezer) return;
+    const { toestellen } = await haal("/api/portaal/zonder-code");
+
+    if (!toestellen.length) {
+      document.getElementById("codetoestel").closest(".kaart").hidden = true;
+      return;
+    }
+
+    const perMerk = new Map();
+    for (const t of toestellen) {
+      if (!perMerk.has(t.merk)) perMerk.set(t.merk, []);
+      perMerk.get(t.merk).push(t);
+    }
+    kiezer.innerHTML = [...perMerk].map(([merk, lijst]) =>
+      `<optgroup label="${veilig(merk)}">` + lijst.map((t) =>
+        `<option value="${t.id}" data-voorstel="${veilig(t.mijn_voorstel ?? "")}"
+                 data-status="${veilig(t.mijn_status ?? "")}">${veilig(t.naam)}</option>`
+      ).join("") + `</optgroup>`
+    ).join("");
+
+    const toonEigenVoorstel = () => {
+      const gekozen = kiezer.selectedOptions[0];
+      const code = gekozen?.dataset.voorstel;
+      const status = gekozen?.dataset.status;
+      const veld = document.getElementById("codeveld");
+      const status_el = document.getElementById("codestatus");
+      veld.value = code || "";
+      status_el.className = "toel codestatus";
+      status_el.textContent = !code ? ""
+        : status === "overgenomen" ? `Je gaf ${code} door en die staat er inmiddels op. Bedankt.`
+        : status === "afgewezen" ? `Je gaf ${code} door; die bleek niet te kloppen.`
+        : `Je gaf ${code} door. Iemand kijkt ernaar.`;
+    };
+    kiezer.onchange = toonEigenVoorstel;
+    toonEigenVoorstel();
+  }
+
+  async function codeVersturen() {
+    const kiezer = document.getElementById("codetoestel");
+    const veld = document.getElementById("codeveld");
+    const status = document.getElementById("codestatus");
+    status.className = "toel codestatus";
+    try {
+      await haal("/api/portaal/modelcode", {
+        method: "POST",
+        lichaam: { toestel_id: Number(kiezer.value), code: veld.value },
+      });
+      status.className = "toel codestatus goed";
+      status.textContent = "Bedankt. Iemand kijkt ernaar voordat het op de site komt.";
+      const gekozen = kiezer.selectedOptions[0];
+      if (gekozen) {
+        gekozen.dataset.voorstel = veld.value.trim().toUpperCase();
+        gekozen.dataset.status = "open";
+      }
+    } catch (fout) {
+      status.className = "toel codestatus fout";
+      status.textContent = fout.message;
+    }
+  }
+
   /* Verzamelt wat er in de tabel staat en stuurt het op. */
   async function prijzenOpslaan() {
     const el = document.getElementById("ptabel");
@@ -462,6 +531,11 @@
       } catch (fout) {
         melding(fout.message, "fout");
       }
+    });
+
+    document.getElementById("codeversturen")?.addEventListener("click", (e) => {
+      e.preventDefault();
+      void codeVersturen();
     });
 
     // Opslaan van het profiel.

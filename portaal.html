@@ -226,6 +226,17 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.02em;margin:0 0 3px}
 .kwregel .inp:focus-within{border-color:var(--groen)}
 .ptabel .leegregel{padding:14px 4px}
 @media(max-width:640px){.kwregel{grid-template-columns:minmax(0,1fr);gap:4px}}
+
+/* modelnummer doorgeven */
+.codevraag{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:14px 0 6px}
+.codevraag label{font-weight:700;font-size:14.5px}
+.codevraag select{font:inherit;padding:9px 12px;border:1.5px solid var(--lijn);border-radius:12px;
+  background:#fff;min-width:0;flex:1 1 200px;max-width:300px}
+.codevraag input{font:inherit;padding:9px 12px;border:1.5px solid var(--lijn);border-radius:12px;
+  min-width:0;flex:0 1 190px;text-transform:uppercase}
+.codestatus:empty{display:none}
+.codestatus.fout{color:var(--rood);font-weight:600}
+.codestatus.goed{color:var(--groen-800);font-weight:600}
 </style>
 
 <div class="schets">Ontwerpschets van het winkelportaal. Alle cijfers en gegevens zijn voorbeelden. De vormgeving is een voorstel.</div>
@@ -309,6 +320,23 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.02em;margin:0 0 3px}
         <div class="ptabel" id="ptabel"></div>
         <div class="bevestig"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>Laatst bevestigd op 2 september 2026. Bevestig elke 90 dagen om goed vindbaar te blijven.</div>
         <div class="opslaan"><button class="btn btn-lijn" id="prijzenbevestigen">Alles klopt nog, bevestigen</button><button class="btn btn-groen" id="prijzenopslaan">Opslaan en bevestigen</button></div>
+      </div>
+
+      <div class="kaart"><h2>Help ons met een modelnummer</h2>
+        <p class="toel">Van 125 van de 266 toestellen kennen wij het modelnummer niet. Xiaomi, OnePlus,
+          Motorola en een paar andere merken zetten het nergens op hun site. Jij ziet die toestellen
+          dagelijks: het staat in Instellingen bij Modelnummer, en op het doosje.</p>
+        <div class="codevraag">
+          <label for="codetoestel">Toestel</label>
+          <select id="codetoestel"><option>Laden...</option></select>
+          <label for="codeveld">Modelnummer</label>
+          <input id="codeveld" placeholder="bijvoorbeeld CPH2581" autocomplete="off" maxlength="40">
+          <button class="btn btn-groen" id="codeversturen">Doorgeven</button>
+        </div>
+        <p class="toel codestatus" id="codestatus"></p>
+        <p class="toel">Wij zetten het er niet meteen op. Iemand kijkt er eerst naar, want een verkeerd
+          nummer is erger dan geen nummer: wie zijn eigen toestel niet terugvindt, gelooft de rest ook
+          niet meer. Meldt een tweede winkel hetzelfde, dan weten wij genoeg.</p>
       </div>
     </section>
 
@@ -467,4 +495,4 @@ function ga(p){
 document.querySelectorAll('.navlink').forEach(n=>n.onclick=()=>ga(n.dataset.p));
 matches();beoordelingen();
 </script>
-<script src="portaal.js?v=f924cf6e"></script>
+<script src="portaal.js?v=84fe2edb"></script>
