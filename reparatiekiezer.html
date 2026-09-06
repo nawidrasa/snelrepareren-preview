@@ -103,18 +103,22 @@ button{font:inherit}
 /* minmax(0,1fr) en niet 1fr: een lange onderdeelnaam duwde de kolom anders
    breder dan het vak eromheen. */
 .kwal{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding:0 14px 14px}
-.kw{position:relative;border:1.5px solid var(--lijn);border-radius:12px;padding:12px 8px 10px;text-align:center;background:#fff;cursor:pointer;transition:border-color .15s,background .15s,box-shadow .15s}
+/* Variant A1: compacte tegels. De naam en de prijs op EEN regel, de uitleg
+   eronder in klein. De tegels waren gecentreerd en drie regels hoog per stuk, en
+   dan staat er bij vijf treden meer uitleg dan keuze op het scherm. */
+.kw{position:relative;border:1.5px solid var(--lijn);border-radius:12px;padding:11px 12px;
+  text-align:left;background:#fff;cursor:pointer;display:grid;gap:1px;font:inherit;
+  transition:border-color .15s,background .15s,box-shadow .15s}
 .kw:hover{border-color:var(--groen-500)}
 /* Gekozen moet je van een meter afstand zien, want dit is de keuze die 149 euro
    scheelt. Een randje van anderhalve pixel deed dat niet. */
-.kw.aan{border-color:var(--groen);border-width:2px;padding:11.5px 7.5px 9.5px;
+.kw.aan{border-color:var(--groen);border-width:2px;padding:10px 11px;
   background:#fff;box-shadow:0 0 0 4px var(--groen-100)}
 .kw.aan b{color:var(--groen-800)}
-.kw small{display:block;font-size:12px;color:var(--inkt-2)}
-.kw .kwnaam{display:block;font-size:12.5px;font-weight:700;color:var(--inkt)}
-.kw b{display:block;font-size:17px;font-weight:800;margin:2px 0}
-.kw .kwuit{display:block;font-size:11.5px;line-height:1.35;color:var(--inkt-2);margin:2px 0 4px}
-.kw em{display:block;font-style:normal;font-size:11px;color:var(--inkt-3)}
+.kw .kwnaam{display:flex;justify-content:space-between;align-items:baseline;gap:8px;
+  font-size:13px;font-weight:700;color:var(--inkt);line-height:1.3}
+.kw b{font-size:15px;font-weight:800;white-space:nowrap}
+.kw .kwuit{display:block;font-size:12px;line-height:1.35;color:var(--inkt-3)}
 /* Een landelijke trede moet er anders uitzien dan een gemeten prijs voor jouw
    toestel, anders lees je 249 als de prijs van jouw scherm. Gestippelde rand,
    het bedrag in grijs en een merkje erbij. */
@@ -129,6 +133,11 @@ button{font:inherit}
 /* De kop boven de onderdeelkeuze. Die keuze zat achter een uitklap; hij staat nu
    meteen open, met het prijsverschil erboven omdat dat de hele reden is. */
 .kwalkop{padding:2px 14px 10px;font-size:13.5px;color:var(--inkt-2)}
+/* De voetnoot onder de tegels: metingen waarbij de winkel niet zei welk
+   onderdeel hij gebruikt. Geen trede, dus geen tegel. */
+.geenlabel{margin:0 14px 14px;padding-top:10px;border-top:1px dashed var(--lijn);
+  font-size:12.5px;color:var(--inkt-2)}
+.geenlabel b{color:var(--inkt);font-weight:700}
 .kwalkop b{color:var(--inkt)}
 .kwalkop span{display:block;margin-top:2px}
 .kwalkop .num{font-weight:800;color:var(--marine)}
@@ -179,34 +188,39 @@ button{font:inherit}
 }
 .tel-tekst{text-align:center;font-size:13.5px;color:var(--inkt-2);max-width:26ch;margin:0}
 .tel-tekst b{color:var(--inkt);display:block;font-size:15px;margin-bottom:2px}
-/* De opsomming naast de tekening.
-   Hier stonden de naam, het gekozen onderdeel, een vraagteken als prijs en een
-   kruisje op een rij tegen elkaar aan geduwd. Het vraagteken en het kruisje
-   leken allebei een knop, en het zwaarste woord op het hele blok was
-   "nog geen prijs". Nu: een raster met de bedragen onder elkaar aan de
-   rechterkant, het kruisje klein en pas zichtbaar als je erover gaat, en de
-   toelichting eronder in gewone tekst in plaats van vet. */
-.som{width:100%;max-width:320px;border:1.5px solid var(--lijn);border-radius:16px;
-  padding:14px 16px 12px;background:#fff}
+/* Variant B2, het bonnetje. Boven staat alleen wat een bedrag heeft, met het
+   totaal in een groen vlak eronder, en wat geen bedrag heeft in een grijze
+   strook daaronder. Daarvoor stonden alle reparaties als even zware regels,
+   ook de vier waar wij geen prijs van hebben, en dan is het vak naast de
+   tekening langer dan de tekening zelf. */
+.som{border:1.5px solid var(--lijn);border-radius:16px;background:#fff;overflow:hidden;
+  width:100%;max-width:320px}
+.som .binnen{padding:14px 16px}
 .som .kop{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
-  color:var(--inkt-3);margin:0 0 8px}
-.som .rij{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:baseline;
-  column-gap:10px;padding:7px 0;font-size:13.5px}
+  color:var(--inkt-3);margin:0 0 10px}
+.som .rij{display:grid;grid-template-columns:minmax(0,1fr) auto auto;column-gap:10px;
+  align-items:baseline;padding:6px 0;font-size:13.5px}
 .som .rij+.rij{border-top:1px solid var(--lijn)}
-.som .rij .wat{min-width:0;font-weight:700;line-height:1.25}
-.som .rij small{display:block;font-weight:400;color:var(--inkt-3);font-size:12px;
+.som .wat{min-width:0;font-weight:700;line-height:1.25}
+.som small{display:block;font-weight:400;color:var(--inkt-3);font-size:12px;
   overflow:hidden;text-overflow:ellipsis}
-.som .rij b{font-weight:700;white-space:nowrap}
-.som .rij b.aanvraag{font-weight:500;color:var(--inkt-3);font-size:12.5px}
+.som b{font-weight:700;white-space:nowrap}
 .som .x{background:none;border:0;color:var(--lijn);font-size:17px;line-height:1;
   cursor:pointer;padding:0;transition:color .15s}
 .som .rij:hover .x{color:var(--inkt-3)}
 .som .x:hover{color:var(--rood)}
-.som .tot{border-top:1.5px solid var(--inkt);margin-top:6px;padding-top:10px}
-.som .tot .wat{font-weight:800}
-.som .tot b{font-size:17px;font-weight:800}
-.som .tot b.aanvraag{font-size:13px}
-.som .staart{font-size:12px;color:var(--inkt-3);line-height:1.4;margin:8px 0 0}
+.som .totvlak{background:var(--groen-50);border-top:1.5px solid var(--groen-200);padding:13px 16px}
+.som .totvlak .regel{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+.som .totvlak span{font-size:13px;font-weight:700;color:var(--groen-800)}
+.som .totvlak b{font-size:21px;font-weight:800;color:var(--groen-800)}
+.som .totvlak b.aanvraag{font-size:14px;font-weight:600}
+.som .totvlak .bij{display:block;font-size:11.5px;font-weight:400;color:var(--groen-800);
+  opacity:.85;margin-top:4px;line-height:1.4}
+.som .rest{background:var(--vlak);padding:11px 16px;font-size:12.5px;color:var(--inkt-2)}
+.som .rest ul{margin:6px 0 0;padding:0;list-style:none;display:grid;gap:5px}
+.som .rest li{display:grid;grid-template-columns:minmax(0,1fr) auto auto;column-gap:10px;align-items:baseline}
+.som .rest li span{font-weight:700;color:var(--inkt)}
+.som .rest li em{font-style:normal;color:var(--inkt-3)}
 .chip{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:999px;font-size:12.5px;font-weight:600}
 .chip svg{width:12px;height:12px}
 .chip-keur{background:var(--groen-100);color:var(--groen-800)}
@@ -880,38 +894,50 @@ function opsomming(){
   const g=gekozen();if(!g.length)return '';
   /* Valt er iets te kiezen? Voor een reparatie die wij voor dit model niet
      gemeten hebben, staat er geen enkele knop, en dan is "kies nog een
-     onderdeel" een opdracht die je niet kunt uitvoeren. Bij een iPhone 17 stond
-     dat onder de accu, terwijl er niets te kiezen was. */
+     onderdeel" een opdracht die je niet kunt uitvoeren. */
   const teKiezen=k=>{const m=meting(k);return !!(m&&m.opties&&m.opties.length)};
-  const rij=k=>{const gk=S.schade[k],p=prijsVan(k),m=meting(k);
-    const onder=gk&&gk.naam&&gk.land?`<small>${esc(gk.naam)}, landelijk ${eur(gk.land.prijs)}</small>`
-      :gk&&gk.naam?`<small>${esc(gk.naam)}</small>`
-      :k==='waterschade'?'<small>na diagnose</small>'
-      :teKiezen(k)?'<small>kies nog een onderdeel</small>'
-      :m&&m.band?'<small>winkels noemen geen onderdeel</small>'
-      :'<small>nog niet gemeten</small>';
-    /* Geen vraagteken meer als bedrag. Dat las als een knop naast het kruisje,
-       en het zei niets. Weten wij het landelijke bedrag, dan staat dat er in
-       grijs; weten wij niets, dan staat er waarom. */
-    const bedrag=p?`<b class="num">${eur(p)}</b>`
-      :gk&&gk.land?`<b class="num aanvraag">${eur(gk.land.prijs)}</b>`
-      :k==='waterschade'?'<b class="aanvraag">na diagnose</b>'
-      :'<b class="aanvraag">vraag de winkel</b>';
-    return `<div class="rij"><span class="wat">${REP[k].n}${onder}</span>${bedrag}<button class="x" onclick="tik('${k}')" aria-label="${REP[k].n} weghalen" title="Weghalen">&times;</button></div>`;};
-  const nogKiezen=g.filter(k=>prijsVan(k)==null&&teKiezen(k));
-  /* Wat er niet in het totaal zit, hoort erbij te staan. Anders leest "Jouw
-     keuze 249" als de prijs van alles wat je hebt aangetikt. */
-  const buiten=g.filter(k=>prijsVan(k)==null&&!teKiezen(k)).map(k=>REP[k].n.toLowerCase());
-  const staart=nogKiezen.length
-    ? 'Kies bij elke reparatie een onderdeel, dan staat hier een totaal.'
-    : buiten.length
-      ? `${lijstZin(buiten).replace(/^./,c=>c.toUpperCase())} ${buiten.length===1?'telt':'tellen'} niet mee: daar hebben wij voor dit toestel geen prijs van.`
-      : '';
-  const tot=som();
-  return `<div class="som"><p class="kop">Jouw keuze</p>${g.map(rij).join('')}
-    <div class="rij tot"><span class="wat">Totaal</span>${
-      tot?`<b class="num">${eur(tot)}</b>`:'<b class="aanvraag">nog geen prijs</b>'}<span></span></div>
-    ${staart?`<p class="staart">${staart}</p>`:''}</div>`;
+  /* Het bedrag dat bij deze regel hoort, en of het voor DIT toestel geldt. */
+  const bedragVan=k=>{const gk=S.schade[k],p=prijsVan(k);
+    return p!=null?{n:p,land:false}:(gk&&gk.land?{n:gk.land.prijs,land:true}:null)};
+
+  const kruis=k=>`<button class="x" onclick="tik('${k}')" aria-label="${REP[k].n} weghalen" title="Weghalen">&times;</button>`;
+  const rij=k=>{const gk=S.schade[k],b=bedragVan(k);
+    const onder=gk&&gk.naam&&gk.land?`<small>${esc(gk.naam)}, landelijk</small>`
+      :gk&&gk.naam?`<small>${esc(gk.naam)}</small>`:'';
+    return `<div class="rij"><span class="wat">${REP[k].n}${onder}</span><b class="num">${eur(b.n)}</b>${kruis(k)}</div>`;
+  };
+  /* Wat er in het bonnetje staat en wat eronder. Een regel zonder bedrag krijgt
+     een halve regel in de grijze strook; hij hoorde niet net zo zwaar te wegen
+     als een regel met een prijs. */
+  const rest=k=>{const gk=S.schade[k];
+    const wat=k==='waterschade'?'na diagnose'
+      :teKiezen(k)?'kies nog een onderdeel'
+      :(meting(k)&&meting(k).band)?'winkel noemt geen onderdeel'
+      :'vraag de winkel';
+    return `<li><span>${REP[k].n}</span><em>${wat}</em>${kruis(k)}</li>`;
+  };
+
+  const met=g.filter(k=>bedragVan(k)), zonder=g.filter(k=>!bedragVan(k));
+  const tot=met.reduce((a,k)=>a+bedragVan(k).n,0);
+  const landelijk=met.filter(k=>bedragVan(k).land);
+  const TELWOORD=['nul','een','twee','drie','vier','vijf','zes'];
+  const alles=landelijk.length===met.length&&met.length>0;
+  /* Zit er een landelijk bedrag in de som, dan staat dat erbij, en heet het geen
+     "totaal" meer als het er alleen maar zijn. Anders leest een optelsom van een
+     gemeten schermprijs en een landelijk accubedrag als de prijs van dit
+     toestel, en dat is het niet. */
+  const woord=alles?'Landelijk':'Totaal';
+  const kop=met.length===1?woord:`${woord} voor deze ${TELWOORD[met.length]||met.length}`;
+  const bij=!landelijk.length?''
+    :alles?'<span class="bij">Landelijke bedragen over alle modellen heen, niet voor dit toestel gemeten.</span>'
+    :`<span class="bij">Waarvan ${eur(landelijk.reduce((a,k)=>a+bedragVan(k).n,0))} landelijk, niet voor dit toestel gemeten.</span>`;
+
+  return `<div class="som">
+    ${met.length?`<div class="binnen"><p class="kop">Jouw keuze</p>${met.map(rij).join('')}</div>`:''}
+    <div class="totvlak"><div class="regel"><span>${met.length?kop:'Jouw keuze'}</span>${
+      met.length?`<b class="num">${eur(tot)}</b>`:'<b class="aanvraag">nog geen prijs</b>'}</div>${bij}</div>
+    ${zonder.length?`<div class="rest">Nog geen prijs voor dit toestel:<ul>${zonder.map(rest).join('')}</ul></div>`:''}
+  </div>`;
 }
 function paneel(){
   const g=gekozen();let tekst='';
@@ -945,11 +971,28 @@ function stap2(){
   /* De tegels van de onderdeelkeuze. Een keer opgeschreven, want de ladder van
      dit model en de landelijke ladder tekenen hetzelfde; alleen het bijschrift
      en de knop eronder verschillen. */
-  const kwalTegels=(k,opties,gk,land)=>`<div class="kwal" role="group" aria-label="Welk onderdeel wil je voor ${esc(REP[k].n.toLowerCase())}">${opties.map((o,i)=>`<button class="kw${gk&&gk.sleutel===o.sleutel?' aan':''}${land?' land':''}" aria-pressed="${gk&&gk.sleutel===o.sleutel?'true':'false'}" onclick="${land?'kiesKwLand':'kiesKw'}('${k}',${i})">
-      <span class="kwnaam">${esc(o.naam)}</span>
-      <b class="num">${o.laagste===o.hoogste?eur(o.prijs):eur(o.laagste)+' tot '+eur(o.hoogste)}</b>
-      ${o.uitleg?`<span class="kwuit">${esc(o.uitleg)}</span>`:''}
-      <em>${o.metingen===1?'1 meting':o.metingen+' metingen'}</em></button>`).join('')}</div>`;
+  /* De treden als tegels. "onbekend" hoort er NIET tussen: dat is geen kwaliteit
+     maar het ontbreken ervan, en bij een iPhone 17 Pro Max was het met 579 euro
+     ook nog de duurste tegel in de rij. Dan leest een prijsladder niet meer als
+     een ladder. Hij staat als voetnoot onder de tegels.
+     Het aantal metingen staat achter de uitleg en niet op een eigen regel: het
+     hoort erbij (het zegt hoe hard dit bedrag is) maar het is geen kop. */
+  const kwalTegels=(k,opties,gk,land)=>{
+    const treden=opties.filter(o=>o.sleutel!=='onbekend');
+    const geen=opties.find(o=>o.sleutel==='onbekend');
+    const tegel=o=>{
+      const i=opties.indexOf(o);
+      const bedrag=o.laagste===o.hoogste?eur(o.prijs):eur(o.laagste)+' tot '+eur(o.hoogste);
+      return `<button class="kw${gk&&gk.sleutel===o.sleutel?' aan':''}${land?' land':''}" aria-pressed="${gk&&gk.sleutel===o.sleutel?'true':'false'}" onclick="${land?'kiesKwLand':'kiesKw'}('${k}',${i})">
+        <span class="kwnaam">${esc(o.naam)}<b class="num">${bedrag}</b></span>
+        <span class="kwuit">${o.uitleg?esc(o.uitleg)+' &middot; ':''}<span class="num">${o.metingen===1?'1 meting':o.metingen+' metingen'}</span></span></button>`;
+    };
+    return `<div class="kwal" role="group" aria-label="Welk onderdeel wil je voor ${esc(REP[k].n.toLowerCase())}">${treden.map(tegel).join('')}</div>
+      ${geen?`<p class="geenlabel">${geen.metingen===1
+        ? `Bij een meting noemde de winkel het onderdeel niet: <b class="num">${eur(geen.prijs)}</b>.`
+        : `Bij ${geen.metingen} metingen noemde de winkel het onderdeel niet: <b class="num">${eur(geen.laagste)} tot ${eur(geen.hoogste)}</b>.`
+      } Vraag in de winkel altijd welk onderdeel je krijgt.</p>`:''}`;
+  };
 
   /* DE LADDER STAAT ER ALTIJD, OOK ALS WIJ DIT MODEL NIET HEBBEN GEMETEN.
      Daar stond eerder alleen "nog niet gemeten" en verder niets, en dan weet je
