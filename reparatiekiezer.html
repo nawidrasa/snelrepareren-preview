@@ -499,7 +499,7 @@ function stap1(){
     <div class="tegels t4">${series.length?series.map(x=>`<button class="tegel${S.serie===x[1]?' aan':''}" onclick="kiesSerie('${x[1]}')">${x[1]}<span class="cnt">${x.length-2} modellen</span></button>`).join(''):`<p class="sub">Van ${S.merk} hebben we in deze schets nog geen modellen. Typ je model in het zoekveld.</p>`}</div>`}
   const ms=(MODELLEN.find(x=>x[1]===S.serie)||[]).slice(2);
   return `<button class="terug" onclick="terug()">&larr; ${S.merk}</button><h2 class="vraag">Welke ${S.serie}?</h2><p class="sub">Twijfel je? De code onder het model staat ook in je instellingen.</p>
-    <div class="tegels t4">${ms.map(([n,c])=>`<button class="tegel${S.model&&S.model.n===n?' aan':''}" onclick="kiesModel('${n}')">${n}<small>${codeLabel({c})}</small></button>`).join('')}</div>`;
+    <div class="tegels t4">${ms.map(([n,c])=>`<button class="tegel${S.model&&S.model.n===n?' aan':''}" onclick="kiesModel('${n}')">${n}${modelcode({c}) ? `<small>${modelcode({c})}</small>` : ''}</button>`).join('')}</div>`;
 }
 function stap2(){
   const kl=KLEUREN[S.model.serie]||[];

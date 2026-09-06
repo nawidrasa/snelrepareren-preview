@@ -76,6 +76,15 @@
     const w = mij.winkel;
     document.title = `Portaal ${w.naam}`;
 
+    /* De gele strook zegt in het ontwerp dat alle cijfers voorbeelden zijn. Voor
+       een ingelogde winkel klopt dat niet meer: dit zijn zijn eigen gegevens.
+       Wat er dan wel toe doet, is dat de site zelf nog niet publiek is. */
+    const strook = document.querySelector(".schets");
+    if (strook) {
+      strook.textContent =
+        "Dit zijn je eigen gegevens. De site is nog niet openbaar, dus klanten zien je vermelding nog niet.";
+    }
+
     // De kop en de zijkolom.
     vulTekst(".paginakop h1", `Goedemorgen, ${w.naam}`);
     vulTekst(".winkel b", w.naam);
@@ -103,6 +112,7 @@
     vulBeoordelingscijfers(mij);
 
     vulProfiel(w);
+    await vulPrijzen();
     if (mij.prijzenOud) toonBevestigWaarschuwing(mij.dagenSindsBevestiging);
     vulPolis(w);
     await vulMatches();
@@ -190,6 +200,142 @@
     zet(document.getElementById("p-adres"), w.adres);
     zet(document.getElementById("p-postcodeplaats"), [w.postcode, w.plaats].filter(Boolean).join(" "));
     zet(document.getElementById("p-omschrijving"), w.omschrijving);
+  }
+
+  /* ---------- de prijzentabel ----------
+   *
+   * De tabel bouwt zichzelf op uit de reparatiesoorten in de database, niet uit
+   * een vaste lijst in de pagina. Twee dingen volgen daaruit:
+   *
+   *  - Een reparatie zonder kwaliteitsklassen (accu, laadpoort, camera) krijgt
+   *    EEN prijsvak over de volle breedte, geen drie kolommen met dezelfde
+   *    kwaliteitsnamen erboven. Anders suggereer je een keuze die er niet is.
+   *  - Waterschade krijgt helemaal geen bedrag: dat is een diagnose vooraf en
+   *    daarna een prijs op maat.
+   */
+
+  let TOESTELLEN = [];
+  let HUIDIG_TOESTEL = null;
+
+  async function vulPrijzen() {
+    const kiezer = document.getElementById("prijstoestel");
+    if (!kiezer) return;
+
+    if (!TOESTELLEN.length) {
+      const uit = await haal("/api/toestellen");
+      TOESTELLEN = uit.toestellen ?? [];
+    }
+    if (!TOESTELLEN.length) {
+      kiezer.innerHTML = "<option>Geen toestellen bekend</option>";
+      document.getElementById("ptabel").innerHTML =
+        `<p class="leegregel">Er staan nog geen toestellen in de catalogus.</p>`;
+      return;
+    }
+
+    if (!HUIDIG_TOESTEL) HUIDIG_TOESTEL = TOESTELLEN[0].id;
+    // Per merk gegroepeerd. Een platte lijst van tweehonderdveertig toestellen
+    // is niet te doorzoeken; met optgroups springt de browser naar het merk
+    // zodra je de eerste letters typt.
+    const perMerk = new Map();
+    for (const t of TOESTELLEN) {
+      if (!perMerk.has(t.merk)) perMerk.set(t.merk, []);
+      perMerk.get(t.merk).push(t);
+    }
+    kiezer.innerHTML = [...perMerk].map(([merk, lijst]) =>
+      `<optgroup label="${veilig(merk)}">` + lijst.map((t) =>
+        `<option value="${t.id}"${t.id === HUIDIG_TOESTEL ? " selected" : ""}>${veilig(t.naam)}</option>`
+      ).join("") + `</optgroup>`
+    ).join("");
+    kiezer.onchange = async () => { HUIDIG_TOESTEL = Number(kiezer.value); await tekenPrijzen(); };
+    await tekenPrijzen();
+  }
+
+  async function tekenPrijzen() {
+    const el = document.getElementById("ptabel");
+    if (!el) return;
+    const { reparaties, kwaliteiten, prijzen } = await haal(`/api/portaal/prijzen/${HUIDIG_TOESTEL}`);
+
+    const bij = (rep, kw) =>
+      prijzen.find((p) => p.reparatietype_id === rep && (p.onderdeelkwaliteit_id ?? null) === (kw ?? null));
+
+    /* Per kwaliteit een eigen regel, niet drie kolommen naast elkaar. De ladder
+       heeft zes treden en die passen niet naast elkaar op een scherm; belangrijker
+       is dat een winkel die alleen incell doet, dan geen plek zou hebben om dat
+       in te vullen. Wat je niet doet, laat je leeg. */
+    const prijsregel = (rep, kw) => {
+      const p = bij(rep, kw?.id ?? null);
+      const naam = kw ? veilig(kw.naam) : "Eén prijs, geen kwaliteitskeuze";
+      return `<div class="kwregel">
+        <span class="kwnaam">${naam}</span>
+        <span class="inp"><span class="e">&euro;</span>
+          <input inputmode="decimal" data-rep="${rep}" data-kw="${kw?.id ?? ""}"
+                 value="${p ? Number(p.bedrag) : ""}" placeholder="leeg = doe ik niet"
+                 aria-label="Prijs ${naam}"></span>
+      </div>`;
+    };
+
+    const blok = (r) => {
+      if (r.vorm === "offerte") {
+        return `<div class="repblok">
+          <div class="repkop"><b>${veilig(r.naam)}</b></div>
+          <p class="repuitleg">Hier vul je geen bedrag in. Waterschade begint met een diagnose;
+             de prijs volgt daarna en verschilt per toestel.</p></div>`;
+      }
+      const eerste = prijzen.find((p) => p.reparatietype_id === r.id);
+      const regels = r.heeft_kwaliteit
+        ? kwaliteiten.map((k) => prijsregel(r.id, k)).join("")
+        : prijsregel(r.id, null);
+      return `<div class="repblok">
+        <div class="repkop"><b>${veilig(r.naam)}</b>
+          <span class="tijdinp">
+            <input inputmode="numeric" data-tijd="${r.id}" value="${eerste?.doorlooptijd_minuten ?? ""}"
+                   placeholder="min" aria-label="Doorlooptijd in minuten voor ${veilig(r.naam)}">
+            <span>minuten</span>
+          </span>
+          <label class="vandaag"><input type="checkbox" data-vandaag="${r.id}"
+            ${eerste?.vandaag_klaar ? "checked" : ""}> vandaag klaar</label>
+        </div>
+        ${regels}</div>`;
+    };
+
+    el.innerHTML = reparaties.map(blok).join("") +
+      `<p class="leegregel">Een leeg bedrag betekent: deze reparatie doe ik niet, of niet in die
+        kwaliteit. Een bedrag zonder doorlooptijd wordt niet opgeslagen, want bij elke prijs op de
+        site staat hoe lang het duurt.</p>`;
+
+    const hint = document.getElementById("toestelhint");
+    if (hint) {
+      hint.textContent = prijzen.length
+        ? `${prijzen.length} ${prijzen.length === 1 ? "prijs" : "prijzen"} ingevuld voor dit toestel`
+        : "nog geen prijzen voor dit toestel";
+    }
+  }
+
+  /* Verzamelt wat er in de tabel staat en stuurt het op. */
+  async function prijzenOpslaan() {
+    const el = document.getElementById("ptabel");
+    if (!el) return;
+    const tijden = {};
+    el.querySelectorAll("[data-tijd]").forEach((i) => { tijden[i.dataset.tijd] = i.value.trim(); });
+    const vandaag = {};
+    el.querySelectorAll("[data-vandaag]").forEach((i) => { vandaag[i.dataset.vandaag] = i.checked; });
+
+    const rijen = [...el.querySelectorAll("[data-rep]")].map((i) => ({
+      reparatietype_id: i.dataset.rep,
+      onderdeelkwaliteit_id: i.dataset.kw || null,
+      bedrag: i.value.trim(),
+      doorlooptijd_minuten: tijden[i.dataset.rep] || "",
+      vandaag_klaar: Boolean(vandaag[i.dataset.rep]),
+      garantie_maanden: null,
+    }));
+
+    // Rijen zonder bedrag EN zonder eerdere prijs hoeven niet mee: dan valt er
+    // niets te verwijderen en niets op te slaan.
+    await haal("/api/portaal/prijzen", {
+      method: "POST",
+      lichaam: { toestel_id: HUIDIG_TOESTEL, prijzen: rijen },
+    });
+    await tekenPrijzen();
   }
 
   function toonBevestigWaarschuwing(dagen) {
@@ -293,9 +439,38 @@
       }
     });
 
+    // De prijzentabel: opslaan, en bevestigen zonder te wijzigen.
+    document.getElementById("prijzenopslaan")?.addEventListener("click", async (e) => {
+      e.preventDefault();
+      try {
+        await prijzenOpslaan();
+        melding("Je prijzen zijn opgeslagen en bevestigd.");
+      } catch (fout) {
+        melding(fout.message, "fout");
+      }
+    });
+
+    document.getElementById("prijzenbevestigen")?.addEventListener("click", async (e) => {
+      e.preventDefault();
+      try {
+        const uit = await haal("/api/portaal/bevestigen", { method: "POST", lichaam: {} });
+        melding(uit.aantal
+          ? `${uit.aantal} ${uit.aantal === 1 ? "prijs" : "prijzen"} bevestigd. Je staat weer vooraan bij actualiteit.`
+          : "Je hebt nog geen prijzen om te bevestigen.");
+        document.querySelector(".bevestig")?.classList.remove("let");
+        await tekenPrijzen();
+      } catch (fout) {
+        melding(fout.message, "fout");
+      }
+    });
+
     // Opslaan van het profiel.
-    const opslaan = paneel("profiel")?.querySelector(".btn-groen, .btn-marine");
-    opslaan?.addEventListener("click", async (e) => {
+    /* Op id, niet "de eerste groene knop in dit paneel". Die selector pakte de
+       knop van de prijzentabel, waardoor een klik daarop ALLEBEI de handelingen
+       uitvoerde: de prijzen werden geweigerd en meteen daarna meldde het profiel
+       dat alles was opgeslagen. Een groene melding boven een mislukte opslag is
+       het ergste wat een formulier kan doen. */
+    document.getElementById("profielopslaan")?.addEventListener("click", async (e) => {
       e.preventDefault();
       const lees = (el) => el?.value ?? "";
       // "8911 KX Leeuwarden" uit elkaar halen: de eerste twee stukken zijn de

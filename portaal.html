@@ -172,7 +172,10 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.02em;margin:0 0 3px}
 /* mobiel: tabbalk */
 .mobtab{display:none}
 @media(max-width:860px){
-  .shell{grid-template-columns:1fr}
+  /* minmax(0,1fr) en niet 1fr: anders krimpt de kolom niet onder de breedte van
+     zijn breedste kind, en scrollt de hele pagina opzij. */
+  .shell{grid-template-columns:minmax(0,1fr)}
+  .zij,.main{min-width:0}
   .zij{position:static;height:auto;flex-direction:row;flex-wrap:wrap;gap:6px;align-items:center;padding:12px 16px}
   .zij .merk,.zij .merksub{padding:0;border:0;margin:0}
   .zij .merksub{display:none}
@@ -193,6 +196,36 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.02em;margin:0 0 3px}
 .jurvoet .jur a{text-decoration:none;color:var(--inkt-2);font-weight:600}
 .jurvoet .jur a:hover{color:var(--groen)}
 @media(max-width:760px){.jurvoet{padding:20px 16px 44px}}
+
+/* prijzentabel in het portaal */
+.toestelkiezer{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.toestelkiezer label{font-weight:700;font-size:14.5px}
+/* min-width:0 en niet 320px: een raster met 1fr krimpt niet onder de min-content
+   van zijn inhoud, dus een keuzelijst van 320px duwt de hele portaalkolom open en
+   de pagina scrolt opzij op een telefoon. Dezelfde val als eerder met 1fr. */
+.toestelkiezer select{font:inherit;padding:9px 12px;border:1.5px solid var(--lijn);border-radius:12px;
+  background:#fff;min-width:0;flex:1 1 200px;max-width:340px}
+.toestelhint{font-size:13px;color:var(--inkt-3)}
+.repblok{border:1.5px solid var(--lijn);border-radius:16px;padding:16px 18px;margin-bottom:12px}
+.repkop{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:10px}
+.repkop b{font-size:15.5px;margin-right:auto}
+.repuitleg{margin:0;font-size:13.5px;color:var(--inkt-2);max-width:70ch}
+.tijdinp{display:flex;align-items:center;gap:6px}
+.tijdinp input{width:70px;text-align:right;font:inherit;padding:6px 8px;
+  border:1.5px solid var(--lijn);border-radius:10px}
+.tijdinp span{font-size:13px;color:var(--inkt-3)}
+.vandaag{display:flex;align-items:center;gap:6px;font-size:13.5px;color:var(--inkt-2)}
+.kwregel{display:grid;grid-template-columns:minmax(0,1fr) 150px;gap:12px;align-items:center;
+  padding:6px 0;border-top:1px solid var(--lijn)}
+.kwnaam{font-size:14px;color:var(--inkt-2)}
+.kwregel .inp{display:flex;align-items:center;gap:6px;border:1.5px solid var(--lijn);
+  border-radius:10px;padding:4px 10px;background:#fff}
+.kwregel .inp .e{color:var(--inkt-3);font-size:14px}
+.kwregel .inp input{border:0;font:inherit;width:100%;padding:4px 0;background:transparent}
+.kwregel .inp input:focus{outline:none}
+.kwregel .inp:focus-within{border-color:var(--groen)}
+.ptabel .leegregel{padding:14px 4px}
+@media(max-width:640px){.kwregel{grid-template-columns:minmax(0,1fr);gap:4px}}
 </style>
 
 <div class="schets">Ontwerpschets van het winkelportaal. Alle cijfers en gegevens zijn voorbeelden. De vormgeving is een voorstel.</div>
@@ -265,16 +298,17 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.02em;margin:0 0 3px}
           <div class="veld"><label>Postcode en plaats</label><input id="p-postcodeplaats" value="8911 KX Leeuwarden"></div>
         </div>
         <div class="veld"><label>Korte omschrijving (max 3 zinnen)</label><textarea id="p-omschrijving" rows="2">Wij repareren sinds 2014 aan de Nieuwestad en doen bijna alles terwijl je wacht.</textarea></div>
+          <div class="opslaan"><button class="btn btn-groen" id="profielopslaan">Winkelgegevens opslaan</button></div>
       </div>
       <div class="kaart"><h2>Prijzen per reparatie</h2><p class="toel">Bij elke prijs hoort een kwaliteitslabel en een doorlooptijd. Zonder die twee kunnen we je prijs niet eerlijk vergelijken.</p>
-        <div class="ptabel">
-          <div class="pr"><span>Reparatie (iPhone 13)</span><span>Compatibel</span><span>Service pack</span><span>Origineel</span><span>Doorlooptijd</span></div>
-          <div class="pr"><span class="rn">Scherm</span><span class="inp"><span class="e">&euro;</span><input value="79"></span><span class="inp"><span class="e">&euro;</span><input value="154"></span><span class="inp"><span class="e">&euro;</span><input value="249"></span><span class="tijd">30-45 min</span></div>
-          <div class="pr"><span class="rn">Accu</span><span class="inp"><span class="e">&euro;</span><input value="59"></span><span class="inp"><span class="e">&euro;</span><input value="75"></span><span class="inp"><span class="e">&euro;</span><input value="99"></span><span class="tijd">30 min</span></div>
-          <div class="pr"><span class="rn">Laadpoort</span><span class="inp"><span class="e">&euro;</span><input value="65"></span><span class="inp"><span class="e">&euro;</span><input value="79"></span><span class="inp"><span class="e">&euro;</span><input value="95"></span><span class="tijd">45 min</span></div>
+        <div class="toestelkiezer">
+          <label for="prijstoestel">Toestel</label>
+          <select id="prijstoestel"><option>Laden...</option></select>
+          <span class="toestelhint" id="toestelhint"></span>
         </div>
+        <div class="ptabel" id="ptabel"></div>
         <div class="bevestig"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>Laatst bevestigd op 2 september 2026. Bevestig elke 90 dagen om goed vindbaar te blijven.</div>
-        <div class="opslaan"><button class="btn btn-lijn">Annuleren</button><button class="btn btn-groen">Opslaan en bevestigen</button></div>
+        <div class="opslaan"><button class="btn btn-lijn" id="prijzenbevestigen">Alles klopt nog, bevestigen</button><button class="btn btn-groen" id="prijzenopslaan">Opslaan en bevestigen</button></div>
       </div>
     </section>
 
@@ -433,4 +467,4 @@ function ga(p){
 document.querySelectorAll('.navlink').forEach(n=>n.onclick=()=>ga(n.dataset.p));
 matches();beoordelingen();
 </script>
-<script src="portaal.js?v=0c57aac3"></script>
+<script src="portaal.js?v=f924cf6e"></script>
