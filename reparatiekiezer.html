@@ -996,8 +996,35 @@ function balk(){
 function stappenbalk(){document.querySelectorAll('#stappen .stap').forEach(e=>{const n=+e.dataset.s;e.className='stap'+(n===S.stap?' nu':n<S.stap?' af':'');e.onclick=n<S.stap?()=>ga(n):null});document.getElementById('opnieuw').hidden=!S.model}
 let vorig='';
 function teken(){const inh=document.getElementById('inhoud');inh.innerHTML=[stap1,stap2,stap3][S.stap-1]();const nu=S.stap+S.sub;if(nu!==vorig){inh.style.animation='none';void inh.offsetWidth;inh.style.animation='';vorig=nu}paneel();balk();stappenbalk()}
+/* In welke volgorde de series van een merk staan, is al bepaald voor de tegels.
+   Zoeken hergebruikt die volgorde, anders zeggen bladeren en zoeken iets anders:
+   op "galax" kwamen de Galaxy A37 en A57 boven de S26, alleen omdat de A eerder
+   in het alfabet staat. Eenmalig uitgerekend; dit verandert niet tijdens bezoek. */
+let SERIERANG=null;
+function serieRang(m){
+  if(!SERIERANG){SERIERANG={};
+    for(const merk of merkenOpVolgorde())
+      seriesVan(merk).forEach((s,i)=>{SERIERANG[merk+'|'+s.serie]=i})}
+  const r=SERIERANG[m.merk+'|'+m.serie];
+  return r==null?99:r;
+}
+
 function zoek(v){const box=document.getElementById('sugg');v=v.trim().toLowerCase();if(v.length<2){box.className='sugg';return}
-  const hits=ALLE.filter(m=>zoekbaar(m).includes(v)).slice(0,6);
+  /* Nieuwste eerst, net als de tegels. ALLE staat in de volgorde van het
+     toestellenbestand en dat is oudste eerst: op "galax" kreeg je Galaxy S8,
+     S10e, S10, S10+, Note 10. Wie zijn toestel intypt, zoekt zelden een S8.
+     Een voltreffer op de modelcode of de hele naam gaat voor, daarna een naam
+     die met je zoekwoord begint, en binnen elke groep het nieuwste toestel. */
+  const rang=m=>{const n=m.n.toLowerCase(),c=(modelcode(m)||'').toLowerCase();
+    return c===v||n===v?0:n.startsWith(v)?1:2};
+  const hits=ALLE.filter(m=>zoekbaar(m).includes(v))
+    /* Binnen een serie eerst de kortste naam: dat is het basismodel. Op jaar
+       sorteren zette de iPhone 17e boven de iPhone 17, want die e kwam later
+       uit. Het jaar beslist daarna nog wel, en dat is precies wat de twee
+       iPhone SE's uit elkaar houdt, want die namen zijn even lang. */
+    .sort((a,b)=>rang(a)-rang(b)||serieRang(a)-serieRang(b)
+      ||a.n.length-b.n.length||(b.j||0)-(a.j||0)||a.n.localeCompare(b.n,'nl'))
+    .slice(0,6);
   box.innerHTML=hits.length?hits.map(m=>`<button onclick="kiesModelObj('${m.n}')"><span class="m"></span><b>${m.n}</b><span style="color:var(--inkt-3);font-size:13px">${m.merk}</span><small>${codeLabel(m)}</small></button>`).join(''):`<button onclick="opendlg()"><b>Niet gevonden.</b><small>Zoek je modelcode &rarr;</small></button>`;
   box.className='sugg open'}
 function kiesMerk(m){S.merk=m;S.sub='serie';teken()}
