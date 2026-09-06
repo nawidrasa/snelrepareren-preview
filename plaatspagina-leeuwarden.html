@@ -2,7 +2,7 @@
 <meta name="robots" content="noindex,nofollow">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="stylesheet" href="lettertype/outfit.css">
-<link rel="stylesheet" href="basis.css?v=07edef10">
+<link rel="stylesheet" href="basis.css?v=7dc2985e">
 <style>
 :root{
   --gradient:linear-gradient(160deg,#008C34 0%,#22C55E 55%,#86EFAC 100%);
@@ -321,6 +321,9 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
    negen combinaties af van de metingen: accu iPhone 14 stond op 59 tot 139 waar
    99 tot 139 gemeten is, laadpoort op 45 tot 99 waar 80 tot 89 gemeten is, en
    accu iPhone 15 had een band terwijl daar nul metingen voor zijn. */
+/* Deze pagina gaat over een plaats; de naam staat op een plek en niet in
+   twintig zinnen. Zodra plaatspagina's worden gegenereerd, komt hij daaruit. */
+const PLAATS='Leeuwarden';
 const MODELLEN_HIER=['iPhone 13','iPhone 14','iPhone 15'];
 const REPS={scherm:'Scherm vervangen',accu:'Accu vervangen',laadpoort:'Laadpoort vervangen'};
 /* Wat wij voor dit model echt hebben gemeten. Zonder metingen geen keuze. */
@@ -339,10 +342,14 @@ const KWAL={alle:'Alle kwaliteiten',kopie:'Kopie of compatibel',incell:'Incell',
    als wij van minstens een winkel weten wanneer hij open is; dat vragen wij
    nog niet, dus in de praktijk staat hij er niet. */
 const FILTERS=[
-  ['vandaag','Vandaag klaar',w=>{const a=aanbodVan(w);return a&&a.v}],
+  ['vandaag','Vandaag klaar',w=>kanVandaag(w,aanbodVan(w))],
   ['keur','Polis gecontroleerd',w=>w.keur],
   ['origineel','Origineel onderdeel',w=>!!aanbod(w,S.model,S.rep,'origineel')],
-].concat(WINKELS.some(w=>w.open)?[['open','Nu open',w=>w.open&&!w.open.startsWith('Gesloten')]]:[]);
+  /* "Vandaag open" en niet "Nu open". Het rooster kent geen feestdagen en geen
+     middagsluiting, dus een uitspraak over dit moment zou een paar keer per jaar
+     onwaar zijn. Het filter staat er alleen als minstens een winkel zijn rooster
+     heeft doorgegeven. */
+].concat(WINKELS.some(heeftRooster)?[['open','Vandaag open',w=>vandaagOpen(w)]]:[]);
 const S={model:'iPhone 13',rep:'scherm',kw:'alle',filters:{},uitgVerbergen:false};
 const eur=n=>'&euro; '+n;
 const CHECK='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>';
@@ -421,8 +428,8 @@ function winkelkaart(w,uitgelicht){
     ${[tijd,gar].filter(Boolean).length?`<p class="regel">${[tijd,gar].filter(Boolean).join(' &middot; ')}</p>`:''}
     <div class="labels">
       ${w.keur?`<span class="chip chip-keur">${CHECK}${keurlabel(w)}</span>`:''}
-      ${a&&a.v?`<span class="chip chip-snel">${BOLT}Vandaag klaar</span>`:''}
-      ${w.open?`<span class="chip chip-feit">${esc(w.open)}</span>`:''}
+      ${kanVandaag(w,a)?`<span class="chip chip-snel">${BOLT}Vandaag klaar</span>`:''}
+      ${vandaagTekst(w)?`<span class="chip chip-feit">${esc(vandaagTekst(w))}</span>`:''}
       ${w.oud&&!w.nooitprijs?`<span class="chip chip-let">Prijs 3 maanden niet bevestigd</span>`:''}
     </div>
     ${feiten?`<p class="feiten">${feiten}</p>`:''}
@@ -468,7 +475,7 @@ function zijkolom(){
 function kop(){
   /* De onderkop telt zelf. Hij stond met "6 winkels" in de tekst en klopte dus
      alleen bij de zes verzonnen voorbeelden. */
-  const n=WINKELS.length,kan=WINKELS.filter(w=>{const a=aanbodVan(w);return a&&a.v}).length;
+  const n=WINKELS.length,kan=WINKELS.filter(w=>kanVandaag(w,aanbodVan(w))).length;
   document.getElementById('onderkop').innerHTML=n
     ? `<b>${n} ${n===1?'winkel':'winkels'}</b> in Leeuwarden ${n===1?'repareert':'repareren'} telefoons${kan?`, ${kan} ${kan===1?'daarvan kan':'daarvan kunnen'} dit vandaag nog`:''}. Vergelijk op prijs, doorlooptijd en garantie. Je regelt de reparatie rechtstreeks met de winkel.`
     : `Er is in Leeuwarden nog <b>geen winkel aangesloten</b>. Wat een reparatie landelijk kost, staat er wel: dat komt uit ons eigen prijsonderzoek.`;
@@ -500,7 +507,83 @@ function mob(){
     FILTERS.map(([id,naam])=>`<button class="kk${S.filters[id]?' aan':''}" onclick="zetFilter('${id}')"><span class="rond">${CHECK}</span>${naam}</button>`).join('')+
     `<button class="kk${S.uitgVerbergen?' aan':''}" onclick="S.uitgVerbergen=!S.uitgVerbergen;teken()"><span class="rond">${CHECK}</span>Uitgelicht verbergen</button></div>`;
 }
-function teken(){kies();filters();mob();lijst();zijkolom();kop()}
+/* Onder de drempel is dit geen vergelijking.
+ *
+ * Besluit T4 zegt dat een plaats pas opengaat vanaf drie aangesloten winkels.
+ * Dat stond in de code als getal, werd uitgerekend, en werd door geen enkele
+ * pagina gebruikt: met een winkel stond er gewoon "Vergelijk op prijs,
+ * doorlooptijd en garantie" boven een lijst van een. Er lag zelfs een volledig
+ * ontworpen pagina voor deze staat (plaats-onder-drempel.html) waar niets naar
+ * verwees.
+ *
+ * Wat er nu gebeurt: de keuzes, de filters en de prijsbalken gaan weg, want die
+ * horen bij vergelijken. De winkels die er wel zijn, blijven staan met hun
+ * gegevens; iemand die hier zoekt, heeft meer aan een naam en een nummer dan aan
+ * een lege pagina. En de pagina gaat op noindex, zoals de ontwerppagina zegt. */
+function onderDrempel(){
+  const n=WINKELS.length;
+  document.getElementById('onderkop').innerHTML=n
+    ? `<b>In ${PLAATS} zijn nog geen ${DREMPEL_WINKELS} winkels aangesloten</b>, dus valt er hier nog
+       niets eerlijk te vergelijken. ${n===1?'De winkel die wij wel kennen, staat':'De winkels die wij wel kennen, staan'}
+       hieronder, met wat een reparatie landelijk kost.`
+    : `<b>Er is in ${PLAATS} nog geen winkel aangesloten.</b> Wat een reparatie landelijk kost, staat er wel:
+       dat komt uit ons eigen prijsonderzoek.`;
+
+  /* Leegmaken is niet genoeg: de kaders houden hun rand en hun ruimte, en dan
+     staat er een leeg vak onder de kop. Ze gaan dus echt weg. */
+  for(const id of ['kies','filters','mob']){
+    const el=document.getElementById(id);el.innerHTML='';el.hidden=true;
+  }
+
+  const kaart=w=>{const i=WINKELS.indexOf(w);return `<div class="winkel">
+    <div class="rij">
+      <div class="pui">${esc(w.i)}</div>
+      <div>
+        <div class="naam"><b>${esc(w.n)}</b></div>
+        <p class="adres">${[esc(w.a),afstandVan(w)].filter(Boolean).join(' &middot; ')}</p>
+      </div>
+      ${w.g?`<div class="score"><b class="num">${esc(w.g)}</b> <span class="aant num">(${esc(w.gb||0)})</span>
+        <span class="bron"><a href="${link(w.glink||'#')}" rel="nofollow noopener">op Google</a></span></div>`:''}
+    </div>
+    <div class="labels">
+      ${w.keur?`<span class="chip chip-keur">${CHECK}${keurlabel(w)}</span>`:''}
+    </div>
+    ${feitenVan(w)?`<p class="feiten">${feitenVan(w)}</p>`:''}
+    <div class="acties"><a class="btn btn-stil" href="${winkelLink(w)}">Profiel</a><a class="btn btn-lijn" href="#">Route</a><button class="btn btn-groen" onclick="belWinkel(${i})">${TEL}Bel de winkel</button></div>
+  </div>`};
+
+  document.getElementById('lijst').innerHTML=
+    (n?WINKELS.map(kaart).join(''):'')+
+    `<div class="verm leegblok"><h3>Wij zetten een plaats pas open als er echt iets te vergelijken valt</h3>
+      <p>Met minder dan ${DREMPEL_WINKELS} aangesloten winkels zou een vergelijking hier meer suggereren dan wij
+      weten. Wat een reparatie landelijk kost, zie je hiernaast en op <a href="prijsindex.html">de prijsindex</a>.</p>
+      <p>Heb je een reparatiewinkel in ${PLAATS}? <a href="voor-winkels.html">Meld je winkel aan</a>.
+      De eerste winkels staan er gratis op.</p></div>`;
+
+  const [lo,md,hi]=band();
+  document.getElementById('zprijs').innerHTML=`<h3>${REPS[S.rep]} in Nederland</h3>
+    <p>Zolang wij in ${PLAATS} niet genoeg prijzen hebben, is dit wat je elders betaalt voor een ${S.model}.</p>
+    <div class="drie">
+      <div><small>laagste</small><b class="num">${eur(lo)}</b></div>
+      <div class="mid"><small>middelste</small><b class="num">${eur(md)}</b></div>
+      <div><small>hoogste</small><b class="num">${eur(hi)}</b></div>
+    </div>
+    <p class="bron">${bronZin(S.model,S.rep)}</p>`;
+
+  /* Een pagina die zegt dat hij nog niet open is, hoort niet in een zoekmachine.
+     Zo staat het ook op de ontwerppagina voor deze staat. */
+  if(!document.querySelector('meta[name="robots"]')){
+    const m=document.createElement('meta');
+    m.name='robots';m.content='noindex,follow';
+    document.head.appendChild(m);
+  }
+}
+
+function teken(){
+  if(!genoegIn(PLAATS)){onderDrempel();return}
+  for(const id of ['kies','filters','mob'])document.getElementById(id).hidden=false;
+  kies();filters();mob();lijst();zijkolom();kop();
+}
 document.addEventListener('click',e=>{if(!e.target.closest('.sel'))document.querySelectorAll('.sel').forEach(s=>s.classList.remove('open'))});
 teken();
 </script>

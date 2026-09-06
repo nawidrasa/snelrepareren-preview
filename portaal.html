@@ -2,7 +2,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <link rel="stylesheet" href="lettertype/outfit.css">
-<link rel="stylesheet" href="basis.css?v=07edef10">
+<link rel="stylesheet" href="basis.css?v=7dc2985e">
 <style>
 :root{--groen-50:#F0FDF4;--groen-100:#DCFCE7;--groen-200:#BBF7D0;--groen-300:#86EFAC;--groen-500:#22C55E;--groen:#008934;--groen-800:#007B2E;--groen-900:#005A22;--marine:#0B1F4E;--marine-d:#061238;--marine-100:#E8ECF5;--marine-200:#C5CEE3;--inkt:#111827;--inkt-2:#4A5878;--inkt-3:#6B7480;--lijn:#E3E6EE;--vlak:#F6F8FA;--amber:#B45309;--amber-soft:#FEF3C7;--rood:#B91C1C;--rood-soft:#FEE2E2;color-scheme:light}
 
@@ -95,6 +95,11 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.02em;margin:0 0 3px}
 .betaalveld legend{font-size:13px;font-weight:700;padding:0 6px}
 .betaalveld label{display:inline-flex;align-items:center;gap:7px;margin:6px 16px 0 0;font-size:14px;font-weight:500}
 .betaalveld input{width:auto;margin:0}
+.tijdenrijen{display:grid;gap:6px;margin-top:8px}
+.tijdenrij{display:grid;grid-template-columns:90px minmax(0,1fr) 14px minmax(0,1fr);gap:8px;align-items:center}
+.tijdenrij span{font-size:14px}
+.tijdenrij input{width:100%;margin:0;padding:7px 10px;font-size:14px}
+@media(max-width:560px){.tijdenrij{grid-template-columns:70px minmax(0,1fr) 10px minmax(0,1fr)}}
 .opslaan{display:flex;gap:10px;justify-content:flex-end;margin-top:16px}
 
 /* pakket */
@@ -263,7 +268,7 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.02em;margin:0 0 3px}
   <main class="main">
     <!-- OVERZICHT -->
     <section class="paneel aan" data-p="overzicht">
-      <div class="paginakop"><div><h1>Goedemorgen, Telefoonhulp</h1><p>Dit is je maand tot nu toe, augustus 2026.</p></div><a class="btn btn-marine btn-klein" href="#" onclick="ga('profiel');return false">Profiel bijwerken</a></div>
+      <div class="paginakop"><div><h1>Goedemorgen, Telefoonhulp</h1><p id="o-maand">Dit is je maand tot nu toe.</p></div><a class="btn btn-marine btn-klein" href="#" onclick="ga('profiel');return false">Profiel bijwerken</a></div>
       <div class="stats">
         <div class="stat"><div class="lab">Getoond in zoekresultaten</div><b class="num">1.240</b><div class="op up">&uarr; 12% t.o.v. juli</div></div>
         <div class="stat"><div class="lab">Doorgeklikt naar profiel</div><b class="num">86</b><div class="op flat">7% van de vertoningen</div></div>
@@ -277,8 +282,8 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.02em;margin:0 0 3px}
         <div class="kaart"><h2>Snel regelen</h2><p class="toel">Dit vragen winkeliers het vaakst.</p>
           <div style="display:grid;gap:8px"><a class="btn btn-lijn" href="#" onclick="ga('profiel');return false">Prijzen bijwerken</a><a class="btn btn-lijn" href="#" onclick="ga('pakket');return false">Wat het kost</a><a class="btn btn-lijn" href="winkelprofiel.html">Bekijk mijn openbare profiel</a></div>
         </div>
-        <div class="kaart"><h2>Aandachtspunt</h2><p class="toel">Iets dat je zichtbaarheid raakt.</p>
-          <div class="melding"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>Je prijs voor de iPhone 14 is 78 dagen niet bevestigd. Na 90 dagen weegt hij lichter mee.</div>
+        <div class="kaart" id="aandachtkaart" hidden><h2>Aandachtspunt</h2><p class="toel">Iets dat je zichtbaarheid raakt.</p>
+          <div class="melding" id="aandacht"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg><span id="aandachttekst"></span></div>
           <a class="btn btn-groen btn-klein" href="#" onclick="ga('profiel');return false">Nu bevestigen</a>
         </div>
       </div>
@@ -313,6 +318,12 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.02em;margin:0 0 3px}
           <div class="veld"><label>Postcode en plaats</label><input id="p-postcodeplaats" value="8911 KX Leeuwarden"></div>
         </div>
         <div class="veld"><label>Korte omschrijving (max 3 zinnen)</label><textarea id="p-omschrijving" rows="2">Wij repareren sinds 2014 aan de Nieuwestad en doen bijna alles terwijl je wacht.</textarea></div>
+        <fieldset class="veld betaalveld" id="p-tijden">
+          <legend>Openingstijden</legend>
+          <p class="toel">Laat een dag leeg als je dan dicht bent. Klanten kunnen filteren op "vandaag open".
+            Wij zeggen op de site nooit dat je NU open bent, want dit rooster kent geen feestdagen.</p>
+          <div class="tijdenrijen" id="p-tijdenrijen"></div>
+        </fieldset>
         <fieldset class="veld betaalveld" id="p-betaal">
           <legend>Waarmee kan een klant bij je betalen?</legend>
           <p class="toel">Klanten kunnen hierop filteren. Vink alleen aan wat echt kan.</p>
@@ -331,7 +342,7 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.02em;margin:0 0 3px}
           <span class="toestelhint" id="toestelhint"></span>
         </div>
         <div class="ptabel" id="ptabel"></div>
-        <div class="bevestig"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>Laatst bevestigd op 2 september 2026. Bevestig elke 90 dagen om goed vindbaar te blijven.</div>
+        <div class="bevestig"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg><span id="p-bevestigd"></span></div>
         <div class="opslaan"><button class="btn btn-lijn" id="prijzenbevestigen">Alles klopt nog, bevestigen</button><button class="btn btn-groen" id="prijzenopslaan">Opslaan en bevestigen</button></div>
       </div>
 
@@ -363,8 +374,8 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.02em;margin:0 0 3px}
       </div>
       <div class="kaart"><h2>Je aandeel in Uitgelicht</h2>
         <p class="toel">Nieuwe winkels krijgen een deel van de vertoningen in het blok Uitgelicht, ook zonder te betalen.</p>
-        <div class="aandeelbalk"><div class="track"><div class="fill" style="width:5%"></div></div><div class="lab"><span>Je aandeel in Uitgelicht in Leeuwarden</span><span>5%</span></div></div>
-        <p class="toel" style="margin:14px 0 0">Vijf procent is wat wij voor nieuwkomers vrijhouden. Zolang niemand betaalt, is het hele blok voor nieuwkomers.</p>
+        <div class="aandeelbalk"><div class="track"><div class="fill" id="u-balk" style="width:0%"></div></div><div class="lab"><span id="u-plaats">Je aandeel in Uitgelicht</span><span id="u-pct">-</span></div></div>
+        <p class="toel" style="margin:14px 0 0" id="u-uitleg"></p>
       </div>
       <div class="kaart"><h2>Facturen</h2>
         <p class="toel">Er zijn geen facturen, want er wordt niets in rekening gebracht.</p>
@@ -406,46 +417,35 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.02em;margin:0 0 3px}
     <!-- REPARATIEFORMULIER -->
     <section class="paneel" data-p="formulier">
       <div class="paginakop"><div><h1>Reparatieformulier</h1><p>Het Europese informatieformulier dat je de klant vooraf moet geven. Wij maken het voor je.</p></div></div>
-      <div class="kaart"><h2>Maak een formulier</h2><p class="toel">Kies toestel en reparatie; de rest vullen wij met je eigen prijzen en voorwaarden.</p>
+      <div class="kaart"><h2>Maak een formulier</h2><p class="toel">Kies een reparatie die je hebt ingevuld; de bedragen komen uit je eigen prijzen.</p>
         <div class="tweekolom">
-          <div class="veld"><label>Toestel</label><input value="iPhone 13"></div>
-          <div class="veld"><label>Reparatie</label><input value="Scherm vervangen, service pack"></div>
+          <div class="veld"><label for="f-prijs">Reparatie</label><select id="f-prijs"><option>Laden...</option></select></div>
+          <div class="veld"><label for="f-klant">Naam klant</label><input id="f-klant" placeholder="Voor- en achternaam"></div>
         </div>
-        <div class="tweekolom">
-          <div class="veld"><label>Naam klant</label><input placeholder="Voor- en achternaam"></div>
-          <div class="veld"><label>Datum</label><input value="6 september 2026"></div>
-        </div>
-        <div class="fvoorbeeld" style="margin-top:6px">
-          <div class="fkop">Voorbeeld van het formulier</div>
-          <div class="frij"><span>Reparatie</span><b>Scherm vervangen, iPhone 13</b></div>
-          <div class="frij"><span>Onderdeelkwaliteit</span><b>Service pack</b></div>
-          <div class="frij"><span>Prijs inclusief btw</span><b class="num">&euro; 154,00</b></div>
-          <div class="frij"><span>Doorlooptijd</span><b>30 tot 45 minuten</b></div>
-          <div class="frij"><span>Garantie</span><b>12 maanden op onderdeel en werk</b></div>
-          <div class="frij"><span>Uitgesloten</span><b>Nieuwe val- of waterschade</b></div>
-        </div>
-        <div class="opslaan"><button class="btn btn-lijn">Voorbeeld bekijken</button><button class="btn btn-groen">Maak pdf</button></div>
+        <div class="fvoorbeeld" style="margin-top:6px" id="f-voorbeeld"></div>
+        <div class="opslaan"><button class="btn btn-groen" id="f-afdrukken">Afdrukken of opslaan als pdf</button></div>
+        <p class="toel" style="margin:12px 0 0">Wij vullen het formulier met wat jij hebt opgegeven. Klopt er iets niet, pas het dan aan bij Profiel en prijzen; dan klopt het op de site ook.</p>
       </div>
     </section>
 
     <!-- ACCOUNT -->
     <section class="paneel" data-p="account">
-      <div class="paginakop"><div><h1>Account</h1><p>Je inloggegevens en je vestigingen.</p></div></div>
-      <div class="kaart"><h2>Inloggen en beveiliging</h2><p class="toel">Wie kan er bij dit account.</p>
-        <div class="instelling"><div><b>E-mailadres</b><span>jelle@telefoonhulp.nl</span></div><button class="btn btn-lijn btn-klein">Wijzigen</button></div>
-        <div class="instelling"><div><b>Wachtwoord</b><span>Laatst gewijzigd op 12 augustus 2026</span></div><button class="btn btn-lijn btn-klein">Wijzigen</button></div>
-        <div class="instelling"><div><b>Extra beveiliging met een code</b><span>Optioneel, maar wel aan te raden. Je hebt er een app voor nodig.</span></div><button class="schuif" id="tweefactor" onclick="this.classList.toggle('aan')"><i></i></button></div>
+      <div class="paginakop"><div><h1>Account</h1><p>Hoe je binnenkomt, en hoe je stopt.</p></div></div>
+      <div class="kaart"><h2>Inloggen</h2><p class="toel">Wie kan er bij dit account.</p>
+        <div class="instelling"><div><b>E-mailadres</b><span id="a-email">wordt geladen</span></div></div>
+        <div class="instelling"><div><b>Er is geen wachtwoord</b><span>Je logt in met een link die wij naar je e-mailadres sturen. Die werkt 30 minuten en maar een keer. Wat er niet is, kan ook niet uitlekken.</span></div></div>
       </div>
-      <div class="kaart"><h2>Vestigingen</h2><p class="toel">Meerdere adressen onder één account hoort er gewoon bij; daar betaal je niet voor.</p>
-        <div class="vestiging"><span><b>Nieuwestad 112, Leeuwarden</b></span><span class="hoofd">Hoofdvestiging</span></div>
-        <div class="vestiging"><span><b>Schrans 14, Leeuwarden</b></span><button class="btn btn-lijn btn-klein">Bewerken</button></div>
-        <div class="opslaan" style="justify-content:flex-start"><button class="btn btn-lijn">Vestiging toevoegen</button></div>
+      <div class="kaart"><h2>Adres</h2><p class="toel">Het adres waarop je winkel bij ons staat. Wijzigen doe je bij Profiel en prijzen.</p>
+        <div class="vestiging"><span><b id="a-adres">wordt geladen</b></span></div>
+        <p class="toel" style="margin:12px 0 0">Een tweede vestiging onder hetzelfde account kan nog niet. Zijn het er meer, meld ze dan los aan; dan heeft elke vestiging zijn eigen prijzen en zijn eigen plaatspagina.</p>
       </div>
       <div class="kaart"><h2>Stoppen</h2><p class="toel">Je zit nergens aan vast, en er is geen abonnement om op te zeggen.</p>
         <div class="gevaar">
           <b>Vermelding helemaal verwijderen</b>
           <p>Je winkel verdwijnt van snelrepareren.nl, inclusief je prijzen en beoordelingen. Dit kan niet ongedaan worden gemaakt.</p>
-          <button class="btn btn-rood btn-klein">Vermelding verwijderen</button>
+          <div class="veld"><label for="a-bevestig">Typ de naam van je winkel over om te bevestigen</label>
+            <input id="a-bevestig" placeholder="de naam van je winkel"></div>
+          <button class="btn btn-rood btn-klein" id="a-verwijder">Vermelding verwijderen</button>
         </div>
       </div>
     </section>
@@ -459,9 +459,6 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.02em;margin:0 0 3px}
 </footer>
 
 <script>
-const GRAF=[14,18,16,22,19,25,28,31];const MND=['jan','feb','mrt','apr','mei','jun','jul','aug'];
-const max=Math.max(...GRAF);
-document.getElementById('grafiek').innerHTML=GRAF.map((v,i)=>`<div class="bar${i===GRAF.length-1?' nu':''}" style="height:${Math.round(v/max*100)}%"><span>${MND[i]}</span></div>`).join('');
 const VR=[
  ['Plaatspagina Leeuwarden','gewoon',430,28],
  ['Blok Uitgelicht, Leeuwarden','uitgelicht',540,41],
@@ -508,4 +505,4 @@ function ga(p){
 document.querySelectorAll('.navlink').forEach(n=>n.onclick=()=>ga(n.dataset.p));
 matches();beoordelingen();
 </script>
-<script src="portaal.js?v=b80869fc"></script>
+<script src="portaal.js?v=0a11a91c"></script>

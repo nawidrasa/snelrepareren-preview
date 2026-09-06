@@ -2,7 +2,7 @@
 <meta name="robots" content="noindex,nofollow">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="stylesheet" href="lettertype/outfit.css">
-<link rel="stylesheet" href="basis.css?v=07edef10">
+<link rel="stylesheet" href="basis.css?v=7dc2985e">
 <style>
 :root{
   color-scheme:light;
@@ -424,8 +424,8 @@ const hoogste=()=>gekozen().reduce((a,k)=>{const m=meting(k);if(!m)return a;
    eerst de poliscontrole, dan een controleerbare erkenning, dan het cijfer. Betalen
    verandert hier niets aan; het blok Uitgelicht staat apart en is als zodanig gelabeld. */
 const vandaagKlaar=w=>{const g=gekozen();
-  if(!g.length)return !!w.vandaag;
-  return g.every(k=>{const a=aanbod(w,S.model?S.model.n:'',k);return a&&a.v});};
+  if(!g.length)return kanVandaag(w,{v:1});
+  return g.every(k=>kanVandaag(w,aanbod(w,S.model?S.model.n:'',k)));};
 const inPlaats=()=>WINKELS.filter(w=>w.plaats.toLowerCase()===S.plaats.trim().toLowerCase());
 
 const lijst=()=>rangschik(inPlaats().filter(w=>FILTERS.every(([id,,f])=>!S.filters[id]||f(w))));
@@ -540,13 +540,15 @@ function stap3(){
   const somVan=w=>{let t=0;for(const k of g){const a=aanbod(w,S.model.n,k);if(!a)return null;t+=a.b}return t};
   const kaart=w=>{const i=WINKELS.indexOf(w),p=somVan(w);
     const pos=(p!=null&&hi>lo)?Math.min(96,Math.max(4,(p-lo)/(hi-lo)*100)):50;const med=hi>lo?((som()-lo)/(hi-lo)*100):50;
-    const tijd=doorlooptijd(g.length?aanbod(w,S.model.n,g[0]):null);
+    const eerste=g.length?aanbod(w,S.model.n,g[0]):null;
+    const tijd=kanVandaag(w,eerste)?doorlooptijd(eerste):(eerste?doorlooptijd(eerste):null);
+    const dicht=heeftRooster(w)&&!vandaagOpen(w);
     const regel=[esc(w.a),afstandVan(w)].filter(Boolean).join(' &middot; ');
     return `<div class="winkel${w.uit?' uitg':''}">
       <div class="kop"><b>${esc(w.n)}</b><span>${regel}</span></div>
       <div class="cijfer">${w.g?`<b class="num">${esc(w.g)}</b><span><a href="${link(w.glink||'#')}" rel="nofollow noopener">${esc(w.gb||0)} beoordelingen op Google</a></span>`
         :'<span class="geencijfer">Nog geen cijfer op Google</span>'}<span class="eigen">${eigenBeoordelingen(w)}</span>${feitenVan(w)?`<span class="feit">${feitenVan(w)}</span>`:''}</div>
-      <div class="chips">${w.uit?`<span class="chip chip-uitg">Uitgelicht &middot; ${uitgelichtReden(w)}</span>`:''}${w.keur?`<span class="chip chip-keur">${CHECK}${keurlabel(w)}</span>`:''}${tijd?`<span class="chip chip-snel">${BOLT}${tijd}</span>`:''}</div>
+      <div class="chips">${w.uit?`<span class="chip chip-uitg">Uitgelicht &middot; ${uitgelichtReden(w)}</span>`:''}${w.keur?`<span class="chip chip-keur">${CHECK}${keurlabel(w)}</span>`:''}${tijd?`<span class="chip chip-snel">${BOLT}${tijd}</span>`:''}${dicht?`<span class="chip">Vandaag gesloten</span>`:''}</div>
       ${(w.betaal||[]).length?`<div class="betaal">${KAART}${w.betaal.map(esc).join(' &middot; ')}</div>`:''}
       <div class="prijsvak"><div class="prijs num">${p!=null?eur(p):'op aanvraag'}<small>${g.map(k=>REP[k].n).join(' + ')}</small></div>
         ${p!=null&&som()?`<div class="bereik"><div class="track"><div class="fill" style="left:4%;width:92%"></div><div class="tick" style="left:${med}%"></div><div class="jij" style="left:${pos}%"></div></div><div class="lab num"><span>${eur(lo)}</span><span>${eur(hi)}</span></div></div>`:''}</div>

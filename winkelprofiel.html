@@ -2,7 +2,7 @@
 <meta name="robots" content="noindex,nofollow">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="stylesheet" href="lettertype/outfit.css">
-<link rel="stylesheet" href="basis.css?v=07edef10">
+<link rel="stylesheet" href="basis.css?v=7dc2985e">
 <style>
 :root{
   --groen-50:#F0FDF4;--groen-100:#DCFCE7;--groen-200:#BBF7D0;--groen-300:#86EFAC;--groen-500:#22C55E;--groen:#008934;--groen-800:#007B2E;--groen-900:#005A22;
@@ -324,10 +324,17 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
       <p class="let">Je maakt de afspraak rechtstreeks met de winkel. Wij zitten er niet tussen en rekenen niets.</p>
     </div>
 
-    <!-- De openingstijden stonden hier als vaste week met "Nu open, tot 18:00".
-         Wij vragen een winkel niet naar zijn openingstijden, en half gedaan is
-         hier erger dan niet gedaan: "Nu open" dat niet klopt stuurt iemand voor
-         een dichte deur. Zodra wij het wel vragen, komt dit blok terug. -->
+    <!-- Het rooster staat er alleen als de winkel het heeft doorgegeven, en de
+         regel erboven zegt wat er VANDAAG geldt. Er staat bewust niet "nu open":
+         dit rooster kent geen feestdagen en geen middagsluiting, en een
+         vergelijker die zegt dat een winkel open is terwijl hij dicht is, stuurt
+         iemand voor niets de deur uit. -->
+    <div class="zkaart" id="wp-tijdenkaart" hidden>
+      <h3>Openingstijden</h3>
+      <div class="statuslijn" id="wp-vandaag"></div>
+      <div class="tijden" id="tijden"></div>
+      <p class="klein" id="wp-tijdenbron"></p>
+    </div>
 
     <div class="zkaart" id="wp-praktischkaart" hidden>
       <h3>Praktisch</h3>
@@ -403,6 +410,7 @@ const SCHETS={
   plaats:'Leeuwarden',tel:'058 123 45 67',website:null,
   omschrijving:'Wij repareren sinds 2014 aan de Nieuwestad en doen bijna alles terwijl je wacht. Schermen en accus hebben we voor de gangbare modellen op voorraad, dus je bent meestal binnen een half uur klaar.',
   kvk:true,betaal:['Pin','Contant','Apple Pay','iDEAL'],
+  ot:'ma 09:30-18:00\ndi 09:30-18:00\nwo 09:30-18:00\ndo 09:30-21:00\nvr 09:30-18:00\nza 10:00-17:00',
   keur:1,keurdatum:'12 aug 2026',polistot:'1 jan 2027',erk:['Apple IRP'],
   g:'4,6',gb:210,glink:'#',gdatum:'3 sep 2026',bevestigd:'2 sep 2026',
   modellen:MODELLEN_SCHETS,p:null,reviews:[],
@@ -575,6 +583,22 @@ function contact(){
     (P.tel?`<button class="btn btn-groen" onclick="belMatch(P)">${TELICOON}Bel de winkel</button>`:'');
 }
 
+function tijden(){
+  const kaart=document.getElementById('wp-tijdenkaart');
+  const rooster=roosterVan(P);
+  if(!rooster.length){kaart.hidden=true;return}
+  kaart.hidden=false;
+  const nu=vandaagKort();
+  document.getElementById('wp-vandaag').innerHTML=`<i></i>${esc(vandaagTekst(P))}`;
+  document.getElementById('tijden').innerHTML=DAGVOLGORDE.map(d=>{
+    const r=rooster.find(x=>x[0]===d);
+    return `<div class="${d===nu?'nu':(r?'':'dicht')}"><span>${DAGNAMEN[d]}</span>
+      <span>${r?esc(r[1])+' tot '+esc(r[2]):'gesloten'}</span></div>`;
+  }).join('');
+  document.getElementById('wp-tijdenbron').textContent=
+    'Deze tijden geeft de winkel zelf op. Op feestdagen kan het afwijken; bel bij twijfel even.';
+}
+
 function praktisch(){
   /* Alleen wat de winkel zelf heeft ingevuld. Hier stonden vier vaste regels,
      waaronder "Repareert Apple, Samsung, Google en OnePlus" en "Zonder afspraak
@@ -615,5 +639,5 @@ function reviews(){
 }
 
 function teken(){toestelkies();tabel();vergelijk();garantie()}
-kop();teken();over();polis();google();contact();praktisch();bevestigd();reviews();
+kop();teken();over();polis();google();contact();praktisch();tijden();bevestigd();reviews();
 </script>

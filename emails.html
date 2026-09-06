@@ -2,7 +2,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <link rel="stylesheet" href="lettertype/outfit.css">
-<link rel="stylesheet" href="basis.css?v=07edef10">
+<link rel="stylesheet" href="basis.css?v=7dc2985e">
 <style>
 :root{--groen-50:#F0FDF4;--groen-100:#DCFCE7;--groen-200:#BBF7D0;--groen-500:#22C55E;--groen:#008934;--groen-800:#007B2E;--marine:#0B1F4E;--marine-100:#E8ECF5;--marine-200:#C5CEE3;--inkt:#111827;--inkt-2:#4A5878;--inkt-3:#6B7480;--lijn:#E3E6EE;--vlak:#F6F8FA;--amber:#B45309;--amber-soft:#FEF3C7;--rood:#B91C1C;--rood-soft:#FEE2E2;color-scheme:light}
 
@@ -82,7 +82,7 @@ footer{border-top:1px solid var(--lijn);margin-top:20px;padding:26px 0 60px;colo
     <ul>
       <li><b>Eén doel, één knop.</b> Wie de mail scant, ziet meteen wat er van hem wordt gevraagd.</li>
       <li><b>De aanleiding staat in de eerste zin.</b> Waarom krijg je dit, en wanneer deed je iets.</li>
-      <li><b>Geen marketing in een bericht dat over je account gaat.</b> Geen pakketaanbod in een incassomail.</li>
+      <li><b>Geen marketing in een bericht dat over je account gaat.</b> Een mail over je polis gaat over je polis, en verder over niets.</li>
       <li><b>Alles ook in platte tekst.</b> Een mail die zonder plaatjes onleesbaar is, is een slechte mail.</li>
       <li><b>Wat wij niet weten, verzinnen wij niet.</b> Is de reden van de bank onduidelijk, dan schrijven wij dat.</li>
       <li><b>De klantmail heeft afmelden met één klik</b>, in de mail zelf en in de kopregels.</li>
@@ -120,7 +120,7 @@ const MAILS=[
   <ol>
     <li>Wij controleren je inschrijving bij de Kamer van Koophandel en of het adres klopt.</li>
     <li>Wil je de poliscontrole, dan kijken wij naar het polisblad dat je hebt meegestuurd.</li>
-    <li>Binnen twee werkdagen krijg je bericht. Gaat het door, dan zit daar meteen de link in om je wachtwoord in te stellen.</li>
+    <li>Binnen twee werkdagen krijg je bericht. Gaat het door, dan zit daar meteen de link in waarmee je je gegevens invult. Je hoeft geen wachtwoord te bedenken.</li>
   </ol>
   <p>Klopt er iets niet aan je aanmelding, dan mailen wij je wat er ontbreekt. Wij wijzen niemand af zonder de reden erbij te zetten.</p>
   <a class="knop" href="keurmerk.html">Bekijk wat wij controleren</a>
@@ -128,28 +128,40 @@ const MAILS=[
  voet:`<p>Je krijgt deze mail omdat er een aanmelding is gedaan voor ${V('{winkelnaam}')} op snelrepareren.nl.</p><p>Was je dat niet? Laat het ons weten, dan verwijderen wij de aanmelding.</p>`
 },
 {
- titel:'Uitnodiging voor het portaal',
+ titel:'Je link om in te loggen',
  aan:'winkel', van:'winkels@snelrepareren.nl',
- naar:'De contactpersoon uit de aanmelding',
- wanneer:'Zodra wij de aanmelding hebben goedgekeurd.',
- doel:'Eén ding: het wachtwoord laten instellen. Alles daarna gebeurt in het portaal.',
- afspraak:'De link is zeven dagen geldig en kan één keer worden gebruikt.',
- onderwerp:[V('{winkelnaam}'),' staat klaar. Stel je wachtwoord in.'],
- body:`<p class="eerste">Je aanmelding is goedgekeurd. Je winkel staat klaar op snelrepareren.nl.</p>
-  <p>Kies eerst een wachtwoord. Daarna vul je in acht korte stappen je openingstijden, prijzen en garantie in. Dat kost ongeveer tien minuten en je kunt tussendoor stoppen.</p>
-  <a class="knop" href="inloggen.html">Wachtwoord instellen</a>
-  <p>Deze link is zeven dagen geldig en werkt één keer. Is hij verlopen, vraag dan in het inlogscherm een nieuwe aan.</p>
-  <div class="vak"><p>Zolang je profiel niet compleet is, staat je winkel wel op de plaatspagina, maar zonder prijzen. Winkels met prijzen worden vaker aangeklikt.</p></div>`,
- voet:`<p>Heb je geen aanmelding gedaan? Klik dan niet op de knop en mail ons; wij verwijderen de vermelding dezelfde dag.</p>`
+ naar:'Het adres van de contactpersoon',
+ wanneer:'Zodra wij de aanmelding goedkeuren, en daarna elke keer dat de winkel op de inlogpagina om een link vraagt.',
+ doel:'Binnenlaten, zonder wachtwoord.',
+ afspraak:'De link werkt 30 minuten en daarna niet meer. In onze database staat alleen een onomkeerbare afdruk van de link, dus wie de database leest, komt er niet mee binnen.',
+ onderwerp:['Je link om in te loggen'],
+ body:`<p class="eerste">Hier is je link om in te loggen op snelrepareren.nl.</p>
+  <a class="knop" href="portaal.html">Naar je portaal</a>
+  <p>De link werkt 30 minuten en daarna niet meer. Is hij verlopen, vraag er dan gewoon een nieuwe aan op de inlogpagina.</p>
+  <p>Heb je hem niet zelf aangevraagd, dan hoef je niets te doen; met alleen deze mail komt niemand binnen.</p>
+  <div class="vak"><p><b>Er is geen wachtwoord.</b> Dat is een keuze: wat er niet is, kan niet lekken, niet gestolen worden en niet hergebruikt worden op een andere site.</p></div>`,
+ voet:`<p>Heb je geen account bij ons? Dan is er om jouw adres gevraagd door iemand anders. Klik niet op de knop en mail ons.</p>`
 },
 {
- titel:'Je prijzen zijn 90 dagen niet bevestigd',
+ titel:'Je melding is binnen',
+ aan:'iedereen', van:'hallo@snelrepareren.nl',
+ naar:'Het adres dat bij de melding is achtergelaten, als dat er is',
+ wanneer:'Direct na het versturen van het meldformulier.',
+ doel:'Bevestigen dat het is aangekomen, en zeggen binnen hoeveel tijd er een antwoord komt.',
+ afspraak:'Een melding mag ook zonder e-mailadres; dan sturen wij niets en behandelen wij hem wel.',
+ onderwerp:['Je melding is binnen'],
+ body:`<p class="eerste">Je melding over ${V('{soort melding}')} is binnen. Wij kijken ernaar en laten binnen twee werkdagen weten wat wij ermee doen.</p>
+  <p>Gaat het over een reparatie die is misgegaan, bel dan ook de winkel zelf. Die heeft je toestel gezien en kan het meestal het snelst oplossen.</p>`,
+ voet:`<p>Je krijgt deze mail omdat je een melding hebt gedaan op snelrepareren.nl.</p>`
+},
+{
+ titel:'Kloppen je prijzen nog?',
  aan:'winkel', van:'winkels@snelrepareren.nl',
  naar:'De contactpersoon van het account',
- wanneer:'Negentig dagen na de laatste bevestiging. Daarna nog één keer op dag 105.',
+ wanneer:'Tachtig dagen na de laatste bevestiging, dus tien dagen voordat de prijzen lichter gaan wegen. Daarna pas weer na een volgende ronde van tachtig dagen.',
  doel:'Prijzen laten bevestigen of laten bijwerken, met één klik als ze nog kloppen.',
- afspraak:'Een prijs die niet is bevestigd, weegt lichter mee en verdwijnt uiteindelijk.',
- onderwerp:['Je prijzen zijn 90 dagen niet bevestigd'],
+ afspraak:'Een prijs die 90 dagen niet is bevestigd, weegt lichter mee in de volgorde. Wij halen hem niet weg: dat zou de bezoeker minder informatie geven, niet meer.',
+ onderwerp:['Kloppen je prijzen nog?'],
  body:`<p class="eerste">Op je vermelding staat sinds vandaag: prijs 3 maanden niet bevestigd. Bezoekers zien die melding ook.</p>
   <p>Dit staat er nu:</p>
   <table>
@@ -160,30 +172,14 @@ const MAILS=[
   </table>
   <p>Kloppen ze nog? Dan ben je met één klik klaar. Klopt er iets niet, dan pas je het in hetzelfde scherm aan.</p>
   <a class="knop" href="portaal.html">Prijzen bevestigen</a>
-  <div class="vak let"><p>Doe je niets, dan halen wij deze prijzen over 30 dagen weg. Je vermelding blijft staan, maar dan zonder prijs, en dat scheelt aanzienlijk in hoe vaak je wordt aangeklikt.</p></div>`,
+  <div class="vak"><p>Doe je niets, dan blijven je prijzen gewoon staan. Ze wegen alleen lichter mee, en bezoekers zien dat ze niet recent zijn bevestigd. Wij vragen dit omdat een prijslijst die niemand meer nakijkt, na een half jaar niemand meer helpt, ook jou niet.</p></div>`,
  voet:`<p>Dit is een bericht over je account. Je kunt je er niet voor afmelden zolang je een vermelding hebt met prijzen.</p>`
-},
-{
- titel:'De incasso is niet gelukt',
- aan:'winkel', van:'winkels@snelrepareren.nl',
- naar:'De contactpersoon van het account',
- wanneer:'Dezelfde dag dat de bank de incasso terugstuurt.',
- doel:'Rustig laten herstellen, zonder dreigtaal. Er verandert de eerste zeven dagen niets.',
- afspraak:'Zeven dagen de tijd, daarna pauzeren wij alleen de plek in Uitgelicht. De vermelding zelf is gratis en blijft staan. Wij verwijderen nooit gegevens om een mislukte betaling.',
- onderwerp:['De incasso van deze maand is niet gelukt'],
- body:`<p class="eerste">De incasso van ${V('{bedrag}')} voor je plek in Uitgelicht is door de bank teruggestuurd. Reden: ${V('{reden van de bank}')}.</p>
-  <p>Er verandert nu niets. Je vermelding, je prijzen en je beoordelingen blijven precies zoals ze zijn.</p>
-  <p>Je hebt tot ${V('{datum, zeven dagen later}')} om het te herstellen. Meestal is het een saldokwestie of een gewijzigd rekeningnummer.</p>
-  <a class="knop" href="portaal.html">Betaling herstellen</a>
-  <p>Lukt het niet voor die datum, dan pauzeren wij alleen je plek in Uitgelicht. Je vermelding, je prijzen, je profiel en je beoordelingen blijven volledig staan; die zijn gratis en dat blijven ze. Zodra de betaling binnen is, gaat alles dezelfde dag weer aan.</p>
-  <p>Loop je ergens tegenaan? Antwoord op deze mail, dan zoeken wij het samen uit.</p>`,
- voet:`<p>Dit is een bericht over je abonnement. Je kunt je hier niet voor afmelden.</p>`
 },
 {
  titel:'Hoe ging je reparatie?',
  aan:'klant', van:'hallo@snelrepareren.nl',
  naar:'Het e-mailadres dat de bezoeker zelf achterliet',
- wanneer:'Twee dagen nadat de bezoeker het nummer opvroeg, of direct nadat de winkel de reparatie klaarmeldde.',
+ wanneer:'Twee dagen nadat de bezoeker het nummer opvroeg. Niet eerder en niet later, en de winkel kan er niets aan veranderen: klaarmelden verstuurt niets.',
  doel:'Eén beoordeling ophalen. Eén keer vragen, daarna nooit meer.',
  afspraak:'Alleen naar wie via ons een winkel opzocht. Geen beloning. De winkel kan niet kiezen wie er een krijgt.',
  onderwerp:['Hoe ging je reparatie bij ',V('{winkelnaam}'),'?'],
@@ -199,7 +195,7 @@ const MAILS=[
  titel:'Je polis verloopt',
  aan:'winkel', van:'winkels@snelrepareren.nl',
  naar:'De contactpersoon van het account',
- wanneer:'Dertig dagen voor de einddatum op het polisblad, en nog een keer zeven dagen ervoor.',
+ wanneer:'Dertig dagen voor de einddatum op het polisblad. Precies een keer per polis; leg je een nieuw polisblad over, dan telt de volgende weer mee.',
  doel:'Een nieuw polisblad binnenkrijgen voordat de poliscontrole automatisch vervalt.',
  afspraak:'Zonder geldig polisblad vervalt het label op de einddatum. Dat gaat vanzelf, wij beslissen daar niets over.',
  onderwerp:['Je polis verloopt op ',V('{datum}'),', en daarmee Polis gecontroleerd'],

@@ -38,30 +38,30 @@ const WINKELDATA = {
      g:'9,1',gb:48,vers:'nieuwste Google-beoordeling 3 dagen geleden',keur:1,keurdatum:'12 aug 2026',
      polistot:'1 jan 2027',glink:'#',eigen:0,erk:'Apple IRP',jaren:12,vest:1,
      tijd:'Klaar terwijl je wacht',min:35,vandaag:1,gar:'12 maanden garantie',kw:'oem',niv:.33,
-     open:'Open tot 18:00',betaal:['Pin','Contant','Apple Pay','iDEAL'],f:1.0,uit:0},
+     ot:'ma 09:30-18:00\ndi 09:30-18:00\nwo 09:30-18:00\ndo 09:30-21:00\nvr 09:30-18:00\nza 10:00-17:00',betaal:['Pin','Contant','Apple Pay','iDEAL'],f:1.0,uit:0},
     {n:'FixPoint Friesland',i:'F',plaats:'Leeuwarden',buurt:'Centrum',a:'Wirdumerdijk 22',km:0.6,
      g:'8,7',gb:112,vers:'nieuwste Google-beoordeling 1 week geleden',keur:1,keurdatum:'28 jul 2026',
      polistot:'1 apr 2027',glink:'#',eigen:0,erk:'Samsung erkend',jaren:8,vest:3,
      tijd:'Vandaag klaar',min:120,vandaag:1,gar:'12 maanden garantie',kw:'oem',niv:.44,
-     open:'Open tot 17:30',betaal:['Pin','Apple Pay','iDEAL'],f:1.05,uit:'nieuw'},
+     ot:'ma 10:00-17:30\ndi 10:00-17:30\nwo 10:00-17:30\ndo 10:00-17:30\nvr 10:00-17:30\nza 10:00-16:00',betaal:['Pin','Apple Pay','iDEAL'],f:1.05,uit:'nieuw'},
     {n:'De Schermwerkplaats',i:'S',plaats:'Leeuwarden',buurt:'Centrum',a:'Voorstreek 45',km:0.9,
      g:'9,4',gb:26,vers:'nieuwste Google-beoordeling 5 dagen geleden',keur:1,
      keurdatum:'3 sep 2026',polistot:'1 sep 2027',glink:'#',eigen:0,erk:null,jaren:6,vest:1,
      tijd:'Morgen klaar',min:1440,vandaag:0,gar:'24 maanden garantie',kw:'origineel',niv:.78,
-     open:'Open tot 17:00',betaal:['Pin','Contant'],f:1.2,uit:0},
+     ot:'di 09:00-17:00\nwo 09:00-17:00\ndo 09:00-17:00\nvr 09:00-17:00\nza 09:00-16:00',betaal:['Pin','Contant'],f:1.2,uit:0},
     {n:'Studio Repair Huizum',i:'R',plaats:'Leeuwarden',buurt:'Schrans en Huizum',a:'Huizumerlaan 8',km:2.3,
      g:'8,9',gb:19,vers:'nieuwste Google-beoordeling 2 weken geleden',keur:1,
      keurdatum:'19 jun 2026',polistot:'1 jul 2027',glink:'#',eigen:0,erk:null,jaren:4,vest:1,
      tijd:'Vandaag klaar',min:180,vandaag:1,gar:'12 maanden garantie',kw:'oem',niv:.5,
-     open:'Open tot 18:00',betaal:['Pin','Apple Pay'],f:1.08,uit:0},
+     ot:'ma 09:00-18:00\ndi 09:00-18:00\nwo 09:00-18:00\ndo 09:00-18:00\nvr 09:00-18:00',betaal:['Pin','Apple Pay'],f:1.08,uit:0},
     {n:'Mobiel Service Schrans',i:'M',plaats:'Leeuwarden',buurt:'Schrans en Huizum',a:'Schrans 68',km:1.5,
      g:'8,2',gb:63,vers:'nieuwste Google-beoordeling 4 maanden geleden',keur:0,glink:'#',eigen:0,erk:null,jaren:9,vest:1,
      tijd:'1 tot 2 werkdagen',min:2880,vandaag:0,gar:'6 maanden garantie',kw:'kopie',niv:.1,
-     open:'Gesloten, opent morgen 09:00',oud:1,betaal:['Pin','Contant'],f:.9,uit:0},
+     ot:'ma 09:00-17:00\ndi 09:00-17:00\nwo 09:00-17:00\ndo 09:00-17:00\nvr 09:00-17:00',oud:1,betaal:['Pin','Contant'],f:.9,uit:0},
     {n:'Camminghaburen Telecom',i:'C',plaats:'Leeuwarden',buurt:'Camminghaburen',a:'Egelantierstraat 2',km:3.8,
      g:'8,5',gb:8,vers:'nieuwste Google-beoordeling 3 weken geleden',keur:0,glink:'#',eigen:0,erk:null,jaren:3,vest:1,
      tijd:'1 tot 2 werkdagen',min:2880,vandaag:0,gar:'12 maanden garantie',kw:'oem',niv:.28,
-     open:'Open tot 18:00',betaal:['Pin'],f:.96,uit:0},
+     ot:'ma 09:30-18:00\ndi 09:30-18:00\nwo 09:30-18:00\ndo 09:30-18:00\nvr 09:30-18:00\nza 10:00-17:00',betaal:['Pin'],f:.96,uit:0},
   ],
 
   /* Vooringevulde vermeldingen: winkels die wij uit openbare bronnen kennen maar
@@ -96,6 +96,13 @@ const WINKELDATA = {
 
 const WINKELS = VOORBEELDEN ? WINKELDATA.voorbeelden : WINKELDATA.echt;
 const VERMELDINGEN = VOORBEELDEN ? WINKELDATA.vermeldingen : WINKELDATA.echteVermeldingen;
+
+/* Vanaf hoeveel aangesloten winkels een plaats echt opengaat (besluit T4).
+   Onder die drempel is een plaatspagina geen vergelijking maar een lijstje, en
+   dan hoort er ook niet "vergelijk op prijs" boven te staan. Deze waarde staat
+   ook in app/src/rangschikking.ts; de gegenereerde versie van dit bestand neemt
+   hem daarvandaan mee. */
+const DREMPEL_WINKELS = typeof DREMPEL_UIT_DE_SERVER === 'number' ? DREMPEL_UIT_DE_SERVER : 3;
 
 /* ---------- eerst: alles wat van buiten komt, ontsnappen ----------
 
@@ -188,6 +195,54 @@ const feitenVan = w => [
    adres en geen coördinaten, dus meestal weten wij het niet. */
 const afstandVan = w => (w.km == null ? null : esc(String(w.km).replace('.', ',')) + ' km');
 
+/* ---------- openingstijden ----------
+
+   Het rooster staat als tekst in de database, een regel per dag die open is:
+   "ma 09:30-18:00". Een dag die er niet in staat, is dicht.
+
+   WAT WIJ HIER BEWUST NIET DOEN: zeggen dat een winkel NU open is. Dat rooster
+   kent geen feestdagen, geen vakantie en geen middagsluiting, dus "nu open" zou
+   op een handvol dagen per jaar onwaar zijn, en dan stuurt deze site iemand voor
+   een dichte deur. Wij tonen het rooster en wat er VANDAAG geldt, en dat is wat
+   wij kunnen waarmaken. */
+const DAGNAMEN = { ma: 'maandag', di: 'dinsdag', wo: 'woensdag', do: 'donderdag',
+                   vr: 'vrijdag', za: 'zaterdag', zo: 'zondag' };
+const DAGVOLGORDE = ['ma', 'di', 'wo', 'do', 'vr', 'za', 'zo'];
+
+/** Het rooster als lijst: [['ma','09:30','18:00'], ...]. Dichte dagen ontbreken. */
+const roosterVan = w => String(w.ot || '').split('\n').map(r => {
+  const m = r.trim().match(/^([a-z]{2}) (\d{2}:\d{2})-(\d{2}:\d{2})$/);
+  return m ? [m[1], m[2], m[3]] : null;
+}).filter(Boolean);
+
+/** Welke dag het vandaag is, in onze afkortingen. Zondag is 0 in javascript. */
+const vandaagKort = (nu = new Date()) => DAGVOLGORDE[(nu.getDay() + 6) % 7];
+
+/* Wat er vandaag geldt, in woorden. Null als wij het rooster niet kennen; dan
+   laat de pagina die regel weg in plaats van iets te verzinnen. */
+const vandaagTekst = (w, nu = new Date()) => {
+  const rooster = roosterVan(w);
+  if (!rooster.length) return null;
+  const dag = rooster.find(r => r[0] === vandaagKort(nu));
+  return dag ? 'Vandaag ' + dag[1] + ' tot ' + dag[2] : 'Vandaag gesloten';
+};
+
+/** Is de winkel vandaag open? Voor het filter, niet voor een uitspraak over nu. */
+const vandaagOpen = (w, nu = new Date()) =>
+  roosterVan(w).some(r => r[0] === vandaagKort(nu));
+
+/* Kan deze winkel de reparatie vandaag doen?
+ *
+ * Twee dingen moeten kloppen: de winkel heeft bij die prijs opgegeven dat het
+ * dezelfde dag kan, EN hij is vandaag open. Zonder dat tweede stond er op een
+ * zondag "Vandaag klaar" naast "Vandaag gesloten" op dezelfde kaart. Kent de
+ * winkel ons zijn rooster niet, dan gaan wij af op wat hij bij de prijs zei. */
+const kanVandaag = (w, a, nu = new Date()) =>
+  Boolean(a && a.v && (!heeftRooster(w) || vandaagOpen(w, nu)));
+
+/** Kent deze winkel ons zijn rooster? */
+const heeftRooster = w => roosterVan(w).length > 0;
+
 /* De naam van een onderdeelkwaliteit.
  *
  * De zes onderste zijn de ladder uit de gidsen en uit de database. De drie
@@ -264,6 +319,10 @@ const uitgelichtReden = w =>
   w.uit === 'betaald' ? 'Betaalde plek' : w.uit ? 'Nieuw op de site' : null;
 
 const aantalPerPlaats = plaats => winkelsIn(plaats).length;
+
+/* Haalt deze plaats de drempel? Zo niet, dan valt er niets te vergelijken en
+   zegt de pagina dat, in plaats van te doen alsof. */
+const genoegIn = plaats => aantalPerPlaats(plaats) >= DREMPEL_WINKELS;
 
 /* ---------- het match-moment ----------
 

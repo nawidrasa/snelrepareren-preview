@@ -2,7 +2,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <link rel="stylesheet" href="lettertype/outfit.css">
-<link rel="stylesheet" href="basis.css?v=07edef10">
+<link rel="stylesheet" href="basis.css?v=7dc2985e">
 <style>
 :root{--groen-50:#F0FDF4;--groen-100:#DCFCE7;--groen-200:#BBF7D0;--groen-300:#86EFAC;--groen-500:#22C55E;--groen:#008934;--groen-800:#007B2E;--marine:#0B1F4E;--marine-100:#E8ECF5;--marine-200:#C5CEE3;--inkt:#111827;--inkt-2:#4A5878;--inkt-3:#6B7480;--lijn:#E3E6EE;--vlak:#F6F8FA;--amber:#B45309;--amber-soft:#FEF3C7;color-scheme:light}
 
@@ -85,6 +85,8 @@ footer{border-top:1px solid var(--lijn);margin-top:46px;padding:26px 0 60px;colo
   Onderdeel van snelrepareren.nl, de onafhankelijke vergelijker voor telefoonreparatie in Nederland.
 </div></footer>
 
+<script src="data/kiezer.js"></script>
+<script src="data/winkels.js"></script>
 <script>
 const IC={
  rep:'<path d="M14.7 6.3a4 4 0 0 1-5.4 5.4L4 17v3h3l5.3-5.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2-2z"/>',
@@ -98,16 +100,11 @@ const OVERZICHTEN=[
  ['Plaatsen','Waar wij winkels vergelijken.',IC.pl,'plaatsen.html'],
  ['Gidsen','Uitleg over onderdelen en je rechten.',IC.gi,'gidsen.html'],
 ];
-const FRIESLAND=[
- ['Leeuwarden','6 winkels',1,'plaatspagina-leeuwarden.html'],
- ['Drachten','2 winkels',0,'plaats-onder-drempel.html'],
- ['Sneek','2 winkels',0,'plaats-onder-drempel.html'],
- ['Heerenveen','1 winkel',0,'plaats-onder-drempel.html'],
- ['Harlingen','1 winkel',0,'plaats-onder-drempel.html'],
- ['Franeker','nog geen',0,'plaats-onder-drempel.html'],
- ['Dokkum','nog geen',0,'plaats-onder-drempel.html'],
- ['Joure','nog geen',0,'plaats-onder-drempel.html'],
-];
+/* Dezelfde lijst als op plaatsen.html, en om dezelfde reden zonder vaste
+   aantallen: die gingen over de verzonnen voorbeeldwinkels. */
+const PLAATSEN=['Leeuwarden','Drachten','Sneek','Heerenveen','Harlingen','Franeker','Dokkum','Joure'];
+const FRIESLAND=PLAATSEN.map(p=>[p, '', genoegIn(p)?1:0,
+  p==='Leeuwarden'?'plaatspagina-leeuwarden.html':'plaats-onder-drempel.html']);
 document.getElementById('overzichten').innerHTML=OVERZICHTEN.map(([t,s,ic,link])=>
  `<a class="v" href="${link}"><span class="ic"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">${ic}</svg></span><b>${t}</b><p>${s}</p></a>`).join('');
 document.getElementById('friesland').innerHTML=FRIESLAND.map(([n,aantal,live,link])=>

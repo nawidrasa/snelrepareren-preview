@@ -2,7 +2,7 @@
 <meta name="robots" content="noindex,nofollow">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="stylesheet" href="lettertype/outfit.css">
-<link rel="stylesheet" href="basis.css?v=07edef10">
+<link rel="stylesheet" href="basis.css?v=7dc2985e">
 <style>
 :root{--groen-50:#F0FDF4;--groen-100:#DCFCE7;--groen-200:#BBF7D0;--groen-300:#86EFAC;--groen-500:#22C55E;--groen:#008934;--groen-800:#007B2E;--marine:#0B1F4E;--marine-100:#E8ECF5;--marine-200:#C5CEE3;--inkt:#111827;--inkt-2:#4A5878;--inkt-3:#6B7480;--lijn:#E3E6EE;--vlak:#F6F8FA;--amber:#B45309;--amber-soft:#FEF3C7;color-scheme:light}
 
@@ -74,21 +74,22 @@ footer{border-top:1px solid var(--lijn);margin-top:46px;padding:26px 0 60px;colo
   <div class="jur"><a href="voorwaarden.html">Voorwaarden</a><a href="privacy.html">Privacy</a><a href="cookies.html">Cookies</a><a href="toegankelijkheid.html">Toegankelijkheid</a><a href="melden.html">Iets melden</a><a href="over-ons.html">Over ons</a></div>
   Onderdeel van snelrepareren.nl, de onafhankelijke vergelijker voor telefoonreparatie in Nederland.</div></footer>
 
+<script src="data/kiezer.js"></script>
+<script src="data/winkels.js"></script>
 <script>
-const FRIESLAND=[
- ['Leeuwarden','6 winkels',1,'plaatspagina-leeuwarden.html'],
- ['Drachten','2 winkels',0,'plaats-onder-drempel.html'],
- ['Sneek','2 winkels',0,'plaats-onder-drempel.html'],
- ['Heerenveen','1 winkel',0,'plaats-onder-drempel.html'],
- ['Harlingen','1 winkel',0,'plaats-onder-drempel.html'],
- ['Franeker','nog geen',0,'plaats-onder-drempel.html'],
- ['Dokkum','nog geen',0,'plaats-onder-drempel.html'],
- ['Joure','nog geen',0,'plaats-onder-drempel.html'],
- ['Bolsward','nog geen',0,'plaats-onder-drempel.html'],
- ['Wolvega','nog geen',0,'plaats-onder-drempel.html'],
- ['Lemmer','nog geen',0,'plaats-onder-drempel.html'],
- ['Burgum','nog geen',0,'plaats-onder-drempel.html'],
-];
+/* De plaatsen waar wij aan bouwen. Het AANTAL winkels staat hier niet meer bij:
+   dat stond met de hand ingetypt ("2 winkels", "1 winkel") en ging over de
+   verzonnen voorbeelden. Het komt nu uit dezelfde lijst als de plaatspagina, dus
+   het kan niet meer afwijken van wat je daar ziet. Een plaats gaat live vanaf
+   DREMPEL_WINKELS aangesloten winkels (besluit T4). */
+const PLAATSEN=['Leeuwarden','Drachten','Sneek','Heerenveen','Harlingen','Franeker',
+  'Dokkum','Joure','Bolsward','Wolvega','Lemmer','Burgum'];
+const paginaVoor=p=>(p==='Leeuwarden'?'plaatspagina-leeuwarden.html':'plaats-onder-drempel.html');
+const telZin=n=>(n===0?'nog geen':n===1?'1 winkel':n+' winkels');
+const FRIESLAND=PLAATSEN.map(p=>{
+  const n=aantalPerPlaats(p);
+  return [p, telZin(n), genoegIn(p)?1:0, paginaVoor(p)];
+});
 const PROV=['Groningen','Drenthe','Overijssel','Flevoland','Gelderland','Utrecht','Noord-Holland','Zuid-Holland','Zeeland','Noord-Brabant','Limburg'];
 document.getElementById('friesland').innerHTML=FRIESLAND.map(([n,aantal,live,link])=>
  `<a class="pl${live?'':' wacht'}" href="${link}"><span><b>${n}</b><small>${aantal}</small></span><span class="st ${live?'live':'wacht'}">${live?'Live':'Binnenkort'}</span></a>`).join('');

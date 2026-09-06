@@ -115,9 +115,47 @@
     await vulPrijzen();
     await vulCodevraag();
     if (mij.prijzenOud) toonBevestigWaarschuwing(mij.dagenSindsBevestiging);
+    /* De regel onder de prijzentabel stond op een vaste datum ("2 september
+       2026") en gold dus voor niemand. */
+    vulTekst(document.getElementById("p-bevestigd"), w.prijzen_bevestigd_op
+      ? `Laatst bevestigd op ${datum(w.prijzen_bevestigd_op)}. Bevestig elke 90 dagen om goed vindbaar te blijven.`
+      : "Je hebt nog geen prijzen bevestigd. Vul ze hieronder in; daarmee zijn ze meteen bevestigd.");
     vulPolis(w);
     await vulMatches();
     await vulBeoordelingen();
+    /* Het staafje op het overzicht. In de pagina stond een vaste reeks die
+       altijd netjes opliep, bij elke winkel. Nu de eigen maanden, en als er nog
+       niets is te tonen, verdwijnt het kaartje in plaats van iets te suggereren. */
+    vulGrafiek(mij.cijfers?.perMaand ?? []);
+    vulTekst(document.getElementById("o-maand"),
+      `Dit is je maand tot nu toe, ${new Date().toLocaleDateString("nl-NL",
+        { month: "long", year: "numeric" })}.`);
+    vulUitgelicht(mij);
+    vulAccount(mij);
+    await vulFormulier();
+
+    document.getElementById("f-afdrukken")?.addEventListener("click", (e) => {
+      e.preventDefault();
+      drukAf(mij);
+    });
+
+    /* Stoppen. De naam moet precies worden overgetypt; dat controleert de server
+       ook nog een keer, want een controle in de browser is geen controle. */
+    document.getElementById("a-verwijder")?.addEventListener("click", async (e) => {
+      e.preventDefault();
+      try {
+        await haal("/api/portaal/stoppen", {
+          method: "POST",
+          lichaam: { bevestiging: document.getElementById("a-bevestig")?.value ?? "" },
+        });
+        document.body.innerHTML = `<div class="uitgelogd"><h1>Je vermelding is verwijderd</h1>
+          <p>Je winkel staat niet meer op snelrepareren.nl. Je bent uitgelogd.</p>
+          <p>Wil je later terugkomen, dan meld je je gewoon opnieuw aan.</p>
+          <a class="btn btn-groen" href="index.html">Naar snelrepareren.nl</a></div>`;
+      } catch (fout) {
+        melding(fout.message, "fout");
+      }
+    });
     knoppen();
   }
 
@@ -213,6 +251,26 @@
         .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
         .replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "winkel";
       alsklant.href = `/winkel-${w.id}-${naam}`;
+    }
+
+    /* De zeven dagen. Leeg betekent dicht; dat is een antwoord en geen
+       vergissing, dus er is geen aparte "gesloten"-schakelaar. */
+    const DAGEN = [["ma", "maandag"], ["di", "dinsdag"], ["wo", "woensdag"], ["do", "donderdag"],
+                   ["vr", "vrijdag"], ["za", "zaterdag"], ["zo", "zondag"]];
+    const rooster = new Map(String(w.openingstijden ?? "").split("\n").map((r) => {
+      const m = r.trim().match(/^([a-z]{2}) (\d{2}:\d{2})-(\d{2}:\d{2})$/);
+      return m ? [m[1], [m[2], m[3]]] : null;
+    }).filter(Boolean));
+    const rijen = document.getElementById("p-tijdenrijen");
+    if (rijen) {
+      rijen.innerHTML = DAGEN.map(([kort, lang]) => {
+        const [van, tot] = rooster.get(kort) ?? ["", ""];
+        return `<div class="tijdenrij"><span>${lang}</span>
+          <input type="time" data-dag="${kort}" data-deel="van" value="${van}" aria-label="${lang} open vanaf">
+          <span>tot</span>
+          <input type="time" data-dag="${kort}" data-deel="tot" value="${tot}" aria-label="${lang} open tot">
+        </div>`;
+      }).join("");
     }
 
     const gekozen = w.betaalmethoden ?? [];
@@ -425,11 +483,19 @@
     await tekenPrijzen();
   }
 
+  /* Het aandachtspunt op het overzicht.
+   *
+   * Hier stond een vaste zin in de pagina: "Je prijs voor de iPhone 14 is 78
+   * dagen niet bevestigd." Die stond er bij ELKE winkel, ook bij een winkel die
+   * gisteren nog alles had bevestigd, en het script vulde een klasse die op de
+   * pagina niet bestond. Het kaartje staat er nu alleen als er echt iets is. */
   function toonBevestigWaarschuwing(dagen) {
-    const el = document.querySelector(".bevestig");
-    if (!el) return;
-    el.textContent = `Je prijzen zijn ${dagen} dagen niet bevestigd. Na 90 dagen wegen ze lichter mee in de volgorde.`;
-    el.classList.add("let");
+    const kaart = document.getElementById("aandachtkaart");
+    const tekst = document.getElementById("aandachttekst");
+    if (!kaart || !tekst) return;
+    kaart.hidden = false;
+    tekst.textContent =
+      `Je prijzen zijn ${dagen} dagen niet bevestigd. Na 90 dagen wegen ze lichter mee in de volgorde.`;
   }
 
   function vulPolis(w) {
@@ -495,6 +561,167 @@
 
   const veilig = (t) => String(t ?? "").replace(/[&<>"']/g, (c) =>
     ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+  /* ---------- account ----------
+   *
+   * Dit paneel stond vol met verzonnen gegevens: een e-mailadres dat van
+   * niemand was, een regel "Wachtwoord, laatst gewijzigd op 12 augustus 2026"
+   * terwijl er geen wachtwoorden zijn, twee vestigingen die niet bestonden, en
+   * een knop "Vermelding verwijderen" die niets deed. Dat laatste is een recht
+   * onder de AVG en staat zo ook in de voorwaarden. */
+  /* Het aandeel in Uitgelicht. Hier stond een vast balkje van 5% met de tekst
+     "vijf procent is wat wij voor nieuwkomers vrijhouden". Sinds het blok echt
+     per uur rouleert, is het een som die klopt: een winkel per plaats per uur. */
+  function vulUitgelicht(mij) {
+    const u = mij.uitgelicht ?? {};
+    const plaats = mij.winkel.plaats ?? "je plaats";
+    const balk = document.getElementById("u-balk");
+    const pct = document.getElementById("u-pct");
+    const uitleg = document.getElementById("u-uitleg");
+    if (!balk) return;
+    vulTekst(document.getElementById("u-plaats"), `Je aandeel in Uitgelicht in ${plaats}`);
+    if (!u.meedoen || !u.delers) {
+      balk.style.width = "0%";
+      vulTekst(pct, "0%");
+      vulTekst(uitleg, "Je staat op dit moment niet in het blok Uitgelicht. Nieuwe winkels komen er "
+        + "automatisch in; staat er niets, dan is die periode voorbij.");
+      return;
+    }
+    const deel = Math.round((100 / u.delers));
+    balk.style.width = deel + "%";
+    vulTekst(pct, deel + "%");
+    vulTekst(uitleg, u.delers === 1
+      ? `Je bent op dit moment de enige winkel in ${plaats} in dat blok, dus je staat er elk uur in.`
+      : `Er doen ${u.delers} winkels in ${plaats} mee, en er staat er elk uur een. Je komt dus ongeveer `
+        + `${Math.round(24 / u.delers)} van de 24 uur per dag bovenaan. Zolang niemand betaalt, `
+        + `krijgt iedereen evenveel beurten.`);
+  }
+
+  const MAANDKORT = ["jan", "feb", "mrt", "apr", "mei", "jun", "jul", "aug", "sep", "okt", "nov", "dec"];
+
+  function vulGrafiek(perMaand) {
+    const el = document.getElementById("grafiek");
+    if (!el) return;
+    const kaart = el.closest(".kaart");
+    const totaal = perMaand.reduce((s, m) => s + m.aantal, 0);
+    if (!totaal) {
+      if (kaart) kaart.hidden = true;
+      return;
+    }
+    if (kaart) kaart.hidden = false;
+    const hoogste = Math.max(...perMaand.map((m) => m.aantal));
+    el.innerHTML = perMaand.map((m, i) => {
+      const maand = MAANDKORT[Number(m.maand.slice(5, 7)) - 1] ?? "";
+      return `<div class="bar${i === perMaand.length - 1 ? " nu" : ""}"
+        style="height:${Math.round((m.aantal / hoogste) * 100)}%"
+        title="${veilig(m.aantal)}"><span>${veilig(maand)}</span></div>`;
+    }).join("");
+  }
+
+  function vulAccount(mij) {
+    vulTekst(document.getElementById("a-email"), mij.email);
+    const w = mij.winkel;
+    vulTekst(document.getElementById("a-adres"),
+      [w.adres, [w.postcode, w.plaats].filter(Boolean).join(" ")].filter(Boolean).join(", "));
+    const veld = document.getElementById("a-bevestig");
+    if (veld) veld.placeholder = w.naam ?? "de naam van je winkel";
+  }
+
+  /* ---------- reparatieformulier ----------
+   *
+   * Het Europese informatieformulier dat een winkel de klant vooraf moet geven.
+   * Dit paneel toonde een vast voorbeeld (iPhone 13, service pack, 154 euro) dat
+   * van geen enkele winkel was, met twee knoppen die niets deden, terwijl het
+   * winkelprofiel de bezoeker vertelt dat wij dit formulier maken. */
+  let mijnPrijzen = [];
+
+  const bedrag = (n) => "\u20ac " + Number(n).toLocaleString("nl-NL",
+    { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+  const duurtekst = (m) => {
+    if (m <= 45) return m + " minuten, klaar terwijl je wacht";
+    if (m <= 60 * 24) return Math.round(m / 60) + " uur";
+    return Math.round(m / (60 * 24)) + " werkdagen";
+  };
+
+  async function vulFormulier() {
+    const kiezer = document.getElementById("f-prijs");
+    if (!kiezer) return;
+    const uit = await haal("/api/portaal/mijn-prijzen");
+    mijnPrijzen = uit.prijzen ?? [];
+    if (!mijnPrijzen.length) {
+      kiezer.innerHTML = "<option>Je hebt nog geen prijzen ingevuld</option>";
+      document.getElementById("f-voorbeeld").innerHTML =
+        `<p class="leegregel">Vul eerst je prijzen in bij Profiel en prijzen. Het formulier vult zich
+         met wat jij daar opgeeft; wij verzinnen er niets bij.</p>`;
+      return;
+    }
+    kiezer.innerHTML = mijnPrijzen.map((p, i) =>
+      `<option value="${i}">${veilig(p.reparatie)}, ${veilig(p.toestel)}${
+        p.kwaliteit ? " (" + veilig(p.kwaliteit) + ")" : ""}</option>`).join("");
+    kiezer.onchange = toonFormulier;
+    document.getElementById("f-klant")?.addEventListener("input", toonFormulier);
+    toonFormulier();
+  }
+
+  function toonFormulier() {
+    const p = mijnPrijzen[Number(document.getElementById("f-prijs").value) || 0];
+    if (!p) return;
+    const klant = document.getElementById("f-klant")?.value.trim();
+    document.getElementById("f-voorbeeld").innerHTML = `
+      <div class="fkop">Zo komt het formulier eruit te zien</div>
+      ${klant ? `<div class="frij"><span>Klant</span><b>${veilig(klant)}</b></div>` : ""}
+      <div class="frij"><span>Reparatie</span><b>${veilig(p.reparatie)}, ${veilig(p.toestel)}</b></div>
+      <div class="frij"><span>Onderdeelkwaliteit</span><b>${
+        p.kwaliteit ? veilig(p.kwaliteit) : "niet gespecificeerd"}</b></div>
+      <div class="frij"><span>Prijs inclusief btw</span><b class="num">${bedrag(p.bedrag)}</b></div>
+      <div class="frij"><span>Doorlooptijd</span><b>${veilig(duurtekst(p.doorlooptijd_minuten))}</b></div>
+      <div class="frij"><span>Garantie</span><b>${
+        p.garantie_maanden ? veilig(p.garantie_maanden) + " maanden op onderdeel en werk" : "niet opgegeven"}</b></div>
+      <div class="frij"><span>Uitgesloten</span><b>Nieuwe val- of waterschade</b></div>`;
+  }
+
+  /* Afdrukken doet de browser. Een eigen pdf-bouwer zou een bibliotheek van een
+     paar honderd kilobyte kosten om iets te doen wat elke browser al kan, en
+     "opslaan als pdf" staat in datzelfde venster. */
+  function drukAf(mij) {
+    const p = mijnPrijzen[Number(document.getElementById("f-prijs").value) || 0];
+    if (!p) return;
+    const klant = document.getElementById("f-klant")?.value.trim();
+    const w = mij.winkel;
+    const rij = (k, v) => `<tr><th>${veilig(k)}</th><td>${veilig(v)}</td></tr>`;
+    const venster = window.open("", "_blank", "width=800,height=900");
+    if (!venster) { melding("Je browser blokkeerde het afdrukvenster.", "fout"); return; }
+    venster.document.write(`<!doctype html><meta charset="utf-8">
+      <title>Reparatie-informatieformulier</title>
+      <style>body{font:14px/1.5 system-ui,sans-serif;margin:40px;color:#111}
+        h1{font-size:20px;margin:0 0 4px}h2{font-size:15px;margin:24px 0 6px}
+        table{border-collapse:collapse;width:100%;margin-top:8px}
+        th,td{border-bottom:1px solid #ddd;padding:8px 4px;text-align:left;vertical-align:top}
+        th{width:38%;font-weight:600;color:#444}
+        .klein{font-size:12px;color:#555;margin-top:24px}</style>
+      <h1>Reparatie-informatieformulier</h1>
+      <p>${veilig(w.naam)}${w.adres ? " &middot; " + veilig(w.adres) : ""}${
+        w.plaats ? ", " + veilig(w.plaats) : ""}${w.telefoon ? " &middot; " + veilig(w.telefoon) : ""}</p>
+      <h2>De reparatie</h2>
+      <table>
+        ${klant ? rij("Klant", klant) : ""}
+        ${rij("Datum", new Date().toLocaleDateString("nl-NL", { day: "numeric", month: "long", year: "numeric" }))}
+        ${rij("Reparatie", p.reparatie + ", " + p.toestel)}
+        ${rij("Onderdeelkwaliteit", p.kwaliteit ?? "niet gespecificeerd")}
+        ${rij("Prijs inclusief btw", bedrag(p.bedrag).replace("\u20ac", "EUR"))}
+        ${rij("Doorlooptijd", duurtekst(p.doorlooptijd_minuten))}
+        ${rij("Garantie", p.garantie_maanden ? p.garantie_maanden + " maanden op onderdeel en werk" : "niet opgegeven")}
+        ${rij("Uitgesloten", "Nieuwe val- of waterschade na de reparatie")}
+      </table>
+      <p class="klein">De prijs en de doorlooptijd zijn een indicatie op basis van wat de winkel heeft
+      opgegeven. Blijkt bij het openen dat er meer stuk is, dan hoort de winkel je te bellen voordat
+      hij verdergaat. Dit formulier is gemaakt via snelrepareren.nl; wij zijn geen partij bij de
+      reparatie.</p>`);
+    venster.document.close();
+    venster.focus();
+    venster.print();
+  }
 
   /* ---------- knoppen ---------- */
 
@@ -582,6 +809,11 @@
             omschrijving: lees(document.getElementById("p-omschrijving")),
             betaalmethoden: [...document.querySelectorAll('#p-betaal input[name="betaal"]:checked')]
               .map((v) => v.value),
+            openingstijden: ["ma", "di", "wo", "do", "vr", "za", "zo"].map((dag) => ({
+              dag,
+              van: document.querySelector(`#p-tijdenrijen input[data-dag="${dag}"][data-deel="van"]`)?.value ?? "",
+              tot: document.querySelector(`#p-tijdenrijen input[data-dag="${dag}"][data-deel="tot"]`)?.value ?? "",
+            })),
           },
         });
         melding("Je gegevens zijn opgeslagen.");
