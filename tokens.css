@@ -1,0 +1,71 @@
+/* snelrepareren.nl, huisstijl. Vastgesteld door Nawid op 5 september 2026.
+   Basis: stijlproef variant 22. Keuzes: ronding zacht, letter Outfit, schaduw vlak, iconen lijn, snelheid amber.
+   Regel: nooit een kleur, maat of ronding buiten deze lijst gebruiken. Wijzigen doe je hier, nergens anders. */
+:root{
+  /* de hero-gradient (alleen als groot veld; witte tekst erop, contrast 4,4 op 1 op het beginpunt) */
+  --sr-gradient:linear-gradient(160deg,#008C34 0%,#22C55E 55%,#86EFAC 100%);
+
+  /* groen: 700 is het merkgroen op wit, 500 en 300 zitten in de gradient */
+  --sr-groen-50:#F0FDF4;  --sr-groen-100:#DCFCE7; --sr-groen-200:#BBF7D0; --sr-groen-300:#86EFAC; --sr-groen-400:#4ADE80;
+  --sr-groen-500:#22C55E; --sr-groen-600:#009E3A; --sr-groen-700:#008934; --sr-groen-800:#007B2E; --sr-groen-900:#005A22;
+  --sr-groen:var(--sr-groen-700); --sr-groen-hover:var(--sr-groen-800);
+
+  /* marine: de tegenkleur op de gradient, en de kleur van erkenning en van de betaalde plek */
+  --sr-marine:#0B1F4E; --sr-marine-hover:#061238; --sr-marine-100:#E8ECF5; --sr-marine-200:#C5CEE3;
+
+  /* neutralen, met een lichte blauwzweem richting marine; geen puur grijs */
+  --sr-inkt:#111827; --sr-inkt-2:#4A5878; --sr-inkt-3:#6B7480; --sr-lijn:#E3E6EE; --sr-vlak:#F6F8FA; --sr-wit:#FFFFFF;
+
+  /* signaalkleuren, los van het merk */
+  --sr-amber:#B45309; --sr-amber-soft:#FEF3C7;   /* snelheid, waarschuwing */
+  --sr-rood:#B91C1C;  --sr-rood-soft:#FEE2E2;    /* fout */
+
+  /* betekenis per kleur: elke kleur betekent een ding */
+  --sr-poliscontrole:var(--sr-groen);    --sr-poliscontrole-soft:var(--sr-groen-100);   /* gecontroleerd */
+  --sr-snel:var(--sr-amber);        --sr-snel-soft:var(--sr-amber-soft);      /* vandaag klaar */
+  --sr-uitgelicht:var(--sr-marine); --sr-uitgelicht-soft:var(--sr-marine-100);/* erkenning, en de betaalde plek (B2) */
+  --sr-feit:var(--sr-inkt-2);       --sr-feit-soft:var(--sr-vlak);            /* afstand, aantal, zonder oordeel */
+
+  /* ronding: zacht */
+  --sr-radius-hero:26px; --sr-radius-kaart:20px; --sr-radius-veld:12px; --sr-radius-knop:999px; --sr-radius-chip:999px;
+
+  /* letter: Outfit, een familie voor alles */
+  --sr-font:'Outfit',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --sr-font-kop:var(--sr-font);
+  --sr-gewicht-tekst:400; --sr-gewicht-nadruk:600; --sr-gewicht-kop:800;
+
+  /* typografie: zes maten, meer niet; cijfers altijd met gelijke breedte (font-variant-numeric: tabular-nums) */
+  --sr-kop-xl:40px; --sr-kop-xl-lh:1.08;
+  --sr-kop-1:32px;  --sr-kop-1-lh:1.12;
+  --sr-kop-2:24px;  --sr-kop-2-lh:1.2;
+  --sr-kop-3:18px;  --sr-kop-3-lh:1.3;
+  --sr-tekst:16px;  --sr-tekst-lh:1.55;
+  --sr-klein:13.5px;--sr-klein-lh:1.5;
+  --sr-label:11px;  --sr-label-spatie:.1em;   /* hoofdletters, gespatieerd */
+  --sr-kop-spatie:-.02em;
+
+  /* schaduw: vlak; alleen de uitgelichte kaart mag zweven */
+  --sr-schaduw:none;
+  --sr-schaduw-uitgelicht:0 10px 28px -14px rgba(11,31,78,.28);
+
+  /* iconen: lijn */
+  --sr-icoon-dikte:1.75px; --sr-icoon-maat:16px; --sr-icoon-maat-groot:28px;
+
+  /* afstanden */
+  --sr-4:4px; --sr-8:8px; --sr-12:12px; --sr-16:16px; --sr-24:24px; --sr-32:32px; --sr-48:48px; --sr-64:64px;
+
+  /* focus en interactie */
+  --sr-focus:2px solid var(--sr-groen); --sr-focus-afstand:2px;
+  --sr-overgang:150ms ease;
+
+  /* kaderbreedte */
+  --sr-kader:1080px; --sr-kader-tekst:66ch;
+  /* componentvormen, vastgesteld 5 september (besluiten H7 en H8) */
+  --sr-prijsbalk-winkel:bereik;      /* A: winkelkaart en winkelprofiel */
+  --sr-prijsbalk-model:cijfers;      /* B: prijspagina per model */
+  --sr-prijsbalk-index:verdeling;    /* C: prijsindex en modelpagina met veel winkels */
+  --sr-prijsbalk-oordeel:zones;      /* D: alleen modelpagina, nooit naast een winkelnaam */
+  --sr-veld-invoer:zwevend;          /* A: vrije invoer */
+  --sr-veld-keuze:kaarten;           /* D: kiezen; keuzelijst pas vanaf zeven opties */
+  --sr-keuze-drempel:6;              /* tot en met dit aantal opties: kaarten, geen keuzelijst */
+}

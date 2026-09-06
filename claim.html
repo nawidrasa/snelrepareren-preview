@@ -104,7 +104,7 @@ h1{font-size:27px;font-weight:800;letter-spacing:-.02em;margin:0 0 10px;text-wra
     <div class="veld"><label>KvK-nummer</label><input placeholder="12345678" inputmode="numeric"></div>
     <div class="knoppen">
       <button class="btn btn-lijn" onclick="ga('keuze')">Terug</button>
-      <button class="btn btn-marine" onclick="ga('aanvullenok')">Stuur mij de uitnodiging</button>
+      <button class="btn btn-marine" id="claimaanvullen">Stuur mij de uitnodiging</button>
     </div>
   </div>
 
@@ -144,6 +144,21 @@ h1{font-size:27px;font-weight:800;letter-spacing:-.02em;margin:0 0 10px;text-wra
   Waarom je winkel hier al stond en hoe je hem laat verwijderen, staat in de <a href="privacy.html">privacyverklaring</a>.
 </footer>
 
+<script src="formulier.js">
+/* De winkel waar deze pagina over gaat. Zolang de plaatspagina statisch is,
+   staat het nummer in de URL (?winkel=12). Zonder nummer is dit de schets. */
+const CLAIM_WINKEL = Number(new URLSearchParams(location.search).get('winkel')) || null;
+
+document.getElementById('claimaanvullen')?.addEventListener('click', async (e) => {
+  e.preventDefault();
+  const veld = document.querySelector('input[type=email]');
+  const uit = await snelFormulier.verstuur('/api/claim', {
+    winkel_id: CLAIM_WINKEL, email: veld ? veld.value.trim() : '', wat: 'aanvullen',
+  });
+  if (!uit.goed) return snelFormulier.toonFout(uit, 'aanvullen');
+  ga('aanvullenok');
+});
+</script>
 <script>
 const PANELEN=['keuze','aanvullen','aanvullenok','verwijderen','verwijderdok'];
 function ga(p){PANELEN.forEach(x=>document.getElementById(x).classList.toggle('verborgen',x!==p));window.scrollTo(0,0)}

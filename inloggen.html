@@ -87,7 +87,7 @@ h1{font-size:22px;font-weight:800;letter-spacing:-.02em;margin:0 0 6px}
     <h1>Wachtwoord vergeten</h1>
     <p class="sub2">Vul je e-mailadres in, dan sturen wij een link waarmee je een nieuw wachtwoord instelt.</p>
     <div class="veld"><label>E-mailadres</label><input type="email" placeholder="naam@uwwinkel.nl"><div class="hint">Wij sturen alleen een link als dit adres bij ons bekend is.</div></div>
-    <button class="btn btn-marine" onclick="ga('verzonden')">Stuur mij een link</button>
+    <button class="btn btn-marine" id="stuurlink">Stuur mij een link</button>
     <p class="onder"><a href="#" onclick="ga('inloggen');return false">Terug naar inloggen</a></p>
   </div>
 
@@ -108,6 +108,18 @@ h1{font-size:22px;font-weight:800;letter-spacing:-.02em;margin:0 0 6px}
   Alleen voor aangesloten winkels. Onderdeel van snelrepareren.nl.
 </footer>
 
+<script src="formulier.js">
+/* Inloggen zonder wachtwoord: wij sturen een link. Het antwoord is altijd
+   hetzelfde, ook als het adres niet bij ons bekend is; anders is dit formulier
+   een manier om te achterhalen welke winkels zijn aangesloten. */
+document.getElementById('stuurlink')?.addEventListener('click', async (e) => {
+  e.preventDefault();
+  const veld = document.querySelector('#linkvraag input[type=email], input[type=email]');
+  const uit = await snelFormulier.verstuur('/api/inloggen', { email: veld ? veld.value.trim() : '' });
+  if (!uit.goed) return snelFormulier.toonFout(uit, 'linkvraag');
+  ga('verzonden');
+});
+</script>
 <script>
 const P=['inloggen','tweestaps','vergeten','verzonden'];
 function ga(p){P.forEach(x=>document.getElementById(x).classList.toggle('verborgen',x!==p));window.scrollTo(0,0)}

@@ -94,7 +94,8 @@ footer{border-top:1px solid var(--lijn);margin-top:44px;padding:26px 0 60px;colo
         <div class="veld"><label>Je naam</label><input placeholder="Voor- en achternaam"></div>
         <div class="veld"><label>E-mailadres</label><input type="email" placeholder="je@email.nl"><div class="hint">Alleen om je antwoord te geven.</div></div>
       </div>
-      <button class="btn btn-marine" id="verstuur" style="width:100%">Melding versturen</button>
+      <div style="position:absolute;left:-9999px" aria-hidden="true"><label>Laat dit veld leeg<input id="website_url" name="website_url" tabindex="-1" autocomplete="off"></label></div>
+        <button class="btn btn-marine" id="verstuur" style="width:100%">Melding versturen</button>
     </div>
   </div>
 
@@ -149,6 +150,7 @@ footer{border-top:1px solid var(--lijn);margin-top:44px;padding:26px 0 60px;colo
   <div class="jur"><a href="voorwaarden.html">Voorwaarden</a><a href="privacy.html">Privacy</a><a href="cookies.html">Cookies</a><a href="toegankelijkheid.html">Toegankelijkheid</a><a href="melden.html">Iets melden</a><a href="over-ons.html">Over ons</a></div>
   Vragen die geen melding zijn? Mail hallo@snelrepareren.nl. Winkels kunnen terecht op winkels@snelrepareren.nl.</div></footer>
 
+<script src="formulier.js"></script>
 <script>
 const SOORTEN=[
  ['winkel','Een winkel','De reparatie ging mis, de afspraak werd niet nagekomen of het gedrag klopte niet.','<path d="M4 21V9l8-6 8 6v12"/><path d="M9 21v-6h6v6"/>'],
@@ -167,10 +169,18 @@ function soorten(){
   document.getElementById('winkelveld').style.display=(S.soort==='platform')?'none':'';
 }
 function kies(id){S.soort=id;soorten()}
-document.getElementById('verstuur').onclick=()=>{
-  document.getElementById('formulier').classList.add('verborgen');
-  document.getElementById('bedankt').classList.remove('verborgen');
-  window.scrollTo(0,0);
-};
+snelFormulier.koppel({
+  knop:'verstuur', pad:'/api/melden', formulier:'formulier', bedankt:'bedankt',
+  verzamel(){
+    const mail=document.querySelector('#formulier input[type=email]');
+    return {
+      soort: S.soort,
+      bericht: document.getElementById('tekst').value.trim(),
+      email: mail ? mail.value.trim() : '',
+      winkel_id: null,
+      website_url: (document.getElementById('website_url')||{}).value || '',
+    };
+  },
+});
 soorten();
 </script>

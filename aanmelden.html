@@ -120,6 +120,9 @@ legend{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:upperc
         </div>
       </fieldset>
 
+      <div style="position:absolute;left:-9999px" aria-hidden="true">
+        <label>Laat dit veld leeg<input id="website_url" name="website_url" tabindex="-1" autocomplete="off"></label>
+      </div>
       <label class="akkoord">
         <input type="checkbox" id="akkoord">
         <span>Ik ben bevoegd om deze winkel aan te melden en ga akkoord met de <a href="voorwaarden-winkels.html">voorwaarden voor winkels</a> en de <a href="privacy.html">privacyverklaring</a>. Ik begrijp dat mijn plek in de gewone lijst niet te koop is.</span>
@@ -173,6 +176,7 @@ legend{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:upperc
   Wat wij met je aanmelding doen staat in de <a href="privacy.html">privacyverklaring</a>. Onderdeel van snelrepareren.nl.
 </footer>
 
+<script src="formulier.js"></script>
 <script>
 const MERKEN=['Apple','Samsung','Google','Xiaomi','OnePlus','Huawei','Oppo','Motorola','Fairphone','Overig'];
 const S={merken:new Set(['Apple','Samsung'])};
@@ -182,12 +186,30 @@ function merken(){
 }
 function wisselMerk(m){S.merken.has(m)?S.merken.delete(m):S.merken.add(m);merken()}
 document.getElementById('akkoord').onchange=e=>{document.getElementById('verstuur').disabled=!e.target.checked};
-document.getElementById('verstuur').onclick=()=>{
-  const naam=document.getElementById('naam').value.trim();
-  document.getElementById('formulier').classList.add('verborgen');
-  document.getElementById('bedankt').classList.remove('verborgen');
-  if(naam)document.getElementById('bedanktregel').textContent=`Wij hebben de aanmelding van ${naam} binnen. Je hoort binnen twee werkdagen van ons.`;
-  window.scrollTo(0,0);
-};
+snelFormulier.koppel({
+  knop:'verstuur', pad:'/api/aanmelden', formulier:'formulier', bedankt:'bedankt',
+  verzamel(){
+    return {
+      naam:     waarde('naam'),
+      adres:    waarde('adres'),
+      postcode: waarde('pc'),
+      plaats:   waarde('plaats'),
+      kvk:      waarde('kvk'),
+      contactpersoon: waarde('cnaam'),
+      email:    waarde('mail'),
+      telefoon: waarde('tel'),
+      merken:   [...S.merken],
+      akkoord:  document.getElementById('akkoord').checked,
+      /* Het verborgen veld tegen bots. Een mens ziet het niet en laat het leeg. */
+      website_url: waarde('website_url'),
+    };
+  },
+  klaar(){
+    const naam=waarde('naam');
+    if(naam)document.getElementById('bedanktregel').textContent=
+      `Wij hebben de aanmelding van ${naam} binnen. Je hoort binnen twee werkdagen van ons.`;
+  },
+});
+function waarde(id){const e=document.getElementById(id);return e?e.value.trim():'';}
 merken();
 </script>

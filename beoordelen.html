@@ -111,7 +111,8 @@ textarea:focus,input:focus{outline:none;border-color:var(--groen);box-shadow:0 0
       </ul>
     </div>
 
-    <button class="btn btn-groen" id="verstuur" disabled style="width:100%">Beoordeling versturen</button>
+    <div style="position:absolute;left:-9999px" aria-hidden="true"><label>Laat dit veld leeg<input id="website_url" name="website_url" tabindex="-1" autocomplete="off"></label></div>
+        <button class="btn btn-groen" id="verstuur" disabled style="width:100%">Beoordeling versturen</button>
     <p class="voet">Na het versturen verwijderen wij je e-mailadres. Je beoordeling blijft staan zolang de winkel bij ons vermeld is.</p>
   </div>
 
@@ -139,6 +140,7 @@ textarea:focus,input:focus{outline:none;border-color:var(--groen);box-shadow:0 0
   Wij vragen alleen je voornaam en je beoordeling. Wat wij daarmee doen staat in de <a href="privacy.html">privacyverklaring</a>.
 </footer>
 
+<script src="formulier.js"></script>
 <script>
 const S={cijfer:null,rep:'Scherm vervangen'};
 const UITLEG={1:'Zeer slecht',2:'Slecht',3:'Slecht',4:'Onvoldoende',5:'Onvoldoende',6:'Voldoende',7:'Ruim voldoende',8:'Goed',9:'Zeer goed',10:'Uitstekend'};
@@ -154,11 +156,30 @@ function reps(){
   document.getElementById('reps').innerHTML=REPS.map(r=>`<button class="chip${S.rep===r?' aan':''}" onclick="kiesRep('${r}')">${r}</button>`).join('');
 }
 function kiesRep(r){S.rep=r;reps()}
-document.getElementById('verstuur').onclick=()=>{
-  document.getElementById('formulier').classList.add('verborgen');
-  const b=document.getElementById('bedankt');b.classList.remove('verborgen');
-  document.getElementById('bedanktregel').textContent=`Je gaf Telefoonhulp Leeuwarden een ${S.cijfer}.`;
-  window.scrollTo(0,0);
-};
+snelFormulier.koppel({
+  knop:'verstuur', pad:'/api/beoordelen', formulier:'formulier', bedankt:'bedankt',
+  verzamel(){
+    /* Het bewijs komt uit de link in de e-mail. Zonder bewijs kan er niet
+       beoordeeld worden; dat is artikel 6 van de voorwaarden en het staat hier
+       zodat de pagina er ook echt naar vraagt. */
+    const bewijs=new URLSearchParams(location.search).get('bewijs')||'';
+    if(!bewijs && snelFormulier.HEEFT_SERVER){
+      snelFormulier.toonFout({fout:'Beoordelen kan alleen via de link uit onze e-mail.'},'formulier');
+      return null;
+    }
+    return {
+      bewijs,
+      cijfer: S.cijfer,
+      tekst: document.getElementById('tekst').value.trim(),
+      naam: document.getElementById('naam').value.trim(),
+      plaats: document.getElementById('plaats').value.trim(),
+      website_url: (document.getElementById('website_url')||{}).value || '',
+    };
+  },
+  klaar(){
+    document.getElementById('bedanktregel').textContent=
+      `Je gaf Telefoonhulp Leeuwarden een ${S.cijfer}.`;
+  },
+});
 cijfers();reps();
 </script>
