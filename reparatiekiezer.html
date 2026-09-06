@@ -488,14 +488,14 @@ function silhouet(m){
    een scherm aan de voorkant; dat hoort de tekening te laten zien. */
 const KANTVAN={scherm:'voor',accu:'voor',laadpoort:'voor',camera:'achter',achterkant:'achter'};
 const HOT={
-  voor:{scherm:[112,232],accu:[134,41],laadpoort:[112,430]},
+  voor:{scherm:[112,232],accu:[166,42],laadpoort:[112,430]},
   achter:{camera:[62,62],achterkant:[150,300]},
 };
 /* Waar het kruisje komt te staan als je die schade weer wilt weghalen. Niet
    altijd op de stip zelf: op de camera zou het precies de gebarsten lens
    afdekken, en bij de achterkant het hart van de barst. */
 const WEG={
-  voor:{scherm:[112,232],accu:[134,41],laadpoort:[112,398]},
+  voor:{scherm:[112,232],accu:[172,74],laadpoort:[74,398]},
   achter:{camera:[96,30],achterkant:[178,382]},
 };
 
@@ -565,11 +565,14 @@ function schadeAchter(){
   }
   if(S.schade.camera){
     /* De lens is gebarsten en wat erdoorheen komt, is wazig. */
-    g+=`<g class="lens${S.laatst==='camera'?' breekt':''}" pointer-events="none">
-      <circle cx="52" cy="52" r="16" fill="none" stroke="#F5B50A" stroke-width="2"/>
-      <path d="M42 42 L62 62 M62 42 L42 62 M52 36 v32 M36 52 h32" stroke="#F5B50A"
-        stroke-width="1.2" opacity=".85"/>
-      <circle cx="52" cy="52" r="9" fill="#F5B50A" opacity=".22"/></g>`;
+    /* Een barst is onregelmatig. Met vier symmetrische lijnen door het midden
+       werd het een zonnetje in plaats van gebroken glas. */
+    g+=`<g class="lens${S.laatst==='camera'?' breekt':''}" pointer-events="none"
+        stroke="#F5B50A" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="52" cy="52" r="15.5" stroke-width="1.6" opacity=".9"/>
+      <path d="M47 38 L55 50 L44 58 L53 67" stroke-width="1.7"/>
+      <path d="M55 50 L67 45 M55 50 L64 61 M44 58 L37 54 M53 67 L58 62" stroke-width="1.2" opacity=".85"/>
+      <path d="M40 44 L47 38 M62 66 L53 67" stroke-width="1" opacity=".6"/></g>`;
   }
   return g;
 }
