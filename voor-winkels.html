@@ -77,7 +77,7 @@ h2{font-size:clamp(23px,3vw,30px);font-weight:800;letter-spacing:-.02em;margin:0
 
 /* pakketten */
 .pakketwrap{background:var(--vlak);border-radius:0}
-.pakketten{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;align-items:start}
+.pakketten{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;align-items:start;max-width:760px}
 .pak{background:#fff;border:1.5px solid var(--lijn);border-radius:20px;padding:24px 22px;display:flex;flex-direction:column;height:100%}
 .pak.pop{border-color:var(--marine);box-shadow:0 14px 34px -16px rgba(11,31,78,.3);position:relative}
 .pak .badge{position:absolute;top:-11px;left:22px;background:var(--marine);color:#fff;font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border-radius:999px}
@@ -159,7 +159,7 @@ footer p{max-width:85ch;margin:0 0 8px}
   <a class="logo" href="index.html">snel<i>repareren</i>.nl</a>
   <nav>
     <a href="#waarom">Waarom meedoen</a>
-    <a href="#pakketten">Pakketten</a>
+    <a href="#pakketten">Wat het kost</a>
     <a href="#eerlijk">Eerlijk platform</a>
     <a href="index.html">Naar de klantsite</a>
   </nav>
@@ -171,15 +171,15 @@ footer p{max-width:85ch;margin:0 0 8px}
   <div>
     <p class="kop-mini" style="color:var(--groen-300)">Voor telefoonwinkels</p>
     <h1>Meer klanten uit je eigen buurt, zonder commissie.</h1>
-    <p>Klanten met een kapotte telefoon vinden je via snelrepareren.nl en bellen je rechtstreeks. Je betaalt een vast bedrag per maand, geen percentage per reparatie.</p>
+    <p>Klanten met een kapotte telefoon vinden je via snelrepareren.nl en bellen je rechtstreeks. Alles wat de site kan, is gratis, en wij nemen nooit een percentage van je reparatie.</p>
     <div class="knoppen">
       <a class="btn btn-groen btn-groot" href="aanmelden.html">Meld je winkel aan</a>
-      <a class="btn btn-wit btn-groot" href="#pakketten">Bekijk de pakketten</a>
+      <a class="btn btn-wit btn-groot" href="#pakketten">Wat het kost</a>
     </div>
     <ul class="heropunten">
-      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Een basisvermelding is gratis en blijft gratis.</li>
-      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>De gewone volgorde is niet te koop. Je koopt hooguit een plek in het gelabelde blok Uitgelicht.</li>
-      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Je prijs van het eerste jaar blijft ook het tweede jaar gelden.</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Niet een basisvermelding: het hele product is gratis.</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>De gewone volgorde is niet te koop. Straks kun je hooguit zichtbaarheid kopen in het gelabelde blok Uitgelicht.</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Wij verkopen pas iets als wij je kunnen laten zien wat het oplevert.</li>
     </ul>
   </div>
   <div class="herokaart">
@@ -198,29 +198,29 @@ footer p{max-width:85ch;margin:0 0 8px}
   <div class="waarom">
     <div class="wk"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6-5.3-6-10a6 6 0 0 1 12 0c0 4.7-6 10-6 10z"/><circle cx="12" cy="11" r="2.5"/></svg></div><b>Lokaal gevonden</b><p>Je komt op de plaatspagina van je stad en op de prijspagina's van de modellen die je repareert.</p></div>
     <div class="wk"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg></div><b>De klant belt je zelf</b><p>Wij zitten niet tussen de reparatie. De klant belt, komt langs, en je maakt zelf de afspraak.</p></div>
-    <div class="wk"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><b>Vaste maandprijs</b><p>Geen commissie per klant. Je weet vooraf wat het kost, en wat je het eerste jaar betaalt blijft in jaar twee gelden.</p></div>
+    <div class="wk"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><b>Geen commissie, geen kosten</b><p>Wij nemen nooit een percentage van een reparatie. Op dit moment kost meedoen niets, en alles wat de site kan, zit erbij.</p></div>
     <div class="wk"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 3v5.4c0 4.3-3.1 8.3-7.5 9.6-4.4-1.3-7.5-5.3-7.5-9.6V6z"/><path d="M9 12l2 2 4-4"/></svg></div><b>Een eerlijk platform</b><p>De volgorde is niet te koop en beoordelingen kun je niet laten verwijderen. Dat maakt je goede naam meer waard.</p></div>
   </div>
 </div></section>
 
 <section style="background:var(--vlak)"><div class="in">
   <p class="kop-mini">Hoe het werkt</p>
-  <h2>Betalen koopt vertoningen, geen plek in de lijst</h2>
+  <h2>Betalen koopt straks vertoningen, nooit een plek in de lijst</h2>
   <p class="lead">Dit is de kern van ons model, en we zijn er open over naar je en naar de klant.</p>
   <div class="hoe">
-    <div class="hstap"><div class="nr">1</div><b>Je staat gewoon in de lijst</b><p>Ook gratis. Je plek in de gewone lijst hangt af van je poliscontrole, je erkenningen en je beoordelingen. Die volgorde is niet te koop.</p></div>
-    <div class="hstap"><div class="nr">2</div><b>Betalen = een aandeel in Uitgelicht</b><p>Met een betaald pakket koop je een aandeel in de vertoningen van het blok Uitgelicht, dat apart staat en zo gelabeld is. Een duurder pakket geeft een groter aandeel.</p></div>
-    <div class="hstap"><div class="nr">3</div><b>Eerlijk verdeeld</b><p>Binnen hetzelfde pakket wisselen de winkels elk uur, zodat iedereen aan de beurt komt. Nieuwe winkels krijgen sowieso een deel van de vertoningen.</p></div>
+    <div class="hstap"><div class="nr">1</div><b>Je staat gewoon in de lijst</b><p>Je plek in de gewone lijst hangt af van je poliscontrole, je erkenningen en je beoordelingen. Die volgorde is niet te koop en dat verandert niet als er straks wel betaald kan worden.</p></div>
+    <div class="hstap"><div class="nr">2</div><b>Betalen = een aandeel in Uitgelicht</b><p>Straks koop je met een betaalde plek een aandeel in de vertoningen van het blok Uitgelicht, dat apart staat en zo gelabeld is. Meer betalen geeft een groter aandeel. Nu betaalt niemand, dus staan daar alleen nieuwe winkels in.</p></div>
+    <div class="hstap"><div class="nr">3</div><b>Eerlijk verdeeld</b><p>Winkels die evenveel betalen, wisselen elk uur, zodat iedereen aan de beurt komt. Nieuwe winkels krijgen sowieso een deel van de vertoningen, of ze nu betalen of niet.</p></div>
   </div>
   <div class="eerlijk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg><span><b>Wij beloven een aandeel, geen vast aantal vertoningen.</b> Hoeveel mensen er zoeken hangt af van de plaats en het seizoen. Je ziet in je dashboard precies hoe vaak je echt bent getoond.</span></div>
 </div></section>
 
 <section id="pakketten"><div class="in">
-  <p class="kop-mini">Pakketten</p>
-  <h2>Kies wat bij je winkel past</h2>
-  <p class="lead">Begin gratis, of kies een pakket met een groter aandeel in het blok Uitgelicht. Maandelijks opzegbaar, en de prijs van jaar één blijft gelden in jaar twee.</p>
+  <p class="kop-mini">Wat het kost</p>
+  <h2>Alles wat de site kan, is gratis</h2>
+  <p class="lead">Niet een uitgeklede versie: het hele product. Je vermelding, je prijzen, je profiel met foto's, de poliscontrole, het dashboard en het Europese reparatieformulier. Er is niets dat je pas krijgt als je betaalt.</p>
   <div class="pakketten" id="pakkettengrid"></div>
-  <p class="pakvoet">Alle bedragen zijn per maand, exclusief btw. Losse advertenties (een week extra opvallen) kunnen los bijgekocht worden vanaf 9 euro. Betaling via automatische incasso met Mollie.</p>
+  <p class="pakvoet">Wij verkopen op dit moment niets. Zodra wij je kunnen laten zien hoeveel mensen er via ons bij winkels terechtkomen, komt er één betaalde optie: een aandeel in het blok Uitgelicht. Je hoort dat van tevoren en je hoeft niets te doen als je niets wilt.</p>
 </div></section>
 
 <section style="background:var(--vlak)"><div class="in">
@@ -230,14 +230,14 @@ footer p{max-width:85ch;margin:0 0 8px}
     <div class="ek"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v14H4z"/><path d="M4 10h16M9 15h6"/></svg></div><div><b>Het Europese reparatieformulier</b><p>Wettelijk verplicht sinds 2026. Wij maken het automatisch voor je, met de prijs, de doorlooptijd en de garantie op papier. Geen meerprijs.</p></div></div>
     <div class="ek"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h18v13H3z"/><path d="M8 21h8M12 16v5"/></svg></div><div><b>Een dashboard dat eerlijk telt</b><p>Je ziet hoe vaak je bent getoond, doorgeklikt en gebeld, plus hoeveel vertoningen wij niet meetelden omdat ze van bots kwamen.</p></div></div>
     <div class="ek"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 3v5.4c0 4.3-3.1 8.3-7.5 9.6-4.4-1.3-7.5-5.3-7.5-9.6V6z"/></svg></div><div><b>De vermelding Polis gecontroleerd</b><p>Toon je aan dat schade aan het toestel van de klant is meeverzekerd, dan controleren wij dat en krijg je de vermelding Polis gecontroleerd, met de datum erbij.</p></div></div>
-    <div class="ek"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></div><div><b>Hulp met je Google-profiel</b><p>Binnen het abonnement helpen we je je Google Bedrijfsprofiel op orde te krijgen, zodat je ook daar beter gevonden wordt.</p></div></div>
+    <div class="ek"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></div><div><b>Hulp met je Google-profiel</b><p>Wij helpen je je Google Bedrijfsprofiel op orde te krijgen, zodat je ook daar beter gevonden wordt. Dat hoort er gewoon bij.</p></div></div>
   </div>
 </div></section>
 
 <section><div class="in">
   <p class="kop-mini">Je dashboard</p>
   <h2>Je ziet precies wat je oplevert</h2>
-  <p class="lead">Niet alleen het aantal leden, maar de waarde die je eruit haalt. Zo ziet een maand eruit:</p>
+  <p class="lead">Wat je vertoningen en klikken opleveren, en wat wij niet hebben meegeteld. Dit is ook het getal waarop wij ons straks laten afrekenen als wij iets gaan vragen. Zo ziet een maand eruit:</p>
   <div class="dashkaart">
     <div class="dashkop"><span class="stip"></span>Dashboard, winkel in Leeuwarden, augustus</div>
     <div class="dashbody">
@@ -254,7 +254,7 @@ footer p{max-width:85ch;margin:0 0 8px}
   <h2>Waarom onze eerlijkheid ook je helpt</h2>
   <p class="lead">Een lijst die te koop is, vertrouwt niemand. Doordat de volgorde niet te koop is, is je goede naam bij ons echt iets waard.</p>
   <div class="eerlijkblok">
-    <div class="eb"><b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>De volgorde is niet te koop</b><p>Poliscontrole, erkenningen en echte beoordelingen bepalen je plek. Geld verschuift alleen het aparte blok Uitgelicht.</p></div>
+    <div class="eb"><b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>De volgorde is niet te koop</b><p>Poliscontrole, erkenningen en echte beoordelingen bepalen je plek. Geld verschuift straks alleen het aparte blok Uitgelicht; op dit moment verschuift het niets, want er valt niets te betalen.</p></div>
     <div class="eb"><b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Echte tellingen</b><p>Bots tellen we eruit en dat laten we zien. Wat je in je dashboard ziet, is wat er echt is gebeurd.</p></div>
     <div class="eb"><b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Geen loze beloftes</b><p>Wij beloven je geen plek in ChatGPT of Google en geen vast aantal klanten. Wel eerlijke zichtbaarheid, meetbaar in je dashboard.</p></div>
   </div>
@@ -263,45 +263,58 @@ footer p{max-width:85ch;margin:0 0 8px}
 <section id="aanmelden"><div class="in">
   <div class="slot">
     <h2>Klaar om erbij te komen?</h2>
-    <p>We beginnen in Friesland. Meld je winkel aan met je e-mailadres, dan nemen we contact op en zetten we je gratis vermelding klaar. Upgraden kan altijd later.</p>
+    <p>We beginnen in Friesland. Meld je winkel aan met je e-mailadres, dan nemen we contact op en zetten we je vermelding klaar. Er zit geen betaald pakket achter dat je later moet nemen.</p>
     <div class="knoppen">
       <a class="btn btn-groen btn-groot" href="aanmelden.html">Meld je winkel aan</a>
-      <a class="btn btn-wit btn-groot" href="#pakketten">Eerst de pakketten zien</a>
+      <a class="btn btn-wit btn-groot" href="#pakketten">Eerst zien wat het kost</a>
     </div>
   </div>
 </div></section>
 
 <section><div class="in">
   <h2>Veelgestelde vragen van winkeliers</h2>
-  <div class="faq"><b>Kost het echt niets om erbij te staan?</b><p>Klopt. Een basisvermelding met je gegevens, prijzen en openingstijden is gratis en blijft gratis. Je betaalt alleen als je een groter aandeel in het blok Uitgelicht wilt of extra profielopties.</p></div>
-  <div class="faq"><b>Kan ik maandelijks opzeggen?</b><p>Ja. De betaalde pakketten zijn maandelijks opzegbaar. Je gratis vermelding blijft daarna gewoon staan.</p></div>
-  <div class="faq"><b>Betaal ik meer als het druk is?</b><p>Nee. Je betaalt een vast bedrag per maand, ongeacht hoeveel klanten er via ons bellen. Er zit geen commissie per reparatie op.</p></div>
-  <div class="faq"><b>Hoe betaal ik?</b><p>Via automatische incasso met Mollie. Lukt een incasso een keer niet, dan krijg je een paar dagen de tijd voordat je zichtbaarheid tijdelijk pauzeert. Je vermelding wordt niet verwijderd.</p></div>
+  <div class="faq"><b>Kost het echt niets om erbij te staan?</b><p>Klopt, en het is geen uitgeklede versie. Alles wat de site kan, zit erbij: je prijzen, je profiel met foto's, de poliscontrole, het dashboard en het reparatieformulier. Wij verkopen op dit moment helemaal niets. Als daar verandering in komt, gaat het om zichtbaarheid in het blok Uitgelicht en om niets anders, en je hoort het van tevoren.</p></div>
+  <div class="faq"><b>Kan ik maandelijks opzeggen?</b><p>Er is nu niets om op te zeggen. Als er straks een betaalde optie komt, is die maandelijks opzegbaar en blijft je vermelding daarna gewoon staan, met alles erin.</p></div>
+  <div class="faq"><b>Betaal ik meer als het druk is?</b><p>Nee. Er zit geen commissie per reparatie op, en die komt er ook niet. Hoeveel klanten er via ons bellen, verandert niets aan wat je betaalt.</p></div>
+  <div class="faq"><b>Hoe betaal ik?</b><p>Op dit moment betaal je niets, dus je hoeft geen betaalgegevens achter te laten. Komt er straks een betaalde optie, dan gaat dat via automatische incasso met Mollie. Lukt een incasso een keer niet, dan krijg je een paar dagen de tijd voordat die zichtbaarheid pauzeert; je vermelding blijft altijd staan.</p></div>
   <div class="faq"><b>Hoe krijg ik ondersteuning?</b><p>Via e-mail, met antwoord binnen twee werkdagen. Zo houden we de kosten laag en dus ook je prijs.</p></div>
 </div></section>
 
 <footer><div class="in">
   <div class="jur"><a href="voorwaarden.html">Voorwaarden</a><a href="privacy.html">Privacy</a><a href="cookies.html">Cookies</a><a href="toegankelijkheid.html">Toegankelijkheid</a><a href="melden.html">Iets melden</a><a href="over-ons.html">Over ons</a></div>
   
-  <p><b>Over deze pagina.</b> Dit is een ontwerpschets van de winkelkant van snelrepareren.nl. De genoemde aantallen en het dashboard zijn voorbeelden. Pakketprijzen zijn de vastgestelde richtprijzen (29, 79 en 149 euro per maand), exclusief btw.</p>
+  <p><b>Over deze pagina.</b> Dit is een ontwerpschets van de winkelkant van snelrepareren.nl. De genoemde aantallen en het dashboard zijn voorbeelden. Meedoen is gratis en dat is het hele product (besluit 3.1, 6 september 2026). De bedragen 29, 79 en 149 euro per maand zijn richtprijzen voor een aandeel in Uitgelicht, exclusief btw, en zijn nog niet te koop.</p>
   <p><a class="link" href="index.html">Terug naar de klantsite <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></p>
 </div></footer>
 
 <script>
+/* Besluit 3.1 (Nawid, 6 september 2026): het gratis pakket IS het product.
+   Er is dus geen eigenschap die je pas krijgt als je betaalt. Betaald koopt
+   straks alleen zichtbaarheid in het aparte, gelabelde blok Uitgelicht, en dat
+   is nu nog niet te koop: een aandeel in de vertoningen van een site zonder
+   verkeer is een aandeel van bijna niets (analyse 03 A2).
+
+   De bedragen staan er wel bij. Een winkel die zich nu aanmeldt, hoort te weten
+   wat eraan komt en mag niet later worden verrast. */
 const PAKKETTEN=[
- {n:'Gratis',prijs:'&euro; 0',per:'',sub:'Zichtbaar zonder kosten',knop:'Begin gratis',stijl:'btn-lijn',
-  in:['Vermelding op je plaatspagina','Prijzen, openingstijden en garantie','Aandeel voor nieuwkomers in Uitgelicht','Dashboard met je cijfers','Het Europese reparatieformulier'],uit:['Vast aandeel in Uitgelicht','Uitgebreid profiel met foto\'s']},
- {n:'Start',prijs:'&euro; 29',per:'p/m',sub:'Voor de kleine, lokale winkel',knop:'Kies Start',stijl:'btn-lijn',
-  in:['Alles uit Gratis','Klein aandeel in het blok Uitgelicht','Uitgebreider profiel met foto\'s','Hulp met je Google-profiel'],uit:['Voorrang bij de poliscontrole']},
- {n:'Groei',prijs:'&euro; 79',per:'p/m',sub:'De meest gekozen keuze',knop:'Kies Groei',stijl:'btn-marine',pop:1,
-  in:['Alles uit Start','Groter aandeel in Uitgelicht','Meerdere vestigingen op één account','Voorrang bij de poliscontrole'],uit:[]},
- {n:'Max',prijs:'&euro; 149',per:'p/m',sub:'Voor de winkel die vol inzet',knop:'Kies Max',stijl:'btn-lijn',
-  in:['Alles uit Groei','Het grootste aandeel in Uitgelicht','Voorrang in meerdere plaatsen','Persoonlijke maandelijkse terugkoppeling'],uit:[]},
+ {n:'Gratis',prijs:'&euro; 0',per:'',sub:'Het hele product, zonder kosten',knop:'Meld je winkel aan',stijl:'btn-groen',pop:1,uitgelicht:1,
+  in:['Vermelding op je plaatspagina','Je prijzen, openingstijden, garantie en doorlooptijd',
+      'Uitgebreid profiel met foto\'s','De poliscontrole, met de datum erbij',
+      'Dashboard met je cijfers, ook wat wij niet meetellen','Het Europese reparatieformulier',
+      'Klaarmelden en beoordelingen','Meerdere vestigingen op \u00e9\u00e9n account',
+      'Aandeel voor nieuwkomers in het blok Uitgelicht'],uit:[]},
+ {n:'Uitgelicht',prijs:'nog niet te koop',per:'',sub:'Straks: 29, 79 of 149 euro per maand',knop:'Houd mij op de hoogte',stijl:'btn-lijn',
+  in:['Een aandeel in de vertoningen van het blok Uitgelicht',
+      'Dat blok staat apart van de gewone lijst en is altijd gelabeld',
+      'Wij beloven een aandeel, nooit een aantal klanten',
+      'De prijs van je eerste jaar geldt ook in je tweede jaar'],
+  uit:['Een plek in de gewone lijst: die is en blijft niet te koop',
+       'Invloed op je prijzen, je beoordelingen of de poliscontrole']},
 ];
 const JA='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
 const NEE='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>';
 document.getElementById('pakkettengrid').innerHTML=PAKKETTEN.map(p=>`<div class="pak${p.pop?' pop':''}">
-  ${p.pop?'<span class="badge">Meest gekozen</span>':''}
+  ${p.pop?'<span class="badge">Alles inbegrepen</span>':''}
   <div class="pnaam">${p.n}</div>
   <div class="prijs num">${p.prijs}${p.per?` <small>${p.per}</small>`:''}</div>
   <div class="sub">${p.sub}</div>

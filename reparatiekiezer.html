@@ -311,7 +311,7 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
   </div>
 </div></section>
 
-<div class="onder">Prijzen uit het prijsonderzoek (iPhone 13 scherm: 79 tot 309 euro over 198 metingen). Winkels, beoordelingen, afstanden en toestelkleuren zijn illustratief. Volgorde: onbetaald, op poliscontrole en beoordeling; het blok Uitgelicht is betaald en zo gelabeld (besluit B2).</div>
+<div class="onder">Prijzen uit het prijsonderzoek (iPhone 13 scherm: 79 tot 309 euro over 198 metingen). Winkels, beoordelingen, afstanden en toestelkleuren zijn illustratief. Volgorde: op poliscontrole en beoordeling; het blok Uitgelicht staat apart en is zo gelabeld (besluit B2). Er wordt nog niets verkocht, dus staan daar alleen nieuwe winkels.</div>
 
 <dialog class="match" id="matchdlg"><div class="mdlg" id="matchinhoud"></div></dialog>
 <dialog id="hulp"><div class="dlg">
@@ -324,7 +324,7 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
 
 <dialog id="rang"><div class="dlg">
   <h3>Hoe wij rangschikken</h3>
-  <p>De gewone lijst is niet te koop. Winkels staan op volgorde van poliscontrole (door ons gecontroleerde verzekering), erkenningen, en beoordelingen van echte klanten. Winkels die "Uitgelicht" zijn, betalen daarvoor en staan altijd als zodanig gelabeld, in een eigen blok.</p>
+  <p>De gewone lijst is niet te koop. Winkels staan op volgorde van poliscontrole (door ons gecontroleerde verzekering), erkenningen, en beoordelingen van echte klanten. Het blok "Uitgelicht" staat apart en is altijd gelabeld. Bij elke winkel daar staat waarom hij er staat: nieuw op de site, of een betaalde plek. Op dit moment verkopen wij niets, dus zijn het alleen nieuwe winkels.</p>
   <div class="sluit"><button class="btn btn-groen" onclick="document.getElementById('rang').close()">Sluiten</button></div>
 </div></dialog>
 
@@ -549,7 +549,7 @@ function stap3(){
     return `<div class="winkel${w.uit?' uitg':''}">
       <div class="kop"><b>${w.n}</b><span>${w.a} &middot; ${String(w.km).replace('.',',')} km</span></div>
       <div class="cijfer"><b class="num">${w.g}</b><span><a href="${w.glink}" rel="nofollow noopener">${w.gb} beoordelingen op Google</a></span><span class="eigen">${eigenBeoordelingen(w)}</span>${feiten?`<span class="feit">${feiten}</span>`:''}</div>
-      <div class="chips">${w.uit?'<span class="chip chip-uitg">Uitgelicht</span>':''}${w.keur?`<span class="chip chip-keur">${CHECK}${keurlabel(w)}</span>`:''}<span class="chip chip-snel">${BOLT}${w.tijd}</span></div>
+      <div class="chips">${w.uit?`<span class="chip chip-uitg">Uitgelicht &middot; ${uitgelichtReden(w)}</span>`:''}${w.keur?`<span class="chip chip-keur">${CHECK}${keurlabel(w)}</span>`:''}<span class="chip chip-snel">${BOLT}${w.tijd}</span></div>
       <div class="betaal">${KAART}${w.betaal.join(' &middot; ')}</div>
       <div class="prijsvak"><div class="prijs num">${som()?eur(p):'op aanvraag'}<small>${g.map(k=>REP[k].n).join(' + ')}</small></div>
         ${som()?`<div class="bereik"><div class="track"><div class="fill" style="left:4%;width:92%"></div><div class="tick" style="left:${med}%"></div><div class="jij" style="left:${pos}%"></div></div><div class="lab num"><span>${eur(lo)}</span><span>${eur(hi)}</span></div></div>`:''}</div>

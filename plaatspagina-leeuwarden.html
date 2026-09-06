@@ -257,7 +257,7 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
     <div class="zkaart" id="zprijs"></div>
     <div class="zkaart">
       <h3>Hoe deze lijst tot stand komt</h3>
-      <p>De volgorde is niet te koop. Winkels staan gerangschikt op poliscontrole, erkenning en hun beoordelingen op Google. Betaalde plekken staan apart, heten Uitgelicht en wisselen elk uur.</p>
+      <p>De volgorde is niet te koop. Winkels staan gerangschikt op poliscontrole, erkenning en hun beoordelingen op Google. Betaalde plekken staan apart, heten Uitgelicht en wisselen elk uur. Op dit moment betaalt niemand; daar staan alleen winkels die net zijn aangesloten.</p>
       <a class="link" href="#" onclick="document.getElementById('rang').showModal();return false">Lees hoe wij rangschikken <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </div>
     <div class="zkaart">
@@ -308,7 +308,7 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
 <dialog id="rang"><div class="dlg">
   <h3>Hoe wij rangschikken</h3>
   <p>De gewone lijst is niet te koop. Wij rangschikken op drie dingen: de poliscontrole (wij hebben de verzekering gezien), erkenningen zoals Apple IRP die controleerbaar zijn, en de beoordelingen die de winkel op Google heeft. Een prijs die negentig dagen niet is bevestigd, weegt minder mee.</p>
-  <p>Winkels kunnen een plek kopen in het blok Uitgelicht. Dat blok staat apart, is altijd gelabeld en de winkels erin wisselen elk uur. Een winkel die niets betaalt kan gewoon bovenaan de gewone lijst staan.</p>
+  <p>Winkels kunnen straks een plek kopen in het blok Uitgelicht. Dat blok staat apart, is altijd gelabeld en de winkels erin wisselen elk uur. Bij elke winkel staat waarom hij daar staat: <b>Nieuw op de site</b> of <b>Betaalde plek</b>.</p><p>Op dit moment verkopen wij niets, dus is het hele blok voor winkels die net zijn aangesloten. Een winkel die niets betaalt kan altijd bovenaan de gewone lijst staan; die volgorde is niet te koop.</p>
   <div class="sluit"><button class="btn btn-groen" onclick="document.getElementById('rang').close()">Sluiten</button></div>
 </div></dialog>
 
@@ -395,7 +395,7 @@ function winkelkaart(w,uitgelicht){
     : 'Onderdeel niet gespecificeerd';
   const feiten=[w.erk,`${w.jaren} jaar in Leeuwarden`,w.vest>1?`${w.vest} vestigingen`:null].filter(Boolean).join(' &middot; ');
   return `<div class="winkel${uitgelicht?' uitg':''}">
-    ${uitgelicht?`<span class="adv">Uitgelicht <button onclick="document.getElementById('rang').showModal()" aria-label="Wat betekent Uitgelicht?" title="Wat betekent Uitgelicht?">?</button></span>`:''}
+    ${uitgelicht?`<span class="adv">Uitgelicht &middot; ${uitgelichtReden(w)} <button onclick="document.getElementById('rang').showModal()" aria-label="Wat betekent Uitgelicht?" title="Wat betekent Uitgelicht?">?</button></span>`:''}
     <div class="rij">
       <div class="pui">${w.i}</div>
       <div>

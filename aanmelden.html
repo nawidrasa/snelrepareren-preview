@@ -29,16 +29,10 @@ legend{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:upperc
 .mchip{padding:9px 15px;border-radius:999px;border:1.5px solid var(--lijn);background:#fff;font-size:14px;font-weight:600;color:var(--inkt-2);cursor:pointer}
 .mchip:hover{border-color:var(--groen)}
 .mchip.aan{background:var(--groen);border-color:var(--groen);color:#fff}
-.pakketten{display:grid;gap:10px}
-.pk{display:grid;grid-template-columns:22px minmax(0,1fr) auto;gap:12px;align-items:center;border:1.5px solid var(--lijn);border-radius:14px;padding:14px 16px;cursor:pointer}
-.pk:hover{border-color:var(--groen)}
-.pk.aan{border-color:var(--groen);background:var(--groen-50)}
-.pk .rond{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--lijn);display:grid;place-items:center}
-.pk.aan .rond{border-color:var(--groen);background:var(--groen)}
-.pk .rond svg{width:12px;height:12px;color:#fff;opacity:0}
-.pk.aan .rond svg{opacity:1}
-.pk b{font-size:15.5px}.pk small{display:block;font-size:13px;color:var(--inkt-3);font-weight:400}
-.pk .prijs{font-weight:800;font-size:16px;white-space:nowrap}
+.gratisblok{border:1.5px solid var(--groen-200);background:var(--groen-50);border-radius:16px;padding:18px 20px}
+.gratisblok b{display:block;font-size:15.5px;margin-bottom:8px}
+.gratisblok p{margin:0 0 10px;font-size:14px;line-height:1.55;color:var(--inkt-2);max-width:62ch}
+.gratisblok p:last-child{margin-bottom:0}
 .akkoord{display:flex;gap:11px;align-items:flex-start;background:var(--vlak);border-radius:14px;padding:15px 16px;margin-bottom:20px}
 .akkoord input{width:19px;height:19px;margin-top:2px;flex:none;accent-color:var(--groen)}
 .akkoord span{font-size:13.5px;color:var(--inkt-2)}
@@ -88,7 +82,7 @@ legend{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:upperc
     <!-- FORMULIER -->
     <div class="kaart" id="formulier">
       <h1>Meld je winkel aan</h1>
-      <p class="sub">Een basisvermelding is gratis en blijft gratis. Je hoeft nu geen wachtwoord te bedenken: na onze controle krijg je een uitnodiging per e-mail.</p>
+      <p class="sub">Meedoen is gratis, en dat is het hele product. Je hoeft nu geen wachtwoord te bedenken: na onze controle krijg je een uitnodiging per e-mail.</p>
 
       <fieldset>
         <legend>Je winkel</legend>
@@ -118,8 +112,12 @@ legend{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:upperc
       </fieldset>
 
       <fieldset>
-        <legend>Met welk pakket wil je beginnen?</legend>
-        <div class="pakketten" id="pakketten"></div>
+        <legend>Wat het kost</legend>
+        <div class="gratisblok">
+          <b>Niets, en dat is geen proefperiode.</b>
+          <p>Je krijgt het hele product: je vermelding, je prijzen, je profiel met foto's, de poliscontrole, het dashboard en het Europese reparatieformulier. Er is geen betaalde versie met meer erin.</p>
+          <p>Wij verkopen op dit moment niets. Komt daar verandering in, dan gaat het alleen om zichtbaarheid in het aparte blok Uitgelicht, hoor je dat van tevoren, en hoef je niets te doen als je niets wilt.</p>
+        </div>
       </fieldset>
 
       <label class="akkoord">
@@ -162,7 +160,7 @@ legend{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:upperc
     </div>
     <div class="zk">
       <h3>Goed om te weten</h3>
-      <div class="gratis"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Gratis blijft gratis. Je kunt later altijd upgraden.</span></div>
+      <div class="gratis"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Gratis blijft gratis, en er is geen duurdere versie met meer erin.</span></div>
       <div class="gratis" style="margin-top:12px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Geen commissie per klant, geen opzegtermijn.</span></div>
       <div class="gratis" style="margin-top:12px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Je plek in de gewone lijst is niet te koop.</span></div>
     </div>
@@ -177,22 +175,12 @@ legend{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:upperc
 
 <script>
 const MERKEN=['Apple','Samsung','Google','Xiaomi','OnePlus','Huawei','Oppo','Motorola','Fairphone','Overig'];
-const PAKKETTEN=[
- ['gratis','Gratis','Vermelding, prijzen en openingstijden','&euro; 0'],
- ['start','Start','Klein aandeel in het blok Uitgelicht','&euro; 29'],
- ['groei','Groei','Groter aandeel, meerdere vestigingen','&euro; 79'],
- ['max','Max','Het grootste aandeel, meerdere plaatsen','&euro; 149'],
-];
-const S={merken:new Set(['Apple','Samsung']),pakket:'gratis'};
+const S={merken:new Set(['Apple','Samsung'])};
 const CHECK='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>';
 function merken(){
   document.getElementById('merken').innerHTML=MERKEN.map(m=>`<button type="button" class="mchip${S.merken.has(m)?' aan':''}" onclick="wisselMerk('${m}')">${m}</button>`).join('');
 }
 function wisselMerk(m){S.merken.has(m)?S.merken.delete(m):S.merken.add(m);merken()}
-function pakketten(){
-  document.getElementById('pakketten').innerHTML=PAKKETTEN.map(([id,n,s,p])=>
-   `<div class="pk${S.pakket===id?' aan':''}" onclick="S.pakket='${id}';pakketten()"><span class="rond">${CHECK}</span><span><b>${n}</b><small>${s}</small></span><span class="prijs num">${p}${id==='gratis'?'':' p/m'}</span></div>`).join('');
-}
 document.getElementById('akkoord').onchange=e=>{document.getElementById('verstuur').disabled=!e.target.checked};
 document.getElementById('verstuur').onclick=()=>{
   const naam=document.getElementById('naam').value.trim();
@@ -201,5 +189,5 @@ document.getElementById('verstuur').onclick=()=>{
   if(naam)document.getElementById('bedanktregel').textContent=`Wij hebben de aanmelding van ${naam} binnen. Je hoort binnen twee werkdagen van ons.`;
   window.scrollTo(0,0);
 };
-merken();pakketten();
+merken();
 </script>

@@ -206,7 +206,7 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.02em;margin:0 0 3px}
     <button class="navlink" data-p="beoordelingen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.6 5.6 6.1.8-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6L3.3 9.4l6.1-.8z"/></svg><span class="txt">Beoordelingen</span></button>
     <button class="navlink" data-p="profiel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg><span class="txt">Profiel en prijzen</span></button>
     <button class="navlink" data-p="formulier"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h14v18H5z"/><path d="M9 8h6M9 12h6M9 16h3"/></svg><span class="txt">Reparatieformulier</span></button>
-    <button class="navlink" data-p="pakket"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3 10h18"/></svg><span class="txt">Pakket en facturatie</span></button>
+    <button class="navlink" data-p="pakket"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3 10h18"/></svg><span class="txt">Wat het kost</span></button>
     <button class="navlink" data-p="keurmerk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 3v5.4c0 4.3-3.1 8.3-7.5 9.6-4.4-1.3-7.5-5.3-7.5-9.6V6z"/><path d="M9 12l2 2 4-4"/></svg><span class="txt">Poliscontrole</span></button>
     <button class="navlink" data-p="account"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg><span class="txt">Account</span></button>
     <div class="winkel"><div class="av">T</div><div><b>Telefoonhulp</b><span><a href="inloggen.html" style="color:var(--inkt-3);text-decoration:none">Uitloggen</a></span></div></div>
@@ -227,7 +227,7 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.02em;margin:0 0 3px}
       </div>
       <div class="rijkaarten">
         <div class="kaart"><h2>Snel regelen</h2><p class="toel">Dit vragen winkeliers het vaakst.</p>
-          <div style="display:grid;gap:8px"><a class="btn btn-lijn" href="#" onclick="ga('profiel');return false">Prijzen bijwerken</a><a class="btn btn-lijn" href="#" onclick="ga('pakket');return false">Pakket bekijken</a><a class="btn btn-lijn" href="winkelprofiel.html">Bekijk mijn openbare profiel</a></div>
+          <div style="display:grid;gap:8px"><a class="btn btn-lijn" href="#" onclick="ga('profiel');return false">Prijzen bijwerken</a><a class="btn btn-lijn" href="#" onclick="ga('pakket');return false">Wat het kost</a><a class="btn btn-lijn" href="winkelprofiel.html">Bekijk mijn openbare profiel</a></div>
         </div>
         <div class="kaart"><h2>Aandachtspunt</h2><p class="toel">Iets dat je zichtbaarheid raakt.</p>
           <div class="melding"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>Je prijs voor de iPhone 14 is 78 dagen niet bevestigd. Na 90 dagen weegt hij lichter mee.</div>
@@ -241,7 +241,7 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.02em;margin:0 0 3px}
       <div class="paginakop"><div><h1>Vertoningen</h1><p>Waar je bent getoond, augustus 2026. Alleen echte mensen, bots eruit gefilterd.</p></div></div>
       <div class="stats">
         <div class="stat"><div class="lab">Echte vertoningen</div><b class="num">1.240</b><div class="op up">&uarr; 12%</div></div>
-        <div class="stat"><div class="lab">Waarvan in Uitgelicht</div><b class="num">540</b><div class="op flat">je pakket Groei</div></div>
+        <div class="stat"><div class="lab">Waarvan in Uitgelicht</div><b class="num">540</b><div class="op flat">aandeel voor nieuwkomers</div></div>
         <div class="stat"><div class="lab">Bots niet meegeteld</div><b class="num">210</b><div class="op flat">14% van het ruwe totaal</div></div>
       </div>
       <div class="kaart" style="margin-top:14px"><h2>Waar je werd getoond</h2><p class="toel">Per pagina, in aflopende volgorde.</p>
@@ -280,21 +280,23 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.02em;margin:0 0 3px}
 
     <!-- PAKKET EN FACTURATIE -->
     <section class="paneel" data-p="pakket">
-      <div class="paginakop"><div><h1>Pakket en facturatie</h1><p>Je abonnement en je facturen.</p></div></div>
-      <div class="kaart"><h2>Je pakket</h2><p class="toel">Bepaalt je aandeel in het blok Uitgelicht.</p>
-        <div class="pakhuidig"><div class="naam">Groei<small>&euro; 79 per maand, maandelijks opzegbaar</small></div><a class="btn btn-marine" href="voor-winkels.html#pakketten">Pakket wijzigen</a></div>
-        <div class="aandeelbalk"><div class="track"><div class="fill" style="width:62%"></div></div><div class="lab"><span>Je aandeel in Uitgelicht in Leeuwarden</span><span>62%</span></div></div>
-        <p class="toel" style="margin:14px 0 0">Upgraden gaat direct in; de nieuwe prijs geldt vanaf de volgende maand. Je prijs van dit jaar blijft ook volgend jaar gelden.</p>
+      <div class="paginakop"><div><h1>Wat het kost</h1><p>Op dit moment niets.</p></div></div>
+      <div class="kaart"><h2>Je vermelding is volledig</h2>
+        <p class="toel">Alles wat de site kan, staat aan. Er is geen betaalde versie met meer erin.</p>
+        <div class="pakhuidig"><div class="naam">&euro; 0 per maand<small>geen proefperiode, geen einddatum</small></div><a class="btn btn-lijn" href="voor-winkels.html#pakketten">Wat er straks bij komt</a></div>
+        <p class="toel" style="margin:14px 0 0">Wij verkopen pas iets als wij je kunnen laten zien hoeveel mensen er via ons bij winkels terechtkomen. Dat gaat dan om zichtbaarheid in het aparte blok Uitgelicht en om niets anders. Je hoort het van tevoren en je hoeft niets te doen als je niets wilt.</p>
       </div>
-      <div class="kaart"><h2>Facturen</h2><p class="toel">Betaald via automatische incasso.</p>
-        <div class="factuur"><span>Augustus 2026 &middot; &euro; 79,00</span><span class="st">Betaald</span></div>
-        <div class="factuur"><span>Juli 2026 &middot; &euro; 79,00</span><span class="st">Betaald</span></div>
-        <div class="factuur"><span>Juni 2026 &middot; &euro; 79,00</span><span class="st">Betaald</span></div>
-        <div class="incasso" style="margin-top:14px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Incasso via Mollie loopt goed. Mocht een incasso een keer mislukken, dan krijg je 7 dagen de tijd voordat je zichtbaarheid tijdelijk pauzeert. Je vermelding wordt niet verwijderd.</span></div>
+      <div class="kaart"><h2>Je aandeel in Uitgelicht</h2>
+        <p class="toel">Nieuwe winkels krijgen een deel van de vertoningen in het blok Uitgelicht, ook zonder te betalen.</p>
+        <div class="aandeelbalk"><div class="track"><div class="fill" style="width:5%"></div></div><div class="lab"><span>Je aandeel in Uitgelicht in Leeuwarden</span><span>5%</span></div></div>
+        <p class="toel" style="margin:14px 0 0">Vijf procent is wat wij voor nieuwkomers vrijhouden. Zolang niemand betaalt, is het hele blok voor nieuwkomers.</p>
+      </div>
+      <div class="kaart"><h2>Facturen</h2>
+        <p class="toel">Er zijn geen facturen, want er wordt niets in rekening gebracht.</p>
+        <div class="incasso" style="margin-top:14px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Je hoeft geen betaalgegevens achter te laten. Komt er straks een betaalde optie en kies je daarvoor, dan gaat dat via automatische incasso met Mollie, en blijft je vermelding altijd staan.</span></div>
       </div>
     </section>
 
-    <!-- KEURMERK -->
     <section class="paneel" data-p="keurmerk">
       <div class="paginakop"><div><h1>Poliscontrole</h1><p>Je status voor het label Polis gecontroleerd.</p></div><a class="btn btn-lijn btn-klein" href="keurmerk.html">Wat betekent dit?</a></div>
       <div class="kaart">
@@ -353,24 +355,19 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.02em;margin:0 0 3px}
 
     <!-- ACCOUNT -->
     <section class="paneel" data-p="account">
-      <div class="paginakop"><div><h1>Account</h1><p>Je inloggegevens, vestigingen en abonnement.</p></div></div>
+      <div class="paginakop"><div><h1>Account</h1><p>Je inloggegevens en je vestigingen.</p></div></div>
       <div class="kaart"><h2>Inloggen en beveiliging</h2><p class="toel">Wie kan er bij dit account.</p>
         <div class="instelling"><div><b>E-mailadres</b><span>jelle@telefoonhulp.nl</span></div><button class="btn btn-lijn btn-klein">Wijzigen</button></div>
         <div class="instelling"><div><b>Wachtwoord</b><span>Laatst gewijzigd op 12 augustus 2026</span></div><button class="btn btn-lijn btn-klein">Wijzigen</button></div>
         <div class="instelling"><div><b>Extra beveiliging met een code</b><span>Optioneel, maar wel aan te raden. Je hebt er een app voor nodig.</span></div><button class="schuif" id="tweefactor" onclick="this.classList.toggle('aan')"><i></i></button></div>
       </div>
-      <div class="kaart"><h2>Vestigingen</h2><p class="toel">Meerdere adressen onder één account hoort bij het pakket Groei en hoger.</p>
+      <div class="kaart"><h2>Vestigingen</h2><p class="toel">Meerdere adressen onder één account hoort er gewoon bij; daar betaal je niet voor.</p>
         <div class="vestiging"><span><b>Nieuwestad 112, Leeuwarden</b></span><span class="hoofd">Hoofdvestiging</span></div>
         <div class="vestiging"><span><b>Schrans 14, Leeuwarden</b></span><button class="btn btn-lijn btn-klein">Bewerken</button></div>
         <div class="opslaan" style="justify-content:flex-start"><button class="btn btn-lijn">Vestiging toevoegen</button></div>
       </div>
-      <div class="kaart"><h2>Abonnement beëindigen</h2><p class="toel">Je zit nergens aan vast.</p>
+      <div class="kaart"><h2>Stoppen</h2><p class="toel">Je zit nergens aan vast, en er is geen abonnement om op te zeggen.</p>
         <div class="gevaar">
-          <b>Betaald pakket opzeggen</b>
-          <p>Je pakket Groei stopt aan het einde van de lopende maand. Je gratis vermelding blijft gewoon staan, met je prijzen en beoordelingen.</p>
-          <button class="btn btn-rood btn-klein">Pakket opzeggen</button>
-        </div>
-        <div class="gevaar" style="margin-top:10px">
           <b>Vermelding helemaal verwijderen</b>
           <p>Je winkel verdwijnt van snelrepareren.nl, inclusief je prijzen en beoordelingen. Dit kan niet ongedaan worden gemaakt.</p>
           <button class="btn btn-rood btn-klein">Vermelding verwijderen</button>

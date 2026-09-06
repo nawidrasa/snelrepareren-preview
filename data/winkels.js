@@ -39,7 +39,7 @@ const WINKELDATA = {
      g:'8,7',gb:112,vers:'nieuwste Google-beoordeling 1 week geleden',keur:1,keurdatum:'28 jul 2026',
      polistot:'1 apr 2027',glink:'#',eigen:0,erk:'Samsung erkend',jaren:8,vest:3,
      tijd:'Vandaag klaar',min:120,vandaag:1,gar:'12 maanden garantie',kw:'service',niv:.44,
-     open:'Open tot 17:30',betaal:['Pin','Apple Pay','iDEAL'],f:1.05,uit:1},
+     open:'Open tot 17:30',betaal:['Pin','Apple Pay','iDEAL'],f:1.05,uit:'nieuw'},
     {n:'De Schermwerkplaats',i:'S',plaats:'Leeuwarden',buurt:'Centrum',a:'Voorstreek 45',km:0.9,
      g:'9,4',gb:26,vers:'nieuwste Google-beoordeling 5 dagen geleden',keur:1,
      keurdatum:'3 sep 2026',polistot:'1 sep 2027',glink:'#',eigen:0,erk:null,jaren:6,vest:1,
@@ -112,5 +112,14 @@ const eigenBeoordelingen = w =>
 /* Het Google-cijfer, altijd met de bron erbij. Zonder die woorden leest een
    bezoeker het als ons oordeel over de winkel. */
 const googleCijfer = w => w.g + ' op Google (' + w.gb + ')';
+
+/* Waarom een winkel in het blok Uitgelicht staat. Sinds besluit 3.1 is het hele
+   product gratis en verkopen wij nog niets, dus kan daar op dit moment alleen
+   'nieuw' staan: het deel van de vertoningen dat wij vrijhouden voor winkels die
+   net zijn aangesloten. Zodra er betaald kan worden, komt 'betaald' erbij. Het
+   label moet zeggen welke van de twee het is; anders leest een bezoeker elke
+   uitgelichte winkel als een betalende. */
+const uitgelichtReden = w =>
+  w.uit === 'betaald' ? 'Betaalde plek' : w.uit ? 'Nieuw op de site' : null;
 
 const aantalPerPlaats = plaats => winkelsIn(plaats).length;
