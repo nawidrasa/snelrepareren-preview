@@ -359,7 +359,10 @@ const KLEUREN={
 /* Alleen merken waarvoor wij toestellen en prijzen hebben. Er stonden er twaalf,
    waarvan negen zonder een enkel model erachter. */
 const MERKEN=KIEZERDATA.merken;
-const ALLE=KIEZERDATA.modellen.map(m=>({merk:m.merk,serie:m.serie,n:m.n,c:m.c,data:m.data}));
+/* cs moet mee: dat zijn alle modelcodes van een toestel. Zonder dat veld valt
+   zoekbaar() terug op alleen de getoonde code, en vindt iemand met een toestel
+   uit de Verenigde Staten of Japan zijn eigen nummer niet. */
+const ALLE=KIEZERDATA.modellen.map(m=>({merk:m.merk,serie:m.serie,n:m.n,c:m.c,cs:m.cs,data:m.data}));
 /* Wat de kiezer per reparatie toont. De prijzen zitten hier NIET meer in: die komen
    per gekozen model uit de metingen (data/kiezer.js). Tot 7 september stond hier een
    vaste tabel met de cijfers van een iPhone 13, die voor elk toestel werd getoond;

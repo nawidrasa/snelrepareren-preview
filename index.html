@@ -377,7 +377,10 @@ const KIEZER='reparatiekiezer.html';
 /* De modellen komen uit data/kiezer.js. Hier stond een eigen lijst met Google
    Pixel erin: een merk waarvoor wij nul prijzen hebben gemeten, dus wie daarop
    klikte kwam bij een leeg scherm. */
-const ALLE=KIEZERDATA.modellen.map(m=>({merk:m.merk,serie:m.serie,n:m.n,c:m.c,data:m.data}));
+/* cs moet mee: dat zijn alle modelcodes van een toestel. Zonder dat veld valt
+   zoekbaar() terug op alleen de getoonde code, en vindt iemand met een toestel
+   uit de Verenigde Staten of Japan zijn eigen nummer niet. */
+const ALLE=KIEZERDATA.modellen.map(m=>({merk:m.merk,serie:m.serie,n:m.n,c:m.c,cs:m.cs,data:m.data}));
 /* Alleen toestellen waar wij een gemeten schermprijs voor hebben. Galaxy S23 en
    Pixel 8 stonden erbij zonder een enkele meting. */
 const POPULAIR=['iPhone 15','iPhone 14','iPhone 13','Galaxy S23 Ultra','Galaxy A54']
