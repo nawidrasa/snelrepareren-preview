@@ -2,7 +2,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <link rel="stylesheet" href="lettertype/outfit.css">
-<link rel="stylesheet" href="basis.css">
+<link rel="stylesheet" href="basis.css?v=07edef10">
 <style>
 :root{--groen-50:#F0FDF4;--groen-100:#DCFCE7;--groen-200:#BBF7D0;--groen-300:#86EFAC;--groen-500:#22C55E;--groen:#008934;--groen-800:#007B2E;--groen-900:#005A22;--marine:#0B1F4E;--marine-d:#061238;--marine-100:#E8ECF5;--marine-200:#C5CEE3;--inkt:#111827;--inkt-2:#4A5878;--inkt-3:#6B7480;--lijn:#E3E6EE;--vlak:#F6F8FA;--amber:#B45309;--amber-soft:#FEF3C7;--rood:#B91C1C;--rood-soft:#FEE2E2;color-scheme:light}
 
@@ -221,7 +221,7 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.02em;margin:0 0 3px}
         <div class="stat"><div class="lab">Doorgeklikt naar profiel</div><b class="num">86</b><div class="op flat">7% van de vertoningen</div></div>
         <div class="stat"><div class="lab">Gebeld of route <span class="ster">&#9733; kerngetal</span></div><b class="num">31</b><div class="op up">&uarr; 5 t.o.v. juli</div></div>
       </div>
-      <div class="botsregel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg>210 vertoningen zijn niet meegerekend omdat ze van bots kwamen. Wij tellen alleen echte mensen.</div>
+      <div class="botsregel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg><span class="botstekst">210 vertoningen zijn niet meegerekend omdat ze van bots kwamen. Wij tellen alleen echte mensen.</span></div>
       <div class="kaart" style="margin-top:14px"><h2>Gebeld of route, per maand</h2><p class="toel">Je belangrijkste getal: hoe vaak mensen echt actie ondernamen.</p>
         <div class="grafiekwrap"><div class="grafiek" id="grafiek"></div></div>
       </div>
@@ -238,7 +238,7 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.02em;margin:0 0 3px}
 
     <!-- VERTONINGEN -->
     <section class="paneel" data-p="vertoningen">
-      <div class="paginakop"><div><h1>Vertoningen</h1><p>Waar je bent getoond, augustus 2026. Alleen echte mensen, bots eruit gefilterd.</p></div></div>
+      <div class="paginakop"><div><h1>Vertoningen</h1><p>Waar je bent getoond, de afgelopen dertig dagen. Alleen echte mensen, bots eruit gefilterd.</p></div></div>
       <div class="stats">
         <div class="stat"><div class="lab">Echte vertoningen</div><b class="num">1.240</b><div class="op up">&uarr; 12%</div></div>
         <div class="stat"><div class="lab">Waarvan in Uitgelicht</div><b class="num">540</b><div class="op flat">aandeel voor nieuwkomers</div></div>
@@ -249,7 +249,7 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.02em;margin:0 0 3px}
           <tbody id="vrijen"></tbody>
         </table>
       </div>
-      <div class="botsregel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg>De 210 bot-vertoningen staan hierboven niet in. Je betaalt en rekent alleen op echte mensen.</div>
+      <div class="botsregel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg><span class="botstekst">De 210 bot-vertoningen staan hierboven niet in. Je betaalt en rekent alleen op echte mensen.</span></div>
     </section>
 
     <!-- PROFIEL EN PRIJZEN -->
@@ -257,14 +257,14 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.02em;margin:0 0 3px}
       <div class="paginakop"><div><h1>Profiel en prijzen</h1><p>Dit ziet de klant op je openbare profiel.</p></div><a class="btn btn-lijn btn-klein" href="winkelprofiel.html">Bekijk als klant</a></div>
       <div class="kaart"><h2>Winkelgegevens</h2><p class="toel">Naam, adres en openingstijden.</p>
         <div class="tweekolom">
-          <div class="veld"><label>Winkelnaam</label><input value="Telefoonhulp Leeuwarden"></div>
-          <div class="veld"><label>Telefoon</label><input value="058 123 45 67"></div>
+          <div class="veld"><label>Winkelnaam</label><input id="p-naam" value="Telefoonhulp Leeuwarden"></div>
+          <div class="veld"><label>Telefoon</label><input id="p-telefoon" value="058 123 45 67"></div>
         </div>
         <div class="tweekolom">
-          <div class="veld"><label>Adres</label><input value="Nieuwestad 112"></div>
-          <div class="veld"><label>Postcode en plaats</label><input value="8911 KX Leeuwarden"></div>
+          <div class="veld"><label>Adres</label><input id="p-adres" value="Nieuwestad 112"></div>
+          <div class="veld"><label>Postcode en plaats</label><input id="p-postcodeplaats" value="8911 KX Leeuwarden"></div>
         </div>
-        <div class="veld"><label>Korte omschrijving (max 3 zinnen)</label><textarea rows="2">Wij repareren sinds 2014 aan de Nieuwestad en doen bijna alles terwijl je wacht.</textarea></div>
+        <div class="veld"><label>Korte omschrijving (max 3 zinnen)</label><textarea id="p-omschrijving" rows="2">Wij repareren sinds 2014 aan de Nieuwestad en doen bijna alles terwijl je wacht.</textarea></div>
       </div>
       <div class="kaart"><h2>Prijzen per reparatie</h2><p class="toel">Bij elke prijs hoort een kwaliteitslabel en een doorlooptijd. Zonder die twee kunnen we je prijs niet eerlijk vergelijken.</p>
         <div class="ptabel">
@@ -319,9 +319,9 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.02em;margin:0 0 3px}
         <div class="stat"><div class="lab">Beoordelingen ontvangen</div><b class="num">6</b><div class="op up">19% van de klanten</div></div>
         <div class="stat"><div class="lab">Je gemiddelde</div><b class="num">9,1</b><div class="op flat">over 48 beoordelingen</div></div>
       </div>
-      <div class="kaart" style="margin-top:14px"><h2>Klaarmelden</h2><p class="toel">Meld een reparatie af, dan sturen wij de klant de uitnodiging op het juiste moment.</p>
+      <div class="kaart" style="margin-top:14px"><h2>Klaarmelden</h2><p class="toel">Noteer wat er met een klus is gebeurd. Dit bepaalt niet wie een uitnodiging krijgt; die gaat vanzelf.</p>
         <div id="matches"></div>
-        <div class="acmregel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg><span>Klaarmelden stuurt <b>altijd</b> een uitnodiging. Je kunt niet kiezen welke klant er een krijgt; dat mag niet en het zou je cijfer waardeloos maken.</span></div>
+        <div class="acmregel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg><span>De uitnodiging gaat <b>automatisch</b> naar iedereen die via ons je nummer opvroeg en een adres achterliet, twee dagen later. Klaarmelden verandert daar niets aan. Je kunt dus niet kiezen wie er een krijgt; dat mag niet en het zou je cijfer waardeloos maken.</span></div>
       </div>
       <div class="kaart"><h2>Ontvangen beoordelingen</h2><p class="toel">Je mag op elke beoordeling één keer reageren. Verwijderen kan niet.</p>
         <div id="beoordelingen"></div>
@@ -433,3 +433,4 @@ function ga(p){
 document.querySelectorAll('.navlink').forEach(n=>n.onclick=()=>ga(n.dataset.p));
 matches();beoordelingen();
 </script>
+<script src="portaal.js?v=0c57aac3"></script>
