@@ -433,9 +433,9 @@ function kop(){
   pl.textContent=P.plaats;
 
   const meta=[];
-  if(P.g)meta.push(`<span class="cijfer num">${P.g}</span><span>op Google, ${P.gb} beoordelingen</span>
+  if(P.g)meta.push(`<span class="cijfer num">${esc(P.g)}</span><span>op Google, ${esc(P.gb)} beoordelingen</span>
     <a href="#reviews">wat wij hiermee doen</a><span>&middot;</span>`);
-  meta.push(`<span>${P.a}, ${P.plaats}</span>`);
+  meta.push(`<span>${esc(P.a)}, ${esc(P.plaats)}</span>`);
   document.getElementById('wp-meta').innerHTML=meta.join('');
 
   /* De afstand in kilometers stond hier vast op 1,4 km. Wij hebben van een
@@ -444,21 +444,27 @@ function kop(){
   const snelste=REPS.map(([rep])=>bij(rep,null)||tredenHier().map(k=>bij(rep,k)).find(Boolean))
     .filter(Boolean).sort((a,b)=>a.m-b.m)[0];
   document.getElementById('wp-labels').innerHTML=[
-    P.keur?`<span class="chip chip-keur">${CHECK}Polis gecontroleerd ${P.keurdatum}</span>`:'',
+    P.keur?`<span class="chip chip-keur">${CHECK}Polis gecontroleerd ${esc(P.keurdatum)}</span>`:'',
     snelste&&snelste.m<=45?`<span class="chip chip-snel">${BLIKSEM}Klaar terwijl je wacht</span>`:'',
-    ...P.erk.map(e=>`<span class="chip chip-feit">${e}</span>`),
+    ...P.erk.map(e=>`<span class="chip chip-feit">${esc(e)}</span>`),
   ].filter(Boolean).join('');
 
   document.getElementById('wp-adres').innerHTML=
-    `<b>${P.a}</b>${[P.postcode,P.plaats].filter(Boolean).join(' ')}`;
+    `<b>${esc(P.a)}</b>${[P.postcode,P.plaats].filter(Boolean).map(esc).join(' ')}`;
 }
 
 function toestelkies(){
   const lijst=P.modellen||[];
   document.getElementById('toestelkies').innerHTML=lijst.map(m=>
-    `<button class="tchip${m===S.model?' aan':''}" onclick="S.model='${m}';teken()">${m}</button>`).join('')+
+    `<button class="tchip${m===S.model?' aan':''}" data-model="${esc(m)}">${esc(m)}</button>`).join('')+
     `<a class="tchip" href="reparatiekiezer.html" style="text-decoration:none">Ander toestel zoeken</a>`;
 }
+
+document.addEventListener('click',e=>{
+  const knop=e.target.closest('#toestelkies .tchip[data-model]');
+  if(!knop)return;
+  S.model=knop.dataset.model;teken();
+});
 
 function tabel(){
   const treden=tredenHier();
@@ -541,10 +547,10 @@ function polis(){
     `<li>${VINKJE}<span>Wij hebben het polisblad gezien. Daarop staat dat schade aan het toestel van de klant is meeverzekerd. Of de verzekeraar in een concreet geval uitkeert, beslist de verzekeraar, niet wij.</span></li>`,
   ];
   if(P.kvk)regels.push(`<li>${VINKJE}<span>Ingeschreven bij de Kamer van Koophandel op dit adres.</span></li>`);
-  for(const e of P.erk)regels.push(`<li>${VINKJE}<span>Erkend als ${e}. Dat hebben wij nagetrokken bij de fabrikant.</span></li>`);
+  for(const e of P.erk)regels.push(`<li>${VINKJE}<span>Erkend als ${esc(e)}. Dat hebben wij nagetrokken bij de fabrikant.</span></li>`);
   document.getElementById('wp-polislijst').innerHTML=regels.join('');
   document.getElementById('wp-polisdatum').innerHTML=
-    `Laatste controle ${P.keurdatum}.${P.polistot?` De polis loopt tot ${P.polistot}; daarna controleren wij opnieuw.`:''} Wij toetsen zelf en zijn geen toezichthouder. <a class="link" href="#" onclick="document.getElementById('criteria').showModal();return false">Onze criteria</a>`;
+    `Laatste controle ${esc(P.keurdatum)}.${P.polistot?` De polis loopt tot ${esc(P.polistot)}; daarna controleren wij opnieuw.`:''} Wij toetsen zelf en zijn geen toezichthouder. <a class="link" href="#" onclick="document.getElementById('criteria').showModal();return false">Onze criteria</a>`;
 }
 
 function google(){
@@ -553,17 +559,17 @@ function google(){
     vak.innerHTML=`<span class="bronregel">Van deze winkel hebben wij geen cijfer op Google. Dat betekent niets over de winkel; het betekent dat wij er geen hebben opgehaald.</span>`;
     return;
   }
-  vak.innerHTML=`<b class="num">${P.g}</b><span>op Google, ${P.gb} beoordelingen</span>
-    ${P.glink?`<a class="btn btn-lijn btn-klein" href="${P.glink}" rel="nofollow noopener">Lees ze op Google</a>`:''}
-    <span class="bronregel">${P.gdatum?`Opgehaald bij Google op ${P.gdatum}. `:''}Wij nemen de teksten van die beoordelingen niet over en wij rekenen ze niet om naar een eigen cijfer.</span>`;
+  vak.innerHTML=`<b class="num">${esc(P.g)}</b><span>op Google, ${esc(P.gb)} beoordelingen</span>
+    ${P.glink?`<a class="btn btn-lijn btn-klein" href="${link(P.glink)}" rel="nofollow noopener">Lees ze op Google</a>`:''}
+    <span class="bronregel">${P.gdatum?`Opgehaald bij Google op ${esc(P.gdatum)}. `:''}Wij nemen de teksten van die beoordelingen niet over en wij rekenen ze niet om naar een eigen cijfer.</span>`;
 }
 
 function contact(){
   const knop=`<button class="btn btn-groen btn-vol" onclick="belMatch(P)">${TELICOON}Bel de winkel</button>`;
   document.getElementById('wp-contact').innerHTML=
-    (P.tel?knop:`<p class="let">Deze winkel gaf geen telefoonnummer door. Loop binnen op ${P.a}.</p>`)+
+    (P.tel?knop:`<p class="let">Deze winkel gaf geen telefoonnummer door. Loop binnen op ${esc(P.a)}.</p>`)+
     `<a class="btn btn-lijn btn-vol" href="#">Route</a>`+
-    (P.website?`<a class="btn btn-stil btn-vol" href="${P.website}" rel="nofollow noopener">Naar de website</a>`:'');
+    (P.website?`<a class="btn btn-stil btn-vol" href="${link(P.website)}" rel="nofollow noopener">Naar de website</a>`:'');
   document.getElementById('wp-plak').innerHTML=
     `<a class="btn btn-lijn" href="#">Route</a>`+
     (P.tel?`<button class="btn btn-groen" onclick="belMatch(P)">${TELICOON}Bel de winkel</button>`:'');
@@ -574,9 +580,9 @@ function praktisch(){
      waaronder "Repareert Apple, Samsung, Google en OnePlus" en "Zonder afspraak
      binnenlopen kan". Dat vragen wij niet, dus dat weten wij niet. */
   const regels=[];
-  if(P.betaal.length)regels.push(`<div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3 10h18"/></svg><span>${P.betaal.join(', ')}</span></div>`);
+  if(P.betaal.length)regels.push(`<div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3 10h18"/></svg><span>${P.betaal.map(esc).join(', ')}</span></div>`);
   const merken=[...new Set((P.modellen||[]).map(m=>m.split(' ')[0]))];
-  if(merken.length)regels.push(`<div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M5 8h14"/></svg><span>Prijzen bekend voor ${merken.join(', ')}</span></div>`);
+  if(merken.length)regels.push(`<div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M5 8h14"/></svg><span>Prijzen bekend voor ${merken.map(esc).join(', ')}</span></div>`);
   document.getElementById('wp-praktischkaart').hidden=!regels.length;
   document.getElementById('wp-praktisch').innerHTML=regels.join('');
 }
@@ -598,11 +604,14 @@ function reviews(){
     </div>`;
     return;
   }
+  /* Alles in een beoordeling is door een BEZOEKER getypt, en de reactie erop
+     door de WINKEL. Zonder esc() is dat geen tekst maar opmaak; met precies deze
+     twee velden is dat op een draaiende server nagemeten. */
   document.getElementById('reviewlijst').innerHTML=P.reviews.map(r=>`<div class="review">
-    <div class="rkop"><span class="cijf num">${r.c}</span><b>${r.n}</b>${r.p?`<span style="color:var(--inkt-3);font-size:13.5px">uit ${r.p}</span>`:''}
-      <span class="via">via snelrepareren.nl</span><span class="dat">${r.d}</span></div>
-    ${r.t?`<p>${r.t}</p>`:''}
-    ${r.antwoord?`<div class="antwoord"><b>Reactie van de winkel</b>${r.antwoord}</div>`:''}</div>`).join('');
+    <div class="rkop"><span class="cijf num">${esc(r.c)}</span><b>${esc(r.n)}</b>${r.p?`<span style="color:var(--inkt-3);font-size:13.5px">uit ${esc(r.p)}</span>`:''}
+      <span class="via">via snelrepareren.nl</span><span class="dat">${esc(r.d)}</span></div>
+    ${r.t?`<p>${esc(r.t)}</p>`:''}
+    ${r.antwoord?`<div class="antwoord"><b>Reactie van de winkel</b>${esc(r.antwoord)}</div>`:''}</div>`).join('');
 }
 
 function teken(){toestelkies();tabel();vergelijk();garantie()}

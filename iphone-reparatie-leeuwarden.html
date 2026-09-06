@@ -220,14 +220,18 @@ function antwoordzin(){
   if(!n) return `Er is in Leeuwarden nog geen winkel bij ons aangesloten. Wat een
     iPhone-reparatie landelijk kost, staat hieronder wel: dat komt uit ons eigen
     prijsonderzoek en niet van de winkels op deze pagina.`;
-  const kop=n===1?'Eén reparatiewinkel in Leeuwarden is bij ons aangesloten'
-                 :`${n} reparatiewinkels in Leeuwarden zijn bij ons aangesloten`;
+  const kop=n===1?'Eén reparatiewinkel in Leeuwarden is bij ons aangesloten en repareert iPhones.'
+                 :`${n} reparatiewinkels in Leeuwarden zijn bij ons aangesloten en repareren iPhones.`;
   const apple=erkend
     ? ` <b>${erkend===1?'Eén ervan werkt':`${erkend} ervan werken`} met echte Apple-onderdelen</b>
         via het Apple-programma voor onafhankelijke reparateurs.`
     : '';
-  return `${kop} en repareren iPhones.${apple} Bij de rest kies je zelf tussen een
-    kopie- en een origineel scherm, en dat verschil is bijna het hele prijsverschil.`;
+  /* "Bij de rest" kan alleen als er een deel IS: zonder Apple-erkende winkel
+     verwijst het naar niets. */
+  const rest=erkend
+    ? ' Bij de rest kies je zelf tussen een kopie- en een origineel scherm, en dat verschil is bijna het hele prijsverschil.'
+    : ' Je kiest zelf tussen een kopie- en een origineel scherm, en dat verschil is bijna het hele prijsverschil.';
+  return `${kop}${apple}${rest}`;
 }
 document.getElementById('antwoord').innerHTML=antwoordzin();
 document.getElementById('onder').textContent=WINKELS.length
@@ -242,16 +246,16 @@ document.getElementById('onder').textContent=WINKELS.length
    kwam hiervandaan. */
 const winkelrij=w=>{
   const a=aanbod(w,'iPhone 13','scherm');
-  const regel=[w.a,afstandVan(w),googleCijfer(w)].filter(Boolean).join(' &middot; ');
+  const regel=[esc(w.a),afstandVan(w),googleCijfer(w)].filter(Boolean).join(' &middot; ');
   const tijd=a?doorlooptijd(a):null;
   return `
  <article class="w">
-  <span class="av">${w.i}</span>
-  <span class="naam">${w.n}</span>
+  <span class="av">${esc(w.i)}</span>
+  <span class="naam">${esc(w.n)}</span>
   <span class="regel">${regel}</span>
   <span class="merken">
     ${w.keur?'<span class="tag keur">'+VINK+keurlabel(w)+'</span>':''}
-    ${w.erk?'<span class="tag erk">'+w.erk+'</span>':''}
+    ${w.erk?'<span class="tag erk">'+esc(w.erk)+'</span>':''}
     ${tijd?`<span class="tag${a.v?' snel':''}">${tijd}</span>`:''}
   </span>
   <span class="rechts">

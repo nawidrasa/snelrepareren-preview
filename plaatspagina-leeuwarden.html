@@ -404,12 +404,12 @@ function winkelkaart(w,uitgelicht){
   return `<div class="winkel${uitgelicht?' uitg':''}">
     ${uitgelicht?`<span class="adv">Uitgelicht &middot; ${uitgelichtReden(w)} <button onclick="document.getElementById('rang').showModal()" aria-label="Wat betekent Uitgelicht?" title="Wat betekent Uitgelicht?">?</button></span>`:''}
     <div class="rij">
-      <div class="pui">${w.i}</div>
+      <div class="pui">${esc(w.i)}</div>
       <div>
-        <div class="naam"><b>${w.n}</b></div>
-        <p class="adres">${[w.a,afstandVan(w)].filter(Boolean).join(' &middot; ')}</p>
+        <div class="naam"><b>${esc(w.n)}</b></div>
+        <p class="adres">${[esc(w.a),afstandVan(w)].filter(Boolean).join(' &middot; ')}</p>
       </div>
-      ${w.g?`<div class="score"><b class="num">${w.g}</b> <span class="aant num">(${w.gb||0})</span> <span class="bron"><a href="${w.glink||'#'}" rel="nofollow noopener">op Google</a></span>${w.vers?`<span class="vers">${w.vers}</span>`:''}</div>`
+      ${w.g?`<div class="score"><b class="num">${esc(w.g)}</b> <span class="aant num">(${esc(w.gb||0)})</span> <span class="bron"><a href="${link(w.glink||'#')}" rel="nofollow noopener">op Google</a></span>${w.vers?`<span class="vers">${esc(w.vers)}</span>`:''}</div>`
         :`<div class="score"><span class="bron">Nog geen cijfer op Google</span></div>`}
     </div>
     <div class="streep"></div>
@@ -422,16 +422,16 @@ function winkelkaart(w,uitgelicht){
     <div class="labels">
       ${w.keur?`<span class="chip chip-keur">${CHECK}${keurlabel(w)}</span>`:''}
       ${a&&a.v?`<span class="chip chip-snel">${BOLT}Vandaag klaar</span>`:''}
-      ${w.open?`<span class="chip chip-feit">${w.open}</span>`:''}
-      ${w.oud?`<span class="chip chip-let">Prijs 3 maanden niet bevestigd</span>`:''}
+      ${w.open?`<span class="chip chip-feit">${esc(w.open)}</span>`:''}
+      ${w.oud&&!w.nooitprijs?`<span class="chip chip-let">Prijs 3 maanden niet bevestigd</span>`:''}
     </div>
     ${feiten?`<p class="feiten">${feiten}</p>`:''}
     <div class="acties"><a class="btn btn-stil" href="${winkelLink(w)}">Profiel</a><a class="btn btn-lijn" href="#">Route</a><button class="btn btn-groen" onclick="belWinkel(${i})">${TEL}Bel de winkel</button></div>
   </div>`;
 }
 function vermelding(v){
-  return `<div class="verm"><div class="rij"><div class="pui">${v.i}</div>
-    <div><div class="naam"><b>${v.n}</b></div><p class="adres">${[v.a,afstandVan(v)].filter(Boolean).join(' &middot; ')}</p>
+  return `<div class="verm"><div class="rij"><div class="pui">${esc(v.i)}</div>
+    <div><div class="naam"><b>${esc(v.n)}</b></div><p class="adres">${[esc(v.a),afstandVan(v)].filter(Boolean).join(' &middot; ')}</p>
     <p>Deze winkel is nog niet aangesloten. Wij hebben geen prijzen, geen doorlooptijd en geen poliscontrole.</p>
     <p class="eig">Ben je de eigenaar? <a href="claim.html">Vul je gegevens aan</a> of <a href="claim.html">laat de vermelding verwijderen</a>.</p></div></div></div>`;
 }
@@ -446,7 +446,7 @@ function lijst(){
         <p>Wij zijn net begonnen. Zodra de eerste winkels meedoen, staan hier hun prijzen, doorlooptijd en garantie naast elkaar. Wat een reparatie landelijk kost, zie je hiernaast en op <a href="prijsindex.html">de prijsindex</a>.</p>
         <p>Heb je een reparatiewinkel in Leeuwarden? <a href="voor-winkels.html">Meld je winkel aan</a>. De eerste winkels staan er gratis op.</p></div>`;
   buurten.forEach(b=>{const inB=rest.filter(w=>w.buurt===b);
-    h+=`<div class="groep"><h2>${b}</h2><span>${inB.length} ${inB.length===1?'winkel':'winkels'}</span></div>`+inB.map(w=>winkelkaart(w,false)).join('')});
+    h+=`<div class="groep"><h2>${esc(b)}</h2><span>${inB.length} ${inB.length===1?'winkel':'winkels'}</span></div>`+inB.map(w=>winkelkaart(w,false)).join('')});
   if(VERMELDINGEN.length)h+=`<div class="groep"><h2>Nog niet aangesloten</h2><span>${VERMELDINGEN.length} ${VERMELDINGEN.length===1?'vermelding':'vermeldingen'}</span></div>`+VERMELDINGEN.map(vermelding).join('');
   document.getElementById('lijst').innerHTML=h;
 }

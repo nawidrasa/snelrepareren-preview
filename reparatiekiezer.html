@@ -541,13 +541,13 @@ function stap3(){
   const kaart=w=>{const i=WINKELS.indexOf(w),p=somVan(w);
     const pos=(p!=null&&hi>lo)?Math.min(96,Math.max(4,(p-lo)/(hi-lo)*100)):50;const med=hi>lo?((som()-lo)/(hi-lo)*100):50;
     const tijd=doorlooptijd(g.length?aanbod(w,S.model.n,g[0]):null);
-    const regel=[w.a,afstandVan(w)].filter(Boolean).join(' &middot; ');
+    const regel=[esc(w.a),afstandVan(w)].filter(Boolean).join(' &middot; ');
     return `<div class="winkel${w.uit?' uitg':''}">
-      <div class="kop"><b>${w.n}</b><span>${regel}</span></div>
-      <div class="cijfer">${w.g?`<b class="num">${w.g}</b><span><a href="${w.glink||'#'}" rel="nofollow noopener">${w.gb||0} beoordelingen op Google</a></span>`
+      <div class="kop"><b>${esc(w.n)}</b><span>${regel}</span></div>
+      <div class="cijfer">${w.g?`<b class="num">${esc(w.g)}</b><span><a href="${link(w.glink||'#')}" rel="nofollow noopener">${esc(w.gb||0)} beoordelingen op Google</a></span>`
         :'<span class="geencijfer">Nog geen cijfer op Google</span>'}<span class="eigen">${eigenBeoordelingen(w)}</span>${feitenVan(w)?`<span class="feit">${feitenVan(w)}</span>`:''}</div>
       <div class="chips">${w.uit?`<span class="chip chip-uitg">Uitgelicht &middot; ${uitgelichtReden(w)}</span>`:''}${w.keur?`<span class="chip chip-keur">${CHECK}${keurlabel(w)}</span>`:''}${tijd?`<span class="chip chip-snel">${BOLT}${tijd}</span>`:''}</div>
-      ${(w.betaal||[]).length?`<div class="betaal">${KAART}${w.betaal.join(' &middot; ')}</div>`:''}
+      ${(w.betaal||[]).length?`<div class="betaal">${KAART}${w.betaal.map(esc).join(' &middot; ')}</div>`:''}
       <div class="prijsvak"><div class="prijs num">${p!=null?eur(p):'op aanvraag'}<small>${g.map(k=>REP[k].n).join(' + ')}</small></div>
         ${p!=null&&som()?`<div class="bereik"><div class="track"><div class="fill" style="left:4%;width:92%"></div><div class="tick" style="left:${med}%"></div><div class="jij" style="left:${pos}%"></div></div><div class="lab num"><span>${eur(lo)}</span><span>${eur(hi)}</span></div></div>`:''}</div>
       <div class="acties"><button class="btn btn-groen" onclick="belWinkel(${i})">${TEL}Bel de winkel</button><a class="btn btn-lijn" href="#">Route</a><a class="btn btn-stil" href="${winkelLink(w)}">Profiel</a></div>

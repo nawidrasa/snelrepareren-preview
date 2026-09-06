@@ -97,6 +97,37 @@ const WINKELDATA = {
 const WINKELS = VOORBEELDEN ? WINKELDATA.voorbeelden : WINKELDATA.echt;
 const VERMELDINGEN = VOORBEELDEN ? WINKELDATA.vermeldingen : WINKELDATA.echteVermeldingen;
 
+/* ---------- eerst: alles wat van buiten komt, ontsnappen ----------
+
+   DE REDEN, en die is niet theoretisch. Een winkel vult in het portaal zelf zijn
+   NAAM in, een bezoeker schrijft zelf zijn BEOORDELING, en een winkel schrijft
+   zelf zijn REACTIE daarop. Alle drie belanden ze op een publieke pagina in een
+   tekstsjabloon dat via innerHTML in de pagina wordt gezet. Zonder ontsnappen is
+   dat geen tekst meer maar opmaak: een winkelnaam als
+
+       Winkel<img src=x onerror="...">
+
+   voert die code uit bij iedereen die de plaatspagina of de kiezer opent. Dat is
+   geen bedachte mogelijkheid; het is met precies die naam nagemeten op een
+   draaiende server, op alle drie de invoerwegen. De veiligheidskoppen helpen
+   hier niet: de pagina's hebben inline scripts, dus script-src staat op
+   'unsafe-inline' en dan mag zo'n onerror gewoon.
+
+   De regel: NOOIT een veld van een winkel of een bezoeker rechtstreeks in een
+   tekstsjabloon zetten. Altijd esc(). Voor iets dat in een href komt: link().
+   controle.py kijkt daarop na. */
+const esc = w => String(w == null ? '' : w)
+  .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+  .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+
+/* Een adres uit de database in een href. Alleen deze schema's, want
+   `javascript:...` in een href doet hetzelfde als een script in de pagina. */
+const link = u => {
+  const w = String(u == null ? '' : u).trim();
+  if (/^(https?:|mailto:|tel:|\/|#)/i.test(w)) return esc(w);
+  return '#';
+};
+
 /* Hulpjes die elke pagina gebruikt, zodat de regels overal hetzelfde zijn. */
 const winkelsIn = plaats =>
   WINKELS.filter(w => w.plaats.toLowerCase() === String(plaats).trim().toLowerCase());
@@ -122,10 +153,10 @@ const rangschik = ws => ws.slice().sort((a, b) =>
    polisblad hebben gezien. Zonder datum wordt het vanzelf een keurmerk in de
    beleving van de bezoeker, en dat mogen wij niet zijn (analyse 03 A5, 05 V3).
    Staat hier zodat het op alle vier de pagina's letterlijk hetzelfde is. */
-const keurlabel = w => 'Polis gecontroleerd ' + w.keurdatum;
+const keurlabel = w => 'Polis gecontroleerd ' + esc(w.keurdatum);
 
-const waarom = w => [w.keur ? 'polis gecontroleerd ' + w.keurdatum : null, w.erk || null,
-  w.g ? 'cijfer ' + w.g + ' op Google' : null,
+const waarom = w => [w.keur ? 'polis gecontroleerd ' + esc(w.keurdatum) : null, esc(w.erk) || null,
+  w.g ? 'cijfer ' + esc(w.g) + ' op Google' : null,
   w.oud ? 'prijs niet recent bevestigd' : null].filter(Boolean).join(' &middot; ');
 
 /* Hoeveel winkels er per plaats zijn. De plaatsenlijst en de foutpagina noemden
@@ -138,7 +169,7 @@ const eigenBeoordelingen = w =>
 
 /* Het Google-cijfer, altijd met de bron erbij. Zonder die woorden leest een
    bezoeker het als ons oordeel over de winkel. */
-const googleCijfer = w => (w.g ? w.g + ' op Google (' + (w.gb || 0) + ')' : 'nog geen cijfer op Google');
+const googleCijfer = w => (w.g ? esc(w.g) + ' op Google (' + esc(w.gb || 0) + ')' : 'nog geen cijfer op Google');
 
 /* De feiten onder een winkelnaam: erkenning, jaren, vestigingen.
  *
@@ -148,14 +179,14 @@ const googleCijfer = w => (w.g ? w.g + ' op Google (' + (w.gb || 0) + ')' : 'nog
  * in plaats van "undefined jaar in Leeuwarden" te tonen, en dat is precies de
  * fout die deze site al drie keer heeft gehad. */
 const feitenVan = w => [
-  w.erk || null,
-  w.jaren ? w.jaren + ' jaar in ' + w.plaats : null,
-  w.vest > 1 ? w.vest + ' vestigingen' : null,
+  esc(w.erk) || null,
+  w.jaren ? esc(w.jaren) + ' jaar in ' + esc(w.plaats) : null,
+  w.vest > 1 ? esc(w.vest) + ' vestigingen' : null,
 ].filter(Boolean).join(' &middot; ');
 
 /* Hoe ver weg, als wij het weten. Wij hebben van een echte winkel alleen een
    adres en geen coördinaten, dus meestal weten wij het niet. */
-const afstandVan = w => (w.km == null ? null : String(w.km).replace('.', ',') + ' km');
+const afstandVan = w => (w.km == null ? null : esc(String(w.km).replace('.', ',')) + ' km');
 
 /* De naam van een onderdeelkwaliteit.
  *
@@ -282,10 +313,10 @@ async function belMatch(w) {
   }
 
   document.getElementById('matchinhoud').innerHTML = `
-    <h3>Bel ${w.n}</h3>
+    <h3>Bel ${esc(w.n)}</h3>
     <p class="waar">Je spreekt de winkel rechtstreeks. Wij zitten er niet tussen en rekenen niets.</p>
     ${nummer
-      ? `<div class="nummer"><b class="num">${nummer}</b><a class="belknop" href="tel:${String(nummer).replace(/\s/g, '')}">${MATCHTEL}Bellen</a></div>`
+      ? `<div class="nummer"><b class="num">${esc(nummer)}</b><a class="belknop" href="${link('tel:' + String(nummer).replace(/\s/g, ''))}">${MATCHTEL}Bellen</a></div>`
       : `<div class="nummer"><span class="num">Deze winkel gaf geen telefoonnummer door.</span></div>`}
     <div class="streep"></div>
     ${geteld ? `
@@ -320,7 +351,7 @@ async function matchJa() {
     /* Eerlijk zijn is hier belangrijker dan netjes zijn: een groen vinkje boven
        een mislukte opslag is het ergste wat een formulier kan doen. */
     document.getElementById('matchinhoud').insertAdjacentHTML('beforeend',
-      `<p class="klein" style="color:var(--amber)">Dat lukte niet: ${fout.message} Je kunt gewoon bellen.</p>`);
+      `<p class="klein" style="color:var(--amber)">Dat lukte niet: ${esc(fout.message)} Je kunt gewoon bellen.</p>`);
     return;
   }
   document.getElementById('matchinhoud').innerHTML = `
