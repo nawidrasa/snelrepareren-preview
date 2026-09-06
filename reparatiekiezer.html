@@ -2,6 +2,7 @@
 <meta name="robots" content="noindex,nofollow">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="stylesheet" href="lettertype/outfit.css">
+<link rel="stylesheet" href="basis.css">
 <style>
 :root{
   color-scheme:light;
@@ -12,16 +13,15 @@
   --amber:#B45309;--amber-soft:#FEF3C7;--rood:#B91C1C;
   --rc:20px;--ri:12px;
 }
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
+
 body{margin:0;background:#fff;color:var(--inkt);font-family:'Outfit',system-ui,sans-serif;font-size:16px;line-height:1.5}
-.num{font-variant-numeric:tabular-nums}
+
 button{font:inherit}
 
 /* kop */
 .top{display:flex;align-items:center;gap:24px;padding:18px 32px;max-width:1160px;margin:0 auto}
 .logo{font-weight:800;font-size:21px;letter-spacing:-.02em;color:var(--marine);text-decoration:none}
-.logo i{font-style:normal;color:var(--groen)}
+
 .top nav{display:flex;gap:20px;font-size:15px;color:var(--inkt-2)}
 .top .btn{margin-left:auto}
 
@@ -158,9 +158,7 @@ button{font:inherit}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 22px;border-radius:999px;font-weight:600;font-size:15px;border:1.5px solid transparent;cursor:pointer;text-decoration:none;white-space:nowrap;transition:background .15s,transform .15s}
 .btn:active{transform:scale(.98)}
 .btn svg{width:16px;height:16px}
-.btn-groen{background:var(--groen);color:#fff}
-.btn-groen:hover{background:var(--groen-800)}
-.btn-lijn{background:#fff;color:var(--groen);border-color:var(--groen)}
+
 .btn-stil{background:transparent;color:var(--inkt-2)}
 .btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
 
@@ -278,7 +276,8 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
   .paneel{order:0}
   .top nav{display:none}
 }
-.schets{background:var(--amber-soft);color:var(--amber);font-size:13px;font-weight:600;text-align:center;padding:8px 16px}
+.pin .wijzig{text-decoration:underline;margin-left:6px;font-weight:600}
+
 </style>
 
 
@@ -311,7 +310,7 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
   </div>
 </div></section>
 
-<div class="onder">Prijzen uit het prijsonderzoek (iPhone 13 scherm: 79 tot 309 euro over 224 metingen). Winkels, beoordelingen, afstanden en toestelkleuren zijn illustratief. Volgorde: onbetaald, op keurmerk en beoordeling; het blok Uitgelicht is betaald en zo gelabeld (besluit B2).</div>
+<div class="onder">Prijzen uit het prijsonderzoek (iPhone 13 scherm: 79 tot 309 euro over 198 metingen). Winkels, beoordelingen, afstanden en toestelkleuren zijn illustratief. Volgorde: onbetaald, op keurmerk en beoordeling; het blok Uitgelicht is betaald en zo gelabeld (besluit B2).</div>
 
 
 <dialog class="match" id="matchdlg"><div class="mdlg" id="matchinhoud"></div></dialog>
@@ -335,21 +334,15 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
   Wij vragen je nergens om een telefoonnummer; je belt de winkel zelf. Zie de <a href="privacy.html">privacyverklaring</a>.
 </footer>
 
+<script src="data/kiezer.js"></script>
 <script>
 /* ---------- gegevens ---------- */
-const MODELLEN=[
- ['Apple','iPhone 15',['iPhone 15','A3090 A2846 A3089'],['iPhone 15 Plus','A3094 A2847'],['iPhone 15 Pro','A2848 A3101'],['iPhone 15 Pro Max','A2849 A3105']],
- ['Apple','iPhone 14',['iPhone 14','A2882 A2649'],['iPhone 14 Plus','A2886 A2632'],['iPhone 14 Pro','A2890 A2650'],['iPhone 14 Pro Max','A2894 A2651']],
- ['Apple','iPhone 13',['iPhone 13 mini','A2628 A2481'],['iPhone 13','A2633 A2482'],['iPhone 13 Pro','A2638 A2483'],['iPhone 13 Pro Max','A2643 A2484']],
- ['Apple','iPhone 12',['iPhone 12 mini','A2399 A2176'],['iPhone 12','A2403 A2172'],['iPhone 12 Pro','A2407 A2341'],['iPhone 12 Pro Max','A2411 A2342']],
- ['Apple','iPhone 11',['iPhone 11','A2221 A2111'],['iPhone 11 Pro','A2215 A2160'],['iPhone 11 Pro Max','A2218 A2161']],
- ['Apple','iPhone SE',['iPhone SE (2022)','A2783 A2595'],['iPhone SE (2020)','A2275 A2296']],
- ['Samsung','Galaxy S24',['Galaxy S24','SM-S921B'],['Galaxy S24+','SM-S926B'],['Galaxy S24 Ultra','SM-S928B']],
- ['Samsung','Galaxy S23',['Galaxy S23','SM-S911B'],['Galaxy S23+','SM-S916B'],['Galaxy S23 Ultra','SM-S918B'],['Galaxy S23 FE','SM-S711B']],
- ['Samsung','Galaxy A',['Galaxy A55','SM-A556B'],['Galaxy A54','SM-A546B'],['Galaxy A35','SM-A356B'],['Galaxy A15','SM-A155F']],
- ['Google','Pixel 8',['Pixel 8','GKWS6'],['Pixel 8 Pro','GC3VE'],['Pixel 8a','G6GPR']],
- ['Google','Pixel 7',['Pixel 7','GVU6C'],['Pixel 7 Pro','GP4BC'],['Pixel 7a','GHL1X']],
-];
+/* De toestellijst komt uit bouwvoorbereiding/data/catalogus.json, via data/kiezer.js.
+   Eerder had de kiezer een eigen lijst van 38 modellen, toestellen.html een van 56 en
+   de catalogus 163. Nu is er een lijst, en die weet ook per model wat wij gemeten hebben. */
+const MODELLEN=(()=>{const per={};KIEZERDATA.modellen.forEach(m=>{
+  const sl=m.merk+'|'+m.serie;(per[sl]=per[sl]||[m.merk,m.serie]).push([m.n,m.c]);});
+  return Object.values(per);})();
 const KLEUREN={
  'iPhone 15':[['Zwart','#3A3A3C'],['Blauw','#CFD9DE'],['Groen','#D0DBCF'],['Geel','#EFE6C3'],['Roze','#F2D3D0']],
  'iPhone 14':[['Middernacht','#2E3641'],['Sterrenlicht','#EFEAE1'],['Blauw','#A7C1D9'],['Paars','#E5DDEA'],['Geel','#F6E27A'],['Rood','#C3222E']],
@@ -363,29 +356,46 @@ const KLEUREN={
  'Pixel 8':[['Obsidian','#2A2A2D'],['Hazel','#8C9995'],['Rose','#F1C8C5'],['Mint','#CEE6D3']],
  'Pixel 7':[['Obsidian','#2A2A2D'],['Snow','#ECECE9'],['Lemongrass','#DBE2B7']],
 };
-const MERKEN=['Apple','Samsung','Google','Xiaomi','OnePlus','Huawei','Oppo','Motorola','Nokia','Sony','Realme','Fairphone'];
-const ALLE=[];MODELLEN.forEach(([merk,serie,...ms])=>ms.forEach(([n,c])=>ALLE.push({merk,serie,n,c})));
+/* Alleen merken waarvoor wij toestellen en prijzen hebben. Er stonden er twaalf,
+   waarvan negen zonder een enkel model erachter. */
+const MERKEN=KIEZERDATA.merken;
+const ALLE=KIEZERDATA.modellen.map(m=>({merk:m.merk,serie:m.serie,n:m.n,c:m.c,data:m.data}));
+/* Wat de kiezer per reparatie toont. De prijzen zitten hier NIET meer in: die komen
+   per gekozen model uit de metingen (data/kiezer.js). Tot 7 september stond hier een
+   vaste tabel met de cijfers van een iPhone 13, die voor elk toestel werd getoond;
+   een iPhone 11 kreeg zo 79 tot 309 euro terwijl wij 65 tot 135 hadden gemeten. */
 const REP={
- scherm:{h:309,n:'Scherm',v:79,k:[{n:'Origineel',p:249,sub:'Apple-onderdeel'},{n:'Service pack',p:154,sub:'12 maanden garantie',pop:1},{n:'Compatibel',p:79,sub:'6 maanden garantie'}]},
- accu:{h:129,n:'Accu',v:59,k:[{n:'Origineel',p:99,sub:'Apple-onderdeel'},{n:'Service pack',p:75,sub:'12 maanden garantie',pop:1},{n:'Compatibel',p:59,sub:'6 maanden garantie'}]},
- laad:{h:119,n:'Laadpoort',v:65,k:[{n:'Origineel',p:95,sub:'Apple-onderdeel'},{n:'Service pack',p:79,sub:'12 maanden garantie',pop:1},{n:'Compatibel',p:65,sub:'6 maanden garantie'}]},
- camera:{h:189,n:'Camera',v:89,k:[{n:'Origineel',p:149,sub:'Apple-onderdeel'},{n:'Service pack',p:109,sub:'12 maanden garantie',pop:1},{n:'Compatibel',p:89,sub:'6 maanden garantie'}]},
- achter:{h:169,n:'Achterkant',v:69,k:[{n:'Origineel',p:129,sub:'Apple-onderdeel'},{n:'Service pack',p:89,sub:'12 maanden garantie',pop:1},{n:'Compatibel',p:69,sub:'6 maanden garantie'}]},
- water:{n:'Waterschade',v:null,k:null},
+ scherm:{n:'Scherm'}, accu:{n:'Accu'}, laadpoort:{n:'Laadpoort'},
+ camera:{n:'Camera'}, achterkant:{n:'Achterkant'}, waterschade:{n:'Waterschade'},
 };
-const VOLG=['scherm','accu','laad','camera','achter','water'];
-const HOT={scherm:[112,215],camera:[66,47],accu:[112,300],laad:[152,431],achter:[76,375]};
+
+/* De metingen voor het gekozen model, of null als wij voor dit model niets hebben. */
+const meting=k=>(S.model&&S.model.data&&S.model.data[k])||null;
+
+/* Wat wij landelijk maten, als vangnet voor de tekst bij een model zonder eigen data. */
+const landelijk=k=>KIEZERDATA.landelijk[k]||null;
+
+/* De prijs van een gekozen reparatie: pas bekend als er een onderdeel is gekozen,
+   of meteen als de winkels geen onderdeel vermelden en er dus een band is. */
+function prijsVan(k){
+  const g=S.schade[k];
+  if(!g)return null;
+  if(g.prijs!=null)return g.prijs;
+  return null;
+}
+const VOLG=['scherm','accu','laadpoort','camera','achterkant','waterschade'];
+const HOT={scherm:[112,215],camera:[66,47],accu:[112,300],laadpoort:[152,431],achterkant:[76,375]};
 const WINKELS=[
  /* Dezelfde zes voorbeeldwinkels als op de plaatspagina en het winkelprofiel.
     Eerder had de kiezer een eigen, andere set; wie doorklikte kwam bij een winkel
     die hij niet had gezien. De prijsfactor f is afgeleid van het prijsniveau (niv)
     op de plaatspagina, zodat de goedkope winkel hier ook de goedkope is. */
- {n:'Telefoonhulp Leeuwarden',a:'Nieuwestad 112, Centrum',km:'1,4 km',c:'9,1',b:48,keur:1,snel:'Klaar terwijl je wacht',vandaag:1,erk:'Apple IRP',jaren:12,vest:1,betaal:['Pin','Contant','Apple Pay','iDEAL'],f:1.0,uit:0},
- {n:'FixPoint Friesland',a:'Wirdumerdijk 22, Centrum',km:'0,6 km',c:'8,7',b:112,keur:1,snel:'Vandaag klaar',vandaag:1,erk:'Samsung erkend',jaren:8,vest:3,betaal:['Pin','Apple Pay','iDEAL'],f:1.05,uit:1},
- {n:'De Schermwerkplaats',a:'Voorstreek 45, Centrum',km:'0,9 km',c:'9,4',b:26,keur:1,snel:'Morgen klaar',vandaag:0,erk:null,jaren:6,vest:1,betaal:['Pin','Contant'],f:1.2,uit:0},
- {n:'Studio Repair Huizum',a:'Huizumerlaan 8, Schrans en Huizum',km:'2,3 km',c:'8,9',b:19,keur:1,snel:'Vandaag klaar',vandaag:1,erk:null,jaren:4,vest:1,betaal:['Pin','Apple Pay'],f:1.08,uit:0},
- {n:'Mobiel Service Schrans',a:'Schrans 68, Schrans en Huizum',km:'1,5 km',c:'8,2',b:63,keur:0,snel:'1 tot 2 werkdagen',vandaag:0,erk:null,jaren:9,vest:1,betaal:['Pin','Contant'],f:.9,uit:0},
- {n:'Camminghaburen Telecom',a:'Egelantierstraat 2, Camminghaburen',km:'3,8 km',c:'8,5',b:8,keur:0,snel:'1 tot 2 werkdagen',vandaag:0,erk:null,jaren:3,vest:1,betaal:['Pin'],f:.96,uit:0},
+ {n:'Telefoonhulp Leeuwarden',plaats:'Leeuwarden',a:'Nieuwestad 112, Centrum',km:'1,4 km',c:'9,1',b:48,keur:1,snel:'Klaar terwijl je wacht',vandaag:1,erk:'Apple IRP',jaren:12,vest:1,betaal:['Pin','Contant','Apple Pay','iDEAL'],f:1.0,uit:0},
+ {n:'FixPoint Friesland',plaats:'Leeuwarden',a:'Wirdumerdijk 22, Centrum',km:'0,6 km',c:'8,7',b:112,keur:1,snel:'Vandaag klaar',vandaag:1,erk:'Samsung erkend',jaren:8,vest:3,betaal:['Pin','Apple Pay','iDEAL'],f:1.05,uit:1},
+ {n:'De Schermwerkplaats',plaats:'Leeuwarden',a:'Voorstreek 45, Centrum',km:'0,9 km',c:'9,4',b:26,keur:1,snel:'Morgen klaar',vandaag:0,erk:null,jaren:6,vest:1,betaal:['Pin','Contant'],f:1.2,uit:0},
+ {n:'Studio Repair Huizum',plaats:'Leeuwarden',a:'Huizumerlaan 8, Schrans en Huizum',km:'2,3 km',c:'8,9',b:19,keur:1,snel:'Vandaag klaar',vandaag:1,erk:null,jaren:4,vest:1,betaal:['Pin','Apple Pay'],f:1.08,uit:0},
+ {n:'Mobiel Service Schrans',plaats:'Leeuwarden',a:'Schrans 68, Schrans en Huizum',km:'1,5 km',c:'8,2',b:63,keur:0,snel:'1 tot 2 werkdagen',vandaag:0,erk:null,jaren:9,vest:1,betaal:['Pin','Contant'],f:.9,uit:0},
+ {n:'Camminghaburen Telecom',plaats:'Leeuwarden',a:'Egelantierstraat 2, Camminghaburen',km:'3,8 km',c:'8,5',b:8,keur:0,snel:'1 tot 2 werkdagen',vandaag:0,erk:null,jaren:3,vest:1,betaal:['Pin'],f:.96,uit:0},
 ];
 const FILTERS=[['vandaag','Vandaag klaar',w=>w.vandaag],['keur','Met keurmerk',w=>w.keur],['applepay','Apple Pay',w=>w.betaal.includes('Apple Pay')],['contant','Contant',w=>w.betaal.includes('Contant')]];
 const OS={ios:["Open Instellingen op je iPhone.","Tik op Algemeen en daarna op Info.","Bij Modelnummer staat een code die met een A begint, bijvoorbeeld A2633. Typ die in het zoekveld."],
@@ -430,10 +440,25 @@ function matchJa(){
 }
 const waar=()=>(/^\d{4}/.test(S.plaats)?'rond ':'in ')+S.plaats;
 const gekozen=()=>VOLG.filter(k=>S.schade[k]);
-const som=()=>gekozen().reduce((a,k)=>a+(S.schade[k].p||0),0);
-const laagste=()=>gekozen().reduce((a,k)=>a+(REP[k].v||0),0);
-const hoogste=()=>gekozen().reduce((a,k)=>a+(REP[k].h||0),0);
-const lijst=()=>WINKELS.filter(w=>FILTERS.every(([id,,f])=>!S.filters[id]||f(w)));
+const som=()=>gekozen().reduce((a,k)=>a+(prijsVan(k)||0),0);
+/* De onder- en bovenkant van wat dit model kan kosten, uit de eigen metingen. */
+const laagste=()=>gekozen().reduce((a,k)=>{const m=meting(k);if(!m)return a;
+  return a+(m.opties.length?Math.min(...m.opties.map(o=>o.prijs)):(m.band?m.band.laagste:0));},0);
+const hoogste=()=>gekozen().reduce((a,k)=>{const m=meting(k);if(!m)return a;
+  return a+(m.opties.length?Math.max(...m.opties.map(o=>o.prijs)):(m.band?m.band.hoogste:0));},0);
+/* 1.4 De plaats filtert nu echt. Eerder was het een tekstje bovenaan: koos je
+   Drachten, dan kreeg je gewoon de Leeuwarder winkels te zien.
+   1.5 De volgorde is de volgorde die wij op 'Hoe wij rangschikken' beloven:
+   eerst het keurmerk, dan een controleerbare erkenning, dan het cijfer. Betalen
+   verandert hier niets aan; het blok Uitgelicht staat apart en is als zodanig gelabeld. */
+const inPlaats=()=>WINKELS.filter(w=>w.plaats.toLowerCase()===S.plaats.trim().toLowerCase());
+function rangschik(ws){
+  return ws.slice().sort((a,b)=>
+    (b.keur-a.keur) || ((b.erk?1:0)-(a.erk?1:0)) ||
+    (parseFloat(b.c.replace(',','.'))-parseFloat(a.c.replace(',','.'))) || (b.b-a.b));
+}
+const waarom=w=>[w.keur?'keurmerk':null,w.erk?w.erk:null,'cijfer '+w.c].filter(Boolean).join(' &middot; ');
+const lijst=()=>rangschik(inPlaats().filter(w=>FILTERS.every(([id,,f])=>!S.filters[id]||f(w))));
 const donker=h=>'#'+[1,3,5].map(i=>Math.round(parseInt(h.slice(i,i+2),16)*.72).toString(16).padStart(2,'0')).join('');
 
 /* ---------- de telefoon ---------- */
@@ -441,7 +466,7 @@ function telefoon(){
   const st2=S.stap===2,geen=!gekozen().length;
   const body=S.kleur?S.kleur[1]:'#0B1F4E',rand=S.kleur?donker(S.kleur[1]):'#061238';
   const on=k=>st2?` onclick="tik('${k}')" style="cursor:pointer"`:'';
-  const punt=k=>{const [x,y]=HOT[k],net=S.laatst===k,r=k==='achter'?8:10;
+  const punt=k=>{const [x,y]=HOT[k],net=S.laatst===k,r=k==='achterkant'?8:10;
     if(S.schade[k])return `<g class="mk" transform="translate(${x},${y})"${on(k)}><title>${REP[k].n} weghalen</title>${net?'<circle class="ring" r="10" fill="none" stroke="#008934" stroke-width="2"/>':''}<g class="${net?'pop':''}"><circle r="${r}" fill="#008934" stroke="#fff" stroke-width="2"/><path d="M-4 .5l3 3 5-6" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></g></g>`;
     if(!st2)return '';
     return `<g class="hot" transform="translate(${x},${y})" onclick="tik('${k}')"><title>${REP[k].n}</title>${geen?'<circle class="puls" r="6" fill="none" stroke="#008934" stroke-width="1.5"/>':''}<circle r="13" fill="#fff" fill-opacity=".01"/><circle class="dot" r="5" fill="#008934" stroke="#fff" stroke-width="2"/></g>`};
@@ -450,20 +475,24 @@ function telefoon(){
     <rect x="14" y="14" width="196" height="420" rx="34" fill="#111827"/>
     <rect x="24" y="24" width="176" height="400" rx="28" fill="#F6F8FA" stroke="#E3E6EE" stroke-width="2"${on('scherm')}><title>Scherm</title></rect>
     <rect x="78" y="38" width="68" height="18" rx="9" fill="#111827"${on('camera')}/><circle cx="94" cy="47" r="4" fill="#4A5878" pointer-events="none"/>
-    <rect x="88" y="426" width="48" height="10" rx="5" fill="#4A5878"${on('laad')}/>
+    <rect x="88" y="426" width="48" height="10" rx="5" fill="#4A5878"${on('laadpoort')}/>
     <rect x="0" y="120" width="5" height="30" rx="2" fill="${rand}"/><rect x="0" y="160" width="5" height="52" rx="2" fill="${rand}"/><rect x="219" y="140" width="5" height="70" rx="2" fill="${rand}"/>
     ${S.schade.accu?`<g class="status${S.laatst==='accu'?' leeg':''}" transform="translate(170,36)" pointer-events="none"><rect width="20" height="10" rx="2.5" fill="none" stroke="#6B7480" stroke-width="1.2"/><rect x="21" y="3" width="2" height="4" rx="1" fill="#6B7480"/><rect class="vul" x="1.5" y="1.5" width="4.5" height="7" rx="1" fill="#B45309"/></g>`:''}
     ${S.schade.scherm?`<g class="hoek" stroke="#4A5878" stroke-width="1.5" fill="none" stroke-linecap="round" pointer-events="none"><path d="M34 414l14-16-3-11M48 398l12-3M45 387l9-8"/></g>`:''}
     ${S.laatst==='scherm'?`<g class="barst" stroke="#061238" stroke-width="2" fill="none" stroke-linecap="round" pointer-events="none"><path d="M62 60 L96 150 L88 205 L130 262 L118 330 L150 400"/><path d="M96 150 L60 176 M88 205 L44 236 M130 262 L176 240 M130 262 L160 300 M118 330 L80 350 M150 400 L184 380"/><path d="M96 150 L128 128 M88 205 L112 224 M118 330 L140 352" stroke-width="1"/></g>`:''}
     ${S.model?`<text x="112" y="120" text-anchor="middle" font-family="Outfit" font-weight="800" font-size="17" fill="#0B1F4E" pointer-events="none">${S.model.n}</text><text x="112" y="140" text-anchor="middle" font-family="Outfit" font-size="11" fill="#6B7480" pointer-events="none">${S.kleur?S.kleur[0]+' &middot; ':''}${S.model.c.split(' ')[0]}</text>`:`<text x="112" y="230" text-anchor="middle" font-family="Outfit" font-weight="600" font-size="14" fill="#C5CEE3" pointer-events="none">jouw toestel</text>`}
-    ${S.stap>=2?`<g${on('achter')}><rect x="62" y="362" width="100" height="26" rx="13" fill="${S.schade.achter?'#DCFCE7':'#F6F8FA'}" stroke="${S.schade.achter?'#BBF7D0':'#E3E6EE'}" stroke-width="1"/><text x="88" y="379" font-family="Outfit" font-weight="600" font-size="11" fill="${S.schade.achter?'#005A22':'#4A5878'}">Achterkant</text></g>`:''}
-    ${['scherm','camera','accu','laad','achter'].map(punt).join('')}
+    ${S.stap>=2?`<g${on('achterkant')}><rect x="62" y="362" width="100" height="26" rx="13" fill="${S.schade.achterkant?'#DCFCE7':'#F6F8FA'}" stroke="${S.schade.achterkant?'#BBF7D0':'#E3E6EE'}" stroke-width="1"/><text x="88" y="379" font-family="Outfit" font-weight="600" font-size="11" fill="${S.schade.achterkant?'#005A22':'#4A5878'}">Achterkant</text></g>`:''}
+    ${['scherm','camera','accu','laadpoort','achterkant'].map(punt).join('')}
   </svg>`;
 }
 function opsomming(){
   const g=gekozen();if(!g.length)return '';
-  const rij=k=>`<div class="rij"><span>${REP[k].n}${REP[k].k?`<small>${S.schade[k].n}</small>`:''}</span><b class="num${S.schade[k].p?'':' aanvraag'}">${S.schade[k].p?eur(S.schade[k].p):'na diagnose'}</b><button class="x" onclick="tik('${k}')" aria-label="${REP[k].n} weghalen" title="Weghalen">&times;</button></div>`;
-  return `<div class="som">${g.map(rij).join('')}<div class="rij tot"><span>Jouw keuze</span><b class="num">${som()?eur(som()):'na diagnose'}</b></div></div>`;
+  const rij=k=>{const gk=S.schade[k],p=prijsVan(k);
+    const onder=gk&&gk.naam?`<small>${gk.naam}</small>`:(k==='waterschade'?'<small>na diagnose</small>':'<small>kies nog een onderdeel</small>');
+    return `<div class="rij"><span>${REP[k].n}${onder}</span><b class="num${p?'':' aanvraag'}">${p?eur(p):'?'}</b><button class="x" onclick="tik('${k}')" aria-label="${REP[k].n} weghalen" title="Weghalen">&times;</button></div>`;};
+  const compleet=g.every(k=>prijsVan(k)!=null||k==='waterschade');
+  const tot=som();
+  return `<div class="som">${g.map(rij).join('')}<div class="rij tot"><span>Jouw keuze</span><b class="num">${tot?eur(tot):'nog geen prijs'}</b></div>${compleet?'':'<div class="rij"><span style="color:var(--inkt-3);font-size:13px">Kies bij elke reparatie een onderdeel voor een totaal</span></div>'}</div>`;
 }
 function paneel(){
   const g=gekozen();let tekst='';
@@ -491,16 +520,46 @@ function stap1(){
 function stap2(){
   const kl=KLEUREN[S.model.serie]||[];
   const kleur=kl.length?`<div class="kleur"><span class="lab">Kleur van je toestel<small>voor de juiste onderdelen</small></span><div class="swatches">${kl.map(([n,h],i)=>`<button class="sw${S.kleur&&S.kleur[0]===n?' aan':''}" style="--c:${h}" onclick="kiesKleur(${i})" aria-label="${n}" title="${n}"></button>`).join('')}</div><span class="kn">${S.kleur?S.kleur[0]:'Kies je kleur'}</span></div>`:'';
+
+  /* Per reparatie tonen wij wat wij voor DIT model hebben gemeten:
+     - opties: winkels noemen het onderdeel, dus je kunt kiezen
+     - band: winkels noemen geen onderdeel, dus alleen een bandbreedte
+     - niets: wij hebben voor dit model niets gemeten, en dat zeggen wij ook */
+  const regel=k=>{
+    const r=REP[k], m=meting(k), aan=!!S.schade[k], gk=S.schade[k];
+    let rechts, uitklap='';
+    if(k==='waterschade'){
+      rechts='<span class="vanaf aanvraag num">prijs na diagnose</span>';
+      if(aan)uitklap='<div class="uitleg-water">Waterschade vraagt eerst onderzoek. De winkel noemt een prijs na de diagnose, meestal dezelfde dag. Landelijk maten wij een startbedrag van 25 tot 69 euro voor de reiniging.</div>';
+    } else if(m&&m.opties.length){
+      const laag=Math.min(...m.opties.map(o=>o.laagste));
+      rechts=`<span class="vanaf num">vanaf ${eur(laag)}</span>`;
+      if(aan)uitklap=`<div class="kwal">${m.opties.map((o,i)=>`<button class="kw${gk&&gk.sleutel===o.sleutel?' aan':''}" onclick="kiesKw('${k}',${i})"><small>${o.naam}</small><b class="num">${o.laagste===o.hoogste?eur(o.prijs):eur(o.laagste)+' tot '+eur(o.hoogste)}</b><em>${o.metingen===1?'1 meting':o.metingen+' metingen, midden '+eur(o.prijs)}</em></button>`).join('')}</div>
+        ${!gk?'<div class="uitleg-water">Kies het onderdeel dat je wilt. Dat bepaalt de prijs meer dan de winkel.</div>':''}
+        ${!m.genoeg?`<div class="uitleg-water">Let op: voor dit model hebben wij ${m.winkels===1?'maar een winkel':'pas '+m.winkels+' winkels'} met een prijs. Te weinig voor een eerlijke vergelijking.</div>`:''}`;
+    } else if(m&&m.band){
+      const b=m.band;
+      rechts=`<span class="vanaf num">${b.laagste===b.hoogste?eur(b.laagste):eur(b.laagste)+" tot "+eur(b.hoogste)}</span>`;
+      if(aan)uitklap=`<div class="uitleg-water">De winkels die wij hier maten, zetten er niet bij welk onderdeel zij gebruiken. Wij rekenen met de middelste prijs, ${eur(b.mediaan)}, uit ${b.metingen} ${b.metingen===1?'meting':'metingen'} bij ${m.winkels} ${m.winkels===1?'winkel':'winkels'}. Vraag in de winkel welk onderdeel je krijgt.</div>`;
+    } else {
+      const l=landelijk(k);
+      rechts='<span class="vanaf aanvraag num">nog niet gemeten</span>';
+      if(aan)uitklap=`<div class="uitleg-water">Voor de ${S.model.n} hebben wij deze reparatie nog niet gemeten, dus wij noemen geen bedrag.${l?` Landelijk, over alle modellen heen, maten wij ${eur(l.laagste)} tot ${eur(l.hoogste)}.`:''} De winkels hieronder doen de reparatie wel; vraag hun prijs.</div>`;
+    }
+    return `<div class="deel-rij${aan?' aan':''}"><button class="deel-kop" onclick="tik('${k}')"><span class="vink">${CHECK}</span><span class="naam">${r.n}</span>${aan?'<span class="weg">weghalen &times;</span>':rechts}</button>${uitklap}</div>`;
+  };
+
   return `<button class="terug" onclick="terug()">&larr; ${S.model.n}</button><h2 class="vraag">Wat is er kapot?</h2><p class="sub">Tik op de telefoon, of vink het hier aan. Meer dan een mag; tik nog eens om het weg te halen.</p>${kleur}
-  <div class="schade">${VOLG.map(k=>{const r=REP[k],aan=!!S.schade[k],gk=S.schade[k];
-    return `<div class="deel-rij${aan?' aan':''}"><button class="deel-kop" onclick="tik('${k}')"><span class="vink">${CHECK}</span><span class="naam">${r.n}</span>${aan?'<span class="weg">weghalen &times;</span>':`<span class="vanaf${r.v?'':' aanvraag'} num">${r.v?'vanaf '+eur(r.v):'prijs na diagnose'}</span>`}</button>
-    ${aan&&r.k?`<div class="kwal">${r.k.map((q,i)=>`<button class="kw${gk.n===q.n?' aan':''}" onclick="kiesKw('${k}',${i})">${q.pop?'<span class="tip">Meest gekozen</span>':''}<small>${q.n}</small><b class="num">${eur(q.p)}</b><em>${q.sub}</em></button>`).join('')}</div>`:''}
-    ${aan&&!r.k?'<div class="uitleg-water">Waterschade vraagt eerst onderzoek. De winkel noemt een prijs na de diagnose, meestal dezelfde dag.</div>':''}</div>`}).join('')}</div>`;
+  <div class="schade">${VOLG.map(regel).join('')}</div>`;
 }
 function stap3(){
   const g=gekozen(),ws=lijst(),kan=ws.filter(w=>w.vandaag).length,lo=laagste(),hi=hoogste();
   const gefilterd=Object.values(S.filters).some(Boolean);
-  const kop=gefilterd?(ws.length?`${ws.length} ${ws.length===1?'winkel voldoet':'winkels voldoen'} aan je filters`:'Geen winkel voldoet aan al je filters'):`${kan} van de ${ws.length} winkels ${waar()} kunnen dit vandaag`;
+  const geenInPlaats=!inPlaats().length;
+  const kop=geenInPlaats
+    ? `Wij hebben nog geen winkel ${waar()}`
+    : (gefilterd?(ws.length?`${ws.length} ${ws.length===1?'winkel voldoet':'winkels voldoen'} aan je filters`:'Geen winkel voldoet aan al je filters')
+       :`${kan} van de ${ws.length} winkels ${waar()} kunnen dit vandaag`);
   const kaart=w=>{const p=Math.round(som()*w.f);const pos=hi>lo?Math.min(96,Math.max(4,(p-lo)/(hi-lo)*100)):50;const med=hi>lo?((som()-lo)/(hi-lo)*100):50;
     const feiten=[w.erk,w.jaren?`${w.jaren} jaar actief`:null,w.vest>1?`${w.vest} vestigingen`:null].filter(Boolean).join(' &middot; ');
     return `<div class="winkel${w.uit?' uitg':''}">
@@ -512,12 +571,16 @@ function stap3(){
         ${som()?`<div class="bereik"><div class="track"><div class="fill" style="left:4%;width:92%"></div><div class="tick" style="left:${med}%"></div><div class="jij" style="left:${pos}%"></div></div><div class="lab num"><span>${eur(lo)}</span><span>${eur(hi)}</span></div></div>`:''}</div>
       <div class="acties"><button class="btn btn-groen" onclick="belMatch('${w.n}','058 123 45 67')">${TEL}Bel de winkel</button><a class="btn btn-lijn" href="#">Route</a><a class="btn btn-stil" href="winkelprofiel.html">Profiel</a></div>
     </div>`};
-  const plaats=S.plaatsEdit?`<label class="veld"><input id="pl" value="${S.plaats}" placeholder=" " onkeydown="if(event.key==='Enter')zetPlaats(this.value)"><span>Plaats of postcode</span></label><button class="btn btn-groen" onclick="zetPlaats(document.getElementById('pl').value)">Zoek</button>`:`<button class="pin" onclick="S.plaatsEdit=true;teken();document.getElementById('pl').focus()">${PIN}${S.plaats}<je>wijzigen</je></button>`;
+  const plaats=S.plaatsEdit?`<label class="veld"><input id="pl" value="${S.plaats}" placeholder=" " onkeydown="if(event.key==='Enter')zetPlaats(this.value)"><span>Plaats of postcode</span></label><button class="btn btn-groen" onclick="zetPlaats(document.getElementById('pl').value)">Zoek</button>`:`<button class="pin" onclick="S.plaatsEdit=true;teken();document.getElementById('pl').focus()">${PIN}${S.plaats}<span class="wijzig">wijzigen</span></button>`;
   const filters=`<div class="filters"><span class="lab">Filter</span>${FILTERS.map(([id,n])=>`<button class="fchip${S.filters[id]?' aan':''}" onclick="zetFilter('${id}')">${n}</button>`).join('')}</div>`;
   const uit=ws.filter(w=>w.uit),rest=ws.filter(w=>!w.uit);
   return `<button class="terug" onclick="terug()">&larr; Schade</button><h2 class="vraag">${kop}</h2><p class="sub">Voor ${S.model.n}, ${g.map(k=>REP[k].n.toLowerCase()).join(' en ')}. Bel, loop binnen of vraag een offerte.</p>
   <div class="plaats">${plaats}</div>${filters}
-  <div class="winkels">${ws.length?uit.map(kaart).join('')+rest.map(kaart).join(''):'<div class="leeg">Zet een filter uit om meer winkels te zien.</div>'}</div>
+  <div class="winkels">${ws.length
+    ? uit.map(kaart).join('')+rest.map(kaart).join('')
+    : (geenInPlaats
+      ? `<div class="leeg">Wij zijn begonnen in Friesland en hebben nog geen winkel ${waar()}. Bekijk <a href="plaatsen.html">waar wij wel winkels hebben</a>, of kijk op <a href="plaats-onder-drempel.html">deze pagina</a> wat je kunt doen als jouw plaats er nog niet bij staat.</div>`
+      : '<div class="leeg">Zet een filter uit om meer winkels te zien.</div>')}</div>
   <p class="rangschik">De lijst is niet te koop. <button onclick="document.getElementById('rang').showModal()">Hoe wij rangschikken</button></p>`;
 }
 
@@ -547,11 +610,18 @@ function kiesSerie(s){S.serie=s;S.sub='model';teken()}
 function kiesModel(n){kiesModelObj(n)}
 function kiesModelObj(n){const m=ALLE.find(x=>x.n===n);if(!S.model||S.model.n!==m.n){S.schade={};S.kleur=null;S.laatst=null;S.filters={}}S.model=m;S.merk=m.merk;S.serie=m.serie;S.sub='model';S.stap=2;teken()}
 function kiesKleur(i){S.kleur=KLEUREN[S.model.serie][i];teken()}
-function tik(k){if(S.stap<2)return;const r=REP[k];
+function tik(k){if(S.stap<2)return;
+  /* Aanzetten kiest GEEN onderdeel meer voor je. Eerder werd de middelste optie
+     alvast aangevinkt en liep je totaal op zonder dat je iets had gekozen. */
   if(S.schade[k]){delete S.schade[k];S.laatst=null;if(S.stap===3&&!gekozen().length)S.stap=2}
-  else{S.schade[k]=r.k?(r.k.find(q=>q.pop)||r.k[0]):{n:'Na diagnose',p:null};S.laatst=k;clearTimeout(tik.t);tik.t=setTimeout(()=>{S.laatst=null},1000)}
+  else{const m=meting(k);
+    S.schade[k]=(m&&!m.opties.length&&m.band)
+      ?{sleutel:'band',naam:'zoals de winkel het levert',prijs:m.band.mediaan}
+      :{sleutel:null,naam:null,prijs:null};
+    S.laatst=k;clearTimeout(tik.t);tik.t=setTimeout(()=>{S.laatst=null;teken()},1000)}
   teken()}
-function kiesKw(k,i){S.schade[k]=REP[k].k[i];teken()}
+function kiesKw(k,i){const o=meting(k).opties[i];
+  S.schade[k]={sleutel:o.sleutel,naam:o.naam,prijs:o.prijs,metingen:o.metingen};teken()}
 function zetFilter(id){S.filters[id]=!S.filters[id];teken()}
 function ga(n){if(n===3&&!gekozen().length)return;S.stap=n;teken();document.querySelector('.kaart').scrollIntoView({behavior:'smooth',block:'start'})}
 function terug(){if(S.stap===3)S.stap=2;else if(S.stap===2)S.stap=1;else if(S.sub==='model'){S.sub='serie'}else if(S.sub==='serie'){S.sub='zoek';S.merk=null}teken()}

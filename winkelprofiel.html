@@ -2,6 +2,7 @@
 <meta name="robots" content="noindex,nofollow">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="stylesheet" href="lettertype/outfit.css">
+<link rel="stylesheet" href="basis.css">
 <style>
 :root{
   --groen-50:#F0FDF4;--groen-100:#DCFCE7;--groen-200:#BBF7D0;--groen-300:#86EFAC;--groen-500:#22C55E;--groen:#008934;--groen-800:#007B2E;--groen-900:#005A22;
@@ -10,39 +11,26 @@
   --amber:#B45309;--amber-soft:#FEF3C7;--rood:#B91C1C;
   color-scheme:light;
 }
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:#fff;color:var(--inkt);font-family:'Outfit',system-ui,sans-serif;font-size:16px;line-height:1.55}
-.num{font-variant-numeric:tabular-nums}
-button{font:inherit}
-a{color:inherit}
-.in{max-width:1160px;margin:0 auto;padding:0 32px}
 
-.schets{background:var(--amber-soft);color:var(--amber);font-size:13px;font-weight:600;text-align:center;padding:8px 16px}
+button{font:inherit}
+
+.in{max-width:1160px;margin:0 auto;padding:0 32px}
 
 /* kop */
 .top{display:flex;align-items:center;gap:24px;padding:16px 32px;max-width:1160px;margin:0 auto}
-.logo{font-weight:800;font-size:20px;letter-spacing:-.02em;color:var(--marine);text-decoration:none}
-.logo i{font-style:normal;color:var(--groen)}
-.top nav{display:flex;gap:22px;font-size:15px;color:var(--inkt-2)}
-.top nav a{text-decoration:none}
+
 .top .btn{margin-left:auto}
 
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:999px;font-weight:600;font-size:15px;border:1.5px solid transparent;cursor:pointer;text-decoration:none;white-space:nowrap;transition:background .15s,transform .15s,border-color .15s}
 .btn:active{transform:scale(.98)}
 .btn svg{width:16px;height:16px;flex:none}
-.btn-groen{background:var(--groen);color:#fff}
-.btn-groen:hover{background:var(--groen-800)}
-.btn-lijn{background:#fff;color:var(--groen);border-color:var(--groen)}
+
 .btn-lijn:hover{background:var(--groen-50)}
 .btn-stil{background:transparent;color:var(--inkt-2)}
 .btn-klein{padding:9px 16px;font-size:14px}
 .btn-vol{width:100%}
 
-.kruimels{font-size:13px;color:var(--inkt-3);padding:16px 0 0}
-.kruimels a{text-decoration:none}
 .kruimels a:hover{color:var(--inkt)}
-.kruimels span{margin:0 6px}
 
 /* kop van de winkel */
 .winkelkop{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:32px;align-items:start;padding:14px 0 26px}
@@ -230,7 +218,7 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
 .mdlg .gelukt{text-align:center;padding:8px 0 0}
 .mdlg .gelukt .bal{width:52px;height:52px;border-radius:16px;background:var(--groen-100);display:grid;place-items:center;margin:0 auto 12px}
 .mdlg .gelukt .bal svg{width:26px;height:26px;color:var(--groen)}
-footer .jur{display:flex;flex-wrap:wrap;gap:18px;margin-bottom:12px}footer .jur a{text-decoration:none;color:var(--inkt-2);font-weight:600}footer .jur a:hover{color:var(--groen)}
+
 </style>
 
 <div class="schets">Ontwerpschets. Deze winkel, de beoordelingen en de prijzen zijn verzonnen voorbeelden, geen echt bedrijf.</div>
@@ -391,7 +379,7 @@ footer .jur{display:flex;flex-wrap:wrap;gap:18px;margin-bottom:12px}footer .jur 
 <footer><div class="in">
   <div class="jur"><a href="voorwaarden.html">Voorwaarden</a><a href="privacy.html">Privacy</a><a href="cookies.html">Cookies</a><a href="toegankelijkheid.html">Toegankelijkheid</a><a href="melden.html">Iets melden</a><a href="over-ons.html">Over ons</a></div>
   
-  <p><b>Over deze pagina.</b> De landelijke prijsbandbreedtes komen uit ons eigen prijsonderzoek: 224 gemeten prijspunten bij Nederlandse winkels, peildatum 3 september 2026. De prijzen van deze winkel geeft de winkel zelf op, met de datum waarop ze zijn bevestigd. Prijzen zijn een indicatie, geen aanbod.</p>
+  <p><b>Over deze pagina.</b> De landelijke prijsbandbreedtes komen uit ons eigen prijsonderzoek: 198 gemeten prijspunten bij Nederlandse winkels, peildatum 3 september 2026. De prijzen van deze winkel geeft de winkel zelf op, met de datum waarop ze zijn bevestigd. Prijzen zijn een indicatie, geen aanbod.</p>
   <p><a class="link" href="plaatspagina-leeuwarden.html">Terug naar alle winkels in Leeuwarden</a></p>
 </div></footer>
 
@@ -405,7 +393,7 @@ footer .jur{display:flex;flex-wrap:wrap;gap:18px;margin-bottom:12px}footer .jur 
 </div></dialog>
 
 <script>
-/* landelijke bandbreedtes: eigen prijsonderzoek 3 sept 2026, 224 prijspunten */
+/* landelijke bandbreedtes: eigen prijsonderzoek 3 sept 2026, 198 prijspunten */
 const BAND={
  'iPhone 13':{scherm:[79,154,309],accu:[59,99,139],laad:[45,75,99],achter:[69,109,169]},
  'iPhone 14':{scherm:[89,159,259],accu:[59,99,139],laad:[45,75,99],achter:[79,119,179]},

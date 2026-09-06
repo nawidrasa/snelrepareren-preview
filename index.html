@@ -2,6 +2,7 @@
 <meta name="robots" content="noindex,nofollow">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="stylesheet" href="lettertype/outfit.css">
+<link rel="stylesheet" href="basis.css">
 <style>
 :root{
   --gradient:linear-gradient(160deg,#008C34 0%,#22C55E 55%,#86EFAC 100%);
@@ -11,12 +12,9 @@
   --amber:#B45309;--amber-soft:#FEF3C7;
   color-scheme:light;
 }
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:#fff;color:var(--inkt);font-family:'Outfit',system-ui,sans-serif;font-size:16px;line-height:1.55}
-.num{font-variant-numeric:tabular-nums}
+
 button{font:inherit}
-a{color:inherit}
+
 .in{max-width:1160px;margin:0 auto;padding:0 32px}
 section{padding:72px 0}
 h2{font-size:clamp(24px,3vw,32px);font-weight:800;letter-spacing:-.02em;margin:0 0 10px;text-wrap:balance}
@@ -26,19 +24,14 @@ h2{font-size:clamp(24px,3vw,32px);font-weight:800;letter-spacing:-.02em;margin:0
 /* kop */
 .top{display:flex;align-items:center;gap:24px;padding:18px 32px;max-width:1160px;margin:0 auto}
 .logo{font-weight:800;font-size:21px;letter-spacing:-.02em;color:var(--marine);text-decoration:none}
-.logo i{font-style:normal;color:var(--groen)}
-.top nav{display:flex;gap:22px;font-size:15px;color:var(--inkt-2)}
-.top nav a{text-decoration:none}
-.top nav a:hover{color:var(--inkt)}
+
 .top .btn{margin-left:auto}
 
 /* knoppen */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 22px;border-radius:999px;font-weight:600;font-size:15px;border:1.5px solid transparent;cursor:pointer;text-decoration:none;white-space:nowrap;transition:background .15s,transform .15s}
 .btn:active{transform:scale(.98)}
 .btn svg{width:16px;height:16px;flex:none}
-.btn-groen{background:var(--groen);color:#fff}
-.btn-groen:hover{background:var(--groen-800)}
-.btn-lijn{background:#fff;color:var(--groen);border-color:var(--groen)}
+
 .btn-lijn:hover{background:var(--groen-50)}
 .btn-marine{background:var(--marine);color:#fff}
 .btn-marine:hover{background:var(--marine-d)}
@@ -193,8 +186,8 @@ dialog::backdrop{background:rgba(11,31,78,.45)}
   .voetgrid{grid-template-columns:1fr}
   .start{padding:20px}
 }
-footer .jur{display:flex;flex-wrap:wrap;gap:18px;margin:22px 0 14px;padding-top:18px;border-top:1px solid var(--lijn)}footer .jur a{text-decoration:none;color:var(--inkt-2);font-weight:600}footer .jur a:hover{color:var(--groen)}
-.schets{background:var(--amber-soft);color:var(--amber);font-size:13px;font-weight:600;text-align:center;padding:8px 16px}
+footer .jur{display:flex;flex-wrap:wrap;gap:18px;margin:22px 0 14px;padding-top:18px;border-top:1px solid var(--lijn)}
+
 </style>
 
 
@@ -330,7 +323,7 @@ footer .jur{display:flex;flex-wrap:wrap;gap:18px;margin:22px 0 14px;padding-top:
     <div><h4>Voor winkels</h4><a href="voor-winkels.html">Aanmelden</a><a href="voor-winkels.html">Pakketten</a><a href="inloggen.html">Inloggen op het portaal</a><a href="voorwaarden-winkels.html">Voorwaarden voor winkels</a></div>
   </div>
   <div class="jur"><a href="voorwaarden.html">Voorwaarden</a><a href="privacy.html">Privacy</a><a href="cookies.html">Cookies</a><a href="toegankelijkheid.html">Toegankelijkheid</a><a href="melden.html">Iets melden</a></div>
-  <p class="klein">Prijzen op deze pagina komen uit ons eigen prijsonderzoek: 224 gemeten prijspunten bij Nederlandse winkels, peildatum 3 september 2026. Ze zijn een indicatie, geen aanbod. De winkel bepaalt de prijs. Wij tonen per prijs het kwaliteitslabel van het onderdeel en de datum waarop de winkel de prijs voor het laatst heeft bevestigd.</p>
+  <p class="klein">Prijzen op deze pagina komen uit ons eigen prijsonderzoek: 198 gemeten prijspunten bij Nederlandse winkels, peildatum 3 september 2026. Ze zijn een indicatie, geen aanbod. De winkel bepaalt de prijs. Wij tonen per prijs het kwaliteitslabel van het onderdeel en de datum waarop de winkel de prijs voor het laatst heeft bevestigd.</p>
 </div></footer>
 
 <dialog id="hulp"><div class="dlg">
@@ -356,7 +349,7 @@ const MODELLEN=[
 ];
 const ALLE=[];MODELLEN.forEach(([merk,serie,...ms])=>ms.forEach(([n,c])=>ALLE.push({merk,serie,n,c})));
 const POPULAIR=['iPhone 15','iPhone 14','iPhone 13','Galaxy S23','Pixel 8'];
-/* gemeten schermprijzen, bron: eigen prijsonderzoek 3 sept 2026 (224 prijspunten) */
+/* gemeten schermprijzen, bron: eigen prijsonderzoek 3 sept 2026 (198 prijspunten) */
 const PRIJZEN=[
  ['iPhone 16',115,199,299,'2,6'],['iPhone 15',109,179,389,'3,6'],['iPhone 14',89,159,259,'2,9'],
  ['iPhone 13',79,154,309,'3,9'],['iPhone 12',79,179,299,'3,8'],['iPhone 11',65,97,135,'2,1'],
@@ -403,7 +396,7 @@ function prijzen(){
       </span>
       <span class="fact num">${f}&times; verschil</span></div>`).join('')+
     `<div class="legenda"><span><i></i>laagste tot hoogste gevonden prijs</span><span><i class="m"></i>mediaan</span><span>schermreparatie, alle onderdeelkwaliteiten</span></div>
-     <p class="bron">224 gemeten prijspunten bij Nederlandse winkels, peildatum 3 september 2026. Een lage prijs betekent meestal een compatibel onderdeel, een hoge prijs een origineel scherm.</p>`;
+     <p class="bron">198 gemeten prijspunten bij Nederlandse winkels, peildatum 3 september 2026. Een lage prijs betekent meestal een compatibel onderdeel, een hoge prijs een origineel scherm.</p>`;
 }
 function plaatsen(){
   document.getElementById('plaatslijst').innerHTML=PLAATSEN.map(([n,live])=>live

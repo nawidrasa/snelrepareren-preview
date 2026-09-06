@@ -2,19 +2,16 @@
 <meta name="robots" content="noindex,nofollow">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="stylesheet" href="lettertype/outfit.css">
+<link rel="stylesheet" href="basis.css">
 <style>
 :root{--groen-50:#F0FDF4;--groen-100:#DCFCE7;--groen-200:#BBF7D0;--groen-300:#86EFAC;--groen-500:#22C55E;--groen:#008934;--groen-800:#007B2E;--marine:#0B1F4E;--marine-100:#E8ECF5;--marine-200:#C5CEE3;--inkt:#111827;--inkt-2:#4A5878;--inkt-3:#6B7480;--lijn:#E3E6EE;--vlak:#F6F8FA;--amber:#B45309;--amber-soft:#FEF3C7;color-scheme:light}
-*{box-sizing:border-box}html{scroll-behavior:smooth}
-body{margin:0;background:#fff;color:var(--inkt);font-family:'Outfit',system-ui,sans-serif;font-size:16px;line-height:1.55}
-a{color:inherit}.in{max-width:900px;margin:0 auto;padding:0 32px}
-.num{font-variant-numeric:tabular-nums}button{font:inherit}
-.schets{background:var(--amber-soft);color:var(--amber);font-size:13px;font-weight:600;text-align:center;padding:8px 16px}
-.top{display:flex;align-items:center;gap:24px;padding:16px 32px;max-width:1160px;margin:0 auto}
-.logo{font-weight:800;font-size:20px;letter-spacing:-.02em;color:var(--marine);text-decoration:none}.logo i{font-style:normal;color:var(--groen)}
-.top nav{display:flex;gap:22px;font-size:15px;color:var(--inkt-2)}.top nav a{text-decoration:none}.top nav a:hover{color:var(--inkt)}
+
+.in{max-width:900px;margin:0 auto;padding:0 32px}
+button{font:inherit}
+
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:9px 16px;border-radius:999px;font-weight:600;font-size:14px;border:1.5px solid var(--groen);background:#fff;color:var(--groen);text-decoration:none;margin-left:auto}
 .btn:hover{background:var(--groen-50)}
-.kruimels{font-size:13px;color:var(--inkt-3);padding:16px 0 0}.kruimels a{text-decoration:none}.kruimels span{margin:0 6px}
+
 h1{font-size:clamp(28px,3.6vw,38px);font-weight:800;letter-spacing:-.025em;margin:10px 0 12px;text-wrap:balance}
 .intro{font-size:17.5px;color:var(--inkt-2);max-width:68ch;margin:0 0 22px}.intro b{color:var(--inkt)}
 .zoek{position:relative;max-width:520px;margin:0 0 10px}
@@ -41,7 +38,7 @@ h2{font-size:19px;font-weight:800;letter-spacing:-.02em;margin:26px 0 4px}
 .uitleg b{color:var(--inkt)}
 footer{border-top:1px solid var(--lijn);margin-top:44px;padding:26px 0 60px;color:var(--inkt-3);font-size:13px}
 @media(max-width:760px){.in{padding:0 16px}.top{padding:14px 16px;gap:12px}.top nav{display:none}.modellen{grid-template-columns:1fr 1fr}}
-footer .jur{display:flex;flex-wrap:wrap;gap:18px;margin-bottom:12px}footer .jur a{text-decoration:none;color:var(--inkt-2);font-weight:600}footer .jur a:hover{color:var(--groen)}
+
 </style>
 
 <div class="schets">Ontwerpschets. Een model wordt klikbaar zodra wij er drie reparaties met een gemeten prijs voor hebben.</div>
@@ -74,27 +71,25 @@ footer .jur{display:flex;flex-wrap:wrap;gap:18px;margin-bottom:12px}footer .jur 
   <div class="jur"><a href="voorwaarden.html">Voorwaarden</a><a href="privacy.html">Privacy</a><a href="cookies.html">Cookies</a><a href="toegankelijkheid.html">Toegankelijkheid</a><a href="melden.html">Iets melden</a><a href="over-ons.html">Over ons</a></div>
   Onze toestelcatalogus telt 137 modellen. Onderdeel van snelrepareren.nl.</div></footer>
 
+<script src="data/kiezer.js"></script>
 <script>
 /* live = er is een toestelpagina; de rest wacht op prijsmetingen */
-const CATALOGUS=[
- ['Apple','iPhone 16',[['iPhone 16','A3287',0],['iPhone 16 Plus','A3290',0],['iPhone 16 Pro','A3293',0],['iPhone 16 Pro Max','A3296',0]]],
- ['Apple','iPhone 15',[['iPhone 15','A3090','toestelpagina-iphone15.html'],['iPhone 15 Plus','A3094',0],['iPhone 15 Pro','A2848',0],['iPhone 15 Pro Max','A2849',0]]],
- ['Apple','iPhone 14',[['iPhone 14','A2882','toestelpagina-iphone14.html'],['iPhone 14 Plus','A2886',0],['iPhone 14 Pro','A2890',0],['iPhone 14 Pro Max','A2894',0]]],
- ['Apple','iPhone 13',[['iPhone 13 mini','A2628',0],['iPhone 13','A2633','toestelpagina-iphone13.html'],['iPhone 13 Pro','A2638',0],['iPhone 13 Pro Max','A2643',0]]],
- ['Apple','iPhone 12',[['iPhone 12 mini','A2399',0],['iPhone 12','A2403','toestelpagina-iphone12.html'],['iPhone 12 Pro','A2407',0],['iPhone 12 Pro Max','A2411',0]]],
- ['Apple','iPhone 11',[['iPhone 11','A2221','toestelpagina-iphone11.html'],['iPhone 11 Pro','A2215',0],['iPhone 11 Pro Max','A2218',0]]],
- ['Apple','Ouder',[['iPhone XR','A2105',0],['iPhone XS','A2097',0],['iPhone X','A1901',0],['iPhone SE (2022)','A2783',0],['iPhone SE (2020)','A2275',0],['iPhone 8','A1905',0]]],
- ['Samsung','Galaxy S24',[['Galaxy S24','SM-S921B',0],['Galaxy S24+','SM-S926B',0],['Galaxy S24 Ultra','SM-S928B',0]]],
- ['Samsung','Galaxy S23',[['Galaxy S23','SM-S911B',0],['Galaxy S23+','SM-S916B',0],['Galaxy S23 Ultra','SM-S918B',0],['Galaxy S23 FE','SM-S711B',0]]],
- ['Samsung','Galaxy S22',[['Galaxy S22','SM-S901B',0],['Galaxy S22+','SM-S906B',0],['Galaxy S22 Ultra','SM-S908B',0]]],
- ['Samsung','Galaxy A',[['Galaxy A55','SM-A556B',0],['Galaxy A54','SM-A546B',0],['Galaxy A35','SM-A356B',0],['Galaxy A34','SM-A346B',0],['Galaxy A15','SM-A155F',0]]],
- ['Google','Pixel 8',[['Pixel 8','GKWS6',0],['Pixel 8 Pro','GC3VE',0],['Pixel 8a','G6GPR',0]]],
- ['Google','Pixel 7',[['Pixel 7','GVU6C',0],['Pixel 7 Pro','GP4BC',0],['Pixel 7a','GHL1X',0]]],
- ['Xiaomi','Redmi Note',[['Redmi Note 13','2312DRA50G',0],['Redmi Note 12','23021RAA2Y',0]]],
- ['OnePlus','Recent',[['OnePlus 12','CPH2573',0],['OnePlus Nord 3','CPH2493',0]]],
- ['Fairphone','Alle',[['Fairphone 5','FP5',0],['Fairphone 4','FP4',0]]],
-];
-const MERKEN=['Alle','Apple','Samsung','Google','Xiaomi','OnePlus','Fairphone'];
+/* Een catalogus voor de hele site, uit bouwvoorbereiding/data/catalogus.json.
+   Tot 7 september had deze pagina een eigen lijst van 56 modellen, de kiezer een
+   van 38 en de catalogus 163. Nu is er een. Per model weet de lijst ook of wij er
+   prijzen voor hebben gemeten, dus de site kan niets beloven wat er niet is. */
+const PRIJSPAGINA={'iPhone 16':'toestelpagina-iphone13.html'};
+const TOESTELPAGINA={'iPhone 11':'toestelpagina-iphone11.html','iPhone 12':'toestelpagina-iphone12.html',
+ 'iPhone 13':'toestelpagina-iphone13.html','iPhone 14':'toestelpagina-iphone14.html',
+ 'iPhone 15':'toestelpagina-iphone15.html'};
+const CATALOGUS=(()=>{const per={};
+  KIEZERDATA.modellen.forEach(m=>{const sl=m.merk+'|'+m.serie;
+    per[sl]=per[sl]||[m.merk,m.serie,[]];
+    per[sl][2].push([m.n,m.c,TOESTELPAGINA[m.n]||null,Object.keys(m.data).length]);});
+  return Object.values(per);})();
+/* Alleen merken die in de catalogus zitten. Er stonden er zeven, waarvan vier
+   zonder een enkel model erachter. */
+const MERKEN=['Alle'].concat(KIEZERDATA.merken);
 const S={merk:'Alle'};
 function merkbalk(){
   document.getElementById('merkbalk').innerHTML=MERKEN.map(m=>`<button class="mb${S.merk===m?' aan':''}" onclick="S.merk='${m}';teken()">${m}</button>`).join('');
@@ -109,9 +104,11 @@ function teken(){
     if(!treffers.length)return;
     gevonden+=treffers.length;
     h+=`<h2>${merk} ${serie}</h2><p class="h2sub">${treffers.length} ${treffers.length===1?'model':'modellen'}</p><div class="modellen">`;
-    h+=treffers.map(([n,c,pagina])=>pagina
+    h+=treffers.map(([n,c,pagina,metingen])=>pagina
       ? `<a class="md" href="${pagina}"><b>${n}</b><small>${c} &middot; prijzen bekend</small></a>`
-      : `<div class="md geen"><b>${n}</b><small>${c} &middot; nog geen prijzen</small></div>`).join('');
+      : (metingen
+        ? `<div class="md"><b>${n}</b><small>${c} &middot; ${metingen} ${metingen===1?'reparatie':'reparaties'} gemeten</small></div>`
+        : `<div class="md geen"><b>${n}</b><small>${c} &middot; nog geen prijzen</small></div>`)).join('');
     h+='</div>';
   });
   document.getElementById('lijst').innerHTML=gevonden?h:`<div class="leeg">Geen model gevonden voor "${q}". Probeer de modelcode, of gebruik de <a href="reparatiekiezer.html" style="color:var(--groen);font-weight:600">reparatiekiezer</a>.</div>`;

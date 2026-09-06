@@ -2,6 +2,7 @@
 <meta name="robots" content="noindex,nofollow">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="stylesheet" href="lettertype/outfit.css">
+<link rel="stylesheet" href="basis.css">
 <style>
 :root{
   --gradient:linear-gradient(160deg,#008C34 0%,#22C55E 55%,#86EFAC 100%);
@@ -11,12 +12,9 @@
   --amber:#B45309;--amber-soft:#FEF3C7;--rood:#B91C1C;
   color-scheme:light;
 }
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:#fff;color:var(--inkt);font-family:'Outfit',system-ui,sans-serif;font-size:16px;line-height:1.55}
-.num{font-variant-numeric:tabular-nums}
+
 button{font:inherit}
-a{color:inherit}
+
 .in{max-width:1160px;margin:0 auto;padding:0 32px}
 
 /* schetsmelding */
@@ -24,19 +22,14 @@ a{color:inherit}
 
 /* kop */
 .top{display:flex;align-items:center;gap:24px;padding:16px 32px;max-width:1160px;margin:0 auto}
-.logo{font-weight:800;font-size:20px;letter-spacing:-.02em;color:var(--marine);text-decoration:none}
-.logo i{font-style:normal;color:var(--groen)}
-.top nav{display:flex;gap:22px;font-size:15px;color:var(--inkt-2)}
-.top nav a{text-decoration:none}
+
 .top .btn{margin-left:auto}
 
 /* knoppen */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:999px;font-weight:600;font-size:15px;border:1.5px solid transparent;cursor:pointer;text-decoration:none;white-space:nowrap;transition:background .15s,transform .15s,border-color .15s}
 .btn:active{transform:scale(.98)}
 .btn svg{width:16px;height:16px;flex:none}
-.btn-groen{background:var(--groen);color:#fff}
-.btn-groen:hover{background:var(--groen-800)}
-.btn-lijn{background:#fff;color:var(--groen);border-color:var(--groen)}
+
 .btn-lijn:hover{background:var(--groen-50)}
 .btn-stil{background:transparent;color:var(--inkt-2)}
 .btn-stil:hover{color:var(--inkt)}
@@ -44,9 +37,9 @@ a{color:inherit}
 
 /* kruimels en kop */
 .kruimels{font-size:13px;color:var(--inkt-3);padding:16px 0 0}
-.kruimels a{text-decoration:none}
+
 .kruimels a:hover{color:var(--inkt)}
-.kruimels span{margin:0 6px}
+
 h1{font-size:clamp(26px,3.4vw,36px);font-weight:800;letter-spacing:-.025em;margin:10px 0 8px;text-wrap:balance}
 .onderkop{color:var(--inkt-2);font-size:16.5px;margin:0 0 20px;max-width:70ch}
 .onderkop b{color:var(--inkt)}
@@ -228,7 +221,7 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
 .mdlg .gelukt{text-align:center;padding:8px 0 0}
 .mdlg .gelukt .bal{width:52px;height:52px;border-radius:16px;background:var(--groen-100);display:grid;place-items:center;margin:0 auto 12px}
 .mdlg .gelukt .bal svg{width:26px;height:26px;color:var(--groen)}
-footer .jur{display:flex;flex-wrap:wrap;gap:18px;margin-bottom:12px}footer .jur a{text-decoration:none;color:var(--inkt-2);font-weight:600}footer .jur a:hover{color:var(--groen)}
+
 </style>
 
 <div class="schets">Ontwerpschets. De winkels, beoordelingen en prijzen op deze pagina zijn verzonnen voorbeelden, geen echte bedrijven.</div>
@@ -285,7 +278,7 @@ footer .jur{display:flex;flex-wrap:wrap;gap:18px;margin-bottom:12px}footer .jur 
 <footer><div class="in">
   <div class="jur"><a href="voorwaarden.html">Voorwaarden</a><a href="privacy.html">Privacy</a><a href="cookies.html">Cookies</a><a href="toegankelijkheid.html">Toegankelijkheid</a><a href="melden.html">Iets melden</a><a href="over-ons.html">Over ons</a></div>
   
-  <p><b>Over deze pagina.</b> De prijsbandbreedtes komen uit ons eigen prijsonderzoek: 224 gemeten prijspunten bij Nederlandse winkels, peildatum 3 september 2026. Prijzen zijn een indicatie, geen aanbod. De winkel bepaalt de prijs en de garantie.</p>
+  <p><b>Over deze pagina.</b> De prijsbandbreedtes komen uit ons eigen prijsonderzoek: 198 gemeten prijspunten bij Nederlandse winkels, peildatum 3 september 2026. Prijzen zijn een indicatie, geen aanbod. De winkel bepaalt de prijs en de garantie.</p>
   <p>Een plaatspagina gaat pas online zodra er drie aangesloten winkels zijn. Winkels zonder prijzen staan onderaan als vermelding, met een knop om de vermelding te laten verwijderen.</p>
 </div></footer>
 
@@ -311,7 +304,7 @@ footer .jur{display:flex;flex-wrap:wrap;gap:18px;margin-bottom:12px}footer .jur 
 </div></dialog>
 
 <script>
-/* ---- gemeten bandbreedtes, bron: eigen prijsonderzoek 3 sept 2026 (224 prijspunten) ---- */
+/* ---- gemeten bandbreedtes, bron: eigen prijsonderzoek 3 sept 2026 (198 prijspunten) ---- */
 const BAND={
  'iPhone 13':{scherm:[79,154,309],accu:[59,99,139],laad:[45,75,99]},
  'iPhone 14':{scherm:[89,159,259],accu:[59,99,139],laad:[45,75,99]},
@@ -370,7 +363,18 @@ function matchJa(){
 }
 const band=()=>BAND[S.model][S.rep];
 const prijs=w=>{const [lo,,hi]=band();return Math.max(lo,Math.round((lo+(hi-lo)*w.niv)/5)*5-1)};
-const zichtbaar=()=>WINKELS.filter(w=>FILTERS.every(([id,,f])=>!S.filters[id]||f(w))).filter(w=>S.kw==='alle'||w.kw===S.kw);
+/* De volgorde die wij op 'Hoe wij rangschikken' beloven: eerst het keurmerk, dan
+   een controleerbare erkenning, dan het cijfer, en bij gelijk cijfer het aantal
+   beoordelingen. Een prijs die te lang niet is bevestigd, weegt lichter.
+   Tot 7 september sorteerde deze pagina niets: de winkels stonden in de volgorde
+   waarin ze waren ingetypt, terwijl de site iets anders beloofde. */
+function rangschik(ws){
+  return ws.slice().sort((a,b)=>
+    (b.keur-a.keur) || ((b.erk?1:0)-(a.erk?1:0)) || ((a.oud?1:0)-(b.oud?1:0)) ||
+    (parseFloat(b.c.replace(',','.'))-parseFloat(a.c.replace(',','.'))) || (b.b-a.b));
+}
+const waarom=w=>[w.keur?'keurmerk':null,w.erk||null,'cijfer '+w.c,w.oud?'prijs niet recent bevestigd':null].filter(Boolean).join(' &middot; ');
+const zichtbaar=()=>rangschik(WINKELS.filter(w=>FILTERS.every(([id,,f])=>!S.filters[id]||f(w))).filter(w=>S.kw==='alle'||w.kw===S.kw));
 
 function kies(){
   const menu=(id,huidig,opties,fn)=>`<span class="sel" id="sel-${id}"><button onclick="openSel('${id}')">${huidig} ${CHEV}</button><span class="menu">${Object.entries(opties).map(([k,v])=>`<button class="${k===huidig||v===huidig?'aan':''}" onclick="${fn}('${k}')">${v}</button>`).join('')}</span></span>`;
@@ -452,7 +456,7 @@ function zijkolom(){
       <div class="mid"><small>midden</small><b class="num">${eur(lok[1])}</b></div>
       <div><small>hoogste</small><b class="num">${eur(lok[2])}</b></div>
     </div>
-    <p class="bron">Landelijk gemeten: ${eur(lo)} tot ${eur(hi)} voor dit model, over 224 prijspunten (3 september 2026).</p>`;
+    <p class="bron">Landelijk gemeten: ${eur(lo)} tot ${eur(hi)} voor dit model, over 198 prijspunten (3 september 2026).</p>`;
 }
 function kop(){
   const kan=WINKELS.filter(w=>w.vandaag).length;
