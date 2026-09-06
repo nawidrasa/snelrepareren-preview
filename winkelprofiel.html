@@ -1,0 +1,512 @@
+<title>Winkelprofiel Telefoonhulp</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap">
+<style>
+:root{
+  --groen-50:#F0FDF4;--groen-100:#DCFCE7;--groen-200:#BBF7D0;--groen-300:#86EFAC;--groen-500:#22C55E;--groen:#008934;--groen-800:#007B2E;--groen-900:#005A22;
+  --marine:#0B1F4E;--marine-d:#061238;--marine-100:#E8ECF5;--marine-200:#C5CEE3;
+  --inkt:#111827;--inkt-2:#4A5878;--inkt-3:#6B7480;--lijn:#E3E6EE;--vlak:#F6F8FA;
+  --amber:#B45309;--amber-soft:#FEF3C7;--rood:#B91C1C;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#fff;color:var(--inkt);font-family:'Outfit',system-ui,sans-serif;font-size:16px;line-height:1.55}
+.num{font-variant-numeric:tabular-nums}
+button{font:inherit}
+a{color:inherit}
+.in{max-width:1160px;margin:0 auto;padding:0 32px}
+
+.schets{background:var(--amber-soft);color:var(--amber);font-size:13px;font-weight:600;text-align:center;padding:8px 16px}
+
+/* kop */
+.top{display:flex;align-items:center;gap:24px;padding:16px 32px;max-width:1160px;margin:0 auto}
+.logo{font-weight:800;font-size:20px;letter-spacing:-.02em;color:var(--marine);text-decoration:none}
+.logo i{font-style:normal;color:var(--groen)}
+.top nav{display:flex;gap:22px;font-size:15px;color:var(--inkt-2)}
+.top nav a{text-decoration:none}
+.top .btn{margin-left:auto}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:999px;font-weight:600;font-size:15px;border:1.5px solid transparent;cursor:pointer;text-decoration:none;white-space:nowrap;transition:background .15s,transform .15s,border-color .15s}
+.btn:active{transform:scale(.98)}
+.btn svg{width:16px;height:16px;flex:none}
+.btn-groen{background:var(--groen);color:#fff}
+.btn-groen:hover{background:var(--groen-800)}
+.btn-lijn{background:#fff;color:var(--groen);border-color:var(--groen)}
+.btn-lijn:hover{background:var(--groen-50)}
+.btn-stil{background:transparent;color:var(--inkt-2)}
+.btn-klein{padding:9px 16px;font-size:14px}
+.btn-vol{width:100%}
+
+.kruimels{font-size:13px;color:var(--inkt-3);padding:16px 0 0}
+.kruimels a{text-decoration:none}
+.kruimels a:hover{color:var(--inkt)}
+.kruimels span{margin:0 6px}
+
+/* kop van de winkel */
+.winkelkop{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:32px;align-items:start;padding:14px 0 26px}
+h1{font-size:clamp(26px,3.4vw,34px);font-weight:800;letter-spacing:-.025em;margin:6px 0 6px;text-wrap:balance}
+.meta{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;color:var(--inkt-2);font-size:15px}
+.meta .cijfer{font-size:20px;font-weight:800;color:var(--inkt)}
+.meta a{color:var(--groen);font-weight:600;text-decoration:underline;text-underline-offset:3px;font-size:14px}
+.labels{display:flex;gap:7px;flex-wrap:wrap;margin:14px 0 0}
+.chip{display:inline-flex;align-items:center;gap:5px;padding:5px 11px;border-radius:999px;font-size:13px;font-weight:600}
+.chip svg{width:13px;height:13px}
+.chip-keur{background:var(--groen-100);color:var(--groen-800)}
+.chip-snel{background:var(--amber-soft);color:var(--amber)}
+.chip-feit{background:var(--vlak);color:var(--inkt-2)}
+.kaartje{border:1.5px solid var(--lijn);border-radius:20px;overflow:hidden}
+.kaartje svg{display:block;width:100%;height:auto}
+.kaartje .adr{padding:12px 14px;font-size:13.5px;color:var(--inkt-2);border-top:1px solid var(--lijn)}
+.kaartje .adr b{display:block;color:var(--inkt);font-size:14.5px}
+
+/* layout */
+.wrap{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:36px;align-items:start;padding:8px 0 80px}
+.zij{position:sticky;top:16px;display:grid;gap:14px}
+.blok{border-top:1px solid var(--lijn);padding:30px 0}
+.blok:first-child{border-top:0;padding-top:6px}
+.blok h2{font-size:21px;font-weight:800;letter-spacing:-.02em;margin:0 0 6px}
+.blok .uitleg{color:var(--inkt-2);font-size:15px;margin:0 0 18px;max-width:70ch}
+
+/* prijstabel */
+.toestelkies{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.tchip{display:inline-block;padding:8px 15px;border-radius:999px;border:1.5px solid var(--lijn);background:#fff;font-size:14px;font-weight:600;color:var(--inkt-2);cursor:pointer}
+.tchip:hover{border-color:var(--groen)}
+.tchip.aan{background:var(--groen);border-color:var(--groen);color:#fff}
+.ptabel{border:1.5px solid var(--lijn);border-radius:20px;overflow:hidden}
+.pkop,.prij{display:grid;grid-template-columns:minmax(0,1.3fr) repeat(3,minmax(0,1fr)) 110px;gap:10px;padding:12px 16px;align-items:center}
+.pkop{background:var(--vlak);font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--inkt-3)}
+.pkop span:not(:first-child){text-align:center}
+.pkop span:last-child{text-align:right}
+.prij{border-top:1px solid var(--lijn);font-size:15px}
+.prij .naam{font-weight:700}
+.prij .naam small{display:block;font-weight:400;font-size:12.5px;color:var(--inkt-3)}
+.prij .prijs{text-align:center;font-weight:700;font-size:16px}
+.prij .prijs.beste{color:var(--groen-800)}
+.prij .prijs em{display:block;font-style:normal;font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--groen);margin-top:2px}
+.prij .leeg{text-align:center;color:var(--inkt-3);font-size:14px}
+.prij .tijd{text-align:right;font-size:13.5px;color:var(--inkt-2)}
+.prij.offerte .naam{font-weight:700}
+.prij .offertetekst{grid-column:2/5;text-align:center;font-size:14px;color:var(--inkt-2)}
+.bevestigd{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--inkt-3);margin:12px 0 0}
+.bevestigd svg{width:15px;height:15px;color:var(--groen)}
+
+/* vergelijkbalk */
+.verg{border:1.5px solid var(--lijn);border-radius:20px;padding:20px;margin-top:16px}
+.verg h3{margin:0 0 4px;font-size:16px;font-weight:800}
+.verg p{margin:0 0 18px;font-size:13.5px;color:var(--inkt-2)}
+.bereik .track{position:relative;height:6px;border-radius:999px;background:var(--lijn)}
+.bereik .fill{position:absolute;top:0;bottom:0;border-radius:999px;background:var(--groen-200)}
+.bereik .med{position:absolute;top:-5px;width:2px;height:16px;background:var(--marine);border-radius:2px;transform:translateX(-50%)}
+.bereik .jij{position:absolute;top:-5px;width:16px;height:16px;border-radius:50%;background:var(--groen);border:2.5px solid #fff;box-shadow:0 0 0 1.5px var(--groen);transform:translateX(-50%)}
+.bereik{position:relative;padding-top:22px}
+.bereik .medlab{position:absolute;top:0;font-size:11px;color:var(--marine);transform:translateX(-50%);white-space:nowrap}
+.bereik .lab{position:relative;height:34px;margin-top:9px;font-size:11.5px;color:var(--inkt-3)}
+.bereik .lab .lo{position:absolute;left:0}
+.bereik .lab .hi{position:absolute;right:0}
+.bereik .lab .jij{position:absolute;top:14px;transform:translateX(-50%);white-space:nowrap;font-weight:700;color:var(--groen-800);font-size:13px}
+.bereik .lab .jij::before{content:"";position:absolute;left:50%;top:-12px;width:1.5px;height:10px;background:var(--groen);transform:translateX(-50%)}
+
+/* garantie en tekst */
+.lijstje{list-style:none;margin:0;padding:0;display:grid;gap:11px}
+.lijstje li{display:flex;gap:10px;align-items:flex-start;font-size:15px}
+.lijstje li svg{width:19px;height:19px;flex:none;margin-top:2px;color:var(--groen)}
+.lijstje li.nee svg{color:var(--inkt-3)}
+.bron{font-size:13px;color:var(--inkt-3);margin:16px 0 0}
+
+/* eigenaar */
+.eigenaar{display:grid;grid-template-columns:96px minmax(0,1fr);gap:20px;align-items:start}
+.foto{width:96px;height:96px;border-radius:20px;background:var(--vlak);border:1.5px dashed var(--lijn);display:grid;place-items:center;text-align:center;font-size:11px;color:var(--inkt-3);padding:8px;line-height:1.3}
+.eigenaar b{font-size:16px}
+.eigenaar .rol{color:var(--inkt-3);font-size:13.5px}
+.eigenaar p{margin:10px 0 0;font-size:15px;color:var(--inkt-2);max-width:65ch}
+
+/* keurmerk */
+.keurblok{border:1.5px solid var(--groen-200);background:var(--groen-50);border-radius:20px;padding:22px}
+.keurblok h3{margin:0 0 10px;font-size:17px;font-weight:800;display:flex;align-items:center;gap:8px}
+.keurblok h3 svg{width:20px;height:20px;color:var(--groen)}
+.keurblok .datum{font-size:13px;color:var(--inkt-2);margin:14px 0 0}
+
+/* reviews */
+.scores{display:grid;grid-template-columns:auto minmax(0,1fr);gap:26px;align-items:center;margin-bottom:22px}
+.groot{text-align:center}
+.groot b{display:block;font-size:44px;font-weight:800;line-height:1;letter-spacing:-.02em}
+.groot span{font-size:13px;color:var(--inkt-3)}
+.verdeling{display:grid;gap:5px}
+.vrij{display:grid;grid-template-columns:52px minmax(0,1fr) 30px;gap:10px;align-items:center;font-size:12.5px;color:var(--inkt-2)}
+.vrij .baan{height:7px;border-radius:999px;background:var(--lijn);overflow:hidden}
+.vrij .baan i{display:block;height:100%;background:var(--groen-300);border-radius:999px}
+.vrij .n{text-align:right;color:var(--inkt-3)}
+.extern{border:1.5px solid var(--lijn);border-radius:16px;padding:14px 16px;display:flex;align-items:center;gap:14px;margin-bottom:22px;flex-wrap:wrap}
+.extern b{font-size:19px;font-weight:800}
+.extern span{font-size:13.5px;color:var(--inkt-2)}
+.extern .bronregel{width:100%;font-size:12px;color:var(--inkt-3)}
+.review{border-top:1px solid var(--lijn);padding:18px 0}
+.review:first-of-type{border-top:0}
+.rkop{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.rkop b{font-size:15px}
+.rkop .cijf{font-weight:800;font-size:15px}
+.rkop .dat{color:var(--inkt-3);font-size:13px;margin-left:auto}
+.review p{margin:8px 0 0;font-size:15px;color:var(--inkt-2);max-width:75ch}
+.review .via{background:var(--groen-100);color:var(--groen-800);font-size:11.5px;font-weight:700;padding:2px 9px;border-radius:999px}
+.antwoord{margin:12px 0 0 0;padding:12px 14px;background:var(--vlak);border-radius:14px;font-size:14px;color:var(--inkt-2)}
+.antwoord b{color:var(--inkt);font-size:13.5px;display:block;margin-bottom:2px}
+
+/* zijkolom */
+.zkaart{border:1.5px solid var(--lijn);border-radius:20px;padding:20px}
+.zkaart h3{margin:0 0 12px;font-size:16px;font-weight:800}
+.zkaart .acties{display:grid;gap:8px}
+.zkaart .let{font-size:12.5px;color:var(--inkt-3);margin:12px 0 0;text-align:center}
+.tijden{display:grid;gap:6px;font-size:14px}
+.tijden div{display:flex;justify-content:space-between;gap:10px}
+.tijden .nu{font-weight:700;color:var(--groen-800)}
+.tijden .dicht{color:var(--inkt-3)}
+.statuslijn{display:flex;align-items:center;gap:7px;font-size:13.5px;font-weight:600;color:var(--groen-800);margin-bottom:12px}
+.statuslijn i{width:8px;height:8px;border-radius:50%;background:var(--groen-500);display:inline-block}
+.zlijst{display:grid;gap:9px;font-size:14px;color:var(--inkt-2)}
+.zlijst div{display:flex;gap:9px;align-items:flex-start}
+.zlijst svg{width:17px;height:17px;color:var(--inkt-3);flex:none;margin-top:2px}
+
+/* plakbalk mobiel */
+.plak{display:none;position:sticky;bottom:0;background:#fff;border-top:1px solid var(--lijn);padding:10px 16px;gap:8px;z-index:20}
+.plak .btn{flex:1}
+
+footer{border-top:1px solid var(--lijn);padding:30px 0 60px;color:var(--inkt-3);font-size:13px}
+footer p{max-width:85ch;margin:0 0 8px}
+.link{display:inline-flex;align-items:center;gap:6px;color:var(--groen);font-weight:600;font-size:14px;text-decoration:underline;text-underline-offset:3px}
+.link svg{width:14px;height:14px}
+
+dialog{border:0;border-radius:20px;padding:0;max-width:460px;width:calc(100% - 40px);box-shadow:0 24px 60px -20px rgba(11,31,78,.4)}
+dialog::backdrop{background:rgba(11,31,78,.45)}
+.dlg{padding:26px}
+.dlg h3{margin:0 0 8px;font-size:19px;font-weight:800}
+.dlg p{margin:0 0 12px;color:var(--inkt-2);font-size:14.5px}
+.dlg .sluit{display:flex;justify-content:flex-end}
+
+@media (max-width:1000px){
+  .wrap{grid-template-columns:1fr}
+  .zij{position:static;display:grid;grid-template-columns:1fr 1fr}
+  .winkelkop{grid-template-columns:1fr}
+  .kaartje{max-width:420px}
+}
+@media (max-width:760px){
+  .in{padding:0 16px}
+  .top{padding:14px 16px;gap:12px}
+  .top nav{display:none}
+  .zij{grid-template-columns:1fr}
+  .pkop{display:none}
+  .prij{grid-template-columns:1fr 1fr;gap:8px 10px;padding:14px 16px}
+  .prij .naam{grid-column:1/-1}
+  .prij .prijs{text-align:left}
+  .prij .prijs::before{content:attr(data-kw);display:block;font-size:11px;font-weight:600;color:var(--inkt-3);text-transform:none;letter-spacing:0}
+  .prij .leeg{text-align:left}
+  .prij .tijd{grid-column:1/-1;text-align:left;border-top:1px solid var(--lijn);padding-top:8px}
+  .prij .offertetekst{grid-column:1/-1;text-align:left}
+  .eigenaar{grid-template-columns:1fr}
+  .scores{grid-template-columns:1fr;gap:16px}
+  .plak{display:flex}
+  .zkaart .acties{display:none}
+}
+
+/* match-dialoog */
+dialog.match{border:0;border-radius:22px;padding:0;max-width:440px;width:calc(100% - 32px);box-shadow:0 24px 60px -20px rgba(11,31,78,.4)}
+dialog.match::backdrop{background:rgba(11,31,78,.45)}
+.mdlg{padding:26px}
+.mdlg h3{margin:0 0 4px;font-size:20px;font-weight:800}
+.mdlg .waar{color:var(--inkt-3);font-size:13.5px;margin:0 0 18px}
+.mdlg .nummer{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--vlak);border-radius:14px;padding:14px 16px;margin-bottom:18px}
+.mdlg .nummer b{font-size:19px;font-weight:800;letter-spacing:.01em}
+.mdlg .belknop{background:var(--groen);color:#fff;border-radius:999px;padding:11px 20px;font-weight:600;font-size:15px;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+.mdlg .belknop svg{width:16px;height:16px}
+.mdlg .streep{height:1px;background:var(--lijn);margin:0 0 16px}
+.mdlg .vraag{font-size:15px;font-weight:700;margin:0 0 4px}
+.mdlg .vraaguitleg{font-size:13.5px;color:var(--inkt-2);margin:0 0 12px}
+.mdlg input{width:100%;padding:12px 14px;border:1.5px solid var(--lijn);border-radius:12px;font:inherit;font-size:15px;margin-bottom:10px}
+.mdlg input:focus{outline:none;border-color:var(--groen);box-shadow:0 0 0 3px var(--groen-100)}
+.mdlg .knoppen{display:flex;gap:8px}
+.mdlg .knoppen .btn{flex:1}
+.mdlg .klein{font-size:12px;color:var(--inkt-3);margin:12px 0 0}
+.mdlg .gelukt{text-align:center;padding:8px 0 0}
+.mdlg .gelukt .bal{width:52px;height:52px;border-radius:16px;background:var(--groen-100);display:grid;place-items:center;margin:0 auto 12px}
+.mdlg .gelukt .bal svg{width:26px;height:26px;color:var(--groen)}
+footer .jur{display:flex;flex-wrap:wrap;gap:18px;margin-bottom:12px}footer .jur a{text-decoration:none;color:var(--inkt-2);font-weight:600}footer .jur a:hover{color:var(--groen)}
+</style>
+
+<div class="schets">Ontwerpschets. Deze winkel, de beoordelingen en de prijzen zijn verzonnen voorbeelden, geen echt bedrijf.</div>
+
+<header class="top">
+  <a class="logo" href="index.html">snel<i>repareren</i>.nl</a>
+  <nav><a href="reparaties.html">Reparaties</a><a href="toestellen.html">Toestellen</a><a href="plaatsen.html">Plaatsen</a><a href="gidsen.html">Gidsen</a><a href="hoe-wij-rangschikken.html">Hoe wij rangschikken</a></nav>
+  <a class="btn btn-lijn btn-klein" href="voor-winkels.html">Voor winkels</a>
+</header>
+
+<div class="in">
+  <div class="kruimels"><a href="index.html">Home</a><span>&rsaquo;</span><a href="plaatsen.html">Friesland</a><span>&rsaquo;</span><a href="plaatspagina-leeuwarden.html">Leeuwarden</a><span>&rsaquo;</span>Telefoonhulp Leeuwarden</div>
+
+  <div class="winkelkop">
+    <div>
+      <h1>Telefoonhulp Leeuwarden</h1>
+      <div class="meta">
+        <span class="cijfer num">9,1</span>
+        <span>48 beoordelingen</span>
+        <a href="#reviews">lees de reviews</a>
+        <span>&middot;</span>
+        <span>Nieuwestad 112, Leeuwarden</span>
+        <span>&middot;</span>
+        <span>1,4 km</span>
+      </div>
+      <div class="labels">
+        <span class="chip chip-keur"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>Verzekerd, gecontroleerd</span>
+        <span class="chip chip-snel"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 3 14h7l-1 8 10-12h-7z"/></svg>Klaar terwijl je wacht</span>
+        <span class="chip chip-feit">Apple IRP</span>
+        <span class="chip chip-feit">12 jaar in Leeuwarden</span>
+      </div>
+    </div>
+    <div class="kaartje">
+      <svg viewBox="0 0 280 170" aria-label="Kaart met de locatie van de winkel">
+        <rect width="280" height="170" fill="#F0F3F7"/>
+        <path d="M0 108h280M0 42h280M96 0v170M198 0v170" stroke="#fff" stroke-width="9"/>
+        <path d="M0 138h280M40 0v170" stroke="#fff" stroke-width="5"/>
+        <path d="M0 74C60 74 70 96 130 96s90-22 150-22" stroke="#CFE3F5" stroke-width="12" fill="none"/>
+        <rect x="104" y="50" width="34" height="24" rx="3" fill="#E4E8EF"/><rect x="150" y="50" width="40" height="24" rx="3" fill="#E4E8EF"/>
+        <rect x="104" y="114" width="30" height="18" rx="3" fill="#E4E8EF"/><rect x="206" y="50" width="40" height="24" rx="3" fill="#E4E8EF"/>
+        <rect x="48" y="114" width="40" height="18" rx="3" fill="#E4E8EF"/>
+        <g transform="translate(140,96)"><circle r="17" fill="#008934" fill-opacity=".16"/><path d="M0 9c0 0-9-7.5-9-13.5A9 9 0 0 1 9-4.5C9 1.5 0 9 0 9z" fill="#008934"/><circle cy="-4.6" r="3.4" fill="#fff"/></g>
+        <text x="10" y="128" font-family="Outfit" font-size="9" fill="#8A93A2">Nieuwestad</text>
+        <text x="212" y="38" font-family="Outfit" font-size="9" fill="#8A93A2">Zaailand</text>
+      </svg>
+      <div class="adr"><b>Nieuwestad 112</b>8911 KX Leeuwarden</div>
+    </div>
+  </div>
+</div>
+
+<div class="in wrap">
+  <div>
+    <div class="blok">
+      <h2>Prijzen bij deze winkel</h2>
+      <p class="uitleg">Alle prijzen zijn inclusief btw en inclusief het monteren. Bij elke prijs staat welke kwaliteit onderdeel je krijgt, want dat verklaart vrijwel het hele prijsverschil tussen winkels.</p>
+      <div class="toestelkies" id="toestelkies"></div>
+      <div class="ptabel" id="ptabel"></div>
+      <p class="bevestigd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>Deze winkel heeft de prijzen bevestigd op 2 september 2026. Prijzen die negentig dagen niet zijn bevestigd, halen wij weg.</p>
+      <div class="verg" id="verg"></div>
+    </div>
+
+    <div class="blok">
+      <h2>Garantie</h2>
+      <p class="uitleg">Dit geeft de winkel zelf op. Wij nemen de tekst over en controleren hem niet inhoudelijk, dus vraag er bij twijfel naar in de winkel.</p>
+      <ul class="lijstje">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><b>12 maanden garantie</b> op het onderdeel en op het werk, bij een origineel of service pack onderdeel.</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><b>6 maanden</b> bij een compatibel onderdeel.</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Je krijgt altijd een <b>bon met het serienummer</b> van je toestel en de gebruikte onderdeelkwaliteit.</span></li>
+        <li class="nee"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg><span>Geen garantie op <b>nieuwe val- of waterschade</b> na de reparatie, en de garantie vervalt als het toestel daarna door iemand anders is geopend.</span></li>
+        <li class="nee"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg><span>Bij waterschade geldt <b>geen resultaatgarantie</b>. De diagnose kost 39 euro en die wordt verrekend als je de reparatie laat doen.</span></li>
+      </ul>
+      <p class="bron">Deze winkel levert het Europese reparatie-informatieformulier. Daarin staan de prijs, de doorlooptijd en de garantie op papier, voordat je akkoord gaat. Wij maken dat formulier automatisch voor aangesloten winkels.</p>
+    </div>
+
+    <div class="blok">
+      <h2>Over deze winkel</h2>
+      <div class="eigenaar">
+        <div class="foto">foto van de eigenaar</div>
+        <div>
+          <b>Jelle Hoekstra</b>
+          <div class="rol">eigenaar, repareert zelf</div>
+          <p>Wij repareren sinds 2014 aan de Nieuwestad en doen bijna alles terwijl je wacht. Schermen en accu's hebben we voor de gangbare modellen op voorraad, dus je bent meestal binnen een half uur klaar. Voor waterschade nemen we het toestel mee naar achteren en bellen we je met een prijs voordat we beginnen.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="blok">
+      <h2>Ons keurmerk bij deze winkel</h2>
+      <div class="keurblok">
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 3v5.4c0 4.3-3.1 8.3-7.5 9.6-4.4-1.3-7.5-5.3-7.5-9.6V6z"/><path d="M9 12l2 2 4-4"/></svg>Verzekerd, gecontroleerd</h3>
+        <ul class="lijstje">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Wij hebben de polis gezien. Schade aan het toestel van de klant is meeverzekerd, dus als er tijdens de reparatie iets misgaat, is dat gedekt.</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Ingeschreven bij de Kamer van Koophandel op dit adres.</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Erkend als Apple Independent Repair Provider. Dat hebben wij nagetrokken bij Apple.</span></li>
+        </ul>
+        <p class="datum">Laatste controle 12 augustus 2026. De polis loopt tot 1 januari 2027; daarna controleren wij opnieuw. Wij toetsen zelf en zijn geen toezichthouder. <a class="link" href="#" onclick="document.getElementById('criteria').showModal();return false">Onze criteria</a></p>
+      </div>
+    </div>
+
+    <div class="blok" id="reviews">
+      <h2>Beoordelingen</h2>
+      <p class="uitleg">Alleen mensen die via ons bij deze winkel zijn gekomen, kunnen bij ons een beoordeling achterlaten. Wij vragen er niets voor terug en de winkel kan een beoordeling niet laten verwijderen.</p>
+      <div class="scores">
+        <div class="groot"><b class="num">9,1</b><span>48 beoordelingen</span></div>
+        <div class="verdeling" id="verdeling"></div>
+      </div>
+      <div class="extern">
+        <b class="num">4,6</b><span>op Google, 210 beoordelingen</span>
+        <span class="bronregel">Wij tonen dit cijfer ter vergelijking en halen het eens per week op bij Google, laatst op 3 september 2026. Wij nemen de teksten van die reviews niet over.</span>
+      </div>
+      <div id="reviewlijst"></div>
+    </div>
+  </div>
+
+  <aside class="zij">
+    <div class="zkaart">
+      <h3>Contact</h3>
+      <div class="acties">
+        <button class="btn btn-groen btn-vol" onclick="belMatch('Telefoonhulp Leeuwarden','058 123 45 67')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>Bel de winkel</button>
+        <a class="btn btn-lijn btn-vol" href="#">Route</a>
+        <a class="btn btn-stil btn-vol" href="#">Naar de website</a>
+      </div>
+      <p class="let">Je maakt de afspraak rechtstreeks met de winkel. Wij zitten er niet tussen en rekenen niets.</p>
+    </div>
+
+    <div class="zkaart">
+      <h3>Openingstijden</h3>
+      <div class="statuslijn"><i></i>Nu open, tot 18:00</div>
+      <div class="tijden" id="tijden"></div>
+    </div>
+
+    <div class="zkaart">
+      <h3>Praktisch</h3>
+      <div class="zlijst">
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3 10h18"/></svg><span>Pin, contant, Apple Pay en iDEAL</span></div>
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg><span>Meeste reparaties terwijl je wacht</span></div>
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16M6 20V9l6-4 6 4v11"/></svg><span>Zonder afspraak binnenlopen kan</span></div>
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M5 8h14"/></svg><span>Repareert Apple, Samsung, Google en OnePlus</span></div>
+      </div>
+    </div>
+
+    <div class="zkaart">
+      <h3>Voor je naar de winkel gaat</h3>
+      <div class="zlijst">
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Maak een back-up van je toestel</span></div>
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Zet "Zoek mijn iPhone" of het Google-slot uit</span></div>
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Neem je simkaart en geheugenkaart eruit</span></div>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<div class="plak">
+  <a class="btn btn-lijn" href="#">Route</a>
+  <button class="btn btn-groen" onclick="belMatch('Telefoonhulp Leeuwarden','058 123 45 67')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>Bel de winkel</button>
+</div>
+
+<footer><div class="in">
+  <div class="jur"><a href="voorwaarden.html">Voorwaarden</a><a href="privacy.html">Privacy</a><a href="cookies.html">Cookies</a><a href="toegankelijkheid.html">Toegankelijkheid</a><a href="melden.html">Iets melden</a><a href="over-ons.html">Over ons</a></div>
+  
+  <p><b>Over deze pagina.</b> De landelijke prijsbandbreedtes komen uit ons eigen prijsonderzoek: 224 gemeten prijspunten bij Nederlandse winkels, peildatum 3 september 2026. De prijzen van deze winkel geeft de winkel zelf op, met de datum waarop ze zijn bevestigd. Prijzen zijn een indicatie, geen aanbod.</p>
+  <p><a class="link" href="plaatspagina-leeuwarden.html">Terug naar alle winkels in Leeuwarden</a></p>
+</div></footer>
+
+
+<dialog class="match" id="matchdlg"><div class="mdlg" id="matchinhoud"></div></dialog>
+<dialog id="criteria"><div class="dlg">
+  <h3>Wanneer krijgt een winkel ons keurmerk?</h3>
+  <p>Wij vragen drie dingen op en controleren ze zelf: een geldige aansprakelijkheidsverzekering waarin schade aan het toestel van de klant is meeverzekerd, een inschrijving bij de Kamer van Koophandel op het opgegeven adres, en eventuele erkenningen zoals Apple IRP, die wij natrekken bij de fabrikant.</p>
+  <p>Wij publiceren bij elke winkel de datum van de laatste controle en de einddatum van de polis. Wij houden geen toezicht op het werk zelf en geven geen garantie op de reparatie. Dat is een afspraak tussen jou en de winkel.</p>
+  <div class="sluit"><button class="btn btn-groen" onclick="document.getElementById('criteria').close()">Sluiten</button></div>
+</div></dialog>
+
+<script>
+/* landelijke bandbreedtes: eigen prijsonderzoek 3 sept 2026, 224 prijspunten */
+const BAND={
+ 'iPhone 13':{scherm:[79,154,309],accu:[59,99,139],laad:[45,75,99],achter:[69,109,169]},
+ 'iPhone 14':{scherm:[89,159,259],accu:[59,99,139],laad:[45,75,99],achter:[79,119,179]},
+ 'iPhone 15':{scherm:[109,179,389],accu:[59,99,139],laad:[45,75,99],achter:[89,129,199]},
+};
+const REPS=[['scherm','Scherm vervangen','30 tot 45 minuten'],['accu','Accu vervangen','30 minuten'],['laad','Laadpoort vervangen','45 minuten'],['achter','Achterkant vervangen','1 werkdag']];
+/* waar deze winkel in de landelijke band zit, per kwaliteit */
+const NIV={compatibel:.09,service:.33,origineel:.78};
+const TIJDEN=[['maandag','09:30 tot 18:00'],['dinsdag','09:30 tot 18:00'],['woensdag','09:30 tot 18:00'],['donderdag','09:30 tot 21:00'],['vrijdag','09:30 tot 18:00'],['zaterdag','10:00 tot 17:00'],['zondag',null]];
+const VANDAAG=4; /* vrijdag, vast voor deze schets */
+const VERDELING=[[5,39],[4,6],[3,2],[2,1],[1,0]];
+const REVIEWS=[
+ {n:'Marije D.',p:'Leeuwarden',c:'10',d:'3 dagen geleden',via:1,t:'Scherm van mijn iPhone 13 in een half uur vervangen terwijl ik koffie dronk. Vooraf precies verteld welk scherm erin ging en wat het kostte. Bon met serienummer meegekregen.'},
+ {n:'Rutger B.',p:'Stiens',c:'9',d:'1 week geleden',via:1,t:'Accu vervangen, netjes gedaan en de prijs klopte met wat hier op de site stond. Kleine min: het was druk, dus ik moest iets langer wachten dan gezegd.'},
+ {n:'Anouk V.',p:'Leeuwarden',c:'8',d:'3 weken geleden',via:0,t:'Goede uitleg over het verschil tussen origineel en een goedkoper scherm. Ik heb voor de tussenvariant gekozen en ben er tevreden mee.',antwoord:'Fijn dat je het verschil duidelijk vond. Kom je gerust langs als er iets is, de garantie loopt twaalf maanden.'},
+ {n:'Peter K.',p:'Leeuwarden',c:'6',d:'2 maanden geleden',via:1,t:'Reparatie zelf is prima, maar mijn toestel was niet op de beloofde tijd klaar en ik ben daar niet over gebeld.',antwoord:'Dat spijt ons, je had bericht moeten krijgen. We hebben sindsdien afgesproken dat we altijd bellen zodra een reparatie uitloopt.'},
+];
+const S={model:'iPhone 13'};
+
+/* match-moment: de belknop logt de match en biedt een beoordeelherinnering aan */
+function belMatch(naam,nummer){
+  const d=document.getElementById('matchdlg');
+  document.getElementById('matchinhoud').innerHTML=`
+    <h3>Bel ${naam}</h3>
+    <p class="waar">Je spreekt de winkel rechtstreeks. Wij zitten er niet tussen en rekenen niets.</p>
+    <div class="nummer"><b class="num">${nummer}</b><a class="belknop" href="tel:${nummer.replace(/\s/g,'')}"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>Bellen</a></div>
+    <div class="streep"></div>
+    <p class="vraag">Wil je anderen straks helpen?</p>
+    <p class="vraaguitleg">Laat je e-mailadres achter, dan vragen wij over twee dagen hoe het ging. Zo weten anderen bij welke winkel het goed zit.</p>
+    <input type="email" id="matchmail" placeholder="je@email.nl">
+    <div class="knoppen">
+      <button class="btn btn-lijn" onclick="document.getElementById('matchdlg').close()">Nee, bedankt</button>
+      <button class="btn btn-groen" onclick="matchJa()">Ja, herinner mij</button>
+    </div>
+    <p class="klein">Wij gebruiken je adres alleen voor deze ene vraag en verwijderen het daarna. Afmelden kan met een klik.</p>`;
+  d.showModal();
+}
+function matchJa(){
+  document.getElementById('matchinhoud').innerHTML=`
+    <div class="gelukt">
+      <div class="bal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+      <h3>Afgesproken</h3>
+      <p class="waar" style="margin-bottom:18px">Over twee dagen sturen wij je één e-mail met de vraag hoe het ging. Verder hoor je niets van ons.</p>
+      <button class="btn btn-groen" style="width:100%" onclick="document.getElementById('matchdlg').close()">Sluiten</button>
+    </div>`;
+}
+const eur=n=>'&euro; '+n;
+const CHECK='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>';
+const prijs=(rep,kw)=>{const [lo,,hi]=BAND[S.model][rep];return Math.max(lo,Math.round((lo+(hi-lo)*NIV[kw])/5)*5-1)};
+
+function toestelkies(){
+  document.getElementById('toestelkies').innerHTML=Object.keys(BAND).map(m=>
+    `<button class="tchip${m===S.model?' aan':''}" onclick="S.model='${m}';teken()">${m}</button>`).join('')+
+    `<a class="tchip" href="reparatiekiezer.html" style="text-decoration:none">Ander toestel zoeken</a>`;
+}
+function tabel(){
+  const rij=([id,naam,tijd])=>`<div class="prij">
+      <span class="naam">${naam}<small>${S.model}</small></span>
+      <span class="prijs" data-kw="Compatibel">${eur(prijs(id,'compatibel'))}<em>vanaf</em></span>
+      <span class="prijs beste" data-kw="Service pack">${eur(prijs(id,'service'))}<em>meest gekozen</em></span>
+      <span class="prijs" data-kw="Origineel">${eur(prijs(id,'origineel'))}</span>
+      <span class="tijd">${tijd}</span></div>`;
+  document.getElementById('ptabel').innerHTML=
+    `<div class="pkop"><span>Reparatie</span><span>Compatibel</span><span>Service pack</span><span>Origineel</span><span>Klaar in</span></div>`+
+    REPS.map(rij).join('')+
+    `<div class="prij offerte"><span class="naam">Waterschade<small>${S.model}</small></span>
+      <span class="offertetekst">Diagnose ${eur(39)}, daarna een prijs op maat. De diagnose wordt verrekend.</span>
+      <span class="tijd">1 tot 3 werkdagen</span></div>`;
+}
+function vergelijk(){
+  const [lo,md,hi]=BAND[S.model].scherm,p=prijs('scherm','service');
+  const pct=v=>((v-lo)/(hi-lo))*100;
+  const klem=v=>Math.min(88,Math.max(12,pct(v))),gelijk=Math.abs(p-md)<(hi-lo)*.03;
+  document.getElementById('verg').innerHTML=`<h3>Hoe deze prijs zich verhoudt tot de rest van Nederland</h3>
+    <p>Schermreparatie voor een ${S.model} met een service pack onderdeel, vergeleken met alle prijzen die wij landelijk hebben gemeten.</p>
+    <div class="bereik">
+      ${gelijk?'':`<span class="medlab num" style="left:${klem(md)}%">mediaan ${eur(md)}</span>`}
+      <div class="track"><div class="fill" style="left:2%;width:96%"></div>
+      <div class="med" style="left:${pct(md)}%"></div><div class="jij" style="left:${pct(p)}%"></div></div>
+      <div class="lab num"><span class="lo">${eur(lo)}</span><span class="hi">${eur(hi)}</span>
+        <span class="jij" style="left:${klem(p)}%">deze winkel ${eur(p)}${gelijk?', de landelijke mediaan':''}</span></div>
+    </div>`;
+}
+function tijden(){
+  document.getElementById('tijden').innerHTML=TIJDEN.map(([d,t],i)=>
+    `<div class="${i===VANDAAG?'nu':(t?'':'dicht')}"><span>${d}</span><span>${t||'gesloten'}</span></div>`).join('');
+}
+function verdeling(){
+  const totaal=VERDELING.reduce((a,[,n])=>a+n,0);
+  document.getElementById('verdeling').innerHTML=VERDELING.map(([s,n])=>
+    `<div class="vrij"><span class="num">${s} sterren</span><span class="baan"><i style="width:${Math.round(n/totaal*100)}%"></i></span><span class="n num">${n}</span></div>`).join('');
+}
+function reviews(){
+  document.getElementById('reviewlijst').innerHTML=REVIEWS.map(r=>`<div class="review">
+    <div class="rkop"><span class="cijf num">${r.c}</span><b>${r.n}</b><span style="color:var(--inkt-3);font-size:13.5px">uit ${r.p}</span>
+      ${r.via?'<span class="via">via snelrepareren.nl</span>':''}<span class="dat">${r.d}</span></div>
+    <p>${r.t}</p>
+    ${r.antwoord?`<div class="antwoord"><b>Reactie van de winkel</b>${r.antwoord}</div>`:''}</div>`).join('');
+}
+function teken(){toestelkies();tabel();vergelijk()}
+teken();tijden();verdeling();reviews();
+</script>

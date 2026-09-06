@@ -1,0 +1,101 @@
+<title>Telefoonreparatie per plaats</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap">
+<style>
+:root{--groen-50:#F0FDF4;--groen-100:#DCFCE7;--groen-200:#BBF7D0;--groen-300:#86EFAC;--groen-500:#22C55E;--groen:#008934;--groen-800:#007B2E;--marine:#0B1F4E;--marine-100:#E8ECF5;--marine-200:#C5CEE3;--inkt:#111827;--inkt-2:#4A5878;--inkt-3:#6B7480;--lijn:#E3E6EE;--vlak:#F6F8FA;--amber:#B45309;--amber-soft:#FEF3C7;color-scheme:light}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:#fff;color:var(--inkt);font-family:'Outfit',system-ui,sans-serif;font-size:16px;line-height:1.55}
+a{color:inherit}.in{max-width:900px;margin:0 auto;padding:0 32px}
+.schets{background:var(--amber-soft);color:var(--amber);font-size:13px;font-weight:600;text-align:center;padding:8px 16px}
+.top{display:flex;align-items:center;gap:24px;padding:16px 32px;max-width:1160px;margin:0 auto}
+.logo{font-weight:800;font-size:20px;letter-spacing:-.02em;color:var(--marine);text-decoration:none}.logo i{font-style:normal;color:var(--groen)}
+.top nav{display:flex;gap:22px;font-size:15px;color:var(--inkt-2)}.top nav a{text-decoration:none}.top nav a:hover{color:var(--inkt)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:9px 16px;border-radius:999px;font-weight:600;font-size:14px;border:1.5px solid var(--groen);background:#fff;color:var(--groen);text-decoration:none;margin-left:auto}
+.btn:hover{background:var(--groen-50)}
+.btn-groen{background:var(--groen);color:#fff;border-color:var(--groen)}.btn-groen:hover{background:var(--groen-800)}
+.kruimels{font-size:13px;color:var(--inkt-3);padding:16px 0 0}.kruimels a{text-decoration:none}.kruimels span{margin:0 6px}
+h1{font-size:clamp(28px,3.6vw,38px);font-weight:800;letter-spacing:-.025em;margin:10px 0 12px;text-wrap:balance}
+.intro{font-size:17.5px;color:var(--inkt-2);max-width:66ch;margin:0 0 26px}.intro b{color:var(--inkt)}
+h2{font-size:21px;font-weight:800;letter-spacing:-.02em;margin:34px 0 4px}
+.h2sub{color:var(--inkt-3);font-size:14px;margin:0 0 16px}
+.plaatsen{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.pl{display:flex;align-items:center;justify-content:space-between;gap:10px;border:1.5px solid var(--lijn);border-radius:14px;padding:14px 16px;text-decoration:none;transition:border-color .15s,background .12s}
+.pl:hover{border-color:var(--groen);background:var(--groen-50)}
+.pl b{font-size:15.5px;font-weight:700}
+.pl small{display:block;font-size:12.5px;color:var(--inkt-3);font-weight:400}
+.pl .st{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.pl .st.live{background:var(--groen-100);color:var(--groen-800)}
+.pl .st.wacht{background:var(--vlak);color:var(--inkt-3)}
+.pl.wacht{border-style:dashed}
+.pl.wacht b{color:var(--inkt-2)}
+.provincies{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.prov{padding:9px 15px;border-radius:999px;background:var(--vlak);border:1px solid var(--lijn);font-size:14px;color:var(--inkt-3)}
+.uitleg{background:var(--groen-50);border:1.5px solid var(--groen-200);border-radius:18px;padding:22px;margin:30px 0 0}
+.uitleg b{font-weight:800}
+.uitleg p{margin:8px 0 0;color:var(--inkt-2);font-size:15px}
+.winkelcta{border:1.5px solid var(--lijn);border-radius:18px;padding:22px;margin:16px 0 0;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.winkelcta b{display:block;font-size:16.5px}
+.winkelcta span{color:var(--inkt-2);font-size:14.5px}
+footer{border-top:1px solid var(--lijn);margin-top:46px;padding:26px 0 60px;color:var(--inkt-3);font-size:13px}
+@media(max-width:760px){.in{padding:0 16px}.top{padding:14px 16px;gap:12px}.top nav{display:none}.plaatsen{grid-template-columns:1fr}}
+footer .jur{display:flex;flex-wrap:wrap;gap:18px;margin-bottom:12px}footer .jur a{text-decoration:none;color:var(--inkt-2);font-weight:600}footer .jur a:hover{color:var(--groen)}
+</style>
+
+<div class="schets">Ontwerpschets. Welke plaats live is, hangt af van het aantal aangesloten winkels.</div>
+<header class="top">
+  <a class="logo" href="index.html">snel<i>repareren</i>.nl</a>
+  <nav><a href="reparaties.html">Reparaties</a><a href="toestellen.html">Toestellen</a><a href="plaatsen.html">Plaatsen</a><a href="gidsen.html">Gidsen</a><a href="hoe-wij-rangschikken.html">Hoe wij rangschikken</a></nav>
+  <a class="btn" href="voor-winkels.html">Voor winkels</a>
+</header>
+
+<div class="in">
+  <div class="kruimels"><a href="index.html">Home</a><span>&rsaquo;</span>Plaatsen</div>
+  <h1>Telefoonreparatie per plaats</h1>
+  <p class="intro">Wij zetten een plaats pas online als er <b>minstens drie gecontroleerde winkels</b> in staan. Anders valt er niets te vergelijken en zou je aan een lijstje van één niets hebben. We beginnen in Friesland en bouwen provincie voor provincie verder.</p>
+
+  <h2>Friesland</h2>
+  <p class="h2sub">Onze startprovincie.</p>
+  <div class="plaatsen" id="friesland"></div>
+
+  <h2>De rest van Nederland</h2>
+  <p class="h2sub">Nog niet open. Wij openen een provincie pas als er genoeg winkels zijn aangesloten.</p>
+  <div class="provincies" id="provincies"></div>
+
+  <div class="uitleg">
+    <b>Waarom niet gewoon elke plaats?</b>
+    <p>Omdat een pagina met één winkel geen vergelijking is. Andere sites zetten duizenden plaatspagina's online die vrijwel leeg zijn; daar heb je niets aan en Google waardeert het ook niet. Wij doen het andersom: eerst winkels, dan de pagina.</p>
+  </div>
+
+  <div class="winkelcta">
+    <div><b>Staat je plaats er niet bij?</b><span>Ben je reparateur, dan help je je eigen stad vooruit. De eerste drie winkels per plaats staan er gratis in.</span></div>
+    <a class="btn btn-groen" href="voor-winkels.html">Meld je winkel aan</a>
+  </div>
+</div>
+
+<footer><div class="in">
+  <div class="jur"><a href="voorwaarden.html">Voorwaarden</a><a href="privacy.html">Privacy</a><a href="cookies.html">Cookies</a><a href="toegankelijkheid.html">Toegankelijkheid</a><a href="melden.html">Iets melden</a><a href="over-ons.html">Over ons</a></div>
+  Onderdeel van snelrepareren.nl, de onafhankelijke vergelijker voor telefoonreparatie in Nederland.</div></footer>
+
+<script>
+const FRIESLAND=[
+ ['Leeuwarden','6 winkels',1,'plaatspagina-leeuwarden.html'],
+ ['Drachten','2 winkels',0,'plaats-onder-drempel.html'],
+ ['Sneek','2 winkels',0,'plaats-onder-drempel.html'],
+ ['Heerenveen','1 winkel',0,'plaats-onder-drempel.html'],
+ ['Harlingen','1 winkel',0,'plaats-onder-drempel.html'],
+ ['Franeker','nog geen',0,'plaats-onder-drempel.html'],
+ ['Dokkum','nog geen',0,'plaats-onder-drempel.html'],
+ ['Joure','nog geen',0,'plaats-onder-drempel.html'],
+ ['Bolsward','nog geen',0,'plaats-onder-drempel.html'],
+ ['Wolvega','nog geen',0,'plaats-onder-drempel.html'],
+ ['Lemmer','nog geen',0,'plaats-onder-drempel.html'],
+ ['Burgum','nog geen',0,'plaats-onder-drempel.html'],
+];
+const PROV=['Groningen','Drenthe','Overijssel','Flevoland','Gelderland','Utrecht','Noord-Holland','Zuid-Holland','Zeeland','Noord-Brabant','Limburg'];
+document.getElementById('friesland').innerHTML=FRIESLAND.map(([n,aantal,live,link])=>
+ `<a class="pl${live?'':' wacht'}" href="${link}"><span><b>${n}</b><small>${aantal}</small></span><span class="st ${live?'live':'wacht'}">${live?'Live':'Binnenkort'}</span></a>`).join('');
+document.getElementById('provincies').innerHTML=PROV.map(p=>`<span class="prov">${p}</span>`).join('');
+</script>

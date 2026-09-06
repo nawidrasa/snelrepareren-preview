@@ -1,0 +1,324 @@
+<title>Voor winkels snelrepareren</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap">
+<style>
+:root{
+  --gradient:linear-gradient(160deg,#008C34 0%,#22C55E 55%,#86EFAC 100%);
+  --marine-grad:linear-gradient(155deg,#0B1F4E 0%,#16307a 60%,#22C55E 160%);
+  --groen-50:#F0FDF4;--groen-100:#DCFCE7;--groen-200:#BBF7D0;--groen-300:#86EFAC;--groen-500:#22C55E;--groen:#008934;--groen-800:#007B2E;--groen-900:#005A22;
+  --marine:#0B1F4E;--marine-d:#061238;--marine-100:#E8ECF5;--marine-200:#C5CEE3;
+  --inkt:#111827;--inkt-2:#4A5878;--inkt-3:#6B7480;--lijn:#E3E6EE;--vlak:#F6F8FA;
+  --amber:#B45309;--amber-soft:#FEF3C7;--rood:#B91C1C;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#fff;color:var(--inkt);font-family:'Outfit',system-ui,sans-serif;font-size:16px;line-height:1.55}
+.num{font-variant-numeric:tabular-nums}
+button{font:inherit}
+a{color:inherit}
+.in{max-width:1160px;margin:0 auto;padding:0 32px}
+
+.schets{background:var(--amber-soft);color:var(--amber);font-size:13px;font-weight:600;text-align:center;padding:8px 16px}
+
+.top{display:flex;align-items:center;gap:24px;padding:16px 32px;max-width:1160px;margin:0 auto}
+.logo{font-weight:800;font-size:20px;letter-spacing:-.02em;color:var(--marine);text-decoration:none}
+.logo i{font-style:normal;color:var(--groen)}
+.top nav{display:flex;gap:22px;font-size:15px;color:var(--inkt-2)}
+.top nav a{text-decoration:none}
+.top nav a:hover{color:var(--inkt)}
+.top .btn{margin-left:auto}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:999px;font-weight:600;font-size:15px;border:1.5px solid transparent;cursor:pointer;text-decoration:none;white-space:nowrap;transition:background .15s,transform .15s,border-color .15s}
+.btn:active{transform:scale(.98)}
+.btn svg{width:16px;height:16px;flex:none}
+.btn-marine{background:var(--marine);color:#fff}
+.btn-marine:hover{background:var(--marine-d)}
+.btn-wit{background:#fff;color:var(--marine)}
+.btn-wit:hover{background:#eef1f7}
+.btn-lijn{background:#fff;color:var(--marine);border-color:var(--marine-200)}
+.btn-lijn:hover{border-color:var(--marine)}
+.btn-groen{background:var(--groen);color:#fff}
+.btn-groen:hover{background:var(--groen-800)}
+.btn-klein{padding:9px 16px;font-size:14px}
+.btn-groot{padding:15px 26px;font-size:16px}
+
+section{padding:56px 0}
+h2{font-size:clamp(23px,3vw,30px);font-weight:800;letter-spacing:-.02em;margin:0 0 10px;text-wrap:balance}
+.lead{color:var(--inkt-2);font-size:17px;margin:0 0 32px;max-width:64ch}
+.kop-mini{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--groen);margin:0 0 10px}
+
+/* hero */
+.hero{background:var(--marine-grad);padding:56px 0 60px;color:#fff}
+.hero .in{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:48px;align-items:center}
+.hero h1{font-size:clamp(30px,4vw,46px);font-weight:800;line-height:1.06;letter-spacing:-.025em;margin:0 0 16px;text-wrap:balance}
+.hero p{font-size:18px;opacity:.9;margin:0 0 26px;max-width:44ch}
+.hero .knoppen{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.hero .los{font-size:14px;opacity:.75}
+.heropunten{list-style:none;margin:26px 0 0;padding:0;display:grid;gap:11px}
+.heropunten li{display:flex;gap:10px;align-items:flex-start;font-size:15px}
+.heropunten li svg{width:20px;height:20px;flex:none;margin-top:1px;color:var(--groen-300)}
+.herokaart{background:#fff;border-radius:24px;padding:26px;color:var(--inkt);box-shadow:0 30px 70px -30px rgba(0,0,0,.5)}
+.herokaart .rij{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--lijn)}
+.herokaart .rij:last-child{border-bottom:0}
+.herokaart .rij span{font-size:14.5px;color:var(--inkt-2)}
+.herokaart .rij b{font-size:15px}
+.herokaart .top-rij{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--inkt-3);padding-bottom:6px;border-bottom:0}
+.herokaart .groot{font-size:30px;font-weight:800}
+.herokaart .mini{font-size:12.5px;color:var(--inkt-3)}
+
+/* waarom */
+.waarom{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.wk{border:1.5px solid var(--lijn);border-radius:18px;padding:22px}
+.wk .ic{width:40px;height:40px;border-radius:12px;background:var(--marine-100);display:grid;place-items:center;margin-bottom:14px}
+.wk .ic svg{width:21px;height:21px;color:var(--marine)}
+.wk b{display:block;font-size:16px;font-weight:700;margin-bottom:4px}
+.wk p{margin:0;font-size:14px;color:var(--inkt-2)}
+
+/* hoe het werkt */
+.hoe{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.hstap{border:1.5px solid var(--lijn);border-radius:18px;padding:24px}
+.hstap .nr{width:34px;height:34px;border-radius:50%;background:var(--marine);color:#fff;font-weight:800;font-size:15px;display:grid;place-items:center;margin-bottom:14px}
+.hstap b{display:block;font-size:16.5px;font-weight:700;margin-bottom:5px}
+.hstap p{margin:0;color:var(--inkt-2);font-size:14.5px}
+.eerlijk{display:flex;gap:12px;align-items:flex-start;background:var(--groen-50);border:1.5px solid var(--groen-200);border-radius:16px;padding:18px 20px;margin-top:22px;font-size:15px;color:var(--inkt-2)}
+.eerlijk svg{width:22px;height:22px;color:var(--groen);flex:none;margin-top:1px}
+.eerlijk b{color:var(--inkt)}
+
+/* pakketten */
+.pakketwrap{background:var(--vlak);border-radius:0}
+.pakketten{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;align-items:start}
+.pak{background:#fff;border:1.5px solid var(--lijn);border-radius:20px;padding:24px 22px;display:flex;flex-direction:column;height:100%}
+.pak.pop{border-color:var(--marine);box-shadow:0 14px 34px -16px rgba(11,31,78,.3);position:relative}
+.pak .badge{position:absolute;top:-11px;left:22px;background:var(--marine);color:#fff;font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border-radius:999px}
+.pak .pnaam{font-size:16px;font-weight:800}
+.pak .prijs{font-size:32px;font-weight:800;letter-spacing:-.01em;margin:8px 0 2px}
+.pak .prijs small{font-size:14px;font-weight:500;color:var(--inkt-3)}
+.pak .sub{font-size:13px;color:var(--inkt-3);min-height:34px;margin-bottom:14px}
+.pak .btn{width:100%;margin-bottom:16px}
+.pak ul{list-style:none;margin:0;padding:0;display:grid;gap:9px}
+.pak li{display:flex;gap:9px;align-items:flex-start;font-size:13.5px;color:var(--inkt-2)}
+.pak li svg{width:16px;height:16px;color:var(--groen);flex:none;margin-top:2px}
+.pak li.uit{color:var(--inkt-3)}
+.pak li.uit svg{color:var(--inkt-3)}
+.pakvoet{font-size:13.5px;color:var(--inkt-3);margin:18px 0 0;text-align:center}
+
+/* extra's */
+.extras{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.ek{display:flex;gap:14px;align-items:flex-start;border:1.5px solid var(--lijn);border-radius:16px;padding:20px}
+.ek .ic{width:40px;height:40px;border-radius:12px;background:var(--groen-100);display:grid;place-items:center;flex:none}
+.ek .ic svg{width:21px;height:21px;color:var(--groen-800)}
+.ek b{display:block;font-size:16px;font-weight:700;margin-bottom:3px}
+.ek p{margin:0;font-size:14.5px;color:var(--inkt-2)}
+
+/* dashboard-voorbeeld */
+.dashkaart{border:1.5px solid var(--lijn);border-radius:22px;overflow:hidden}
+.dashkop{background:var(--vlak);padding:16px 22px;border-bottom:1px solid var(--lijn);display:flex;align-items:center;gap:10px;font-weight:700;font-size:14.5px}
+.dashkop .stip{width:9px;height:9px;border-radius:50%;background:var(--groen-500)}
+.dashbody{padding:22px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.stat{border:1.5px solid var(--lijn);border-radius:14px;padding:16px}
+.stat small{font-size:12px;color:var(--inkt-3);font-weight:600}
+.stat b{display:block;font-size:26px;font-weight:800;margin:4px 0 2px}
+.stat .op{font-size:12.5px;color:var(--groen-800);font-weight:600}
+.botsregel{grid-column:1/-1;display:flex;gap:10px;align-items:center;background:var(--amber-soft);color:var(--amber);border-radius:12px;padding:12px 14px;font-size:13.5px;font-weight:600}
+.botsregel svg{width:17px;height:17px;flex:none}
+
+/* eerlijk blok */
+.eerlijkblok{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.eb{border:1.5px solid var(--lijn);border-radius:16px;padding:20px}
+.eb b{display:flex;gap:8px;align-items:center;font-size:15.5px;font-weight:700;margin-bottom:6px}
+.eb b svg{width:18px;height:18px;color:var(--groen)}
+.eb p{margin:0;font-size:14px;color:var(--inkt-2)}
+
+/* afsluit-cta */
+.slot{background:var(--marine-grad);border-radius:24px;padding:40px;text-align:center;color:#fff}
+.slot h2{color:#fff}
+.slot p{color:#fff;opacity:.88;max-width:52ch;margin:0 auto 24px;font-size:16px}
+.slot .knoppen{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+/* faq */
+.faq{border-top:1px solid var(--lijn);padding:18px 0}
+.faq:last-of-type{border-bottom:1px solid var(--lijn)}
+.faq b{display:block;font-size:16.5px;font-weight:700;margin-bottom:6px}
+.faq p{margin:0;color:var(--inkt-2);font-size:15px;max-width:78ch}
+
+footer{border-top:1px solid var(--lijn);padding:30px 0 60px;color:var(--inkt-3);font-size:13px}
+footer p{max-width:85ch;margin:0 0 8px}
+.link{display:inline-flex;align-items:center;gap:6px;color:var(--groen);font-weight:600;font-size:14.5px;text-decoration:underline;text-underline-offset:3px}
+.link svg{width:14px;height:14px}
+
+@media (max-width:960px){
+  .hero .in{grid-template-columns:1fr;gap:32px}
+  .waarom{grid-template-columns:1fr 1fr}
+  .pakketten{grid-template-columns:1fr 1fr}
+}
+@media (max-width:760px){
+  .in{padding:0 16px}
+  .top{padding:14px 16px;gap:12px}.top nav{display:none}
+  section{padding:40px 0}
+  .waarom,.hoe,.extras,.eerlijkblok,.pakketten{grid-template-columns:1fr}
+  .dashbody{grid-template-columns:1fr 1fr}
+  .slot{padding:26px}
+}
+footer .jur{display:flex;flex-wrap:wrap;gap:18px;margin-bottom:12px}footer .jur a{text-decoration:none;color:var(--inkt-2);font-weight:600}footer .jur a:hover{color:var(--groen)}
+</style>
+
+<div class="schets">Ontwerpschets voor de winkelkant. Getoonde aantallen en het dashboard zijn voorbeelden. De vormgeving is een voorstel.</div>
+
+<header class="top">
+  <a class="logo" href="index.html">snel<i>repareren</i>.nl</a>
+  <nav>
+    <a href="#waarom">Waarom meedoen</a>
+    <a href="#pakketten">Pakketten</a>
+    <a href="#eerlijk">Eerlijk platform</a>
+    <a href="index.html">Naar de klantsite</a>
+  </nav>
+  <a class="btn btn-lijn btn-klein" href="inloggen.html" style="margin-left:auto">Inloggen</a>
+  <a class="btn btn-marine btn-klein" href="aanmelden.html">Meld je winkel aan</a>
+</header>
+
+<section class="hero"><div class="in">
+  <div>
+    <p class="kop-mini" style="color:var(--groen-300)">Voor telefoonwinkels</p>
+    <h1>Meer klanten uit je eigen buurt, zonder commissie.</h1>
+    <p>Klanten met een kapotte telefoon vinden je via snelrepareren.nl en bellen je rechtstreeks. Je betaalt een vast bedrag per maand, geen percentage per reparatie.</p>
+    <div class="knoppen">
+      <a class="btn btn-groen btn-groot" href="aanmelden.html">Meld je winkel aan</a>
+      <a class="btn btn-wit btn-groot" href="#pakketten">Bekijk de pakketten</a>
+    </div>
+    <ul class="heropunten">
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Een basisvermelding is gratis en blijft gratis.</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>De gewone volgorde is niet te koop. Je koopt hooguit een plek in het gelabelde blok Uitgelicht.</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Je prijs van het eerste jaar blijft ook het tweede jaar gelden.</li>
+    </ul>
+  </div>
+  <div class="herokaart">
+    <div class="rij top-rij"><span>Je maand in het kort</span></div>
+    <div class="rij"><span>Getoond in zoekresultaten</span><b class="num">1.240&times;</b></div>
+    <div class="rij"><span>Doorgeklikt naar je profiel</span><b class="num">86&times;</b></div>
+    <div class="rij"><span>Gebeld of route opgevraagd</span><b class="num">31&times;</b></div>
+    <div class="rij"><span></span><span class="mini">voorbeeld, een winkel in Leeuwarden</span></div>
+  </div>
+</div></section>
+
+<section id="waarom"><div class="in">
+  <p class="kop-mini">Waarom meedoen</p>
+  <h2>Zichtbaar waar mensen nu al zoeken</h2>
+  <p class="lead">De meeste mensen met een kapot scherm zoeken online naar een winkel in de buurt. Wij zorgen dat je daar tussen staat, met je prijzen, je doorlooptijd en je garantie.</p>
+  <div class="waarom">
+    <div class="wk"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6-5.3-6-10a6 6 0 0 1 12 0c0 4.7-6 10-6 10z"/><circle cx="12" cy="11" r="2.5"/></svg></div><b>Lokaal gevonden</b><p>Je komt op de plaatspagina van je stad en op de prijspagina's van de modellen die je repareert.</p></div>
+    <div class="wk"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg></div><b>De klant belt je zelf</b><p>Wij zitten niet tussen de reparatie. De klant belt, komt langs, en je maakt zelf de afspraak.</p></div>
+    <div class="wk"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><b>Vaste maandprijs</b><p>Geen commissie per klant. Je weet vooraf wat het kost, en wat je het eerste jaar betaalt blijft in jaar twee gelden.</p></div>
+    <div class="wk"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 3v5.4c0 4.3-3.1 8.3-7.5 9.6-4.4-1.3-7.5-5.3-7.5-9.6V6z"/><path d="M9 12l2 2 4-4"/></svg></div><b>Een eerlijk platform</b><p>De volgorde is niet te koop en beoordelingen kun je niet laten verwijderen. Dat maakt je goede naam meer waard.</p></div>
+  </div>
+</div></section>
+
+<section style="background:var(--vlak)"><div class="in">
+  <p class="kop-mini">Hoe het werkt</p>
+  <h2>Betalen koopt vertoningen, geen plek in de lijst</h2>
+  <p class="lead">Dit is de kern van ons model, en we zijn er open over naar je en naar de klant.</p>
+  <div class="hoe">
+    <div class="hstap"><div class="nr">1</div><b>Je staat gewoon in de lijst</b><p>Ook gratis. Je plek in de gewone lijst hangt af van je keurmerk, je erkenningen en je beoordelingen. Die volgorde is niet te koop.</p></div>
+    <div class="hstap"><div class="nr">2</div><b>Betalen = een aandeel in Uitgelicht</b><p>Met een betaald pakket koop je een aandeel in de vertoningen van het blok Uitgelicht, dat apart staat en zo gelabeld is. Een duurder pakket geeft een groter aandeel.</p></div>
+    <div class="hstap"><div class="nr">3</div><b>Eerlijk verdeeld</b><p>Binnen hetzelfde pakket wisselen de winkels elk uur, zodat iedereen aan de beurt komt. Nieuwe winkels krijgen sowieso een deel van de vertoningen.</p></div>
+  </div>
+  <div class="eerlijk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg><span><b>Wij beloven een aandeel, geen vast aantal vertoningen.</b> Hoeveel mensen er zoeken hangt af van de plaats en het seizoen. Je ziet in je dashboard precies hoe vaak je echt bent getoond.</span></div>
+</div></section>
+
+<section id="pakketten"><div class="in">
+  <p class="kop-mini">Pakketten</p>
+  <h2>Kies wat bij je winkel past</h2>
+  <p class="lead">Begin gratis, of kies een pakket met een groter aandeel in het blok Uitgelicht. Maandelijks opzegbaar, en de prijs van jaar één blijft gelden in jaar twee.</p>
+  <div class="pakketten" id="pakkettengrid"></div>
+  <p class="pakvoet">Alle bedragen zijn per maand, exclusief btw. Losse advertenties (een week extra opvallen) kunnen los bijgekocht worden vanaf 9 euro. Betaling via automatische incasso met Mollie.</p>
+</div></section>
+
+<section style="background:var(--vlak)"><div class="in">
+  <p class="kop-mini">Inbegrepen</p>
+  <h2>Wat je er sowieso bij krijgt</h2>
+  <div class="extras">
+    <div class="ek"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v14H4z"/><path d="M4 10h16M9 15h6"/></svg></div><div><b>Het Europese reparatieformulier</b><p>Wettelijk verplicht sinds 2026. Wij maken het automatisch voor je, met de prijs, de doorlooptijd en de garantie op papier. Geen meerprijs.</p></div></div>
+    <div class="ek"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h18v13H3z"/><path d="M8 21h8M12 16v5"/></svg></div><div><b>Een dashboard dat eerlijk telt</b><p>Je ziet hoe vaak je bent getoond, doorgeklikt en gebeld, plus hoeveel vertoningen wij niet meetelden omdat ze van bots kwamen.</p></div></div>
+    <div class="ek"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 3v5.4c0 4.3-3.1 8.3-7.5 9.6-4.4-1.3-7.5-5.3-7.5-9.6V6z"/></svg></div><div><b>Het keurmerk Verzekerd, gecontroleerd</b><p>Toon je aan dat schade aan het toestel van de klant is meeverzekerd, dan controleren wij dat en krijg je het keurmerk, met de datum erbij.</p></div></div>
+    <div class="ek"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></div><div><b>Hulp met je Google-profiel</b><p>Binnen het abonnement helpen we je je Google Bedrijfsprofiel op orde te krijgen, zodat je ook daar beter gevonden wordt.</p></div></div>
+  </div>
+</div></section>
+
+<section><div class="in">
+  <p class="kop-mini">Je dashboard</p>
+  <h2>Je ziet precies wat je oplevert</h2>
+  <p class="lead">Niet alleen het aantal leden, maar de waarde die je eruit haalt. Zo ziet een maand eruit:</p>
+  <div class="dashkaart">
+    <div class="dashkop"><span class="stip"></span>Dashboard, winkel in Leeuwarden, augustus</div>
+    <div class="dashbody">
+      <div class="stat"><small>Getoond</small><b class="num">1.240</b><span class="op">&uarr; 12% t.o.v. juli</span></div>
+      <div class="stat"><small>Doorgeklikt</small><b class="num">86</b><span class="op">7% van de vertoningen</span></div>
+      <div class="stat"><small>Gebeld of route</small><b class="num">31</b><span class="op">je belangrijkste getal</span></div>
+      <div class="botsregel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg>210 vertoningen niet meegerekend omdat ze van bots kwamen. Wij tellen alleen echte mensen.</div>
+    </div>
+  </div>
+</div></section>
+
+<section id="eerlijk" style="background:var(--vlak)"><div class="in">
+  <p class="kop-mini">Eerlijk platform</p>
+  <h2>Waarom onze eerlijkheid ook je helpt</h2>
+  <p class="lead">Een lijst die te koop is, vertrouwt niemand. Doordat de volgorde niet te koop is, is je goede naam bij ons echt iets waard.</p>
+  <div class="eerlijkblok">
+    <div class="eb"><b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>De volgorde is niet te koop</b><p>Keurmerk, erkenningen en echte beoordelingen bepalen je plek. Geld verschuift alleen het aparte blok Uitgelicht.</p></div>
+    <div class="eb"><b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Echte tellingen</b><p>Bots tellen we eruit en dat laten we zien. Wat je in je dashboard ziet, is wat er echt is gebeurd.</p></div>
+    <div class="eb"><b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Geen loze beloftes</b><p>Wij beloven je geen plek in ChatGPT of Google en geen vast aantal klanten. Wel eerlijke zichtbaarheid, meetbaar in je dashboard.</p></div>
+  </div>
+</div></section>
+
+<section id="aanmelden"><div class="in">
+  <div class="slot">
+    <h2>Klaar om erbij te komen?</h2>
+    <p>We beginnen in Friesland. Meld je winkel aan met je e-mailadres, dan nemen we contact op en zetten we je gratis vermelding klaar. Upgraden kan altijd later.</p>
+    <div class="knoppen">
+      <a class="btn btn-groen btn-groot" href="aanmelden.html">Meld je winkel aan</a>
+      <a class="btn btn-wit btn-groot" href="#pakketten">Eerst de pakketten zien</a>
+    </div>
+  </div>
+</div></section>
+
+<section><div class="in">
+  <h2>Veelgestelde vragen van winkeliers</h2>
+  <div class="faq"><b>Kost het echt niets om erbij te staan?</b><p>Klopt. Een basisvermelding met je gegevens, prijzen en openingstijden is gratis en blijft gratis. Je betaalt alleen als je een groter aandeel in het blok Uitgelicht wilt of extra profielopties.</p></div>
+  <div class="faq"><b>Kan ik maandelijks opzeggen?</b><p>Ja. De betaalde pakketten zijn maandelijks opzegbaar. Je gratis vermelding blijft daarna gewoon staan.</p></div>
+  <div class="faq"><b>Betaal ik meer als het druk is?</b><p>Nee. Je betaalt een vast bedrag per maand, ongeacht hoeveel klanten er via ons bellen. Er zit geen commissie per reparatie op.</p></div>
+  <div class="faq"><b>Hoe betaal ik?</b><p>Via automatische incasso met Mollie. Lukt een incasso een keer niet, dan krijg je een paar dagen de tijd voordat je zichtbaarheid tijdelijk pauzeert. Je vermelding wordt niet verwijderd.</p></div>
+  <div class="faq"><b>Hoe krijg ik ondersteuning?</b><p>Via e-mail, met antwoord binnen twee werkdagen. Zo houden we de kosten laag en dus ook je prijs.</p></div>
+</div></section>
+
+<footer><div class="in">
+  <div class="jur"><a href="voorwaarden.html">Voorwaarden</a><a href="privacy.html">Privacy</a><a href="cookies.html">Cookies</a><a href="toegankelijkheid.html">Toegankelijkheid</a><a href="melden.html">Iets melden</a><a href="over-ons.html">Over ons</a></div>
+  
+  <p><b>Over deze pagina.</b> Dit is een ontwerpschets van de winkelkant van snelrepareren.nl. De genoemde aantallen en het dashboard zijn voorbeelden. Pakketprijzen zijn de vastgestelde richtprijzen (29, 79 en 149 euro per maand), exclusief btw.</p>
+  <p><a class="link" href="index.html">Terug naar de klantsite <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></p>
+</div></footer>
+
+<script>
+const PAKKETTEN=[
+ {n:'Gratis',prijs:'&euro; 0',per:'',sub:'Zichtbaar zonder kosten',knop:'Begin gratis',stijl:'btn-lijn',
+  in:['Vermelding op je plaatspagina','Prijzen, openingstijden en garantie','Aandeel voor nieuwkomers in Uitgelicht','Dashboard met je cijfers','Het Europese reparatieformulier'],uit:['Vast aandeel in Uitgelicht','Uitgebreid profiel met foto\'s']},
+ {n:'Start',prijs:'&euro; 29',per:'p/m',sub:'Voor de kleine, lokale winkel',knop:'Kies Start',stijl:'btn-lijn',
+  in:['Alles uit Gratis','Klein aandeel in het blok Uitgelicht','Uitgebreider profiel met foto\'s','Hulp met je Google-profiel'],uit:['Voorrang bij het keurmerk']},
+ {n:'Groei',prijs:'&euro; 79',per:'p/m',sub:'De meest gekozen keuze',knop:'Kies Groei',stijl:'btn-marine',pop:1,
+  in:['Alles uit Start','Groter aandeel in Uitgelicht','Meerdere vestigingen op één account','Voorrang bij de keurmerkcontrole'],uit:[]},
+ {n:'Max',prijs:'&euro; 149',per:'p/m',sub:'Voor de winkel die vol inzet',knop:'Kies Max',stijl:'btn-lijn',
+  in:['Alles uit Groei','Het grootste aandeel in Uitgelicht','Voorrang in meerdere plaatsen','Persoonlijke maandelijkse terugkoppeling'],uit:[]},
+];
+const JA='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+const NEE='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>';
+document.getElementById('pakkettengrid').innerHTML=PAKKETTEN.map(p=>`<div class="pak${p.pop?' pop':''}">
+  ${p.pop?'<span class="badge">Meest gekozen</span>':''}
+  <div class="pnaam">${p.n}</div>
+  <div class="prijs num">${p.prijs}${p.per?` <small>${p.per}</small>`:''}</div>
+  <div class="sub">${p.sub}</div>
+  <a class="btn ${p.stijl}" href="aanmelden.html">${p.knop}</a>
+  <ul>${p.in.map(x=>`<li>${JA}<span>${x}</span></li>`).join('')}${p.uit.map(x=>`<li class="uit">${NEE}<span>${x}</span></li>`).join('')}</ul>
+</div>`).join('');
+</script>

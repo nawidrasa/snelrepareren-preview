@@ -1,0 +1,109 @@
+<title>Je winkel instellen</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap">
+<style>
+:root{--groen-50:#F0FDF4;--groen-100:#DCFCE7;--groen-200:#BBF7D0;--groen-300:#86EFAC;--groen-500:#22C55E;--groen:#008934;--groen-800:#007B2E;--marine:#0B1F4E;--marine-d:#061238;--marine-100:#E8ECF5;--marine-200:#C5CEE3;--inkt:#111827;--inkt-2:#4A5878;--inkt-3:#6B7480;--lijn:#E3E6EE;--vlak:#F6F8FA;--amber:#B45309;--amber-soft:#FEF3C7;color-scheme:light}
+*{box-sizing:border-box}
+body{margin:0;background:var(--vlak);color:var(--inkt);font-family:'Outfit',system-ui,sans-serif;font-size:16px;line-height:1.55}
+a{color:inherit}button{font:inherit}.num{font-variant-numeric:tabular-nums}
+.schets{background:var(--amber-soft);color:var(--amber);font-size:13px;font-weight:600;text-align:center;padding:8px 16px}
+.top{display:flex;align-items:center;gap:20px;padding:16px 24px;max-width:960px;margin:0 auto}
+.logo{font-weight:800;font-size:20px;letter-spacing:-.02em;color:var(--marine);text-decoration:none}.logo i{font-style:normal;color:var(--groen)}
+.top .later{margin-left:auto;font-size:14px;color:var(--inkt-2);text-decoration:none;font-weight:600}
+.wrap{max-width:960px;margin:0 auto;padding:8px 24px 70px}
+.kop{margin-bottom:22px}
+h1{font-size:27px;font-weight:800;letter-spacing:-.02em;margin:0 0 6px}
+.kop p{color:var(--inkt-2);margin:0;font-size:16px}
+.voortgang{background:#fff;border:1px solid var(--lijn);border-radius:18px;padding:18px 20px;margin-bottom:18px}
+.voortgang .bovenrij{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}
+.voortgang b{font-size:15px}
+.voortgang .tel{font-size:14px;color:var(--inkt-2);font-weight:600}
+.balk{height:9px;border-radius:999px;background:var(--vlak);border:1px solid var(--lijn);overflow:hidden}
+.balk i{display:block;height:100%;background:var(--groen);border-radius:999px;transition:width .3s}
+.stappen{display:grid;gap:12px}
+.stap{background:#fff;border:1.5px solid var(--lijn);border-radius:18px;padding:20px;display:grid;grid-template-columns:40px minmax(0,1fr) auto;gap:16px;align-items:center}
+.stap.klaar{border-color:var(--groen-200);background:var(--groen-50)}
+.stap.nu{border-color:var(--marine);box-shadow:0 10px 26px -14px rgba(11,31,78,.3)}
+.stap .bol{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:15px;background:var(--vlak);color:var(--inkt-3);border:1.5px solid var(--lijn)}
+.stap.klaar .bol{background:var(--groen);color:#fff;border-color:var(--groen)}
+.stap.nu .bol{background:var(--marine);color:#fff;border-color:var(--marine)}
+.stap .bol svg{width:20px;height:20px}
+.stap b{display:block;font-size:16.5px;margin-bottom:2px}
+.stap p{margin:0;font-size:14px;color:var(--inkt-2)}
+.stap .waarom{display:block;font-size:13px;color:var(--groen-800);font-weight:600;margin-top:6px}
+.stap.klaar .waarom{color:var(--groen-800)}
+.stap .actie{white-space:nowrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 18px;border-radius:999px;font-weight:600;font-size:14.5px;border:1.5px solid transparent;cursor:pointer;text-decoration:none}
+.btn-marine{background:var(--marine);color:#fff}.btn-marine:hover{background:var(--marine-d)}
+.btn-lijn{background:#fff;color:var(--inkt-2);border-color:var(--lijn)}.btn-lijn:hover{border-color:var(--inkt-3)}
+.btn-groen{background:var(--groen);color:#fff}.btn-groen:hover{background:var(--groen-800)}
+.klaarmelding{background:#fff;border:1.5px solid var(--groen-200);border-radius:18px;padding:24px;margin-top:18px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.klaarmelding b{display:block;font-size:17px}
+.klaarmelding span{color:var(--inkt-2);font-size:14.5px}
+.verplicht{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--amber);background:var(--amber-soft);padding:2px 8px;border-radius:999px;margin-left:8px;vertical-align:2px}
+footer{max-width:960px;margin:0 auto;padding:0 24px 40px;color:var(--inkt-3);font-size:13px}
+@media(max-width:700px){.wrap{padding:8px 16px 60px}.stap{grid-template-columns:40px minmax(0,1fr)}.stap .actie{grid-column:2}}
+</style>
+
+<div class="schets">Ontwerpschets. Dit ziet een winkel de eerste keer dat hij inlogt.</div>
+<header class="top">
+  <a class="logo" href="index.html">snel<i>repareren</i>.nl</a>
+  <a class="later" href="portaal.html">Later afmaken &rarr;</a>
+</header>
+
+<div class="wrap">
+  <div class="kop">
+    <h1>Welkom, Telefoonhulp Leeuwarden</h1>
+    <p>Nog een paar stappen en je staat online. Je kunt tussendoor stoppen; wij bewaren wat je al heeft ingevuld.</p>
+  </div>
+
+  <div class="voortgang">
+    <div class="bovenrij"><b>Je profiel is bijna compleet</b><span class="tel num" id="tel"></span></div>
+    <div class="balk"><i id="balk"></i></div>
+  </div>
+
+  <div class="stappen" id="stappen"></div>
+
+  <div class="klaarmelding" id="klaarmelding" hidden>
+    <div><b>Alles staat klaar</b><span>Je winkel is zichtbaar voor klanten in Leeuwarden.</span></div>
+    <a class="btn btn-groen" href="portaal.html">Naar mijn dashboard</a>
+  </div>
+</div>
+
+<footer>Vragen tijdens het instellen? Mail winkels@snelrepareren.nl, wij antwoorden binnen twee werkdagen. <br><a href="voorwaarden-winkels.html" style="color:inherit">Voorwaarden voor winkels</a> &middot; <a href="privacy.html" style="color:inherit">Privacy</a> &middot; <a href="melden.html" style="color:inherit">Iets melden</a></footer>
+
+<script>
+const STAPPEN=[
+ {n:'Winkelgegevens',p:'Naam, adres en telefoonnummer. Deze hebben wij al uit je aanmelding overgenomen.',w:'Zonder dit kunnen klanten je niet bellen.',klaar:1},
+ {n:'Prijzen per reparatie',p:'Per reparatie een prijs, het kwaliteitslabel van het onderdeel en de doorlooptijd.',w:'Winkels met prijzen worden ruim twee keer zo vaak aangeklikt.',klaar:0,verplicht:1,knop:'Prijzen invullen'},
+ {n:'Openingstijden en betaalwijzen',p:'Wanneer ben je open, en hoe kan een klant afrekenen.',w:'Klanten filteren op "nu open" en op betaalwijze.',klaar:0,knop:'Invullen'},
+ {n:'Garantietekst',p:'Wat je geeft op het onderdeel en op het werk, en wat er niet onder valt.',w:'Garantie staat na prijs op nummer twee bij de keuze.',klaar:0,knop:'Invullen'},
+ {n:'Polis uploaden voor het keurmerk',p:'Wij kijken of schade aan het toestel van de klant is meeverzekerd.',w:'Winkels met het keurmerk staan hoger in de gewone lijst.',klaar:0,knop:'Polis uploaden'},
+ {n:'Erkenningen',p:'Ben je Apple Independent Repair Provider of Samsung-partner? Wij trekken het na.',w:'Erkenningen tellen mee in de volgorde en zijn niet te koop.',klaar:0,knop:'Toevoegen'},
+ {n:'Foto van je pui en van jezelf',p:'Echte foto\'s, geen stockbeelden. Liever niets dan een nepfoto.',w:'Een gezicht bij de winkel wekt vertrouwen.',klaar:0,knop:'Uploaden'},
+ {n:'Betaalgegevens',p:'Alleen nodig als je een betaald pakket kiest. Met het gratis pakket kun je dit overslaan.',w:'Eerste betaling met iDEAL, daarna automatische incasso.',klaar:0,knop:'Regelen',optioneel:1},
+];
+const VINK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+function teken(){
+  const nuIndex=STAPPEN.findIndex(s=>!s.klaar);
+  document.getElementById('stappen').innerHTML=STAPPEN.map((s,i)=>{
+    const klaar=s.klaar,nu=i===nuIndex;
+    const knop=klaar?`<button class="btn btn-lijn" onclick="zet(${i},0)">Wijzigen</button>`
+      :`<button class="btn ${nu?'btn-marine':'btn-lijn'}" onclick="zet(${i},1)">${s.knop||'Invullen'}</button>`;
+    return `<div class="stap${klaar?' klaar':nu?' nu':''}">
+      <span class="bol">${klaar?VINK:i+1}</span>
+      <span><b>${s.n}${s.verplicht?'<span class="verplicht">Verplicht</span>':''}${s.optioneel?'<span class="verplicht" style="color:var(--inkt-3);background:var(--vlak)">Optioneel</span>':''}</b>
+        <p>${s.p}</p><span class="waarom">${s.w}</span></span>
+      <span class="actie">${knop}</span></div>`;
+  }).join('');
+  const klaar=STAPPEN.filter(s=>s.klaar).length;
+  document.getElementById('tel').textContent=`${klaar} van de ${STAPPEN.length} klaar`;
+  document.getElementById('balk').style.width=Math.round(klaar/STAPPEN.length*100)+'%';
+  document.getElementById('klaarmelding').hidden=klaar<STAPPEN.length;
+}
+function zet(i,waarde){STAPPEN[i].klaar=waarde;teken();window.scrollTo({top:0,behavior:'smooth'})}
+teken();
+</script>

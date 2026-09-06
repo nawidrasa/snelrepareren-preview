@@ -1,0 +1,115 @@
+<title>Inloggen op het portaal</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap">
+<style>
+:root{--groen-50:#F0FDF4;--groen-100:#DCFCE7;--groen-200:#BBF7D0;--groen-500:#22C55E;--groen:#008934;--groen-800:#007B2E;--marine:#0B1F4E;--marine-d:#061238;--marine-100:#E8ECF5;--marine-200:#C5CEE3;--inkt:#111827;--inkt-2:#4A5878;--inkt-3:#6B7480;--lijn:#E3E6EE;--vlak:#F6F8FA;--amber:#B45309;--amber-soft:#FEF3C7;color-scheme:light}
+*{box-sizing:border-box}
+body{margin:0;background:var(--vlak);color:var(--inkt);font-family:'Outfit',system-ui,sans-serif;font-size:16px;line-height:1.55;min-height:100vh}
+a{color:inherit}button{font:inherit}
+.schets{background:var(--amber-soft);color:var(--amber);font-size:13px;font-weight:600;text-align:center;padding:8px 16px}
+.wrap{max-width:440px;margin:0 auto;padding:44px 24px 70px}
+.merkkop{text-align:center;margin-bottom:26px}
+.logo{font-weight:800;font-size:22px;letter-spacing:-.02em;color:var(--marine);text-decoration:none}.logo i{font-style:normal;color:var(--groen)}
+.merkkop .sub{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--inkt-3);margin-top:4px}
+.kaart{background:#fff;border:1px solid var(--lijn);border-radius:22px;padding:30px}
+h1{font-size:22px;font-weight:800;letter-spacing:-.02em;margin:0 0 6px}
+.sub2{color:var(--inkt-2);font-size:14.5px;margin:0 0 22px}
+.veld{margin-bottom:16px}
+.veld label{display:block;font-size:13.5px;font-weight:600;color:var(--inkt-2);margin-bottom:5px}
+.veld input{width:100%;padding:12px 14px;border:1.5px solid var(--lijn);border-radius:12px;font:inherit;font-size:15px;background:#fff}
+.veld input:focus{outline:none;border-color:var(--groen);box-shadow:0 0 0 3px var(--groen-100)}
+.veld .hint{font-size:12.5px;color:var(--inkt-3);margin-top:5px}
+.rij{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:20px}
+.onthoud{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--inkt-2)}
+.onthoud input{width:17px;height:17px;accent-color:var(--groen)}
+.link{color:var(--groen);font-weight:600;font-size:14px;text-decoration:none}
+.link:hover{text-decoration:underline;text-underline-offset:3px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 22px;border-radius:999px;font-weight:600;font-size:15.5px;border:1.5px solid transparent;cursor:pointer;text-decoration:none;width:100%}
+.btn-marine{background:var(--marine);color:#fff}.btn-marine:hover{background:var(--marine-d)}
+.btn-lijn{background:#fff;color:var(--inkt-2);border-color:var(--lijn)}
+.tweefactor{background:var(--groen-50);border:1px solid var(--groen-200);border-radius:14px;padding:14px 16px;font-size:13.5px;color:var(--inkt-2);margin-top:18px;display:flex;gap:10px}
+.tweefactor svg{width:18px;height:18px;color:var(--groen);flex:none;margin-top:1px}
+.codevelden{display:flex;gap:8px;justify-content:center;margin:6px 0 18px}
+.codevelden input{width:48px;height:56px;text-align:center;font-size:22px;font-weight:700;border:1.5px solid var(--lijn);border-radius:12px;font-family:inherit}
+.onder{text-align:center;font-size:14px;color:var(--inkt-2);margin-top:22px}
+.onder a{color:var(--groen);font-weight:600;text-decoration:none}
+.gelukt{text-align:center}
+.gelukt .bal{width:58px;height:58px;border-radius:18px;background:var(--groen-100);display:grid;place-items:center;margin:0 auto 14px}
+.gelukt .bal svg{width:28px;height:28px;color:var(--groen)}
+.gelukt p{color:var(--inkt-2);font-size:14.5px;margin:0 0 20px}
+.verborgen{display:none}
+.jurvoet{border-top:1px solid var(--lijn);margin-top:40px;padding:22px 32px 48px;max-width:1160px;margin-left:auto;margin-right:auto;color:var(--inkt-3);font-size:13px}
+.jurvoet .jur{display:flex;flex-wrap:wrap;gap:18px;margin-bottom:10px}
+.jurvoet .jur a{text-decoration:none;color:var(--inkt-2);font-weight:600}
+.jurvoet .jur a:hover{color:var(--groen)}
+@media(max-width:760px){.jurvoet{padding:20px 16px 44px}}
+</style>
+
+<div class="schets">Ontwerpschets van het inlogscherm voor winkels.</div>
+
+<div class="wrap">
+  <div class="merkkop">
+    <a class="logo" href="index.html">snel<i>repareren</i>.nl</a>
+    <div class="sub">Winkelportaal</div>
+  </div>
+
+  <!-- INLOGGEN -->
+  <div class="kaart" id="inloggen">
+    <h1>Inloggen</h1>
+    <p class="sub2">Beheer je prijzen, bekijk je vertoningen en beantwoord beoordelingen.</p>
+    <div class="veld"><label>E-mailadres</label><input type="email" placeholder="naam@uwwinkel.nl" value="jelle@telefoonhulp.nl"></div>
+    <div class="veld"><label>Wachtwoord</label><input type="password" placeholder="Je wachtwoord" value="xxxxxxxxxxxx"></div>
+    <div class="rij">
+      <label class="onthoud"><input type="checkbox" checked> Ingelogd blijven</label>
+      <a class="link" href="#" onclick="ga('vergeten');return false">Wachtwoord vergeten?</a>
+    </div>
+    <button class="btn btn-marine" onclick="ga('tweestaps')">Inloggen</button>
+    <div class="tweefactor"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 3v5.4c0 4.3-3.1 8.3-7.5 9.6-4.4-1.3-7.5-5.3-7.5-9.6V6z"/><path d="M9 12l2 2 4-4"/></svg><span>Extra beveiliging met een code is optioneel. Je zet het aan bij Account in het portaal.</span></div>
+    <p class="onder">Nog geen account? <a href="aanmelden.html">Meld je winkel aan</a></p>
+  </div>
+
+  <!-- TWEESTAPS -->
+  <div class="kaart verborgen" id="tweestaps">
+    <h1>Vul de code in</h1>
+    <p class="sub2">Je hebt extra beveiliging aanstaan. Vul de zescijferige code uit je app in.</p>
+    <div class="codevelden">
+      <input maxlength="1" inputmode="numeric"><input maxlength="1" inputmode="numeric"><input maxlength="1" inputmode="numeric">
+      <input maxlength="1" inputmode="numeric"><input maxlength="1" inputmode="numeric"><input maxlength="1" inputmode="numeric">
+    </div>
+    <a class="btn btn-marine" href="portaal.html">Bevestigen</a>
+    <p class="onder"><a href="#" onclick="ga('inloggen');return false">Terug naar inloggen</a></p>
+  </div>
+
+  <!-- WACHTWOORD VERGETEN -->
+  <div class="kaart verborgen" id="vergeten">
+    <h1>Wachtwoord vergeten</h1>
+    <p class="sub2">Vul je e-mailadres in, dan sturen wij een link waarmee je een nieuw wachtwoord instelt.</p>
+    <div class="veld"><label>E-mailadres</label><input type="email" placeholder="naam@uwwinkel.nl"><div class="hint">Wij sturen alleen een link als dit adres bij ons bekend is.</div></div>
+    <button class="btn btn-marine" onclick="ga('verzonden')">Stuur mij een link</button>
+    <p class="onder"><a href="#" onclick="ga('inloggen');return false">Terug naar inloggen</a></p>
+  </div>
+
+  <!-- VERZONDEN -->
+  <div class="kaart verborgen" id="verzonden">
+    <div class="gelukt">
+      <div class="bal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/></svg></div>
+      <h1>Kijk in je mailbox</h1>
+      <p>Als dit adres bij ons bekend is, staat er binnen een minuut een e-mail met een link. De link is een uur geldig.</p>
+      <button class="btn btn-lijn" onclick="ga('inloggen')">Terug naar inloggen</button>
+    </div>
+  </div>
+</div>
+
+
+<footer class="jurvoet">
+  <div class="jur"><a href="voorwaarden.html">Voorwaarden</a><a href="privacy.html">Privacy</a><a href="cookies.html">Cookies</a><a href="toegankelijkheid.html">Toegankelijkheid</a><a href="melden.html">Iets melden</a></div>
+  Alleen voor aangesloten winkels. Onderdeel van snelrepareren.nl.
+</footer>
+
+<script>
+const P=['inloggen','tweestaps','vergeten','verzonden'];
+function ga(p){P.forEach(x=>document.getElementById(x).classList.toggle('verborgen',x!==p));window.scrollTo(0,0)}
+</script>

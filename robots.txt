@@ -1,0 +1,4 @@
+# Dit is een afgeschermde preview, geen publieke site.
+# Elke pagina draagt daarnaast een noindex-regel in de kop.
+User-agent: *
+Disallow: /

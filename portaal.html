@@ -1,0 +1,440 @@
+<title>Winkelportaal snelrepareren</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap">
+<style>
+:root{--groen-50:#F0FDF4;--groen-100:#DCFCE7;--groen-200:#BBF7D0;--groen-300:#86EFAC;--groen-500:#22C55E;--groen:#008934;--groen-800:#007B2E;--groen-900:#005A22;--marine:#0B1F4E;--marine-d:#061238;--marine-100:#E8ECF5;--marine-200:#C5CEE3;--inkt:#111827;--inkt-2:#4A5878;--inkt-3:#6B7480;--lijn:#E3E6EE;--vlak:#F6F8FA;--amber:#B45309;--amber-soft:#FEF3C7;--rood:#B91C1C;--rood-soft:#FEE2E2;color-scheme:light}
+*{box-sizing:border-box}
+body{margin:0;background:var(--vlak);color:var(--inkt);font-family:'Outfit',system-ui,sans-serif;font-size:15px;line-height:1.5}
+.num{font-variant-numeric:tabular-nums}button{font:inherit}a{color:inherit}
+.schets{background:var(--amber-soft);color:var(--amber);font-size:13px;font-weight:600;text-align:center;padding:8px 16px}
+
+/* app-shell */
+.shell{display:grid;grid-template-columns:250px minmax(0,1fr);min-height:100vh}
+.zij{background:#fff;border-right:1px solid var(--lijn);padding:20px 16px;display:flex;flex-direction:column;gap:4px;position:sticky;top:0;height:100vh}
+.merk{font-weight:800;font-size:18px;letter-spacing:-.02em;color:var(--marine);text-decoration:none;padding:6px 10px 4px}
+.merk i{font-style:normal;color:var(--groen)}
+.merksub{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--inkt-3);padding:0 10px 16px;border-bottom:1px solid var(--lijn);margin-bottom:12px}
+.navlink{display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:11px;font-size:14.5px;font-weight:600;color:var(--inkt-2);cursor:pointer;border:0;background:none;width:100%;text-align:left}
+.navlink svg{width:18px;height:18px;flex:none}
+.navlink:hover{background:var(--vlak);color:var(--inkt)}
+.navlink.aan{background:var(--marine);color:#fff}
+.zij .winkel{margin-top:auto;border-top:1px solid var(--lijn);padding-top:14px;display:flex;align-items:center;gap:10px}
+.zij .winkel .av{width:36px;height:36px;border-radius:10px;background:var(--marine-100);color:var(--marine);display:grid;place-items:center;font-weight:800}
+.zij .winkel b{display:block;font-size:13.5px}
+.zij .winkel span{font-size:12px;color:var(--inkt-3)}
+
+/* main */
+.main{padding:26px 32px 60px;max-width:1000px}
+.paginakop{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:20px}
+h1{font-size:26px;font-weight:800;letter-spacing:-.02em;margin:0 0 3px}
+.paginakop p{margin:0;color:var(--inkt-2);font-size:14.5px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 18px;border-radius:999px;font-weight:600;font-size:14.5px;border:1.5px solid transparent;cursor:pointer;text-decoration:none;white-space:nowrap;transition:background .15s,border-color .15s}
+.btn svg{width:16px;height:16px}
+.btn-marine{background:var(--marine);color:#fff}.btn-marine:hover{background:var(--marine-d)}
+.btn-groen{background:var(--groen);color:#fff}.btn-groen:hover{background:var(--groen-800)}
+.btn-lijn{background:#fff;color:var(--inkt);border-color:var(--lijn)}.btn-lijn:hover{border-color:var(--inkt-3)}
+.btn-klein{padding:8px 14px;font-size:13.5px}
+
+.paneel{display:none}.paneel.aan{display:block;animation:in .2s ease both}
+@keyframes in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+.kaart{background:#fff;border:1px solid var(--lijn);border-radius:16px;padding:20px}
+.kaart+.kaart,.rijkaarten+.kaart,.kaart+.rijkaarten{margin-top:14px}
+.kaart h2{font-size:16px;font-weight:800;margin:0 0 4px}
+.kaart .toel{color:var(--inkt-3);font-size:13.5px;margin:0 0 16px}
+
+/* stattegels */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.stat{background:#fff;border:1px solid var(--lijn);border-radius:16px;padding:18px}
+.stat .lab{font-size:12.5px;color:var(--inkt-3);font-weight:600;display:flex;align-items:center;gap:6px}
+.stat .lab .ster{color:var(--marine);font-size:11px;font-weight:700}
+.stat b{display:block;font-size:30px;font-weight:800;letter-spacing:-.01em;margin:6px 0 2px}
+.stat .op{font-size:12.5px;font-weight:600}
+.op.up{color:var(--groen-800)}.op.down{color:var(--rood)}.op.flat{color:var(--inkt-3)}
+.botsregel{display:flex;gap:10px;align-items:center;background:var(--amber-soft);color:var(--amber);border-radius:12px;padding:12px 14px;font-size:13.5px;font-weight:600;margin-top:14px}
+.botsregel svg{width:17px;height:17px;flex:none}
+
+/* mini-grafiek */
+.grafiek{display:flex;align-items:flex-end;gap:6px;height:120px;margin-top:8px}
+.grafiek .bar{flex:1;background:var(--marine-100);border-radius:6px 6px 0 0;position:relative;min-height:4px}
+.grafiek .bar.nu{background:var(--marine)}
+.grafiek .bar span{position:absolute;bottom:-20px;left:0;right:0;text-align:center;font-size:10.5px;color:var(--inkt-3)}
+.grafiekwrap{padding-bottom:22px}
+
+.rijkaarten{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+
+/* vertoningen tabel */
+.vtabel{width:100%;border-collapse:collapse}
+.vtabel th{text-align:left;font-size:11.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--inkt-3);padding:8px 0;border-bottom:1px solid var(--lijn)}
+.vtabel td{padding:12px 0;border-bottom:1px solid var(--lijn);font-size:14px}
+.vtabel td:not(:first-child),.vtabel th:not(:first-child){text-align:right}
+.vtabel tr:last-child td{border-bottom:0;font-weight:700}
+.pill{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 9px;border-radius:999px}
+.pill.uit{background:var(--marine-100);color:var(--marine)}
+.pill.gew{background:var(--groen-100);color:var(--groen-800)}
+
+/* profiel/prijzen */
+.veld{margin-bottom:14px}
+.veld label{display:block;font-size:12.5px;font-weight:600;color:var(--inkt-2);margin-bottom:5px}
+.veld input,.veld textarea{width:100%;padding:10px 13px;border:1.5px solid var(--lijn);border-radius:10px;font:inherit;font-size:14.5px;background:#fff}
+.veld input:focus,.veld textarea:focus{outline:none;border-color:var(--groen);box-shadow:0 0 0 3px var(--groen-100)}
+.tweekolom{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.ptabel{border:1px solid var(--lijn);border-radius:12px;overflow:hidden}
+.pr{display:grid;grid-template-columns:minmax(0,1.4fr) repeat(3,minmax(0,1fr)) 120px;gap:12px;padding:12px 14px;align-items:center;border-top:1px solid var(--lijn)}
+.pr:first-child{border-top:0;background:var(--vlak);font-size:11.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--inkt-3)}
+.pr:first-child span:not(:first-child){text-align:right}
+.pr .rn{font-weight:700}
+.pr .inp{display:flex;align-items:center;gap:4px;justify-content:flex-end}
+.pr .inp .e{color:var(--inkt-3)}
+.pr .inp input{width:62px;padding:6px 8px;border:1.5px solid var(--lijn);border-radius:8px;font:inherit;font-size:14px;text-align:right}
+.pr .tijd{text-align:right;color:var(--inkt-2);font-size:13.5px}
+.bevestig{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--inkt-3);margin-top:12px}
+.bevestig svg{width:15px;height:15px;color:var(--groen)}
+.opslaan{display:flex;gap:10px;justify-content:flex-end;margin-top:16px}
+
+/* pakket */
+.pakhuidig{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.pakhuidig .naam{font-size:22px;font-weight:800}
+.pakhuidig .naam small{display:block;font-size:13px;font-weight:500;color:var(--inkt-3)}
+.aandeelbalk{margin-top:14px}
+.aandeelbalk .track{height:10px;border-radius:999px;background:var(--vlak);overflow:hidden;border:1px solid var(--lijn)}
+.aandeelbalk .fill{height:100%;background:var(--marine);border-radius:999px}
+.aandeelbalk .lab{display:flex;justify-content:space-between;font-size:12.5px;color:var(--inkt-3);margin-top:6px}
+.factuur{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-top:1px solid var(--lijn);font-size:14px}
+.factuur:first-of-type{border-top:0}
+.factuur .st{font-size:12px;font-weight:700;padding:2px 9px;border-radius:999px;background:var(--groen-100);color:var(--groen-800)}
+.incasso{display:flex;gap:10px;align-items:flex-start;background:var(--groen-50);border:1px solid var(--groen-200);border-radius:12px;padding:14px;font-size:13.5px;color:var(--inkt-2)}
+.incasso svg{width:18px;height:18px;color:var(--groen);flex:none;margin-top:1px}
+
+/* keurmerk */
+.keurstatus{display:flex;align-items:center;gap:14px;background:var(--groen-50);border:1px solid var(--groen-200);border-radius:14px;padding:18px}
+.keurstatus .bal{width:46px;height:46px;border-radius:13px;background:#fff;display:grid;place-items:center;flex:none}
+.keurstatus .bal svg{width:24px;height:24px;color:var(--groen)}
+.keurstatus b{font-size:16px}.keurstatus p{margin:2px 0 0;font-size:13.5px;color:var(--inkt-2)}
+.tijdlijn{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:12px}
+.tijdlijn li{display:flex;gap:12px;font-size:14px}
+.tijdlijn .stip{width:10px;height:10px;border-radius:50%;background:var(--groen);margin-top:5px;flex:none}
+.tijdlijn .toekomst .stip{background:var(--lijn)}
+.tijdlijn small{color:var(--inkt-3);display:block}
+
+.melding{display:flex;gap:10px;align-items:center;background:var(--marine-100);border-radius:12px;padding:12px 14px;font-size:13.5px;color:var(--marine);margin-bottom:16px}
+.melding svg{width:17px;height:17px;flex:none}
+
+/* beoordelingen */
+.matchrij{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:14px;align-items:center;padding:14px 0;border-top:1px solid var(--lijn)}
+.matchrij:first-of-type{border-top:0}
+.matchrij b{font-size:15px}
+.matchrij small{display:block;font-size:13px;color:var(--inkt-3)}
+.matchrij .st{font-size:11.5px;font-weight:700;padding:3px 10px;border-radius:999px;white-space:nowrap}
+.st.open{background:var(--marine-100);color:var(--marine)}
+.st.gemeld{background:var(--groen-100);color:var(--groen-800)}
+.st.beoordeeld{background:var(--groen-100);color:var(--groen-800)}
+.beoordeling{border-top:1px solid var(--lijn);padding:16px 0}
+.beoordeling:first-of-type{border-top:0}
+.bkop{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.bkop .cijf{font-weight:800;font-size:16px}
+.bkop .dat{margin-left:auto;font-size:13px;color:var(--inkt-3)}
+.beoordeling p{margin:8px 0 0;font-size:14.5px;color:var(--inkt-2)}
+.reactie{margin-top:10px;background:var(--vlak);border-radius:12px;padding:12px 14px;font-size:14px;color:var(--inkt-2)}
+.reactie b{display:block;font-size:13px;color:var(--inkt);margin-bottom:2px}
+.reactieveld{margin-top:10px;display:flex;gap:8px}
+.reactieveld input{flex:1;padding:10px 13px;border:1.5px solid var(--lijn);border-radius:10px;font:inherit;font-size:14px}
+.reactieveld input:focus{outline:none;border-color:var(--groen);box-shadow:0 0 0 3px var(--groen-100)}
+.acmregel{display:flex;gap:10px;align-items:flex-start;background:var(--amber-soft);color:var(--amber);border-radius:12px;padding:12px 14px;font-size:13.5px;margin-top:14px}
+.acmregel svg{width:17px;height:17px;flex:none;margin-top:1px}
+
+/* formulier */
+.fvoorbeeld{border:1.5px solid var(--lijn);border-radius:14px;padding:20px;background:var(--vlak);font-size:14px}
+.fvoorbeeld .frij{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--lijn)}
+.fvoorbeeld .frij:last-child{border-bottom:0}
+.fvoorbeeld .frij b{font-weight:700}
+.fkop{font-weight:800;font-size:15px;margin-bottom:10px}
+
+/* account */
+.instelling{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 0;border-top:1px solid var(--lijn)}
+.instelling:first-of-type{border-top:0}
+.instelling b{display:block;font-size:15px}
+.instelling span{font-size:13.5px;color:var(--inkt-2)}
+.schuif{width:46px;height:26px;border-radius:999px;background:var(--lijn);position:relative;cursor:pointer;border:0;flex:none}
+.schuif i{position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:left .15s}
+.schuif.aan{background:var(--groen)}
+.schuif.aan i{left:23px}
+.vestiging{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 0;border-top:1px solid var(--lijn);font-size:14.5px}
+.vestiging:first-of-type{border-top:0}
+.vestiging .hoofd{font-size:11.5px;font-weight:700;color:var(--groen-800);background:var(--groen-100);padding:2px 9px;border-radius:999px}
+.gevaar{border:1.5px solid var(--rood-soft);background:#fff;border-radius:14px;padding:18px;margin-top:14px}
+.gevaar b{display:block;font-size:15px;color:var(--rood);margin-bottom:4px}
+.gevaar p{margin:0 0 12px;font-size:13.5px;color:var(--inkt-2)}
+.btn-rood{background:#fff;color:var(--rood);border-color:var(--rood-soft)}
+.btn-rood:hover{background:var(--rood-soft)}
+
+/* mobiel: tabbalk */
+.mobtab{display:none}
+@media(max-width:860px){
+  .shell{grid-template-columns:1fr}
+  .zij{position:static;height:auto;flex-direction:row;flex-wrap:wrap;gap:6px;align-items:center;padding:12px 16px}
+  .zij .merk,.zij .merksub{padding:0;border:0;margin:0}
+  .zij .merksub{display:none}
+  .navlink{width:auto;padding:8px 12px}
+  .zij .winkel{margin:0 0 0 auto;border:0;padding:0}
+  .navlink span.txt{display:none}
+  .main{padding:20px 16px 60px}
+  .stats{grid-template-columns:1fr}
+  .rijkaarten{grid-template-columns:1fr}
+  .tweekolom{grid-template-columns:1fr}
+  .pr{grid-template-columns:1fr 1fr;gap:8px}
+  .pr:first-child{display:none}
+  .pr .rn{grid-column:1/-1}
+  .pr .tijd{text-align:left}
+}
+.jurvoet{border-top:1px solid var(--lijn);margin-top:40px;padding:22px 32px 48px;max-width:1160px;margin-left:auto;margin-right:auto;color:var(--inkt-3);font-size:13px}
+.jurvoet .jur{display:flex;flex-wrap:wrap;gap:18px;margin-bottom:10px}
+.jurvoet .jur a{text-decoration:none;color:var(--inkt-2);font-weight:600}
+.jurvoet .jur a:hover{color:var(--groen)}
+@media(max-width:760px){.jurvoet{padding:20px 16px 44px}}
+</style>
+
+<div class="schets">Ontwerpschets van het winkelportaal. Alle cijfers en gegevens zijn voorbeelden. De vormgeving is een voorstel.</div>
+
+<div class="shell">
+  <aside class="zij">
+    <a class="merk" href="index.html">snel<i>repareren</i>.nl</a>
+    <div class="merksub">Winkelportaal</div>
+    <button class="navlink aan" data-p="overzicht"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg><span class="txt">Overzicht</span></button>
+    <button class="navlink" data-p="vertoningen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20V10M9 20V4M15 20v-7M21 20V8"/></svg><span class="txt">Vertoningen</span></button>
+    <button class="navlink" data-p="beoordelingen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.6 5.6 6.1.8-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6L3.3 9.4l6.1-.8z"/></svg><span class="txt">Beoordelingen</span></button>
+    <button class="navlink" data-p="profiel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg><span class="txt">Profiel en prijzen</span></button>
+    <button class="navlink" data-p="formulier"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h14v18H5z"/><path d="M9 8h6M9 12h6M9 16h3"/></svg><span class="txt">Reparatieformulier</span></button>
+    <button class="navlink" data-p="pakket"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3 10h18"/></svg><span class="txt">Pakket en facturatie</span></button>
+    <button class="navlink" data-p="keurmerk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 3v5.4c0 4.3-3.1 8.3-7.5 9.6-4.4-1.3-7.5-5.3-7.5-9.6V6z"/><path d="M9 12l2 2 4-4"/></svg><span class="txt">Keurmerk</span></button>
+    <button class="navlink" data-p="account"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg><span class="txt">Account</span></button>
+    <div class="winkel"><div class="av">T</div><div><b>Telefoonhulp</b><span><a href="inloggen.html" style="color:var(--inkt-3);text-decoration:none">Uitloggen</a></span></div></div>
+  </aside>
+
+  <main class="main">
+    <!-- OVERZICHT -->
+    <section class="paneel aan" data-p="overzicht">
+      <div class="paginakop"><div><h1>Goedemorgen, Telefoonhulp</h1><p>Dit is je maand tot nu toe, augustus 2026.</p></div><a class="btn btn-marine btn-klein" href="#" onclick="ga('profiel');return false">Profiel bijwerken</a></div>
+      <div class="stats">
+        <div class="stat"><div class="lab">Getoond in zoekresultaten</div><b class="num">1.240</b><div class="op up">&uarr; 12% t.o.v. juli</div></div>
+        <div class="stat"><div class="lab">Doorgeklikt naar profiel</div><b class="num">86</b><div class="op flat">7% van de vertoningen</div></div>
+        <div class="stat"><div class="lab">Gebeld of route <span class="ster">&#9733; kerngetal</span></div><b class="num">31</b><div class="op up">&uarr; 5 t.o.v. juli</div></div>
+      </div>
+      <div class="botsregel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg>210 vertoningen zijn niet meegerekend omdat ze van bots kwamen. Wij tellen alleen echte mensen.</div>
+      <div class="kaart" style="margin-top:14px"><h2>Gebeld of route, per maand</h2><p class="toel">Je belangrijkste getal: hoe vaak mensen echt actie ondernamen.</p>
+        <div class="grafiekwrap"><div class="grafiek" id="grafiek"></div></div>
+      </div>
+      <div class="rijkaarten">
+        <div class="kaart"><h2>Snel regelen</h2><p class="toel">Dit vragen winkeliers het vaakst.</p>
+          <div style="display:grid;gap:8px"><a class="btn btn-lijn" href="#" onclick="ga('profiel');return false">Prijzen bijwerken</a><a class="btn btn-lijn" href="#" onclick="ga('pakket');return false">Pakket bekijken</a><a class="btn btn-lijn" href="winkelprofiel.html">Bekijk mijn openbare profiel</a></div>
+        </div>
+        <div class="kaart"><h2>Aandachtspunt</h2><p class="toel">Iets dat je zichtbaarheid raakt.</p>
+          <div class="melding"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>Je prijs voor de iPhone 14 is 78 dagen niet bevestigd. Na 90 dagen weegt hij lichter mee.</div>
+          <a class="btn btn-groen btn-klein" href="#" onclick="ga('profiel');return false">Nu bevestigen</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- VERTONINGEN -->
+    <section class="paneel" data-p="vertoningen">
+      <div class="paginakop"><div><h1>Vertoningen</h1><p>Waar je bent getoond, augustus 2026. Alleen echte mensen, bots eruit gefilterd.</p></div></div>
+      <div class="stats">
+        <div class="stat"><div class="lab">Echte vertoningen</div><b class="num">1.240</b><div class="op up">&uarr; 12%</div></div>
+        <div class="stat"><div class="lab">Waarvan in Uitgelicht</div><b class="num">540</b><div class="op flat">je pakket Groei</div></div>
+        <div class="stat"><div class="lab">Bots niet meegeteld</div><b class="num">210</b><div class="op flat">14% van het ruwe totaal</div></div>
+      </div>
+      <div class="kaart" style="margin-top:14px"><h2>Waar je werd getoond</h2><p class="toel">Per pagina, in aflopende volgorde.</p>
+        <table class="vtabel"><thead><tr><th>Pagina</th><th>Soort</th><th>Vertoningen</th><th>Doorgeklikt</th></tr></thead>
+          <tbody id="vrijen"></tbody>
+        </table>
+      </div>
+      <div class="botsregel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg>De 210 bot-vertoningen staan hierboven niet in. Je betaalt en rekent alleen op echte mensen.</div>
+    </section>
+
+    <!-- PROFIEL EN PRIJZEN -->
+    <section class="paneel" data-p="profiel">
+      <div class="paginakop"><div><h1>Profiel en prijzen</h1><p>Dit ziet de klant op je openbare profiel.</p></div><a class="btn btn-lijn btn-klein" href="winkelprofiel.html">Bekijk als klant</a></div>
+      <div class="kaart"><h2>Winkelgegevens</h2><p class="toel">Naam, adres en openingstijden.</p>
+        <div class="tweekolom">
+          <div class="veld"><label>Winkelnaam</label><input value="Telefoonhulp Leeuwarden"></div>
+          <div class="veld"><label>Telefoon</label><input value="058 123 45 67"></div>
+        </div>
+        <div class="tweekolom">
+          <div class="veld"><label>Adres</label><input value="Nieuwestad 112"></div>
+          <div class="veld"><label>Postcode en plaats</label><input value="8911 KX Leeuwarden"></div>
+        </div>
+        <div class="veld"><label>Korte omschrijving (max 3 zinnen)</label><textarea rows="2">Wij repareren sinds 2014 aan de Nieuwestad en doen bijna alles terwijl je wacht.</textarea></div>
+      </div>
+      <div class="kaart"><h2>Prijzen per reparatie</h2><p class="toel">Bij elke prijs hoort een kwaliteitslabel en een doorlooptijd. Zonder die twee kunnen we je prijs niet eerlijk vergelijken.</p>
+        <div class="ptabel">
+          <div class="pr"><span>Reparatie (iPhone 13)</span><span>Compatibel</span><span>Service pack</span><span>Origineel</span><span>Doorlooptijd</span></div>
+          <div class="pr"><span class="rn">Scherm</span><span class="inp"><span class="e">&euro;</span><input value="79"></span><span class="inp"><span class="e">&euro;</span><input value="154"></span><span class="inp"><span class="e">&euro;</span><input value="249"></span><span class="tijd">30-45 min</span></div>
+          <div class="pr"><span class="rn">Accu</span><span class="inp"><span class="e">&euro;</span><input value="59"></span><span class="inp"><span class="e">&euro;</span><input value="75"></span><span class="inp"><span class="e">&euro;</span><input value="99"></span><span class="tijd">30 min</span></div>
+          <div class="pr"><span class="rn">Laadpoort</span><span class="inp"><span class="e">&euro;</span><input value="65"></span><span class="inp"><span class="e">&euro;</span><input value="79"></span><span class="inp"><span class="e">&euro;</span><input value="95"></span><span class="tijd">45 min</span></div>
+        </div>
+        <div class="bevestig"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>Laatst bevestigd op 2 september 2026. Bevestig elke 90 dagen om goed vindbaar te blijven.</div>
+        <div class="opslaan"><button class="btn btn-lijn">Annuleren</button><button class="btn btn-groen">Opslaan en bevestigen</button></div>
+      </div>
+    </section>
+
+    <!-- PAKKET EN FACTURATIE -->
+    <section class="paneel" data-p="pakket">
+      <div class="paginakop"><div><h1>Pakket en facturatie</h1><p>Je abonnement en je facturen.</p></div></div>
+      <div class="kaart"><h2>Je pakket</h2><p class="toel">Bepaalt je aandeel in het blok Uitgelicht.</p>
+        <div class="pakhuidig"><div class="naam">Groei<small>&euro; 79 per maand, maandelijks opzegbaar</small></div><a class="btn btn-marine" href="voor-winkels.html#pakketten">Pakket wijzigen</a></div>
+        <div class="aandeelbalk"><div class="track"><div class="fill" style="width:62%"></div></div><div class="lab"><span>Je aandeel in Uitgelicht in Leeuwarden</span><span>62%</span></div></div>
+        <p class="toel" style="margin:14px 0 0">Upgraden gaat direct in; de nieuwe prijs geldt vanaf de volgende maand. Je prijs van dit jaar blijft ook volgend jaar gelden.</p>
+      </div>
+      <div class="kaart"><h2>Facturen</h2><p class="toel">Betaald via automatische incasso.</p>
+        <div class="factuur"><span>Augustus 2026 &middot; &euro; 79,00</span><span class="st">Betaald</span></div>
+        <div class="factuur"><span>Juli 2026 &middot; &euro; 79,00</span><span class="st">Betaald</span></div>
+        <div class="factuur"><span>Juni 2026 &middot; &euro; 79,00</span><span class="st">Betaald</span></div>
+        <div class="incasso" style="margin-top:14px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Incasso via Mollie loopt goed. Mocht een incasso een keer mislukken, dan krijg je 7 dagen de tijd voordat je zichtbaarheid tijdelijk pauzeert. Je vermelding wordt niet verwijderd.</span></div>
+      </div>
+    </section>
+
+    <!-- KEURMERK -->
+    <section class="paneel" data-p="keurmerk">
+      <div class="paginakop"><div><h1>Keurmerk</h1><p>Je status voor Verzekerd, gecontroleerd.</p></div><a class="btn btn-lijn btn-klein" href="keurmerk.html">Wat betekent dit?</a></div>
+      <div class="kaart">
+        <div class="keurstatus"><div class="bal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 3v5.4c0 4.3-3.1 8.3-7.5 9.6-4.4-1.3-7.5-5.3-7.5-9.6V6z"/><path d="M9 12l2 2 4-4"/></svg></div><div><b>Verzekerd, gecontroleerd &mdash; actief</b><p>Je klanten zien dit label op je profiel en in de lijst.</p></div></div>
+        <ul class="tijdlijn">
+          <li><span class="stip"></span><div><b>Laatste controle geslaagd</b><small>12 augustus 2026 &middot; polis en KvK-inschrijving gezien</small></div></li>
+          <li><span class="stip"></span><div><b>Apple IRP nagetrokken</b><small>12 augustus 2026 &middot; bevestigd bij de fabrikant</small></div></li>
+          <li class="toekomst"><span class="stip"></span><div><b>Volgende controle</b><small>rond 1 januari 2027, wanneer je polis afloopt</small></div></li>
+        </ul>
+        <div class="melding" style="margin:16px 0 0"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>Verloopt je polis? Upload de nieuwe op tijd, dan blijft je keurmerk zonder onderbreking staan.</div>
+        <div class="opslaan" style="justify-content:flex-start"><button class="btn btn-groen">Nieuwe polis uploaden</button></div>
+      </div>
+    </section>
+
+    <!-- BEOORDELINGEN -->
+    <section class="paneel" data-p="beoordelingen">
+      <div class="paginakop"><div><h1>Beoordelingen</h1><p>Klanten die via ons bij je kwamen, krijgen twee dagen later de vraag hoe het ging.</p></div></div>
+      <div class="stats">
+        <div class="stat"><div class="lab">Klanten via ons deze maand</div><b class="num">31</b><div class="op flat">gebeld of route opgevraagd</div></div>
+        <div class="stat"><div class="lab">Beoordelingen ontvangen</div><b class="num">6</b><div class="op up">19% van de klanten</div></div>
+        <div class="stat"><div class="lab">Je gemiddelde</div><b class="num">9,1</b><div class="op flat">over 48 beoordelingen</div></div>
+      </div>
+      <div class="kaart" style="margin-top:14px"><h2>Klaarmelden</h2><p class="toel">Meld een reparatie af, dan sturen wij de klant de uitnodiging op het juiste moment.</p>
+        <div id="matches"></div>
+        <div class="acmregel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg><span>Klaarmelden stuurt <b>altijd</b> een uitnodiging. Je kunt niet kiezen welke klant er een krijgt; dat mag niet en het zou je cijfer waardeloos maken.</span></div>
+      </div>
+      <div class="kaart"><h2>Ontvangen beoordelingen</h2><p class="toel">Je mag op elke beoordeling één keer reageren. Verwijderen kan niet.</p>
+        <div id="beoordelingen"></div>
+      </div>
+    </section>
+
+    <!-- REPARATIEFORMULIER -->
+    <section class="paneel" data-p="formulier">
+      <div class="paginakop"><div><h1>Reparatieformulier</h1><p>Het Europese informatieformulier dat je de klant vooraf moet geven. Wij maken het voor je.</p></div></div>
+      <div class="kaart"><h2>Maak een formulier</h2><p class="toel">Kies toestel en reparatie; de rest vullen wij met je eigen prijzen en voorwaarden.</p>
+        <div class="tweekolom">
+          <div class="veld"><label>Toestel</label><input value="iPhone 13"></div>
+          <div class="veld"><label>Reparatie</label><input value="Scherm vervangen, service pack"></div>
+        </div>
+        <div class="tweekolom">
+          <div class="veld"><label>Naam klant</label><input placeholder="Voor- en achternaam"></div>
+          <div class="veld"><label>Datum</label><input value="6 september 2026"></div>
+        </div>
+        <div class="fvoorbeeld" style="margin-top:6px">
+          <div class="fkop">Voorbeeld van het formulier</div>
+          <div class="frij"><span>Reparatie</span><b>Scherm vervangen, iPhone 13</b></div>
+          <div class="frij"><span>Onderdeelkwaliteit</span><b>Service pack</b></div>
+          <div class="frij"><span>Prijs inclusief btw</span><b class="num">&euro; 154,00</b></div>
+          <div class="frij"><span>Doorlooptijd</span><b>30 tot 45 minuten</b></div>
+          <div class="frij"><span>Garantie</span><b>12 maanden op onderdeel en werk</b></div>
+          <div class="frij"><span>Uitgesloten</span><b>Nieuwe val- of waterschade</b></div>
+        </div>
+        <div class="opslaan"><button class="btn btn-lijn">Voorbeeld bekijken</button><button class="btn btn-groen">Maak pdf</button></div>
+      </div>
+    </section>
+
+    <!-- ACCOUNT -->
+    <section class="paneel" data-p="account">
+      <div class="paginakop"><div><h1>Account</h1><p>Je inloggegevens, vestigingen en abonnement.</p></div></div>
+      <div class="kaart"><h2>Inloggen en beveiliging</h2><p class="toel">Wie kan er bij dit account.</p>
+        <div class="instelling"><div><b>E-mailadres</b><span>jelle@telefoonhulp.nl</span></div><button class="btn btn-lijn btn-klein">Wijzigen</button></div>
+        <div class="instelling"><div><b>Wachtwoord</b><span>Laatst gewijzigd op 12 augustus 2026</span></div><button class="btn btn-lijn btn-klein">Wijzigen</button></div>
+        <div class="instelling"><div><b>Extra beveiliging met een code</b><span>Optioneel, maar wel aan te raden. Je hebt er een app voor nodig.</span></div><button class="schuif" id="tweefactor" onclick="this.classList.toggle('aan')"><i></i></button></div>
+      </div>
+      <div class="kaart"><h2>Vestigingen</h2><p class="toel">Meerdere adressen onder één account hoort bij het pakket Groei en hoger.</p>
+        <div class="vestiging"><span><b>Nieuwestad 112, Leeuwarden</b></span><span class="hoofd">Hoofdvestiging</span></div>
+        <div class="vestiging"><span><b>Schrans 14, Leeuwarden</b></span><button class="btn btn-lijn btn-klein">Bewerken</button></div>
+        <div class="opslaan" style="justify-content:flex-start"><button class="btn btn-lijn">Vestiging toevoegen</button></div>
+      </div>
+      <div class="kaart"><h2>Abonnement beëindigen</h2><p class="toel">Je zit nergens aan vast.</p>
+        <div class="gevaar">
+          <b>Betaald pakket opzeggen</b>
+          <p>Je pakket Groei stopt aan het einde van de lopende maand. Je gratis vermelding blijft gewoon staan, met je prijzen en beoordelingen.</p>
+          <button class="btn btn-rood btn-klein">Pakket opzeggen</button>
+        </div>
+        <div class="gevaar" style="margin-top:10px">
+          <b>Vermelding helemaal verwijderen</b>
+          <p>Je winkel verdwijnt van snelrepareren.nl, inclusief je prijzen en beoordelingen. Dit kan niet ongedaan worden gemaakt.</p>
+          <button class="btn btn-rood btn-klein">Vermelding verwijderen</button>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+
+<footer class="jurvoet">
+  <div class="jur"><a href="voorwaarden.html">Voorwaarden</a><a href="privacy.html">Privacy</a><a href="cookies.html">Cookies</a><a href="toegankelijkheid.html">Toegankelijkheid</a><a href="melden.html">Iets melden</a></div>
+  Het winkelportaal van snelrepareren.nl. Zie ook de <a href="voorwaarden-winkels.html">voorwaarden voor winkels</a>.
+</footer>
+
+<script>
+const GRAF=[14,18,16,22,19,25,28,31];const MND=['jan','feb','mrt','apr','mei','jun','jul','aug'];
+const max=Math.max(...GRAF);
+document.getElementById('grafiek').innerHTML=GRAF.map((v,i)=>`<div class="bar${i===GRAF.length-1?' nu':''}" style="height:${Math.round(v/max*100)}%"><span>${MND[i]}</span></div>`).join('');
+const VR=[
+ ['Plaatspagina Leeuwarden','gewoon',430,28],
+ ['Blok Uitgelicht, Leeuwarden','uitgelicht',540,41],
+ ['Prijspagina iPhone 13 scherm','gewoon',180,12],
+ ['Reparatiekiezer','gewoon',90,5],
+ ['Totaal','',1240,86],
+];
+document.getElementById('vrijen').innerHTML=VR.map(([p,s,v,d])=>`<tr><td>${p}${s==='uitgelicht'?' <span class="pill uit">Uitgelicht</span>':s==='gewoon'?' <span class="pill gew">Gewoon</span>':''}</td><td></td><td class="num">${v.toLocaleString('nl-NL')}</td><td class="num">${d}</td></tr>`).join('');
+const MATCHES=[
+ ['Klant via de plaatspagina','Scherm iPhone 13 &middot; 4 september','open'],
+ ['Klant via de prijspagina','Accu iPhone 12 &middot; 3 september','gemeld'],
+ ['Klant via de kiezer','Laadpoort Galaxy S23 &middot; 2 september','beoordeeld'],
+];
+const BEOORDELINGEN=[
+ {c:'10',n:'Marije D.',p:'Leeuwarden',d:'3 dagen geleden',t:'Scherm in een half uur vervangen terwijl ik koffie dronk. Vooraf verteld welk scherm erin ging.',r:null},
+ {c:'6',n:'Peter K.',p:'Leeuwarden',d:'2 maanden geleden',t:'Reparatie is prima, maar mijn toestel was niet op de beloofde tijd klaar en ik ben daar niet over gebeld.',r:'Dat spijt ons, je had bericht moeten krijgen. Wij bellen voortaan altijd zodra een reparatie uitloopt.'},
+];
+function matches(){
+ const tekst={open:'Nog niet gemeld',gemeld:'Klaargemeld',beoordeeld:'Beoordeeld'};
+ document.getElementById('matches').innerHTML=MATCHES.map(([n,s,st],i)=>`<div class="matchrij">
+   <span><b>${n}</b><small>${s}</small></span>
+   <span class="st ${st}">${tekst[st]}</span>
+   ${st==='open'?`<button class="btn btn-groen btn-klein" onclick="meldKlaar(${i})">Reparatie afgerond</button>`:'<span></span>'}</div>`).join('');
+}
+function meldKlaar(i){MATCHES[i][2]='gemeld';matches()}
+function beoordelingen(){
+ document.getElementById('beoordelingen').innerHTML=BEOORDELINGEN.map((b,i)=>`<div class="beoordeling">
+   <div class="bkop"><span class="cijf num">${b.c}</span><b>${b.n}</b><span style="color:var(--inkt-3);font-size:13.5px">uit ${b.p}</span><span class="dat">${b.d}</span></div>
+   <p>${b.t}</p>
+   ${b.r?`<div class="reactie"><b>Je reactie</b>${b.r}</div>`
+        :`<div class="reactieveld"><input placeholder="Reageer één keer op deze beoordeling"><button class="btn btn-lijn btn-klein" onclick="reageer(${i},this)">Plaatsen</button></div>`}
+ </div>`).join('');
+}
+function reageer(i,knop){
+ const veld=knop.previousElementSibling;
+ BEOORDELINGEN[i].r=veld.value.trim()||'Bedankt voor je beoordeling.';
+ beoordelingen();
+}
+function ga(p){
+  document.querySelectorAll('.navlink').forEach(n=>n.classList.toggle('aan',n.dataset.p===p));
+  document.querySelectorAll('.paneel').forEach(s=>s.classList.toggle('aan',s.dataset.p===p));
+  window.scrollTo(0,0);
+}
+document.querySelectorAll('.navlink').forEach(n=>n.onclick=()=>ga(n.dataset.p));
+matches();beoordelingen();
+</script>

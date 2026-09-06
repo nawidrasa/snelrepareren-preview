@@ -1,0 +1,353 @@
+<title>Origineel of kopie scherm</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap">
+<style>
+:root{
+  --gradient:linear-gradient(160deg,#008C34 0%,#22C55E 55%,#86EFAC 100%);
+  --groen-50:#F0FDF4;--groen-100:#DCFCE7;--groen-200:#BBF7D0;--groen-300:#86EFAC;--groen-500:#22C55E;--groen:#008934;--groen-800:#007B2E;--groen-900:#005A22;
+  --marine:#0B1F4E;--marine-d:#061238;--marine-100:#E8ECF5;--marine-200:#C5CEE3;
+  --inkt:#111827;--inkt-2:#4A5878;--inkt-3:#6B7480;--lijn:#E3E6EE;--vlak:#F6F8FA;
+  --amber:#B45309;--amber-soft:#FEF3C7;--rood:#B91C1C;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#fff;color:var(--inkt);font-family:'Outfit',system-ui,sans-serif;font-size:16px;line-height:1.55}
+.num{font-variant-numeric:tabular-nums}
+button{font:inherit}
+a{color:inherit}
+.in{max-width:1160px;margin:0 auto;padding:0 32px}
+.smal{max-width:820px}
+
+.schets{background:var(--amber-soft);color:var(--amber);font-size:13px;font-weight:600;text-align:center;padding:8px 16px}
+
+.top{display:flex;align-items:center;gap:24px;padding:16px 32px;max-width:1160px;margin:0 auto}
+.logo{font-weight:800;font-size:20px;letter-spacing:-.02em;color:var(--marine);text-decoration:none}
+.logo i{font-style:normal;color:var(--groen)}
+.top nav{display:flex;gap:22px;font-size:15px;color:var(--inkt-2)}
+.top nav a{text-decoration:none}
+.top .btn{margin-left:auto}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:999px;font-weight:600;font-size:15px;border:1.5px solid transparent;cursor:pointer;text-decoration:none;white-space:nowrap;transition:background .15s,transform .15s,border-color .15s}
+.btn:active{transform:scale(.98)}
+.btn svg{width:16px;height:16px;flex:none}
+.btn-groen{background:var(--groen);color:#fff}
+.btn-groen:hover{background:var(--groen-800)}
+.btn-lijn{background:#fff;color:var(--groen);border-color:var(--groen)}
+.btn-lijn:hover{background:var(--groen-50)}
+.btn-klein{padding:9px 16px;font-size:14px}
+.btn-groot{padding:15px 26px;font-size:16px}
+
+.kruimels{font-size:13px;color:var(--inkt-3);padding:16px 0 0}
+.kruimels a{text-decoration:none}
+.kruimels a:hover{color:var(--inkt)}
+.kruimels span{margin:0 6px}
+
+/* hero */
+.hero{padding:8px 0 4px}
+.merk{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--groen);margin:6px 0 8px}
+h1{font-size:clamp(28px,3.8vw,40px);font-weight:800;letter-spacing:-.025em;margin:0 0 14px;text-wrap:balance;max-width:20ch}
+.intro{font-size:18px;line-height:1.55;color:var(--inkt-2);max-width:70ch;margin:0}
+.intro b{color:var(--inkt);font-weight:700}
+
+/* korte samenvatting */
+.tldr{background:var(--groen-50);border:1.5px solid var(--groen-200);border-radius:20px;padding:20px 24px;margin:22px 0 0}
+.tldr b{font-weight:800}
+.tldr ul{margin:10px 0 0;padding:0;list-style:none;display:grid;gap:9px}
+.tldr li{display:flex;gap:10px;align-items:flex-start;font-size:15.5px}
+.tldr li svg{width:18px;height:18px;color:var(--groen);flex:none;margin-top:3px}
+
+section{padding:34px 0;scroll-margin-top:16px}
+h2{font-size:24px;font-weight:800;letter-spacing:-.02em;margin:0 0 8px}
+.uitleg{color:var(--inkt-2);font-size:16px;margin:0 0 22px;max-width:72ch}
+
+/* beslishulp */
+.hulp{border:1.5px solid var(--lijn);border-radius:24px;padding:28px;background:#fff}
+.vraag{margin-bottom:22px}
+.vraag:last-of-type{margin-bottom:0}
+.vraag .q{font-size:16px;font-weight:700;margin:0 0 12px}
+.vraag .q small{display:block;font-weight:400;font-size:13.5px;color:var(--inkt-3);margin-top:2px}
+.keuzes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.kk{display:flex;align-items:center;gap:10px;text-align:left;padding:14px 16px;border:1.5px solid var(--lijn);border-radius:14px;background:#fff;font-size:14.5px;font-weight:600;color:var(--inkt);cursor:pointer;transition:border-color .15s,background .15s}
+.kk:hover{border-color:var(--groen)}
+.kk.aan{border-color:var(--groen);background:var(--groen-50);color:var(--groen-800)}
+.kk .rond{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--lijn);flex:none;display:grid;place-items:center}
+.kk.aan .rond{border-color:var(--groen);background:var(--groen)}
+.kk .rond svg{width:12px;height:12px;color:#fff;opacity:0}
+.kk.aan .rond svg{opacity:1}
+.advies{margin-top:24px;border-top:1px solid var(--lijn);padding-top:22px}
+.advies.leeg{color:var(--inkt-3);font-size:14.5px;text-align:center}
+.advieskaart{display:grid;grid-template-columns:auto minmax(0,1fr);gap:16px;align-items:start}
+.advieskaart .bal{width:52px;height:52px;border-radius:15px;background:var(--groen-100);display:grid;place-items:center}
+.advieskaart .bal svg{width:26px;height:26px;color:var(--groen-800)}
+.advieskaart .lab{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--groen)}
+.advieskaart h3{margin:2px 0 6px;font-size:21px;font-weight:800}
+.advieskaart p{margin:0;color:var(--inkt-2);font-size:15px;max-width:60ch}
+.advieskaart .prijshint{margin:10px 0 0;font-size:14px;color:var(--inkt-3)}
+.advieskaart .btn{margin-top:16px}
+
+/* vergelijking */
+.vgl{border:1.5px solid var(--lijn);border-radius:20px;overflow:hidden}
+.vgrij{display:grid;grid-template-columns:180px minmax(0,1fr) minmax(0,1fr);gap:16px;padding:15px 22px;align-items:baseline;border-top:1px solid var(--lijn)}
+.vgrij:first-child{border-top:0;background:var(--vlak);padding-top:16px;padding-bottom:16px}
+.vgrij:first-child span{font-size:13px;font-weight:800}
+.vgrij:first-child .k{color:var(--inkt-3);font-weight:700;font-size:12px;letter-spacing:.05em;text-transform:uppercase}
+.vgrij .veld{font-weight:700;font-size:14.5px}
+.vgrij .cel{font-size:14.5px;color:var(--inkt-2);display:flex;gap:8px;align-items:flex-start}
+.vgrij .cel svg{width:17px;height:17px;flex:none;margin-top:2px}
+.vgrij .cel.ja svg{color:var(--groen)}
+.vgrij .cel.nee svg{color:var(--amber)}
+.vgrij .cel.neu svg{color:var(--inkt-3)}
+
+/* wanneer-blokken */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.wkaart{border:1.5px solid var(--lijn);border-radius:18px;padding:22px}
+.wkaart h3{margin:0 0 12px;font-size:17px;font-weight:800;display:flex;align-items:center;gap:9px}
+.wkaart h3 svg{width:20px;height:20px}
+.wkaart.kopie h3 svg{color:var(--groen)}
+.wkaart.orig h3 svg{color:var(--marine)}
+.wkaart ul{margin:0;padding:0;list-style:none;display:grid;gap:10px}
+.wkaart li{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;color:var(--inkt-2)}
+.wkaart li svg{width:17px;height:17px;color:var(--inkt-3);flex:none;margin-top:2px}
+
+/* let op */
+.letop{display:grid;gap:12px}
+.lrij{display:flex;gap:14px;align-items:flex-start;border:1.5px solid var(--lijn);border-radius:16px;padding:16px 18px}
+.lrij .ic{width:36px;height:36px;border-radius:11px;background:var(--amber-soft);display:grid;place-items:center;flex:none}
+.lrij .ic svg{width:19px;height:19px;color:var(--amber)}
+.lrij b{display:block;font-size:15.5px;font-weight:700;margin-bottom:2px}
+.lrij span{font-size:14.5px;color:var(--inkt-2)}
+
+/* prijsblok */
+.prijskaart{background:var(--marine);color:#fff;border-radius:22px;padding:28px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:center}
+.prijskaart h2{color:#fff;margin-bottom:6px}
+.prijskaart p{margin:0;color:#fff;opacity:.85;font-size:15px;max-width:52ch}
+.prijskaart .cijfers{display:flex;gap:22px;text-align:center}
+.prijskaart .cijfers small{display:block;font-size:12px;font-weight:600;opacity:.75;text-transform:uppercase;letter-spacing:.04em}
+.prijskaart .cijfers b{font-size:28px;font-weight:800}
+
+/* faq */
+.faq{border-top:1px solid var(--lijn);padding:18px 0}
+.faq:last-of-type{border-bottom:1px solid var(--lijn)}
+.faq b{display:block;font-size:16.5px;font-weight:700;margin-bottom:6px}
+.faq p{margin:0;color:var(--inkt-2);font-size:15px;max-width:75ch}
+
+.verwant{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.vkaart{border:1.5px solid var(--lijn);border-radius:16px;padding:16px 18px;text-decoration:none;transition:border-color .15s}
+.vkaart:hover{border-color:var(--groen)}
+.vkaart b{font-size:15px;font-weight:700;display:block}
+.vkaart small{font-size:13px;color:var(--inkt-3)}
+
+.bronblok{background:var(--vlak);border-radius:18px;padding:22px;font-size:14px;color:var(--inkt-2)}
+.bronblok b{color:var(--inkt)}
+footer{border-top:1px solid var(--lijn);padding:28px 0 60px;color:var(--inkt-3);font-size:13px;margin-top:12px}
+
+@media (max-width:820px){
+  .keuzes{grid-template-columns:1fr}
+  .duo,.verwant{grid-template-columns:1fr}
+  .prijskaart{grid-template-columns:1fr;gap:18px}
+}
+@media (max-width:760px){
+  .in{padding:0 16px}
+  .top{padding:14px 16px;gap:12px}
+  .top nav{display:none}
+  .hulp{padding:20px}
+  .vgrij{grid-template-columns:1fr;gap:6px;padding:14px 16px}
+  .vgrij:first-child{display:none}
+  .vgrij .veld{font-size:15px}
+  .vgrij .cel::before{font-weight:700;color:var(--inkt);font-size:12px}
+  .vgrij .cel.orig::before{content:"Origineel: "}
+  .vgrij .cel.kop::before{content:"Kopie: "}
+}
+footer .jur{display:flex;flex-wrap:wrap;gap:18px;margin-bottom:12px}footer .jur a{text-decoration:none;color:var(--inkt-2);font-weight:600}footer .jur a:hover{color:var(--groen)}
+</style>
+
+<div class="schets">Ontwerpschets. De genoemde prijzen zijn echt gemeten bij Nederlandse winkels (peildatum 3 september 2026). De vormgeving is een voorstel.</div>
+
+<header class="top">
+  <a class="logo" href="index.html">snel<i>repareren</i>.nl</a>
+  <nav><a href="reparaties.html">Reparaties</a><a href="toestellen.html">Toestellen</a><a href="plaatsen.html">Plaatsen</a><a href="gidsen.html">Gidsen</a><a href="hoe-wij-rangschikken.html">Hoe wij rangschikken</a></nav>
+  <a class="btn btn-lijn btn-klein" href="voor-winkels.html">Voor winkels</a>
+</header>
+
+<div class="in smal">
+  <div class="kruimels"><a href="index.html">Home</a><span>&rsaquo;</span><a href="gidsen.html">Gidsen</a><span>&rsaquo;</span>Origineel of kopie scherm</div>
+
+  <div class="hero">
+    <p class="merk">Gids</p>
+    <h1>Origineel of kopie scherm: wat kun je het beste kiezen?</h1>
+    <p class="intro">Als je je telefoonscherm laat vervangen, krijg je vaak de keuze tussen een origineel en een goedkoper scherm. Het verschil in prijs is groot, soms een factor drie. Deze gids legt uit waar dat verschil zit, en helpt je kiezen wat bij <b>jouw</b> situatie past.</p>
+    <div class="tldr">
+      <b>Kort samengevat</b>
+      <ul>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Gebruik je het toestel nog kort, of let je vooral op de prijs? Dan is een <b>kopie of soft OLED</b> vaak prima.</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Wil je het beeld exact als vanaf de fabriek, of zit er nog garantie op? Kies dan een <b>origineel of refurbished origineel</b> scherm.</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Let goed op het <b>label</b>: "compatibel" kan een goedkope kopie zijn of een goede soft OLED. Dat scheelt sterk.</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <section id="hulp">
+    <h2>Welke past bij jou?</h2>
+    <p class="uitleg">Beantwoord drie korte vragen. Wij geven een aanbeveling en leggen uit waarom. Er is geen fout antwoord, het hangt af van wat jij belangrijk vindt.</p>
+    <div class="hulp">
+      <div id="vragen"></div>
+      <div class="advies" id="advies"></div>
+    </div>
+  </section>
+
+  <section id="verschil">
+    <h2>Origineel tegenover kopie, punt voor punt</h2>
+    <p class="uitleg">Met "origineel" bedoelen we een fabrieksscherm of een hersteld fabrieksscherm. Met "kopie" bedoelen we een namaakscherm, van een simpele kopie tot een goede soft OLED. Zo verhouden ze zich:</p>
+    <div class="vgl" id="vgl"></div>
+  </section>
+
+  <section id="wanneer">
+    <h2>Wanneer is welke keuze verstandig?</h2>
+    <div class="duo">
+      <div class="wkaart kopie">
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18M12 3v18"/></svg>Een kopie is prima als</h3>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>je het toestel nog een beperkte tijd gebruikt, of het als reserve houdt.</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>het een ouder toestel is dat van huis uit al een lcd-scherm had.</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>de laagste prijs voor jou zwaarder weegt dan een perfect kleurbeeld.</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>je voor een soft OLED kiest, want die benadert het origineel dicht.</span></li>
+        </ul>
+      </div>
+      <div class="wkaart orig">
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 3v5.4c0 4.3-3.1 8.3-7.5 9.6-4.4-1.3-7.5-5.3-7.5-9.6V6z"/></svg>Kies origineel als</h3>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>je het toestel nog jaren wilt gebruiken of later wilt doorverkopen.</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>er nog fabrieksgarantie op zit die je niet wilt verliezen.</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>je functies als True Tone en automatische helderheid wilt houden.</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>je het verschil in kleur en helderheid echt ziet en belangrijk vindt.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="letop">
+    <h2>Waar je op moet letten</h2>
+    <div class="letop">
+      <div class="lrij"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h10M4 17h7"/></svg></div><div><b>Het woord "compatibel" zegt weinig</b><span>Een goedkope kopie en een goede soft OLED heten allebei "compatibel", terwijl ze sterk verschillen in beeld en levensduur. Vraag altijd welke techniek eronder zit: incell, hard OLED of soft OLED.</span></div></div>
+      <div class="lrij"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg></div><div><b>True Tone en automatische helderheid</b><span>Bij een niet-origineel scherm werken deze functies soms niet meer. Een goede winkel vertelt vooraf of dat bij jouw model het geval is.</span></div></div>
+      <div class="lrij"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 3v5.4c0 4.3-3.1 8.3-7.5 9.6-4.4-1.3-7.5-5.3-7.5-9.6V6z"/></svg></div><div><b>Garantie op de reparatie</b><span>Bij een origineel of soft OLED scherm geven veel winkels twaalf maanden garantie, bij een kopie vaak zes. Vraag ernaar en laat het op de bon zetten.</span></div></div>
+      <div class="lrij"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><div><b>Waardebehoud bij doorverkoop</b><span>Wil je het toestel later verkopen, dan levert een origineel of hersteld origineel scherm meer op en zijn er minder vragen van de koper.</span></div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="prijskaart">
+      <div>
+        <h2>Wat kost het verschil echt?</h2>
+        <p>Voor een iPhone 13-scherm vonden wij prijzen van 79 euro voor een kopie tot 309 euro voor een origineel. De middelste prijs, vaak een soft OLED, ligt op 154 euro.</p>
+      </div>
+      <div class="cijfers num">
+        <div><small>Kopie vanaf</small><b>&euro; 79</b></div>
+        <div><small>Middenklasse</small><b>&euro; 154</b></div>
+        <div><small>Origineel tot</small><b>&euro; 309</b></div>
+      </div>
+    </div>
+    <p class="uitleg" style="margin:16px 0 0;font-size:14px">Bedragen uit ons eigen prijsonderzoek, iPhone 13-scherm, peildatum 3 september 2026. Bekijk de <a href="prijspagina-iphone13-scherm.html" style="color:var(--groen);font-weight:600">volledige prijspagina</a> of de prijs voor jouw eigen model in de reparatiekiezer.</p>
+  </section>
+
+  <section id="faq">
+    <h2>Veelgestelde vragen</h2>
+    <div class="faq"><b>Zie je echt verschil tussen een kopie en een origineel scherm?</b><p>Naast elkaar meestal wel. Een goedkope kopie op een toestel dat origineel OLED had, laat gauw grijzere zwarten, iets andere kleuren en soms minder gelijkmatige helderheid zien. Een goede soft OLED benadert het origineel zo dicht dat de meeste mensen het in het dagelijks gebruik niet merken.</p></div>
+    <div class="faq"><b>Gaat een kopie-scherm sneller stuk?</b><p>Niet per definitie, maar een simpele kopie is vaak iets gevoeliger voor een nieuwe val. Let ook op het verschil tussen hard en soft OLED: een hard OLED zit op stug glas en breekt eerder dan een soft OLED, die iets kan meebuigen.</p></div>
+    <div class="faq"><b>Vervalt mijn garantie met een niet-origineel scherm?</b><p>Een reparatie buiten de fabrikant kan een nog lopende fabrieksgarantie laten vervallen. Is je toestel al uit de garantie, dan speelt dat niet. Twijfel je, kies dan een origineel of refurbished origineel scherm.</p></div>
+    <div class="faq"><b>Wat is een refurbished origineel scherm?</b><p>Een echt fabrieksscherm dat professioneel is hersteld en getest, bijvoorbeeld met nieuw buitenglas op een origineel paneel. Je krijgt origineel beeld, meestal voor minder dan een fabrieksnieuw scherm.</p></div>
+  </section>
+
+  <section>
+    <h2>Verder</h2>
+    <div class="verwant">
+      <a class="vkaart" href="reparatiepagina-scherm-vervangen.html"><b>Scherm vervangen</b><small>prijzen en alle soorten schermen</small></a>
+      <a class="vkaart" href="prijspagina-iphone13-scherm.html"><b>iPhone 13 scherm prijs</b><small>wat het kost per soort scherm</small></a>
+      <a class="vkaart" href="plaatspagina-leeuwarden.html"><b>Winkels bij jou in de buurt</b><small>vergelijk prijs en garantie</small></a>
+    </div>
+  </section>
+
+  <section>
+    <div class="bronblok">
+      <b>Over deze gids.</b> De uitleg over schermtypes is gebaseerd op ons eigen onderzoek naar reparatieonderdelen. De prijzen komen uit ons prijsonderzoek: 224 gemeten prijspunten bij Nederlandse winkels, peildatum 3 september 2026. Deze gids is algemene voorlichting; de winkel bepaalt uiteindelijk de prijs, de garantie en welke schermen beschikbaar zijn.
+    </div>
+  </section>
+</div>
+
+<footer><div class="in smal">
+  <div class="jur"><a href="voorwaarden.html">Voorwaarden</a><a href="privacy.html">Privacy</a><a href="cookies.html">Cookies</a><a href="toegankelijkheid.html">Toegankelijkheid</a><a href="melden.html">Iets melden</a><a href="over-ons.html">Over ons</a></div>
+  
+  Onderdeel van de gidsen van snelrepareren.nl. De vergelijker voor telefoonreparatie in Nederland.
+</div></footer>
+
+<script>
+const KIEZER='reparatiekiezer.html';
+const VRAGEN=[
+ {id:'duur',q:'Hoelang wil je dit toestel nog gebruiken?',s:'',opties:[
+   ['kort','Nog even',0],['midden','Nog een paar jaar',1],['lang','Zo lang mogelijk',2]]},
+ {id:'belang',q:'Wat vind je belangrijker?',s:'',opties:[
+   ['prijs','De laagste prijs',0],['balans','Een goede balans',1],['beeld','Beeld als origineel',2]]},
+ {id:'garantie',q:'Zit er nog fabrieksgarantie op je toestel?',s:'Meestal tot twee jaar na aankoop.',opties:[
+   ['nee','Nee of weet niet',0],['ja','Ja',2]]},
+];
+const ADVIES={
+ kopie:{lab:'Ons advies',naam:'Een kopie of incell scherm',
+   tekst:'Voor jouw situatie is een goedkoop scherm een prima keuze. Je betaalt het minst en voor dagelijks gebruik zie je nauwelijks verschil, zeker als je toestel van huis uit al een lcd-scherm had. Kies je toch iets beters, ga dan voor een soft OLED.',
+   prijs:'iPhone 13-scherm: vanaf ongeveer &euro; 79.'},
+ soft:{lab:'Ons advies',naam:'Een soft OLED scherm',
+   tekst:'De middenweg, en waar de meeste mensen uitkomen. Een soft OLED benadert het originele beeld dicht en buigt licht mee, dus het is minder breukgevoelig dan een hard OLED. Je betaalt niet de topprijs, maar krijgt wel bijna origineel beeld.',
+   prijs:'iPhone 13-scherm: rond de &euro; 149 tot &euro; 159.'},
+ orig:{lab:'Ons advies',naam:'Een origineel of refurbished origineel scherm',
+   tekst:'Voor jouw situatie is een fabrieksscherm de beste keuze. Je houdt origineel beeld en functies als True Tone, je verliest geen lopende garantie, en het toestel behoudt zijn waarde bij doorverkoop. Een refurbished origineel is vaak goedkoper dan fabrieksnieuw.',
+   prijs:'iPhone 13-scherm: ongeveer &euro; 189 tot &euro; 309.'},
+};
+const VERGELIJK=[
+ ['Beeldkwaliteit',['ja','Gelijk aan de fabriek: kleuren, helderheid en zwarten kloppen.'],['neu','Van matig (kopie) tot bijna origineel (soft OLED).']],
+ ['True Tone en auto-helderheid',['ja','Werken zoals bedoeld.'],['nee','Werken soms niet of niet volledig.']],
+ ['Breukgevoeligheid',['ja','Zoals origineel, buigt licht mee.'],['neu','Soft OLED buigt mee, hard OLED is juist kwetsbaarder.']],
+ ['Garantie op reparatie',['ja','Vaak 12 maanden.'],['neu','Kopie vaak 6 maanden, soft OLED vaak 12.']],
+ ['Waardebehoud',['ja','Behoudt de waarde, geen vragen bij verkoop.'],['nee','Kan de doorverkoopwaarde iets drukken.']],
+ ['Prijs',['nee','Het duurst; bij iPhone soms alleen op aanvraag.'],['ja','(Veel) goedkoper, vanaf ongeveer een derde van de prijs.']],
+];
+const S={};
+const CHECK='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>';
+const JA='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+const NEE='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg>';
+const NEU='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg>';
+const PIJL='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+
+function vragen(){
+  document.getElementById('vragen').innerHTML=VRAGEN.map(v=>`<div class="vraag">
+    <p class="q">${v.q}${v.s?`<small>${v.s}</small>`:''}</p>
+    <div class="keuzes">${v.opties.map(([k,label])=>`<button class="kk${S[v.id]===k?' aan':''}" onclick="kies('${v.id}','${k}')"><span class="rond">${CHECK}</span>${label}</button>`).join('')}</div>
+  </div>`).join('');
+}
+function kies(vid,k){S[vid]=k;vragen();advies()}
+function advies(){
+  const el=document.getElementById('advies');
+  if(Object.keys(S).length<VRAGEN.length){el.className='advies leeg';el.textContent='Beantwoord de drie vragen voor een persoonlijke aanbeveling.';return}
+  let score=0;VRAGEN.forEach(v=>{const opt=v.opties.find(o=>o[0]===S[v.id]);score+=opt[2]});
+  const a=score<=1?ADVIES.kopie:score<=3?ADVIES.soft:ADVIES.orig;
+  el.className='advies';
+  el.innerHTML=`<div class="advieskaart">
+    <div class="bal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+    <div><div class="lab">${a.lab}</div><h3>${a.naam}</h3><p>${a.tekst}</p>
+      <p class="prijshint">${a.prijs}</p>
+      <a class="btn btn-groen" href="${KIEZER}">Bekijk dit voor mijn toestel ${PIJL}</a></div>
+  </div>`;
+}
+function vgl(){
+  const icon=t=>t==='ja'?JA:t==='nee'?NEE:NEU;
+  document.getElementById('vgl').innerHTML=`<div class="vgrij"><span></span><span class="k">Origineel</span><span class="k">Kopie / namaak</span></div>`+
+    VERGELIJK.map(([veld,[ot,ot2],[kt,kt2]])=>`<div class="vgrij">
+      <span class="veld">${veld}</span>
+      <span class="cel ${ot} orig">${icon(ot)}<span>${ot2}</span></span>
+      <span class="cel ${kt} kop">${icon(kt)}<span>${kt2}</span></span>
+    </div>`).join('');
+}
+vragen();advies();vgl();
+</script>

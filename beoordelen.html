@@ -1,0 +1,166 @@
+<title>Beoordeling achterlaten</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap">
+<style>
+:root{--groen-50:#F0FDF4;--groen-100:#DCFCE7;--groen-200:#BBF7D0;--groen-300:#86EFAC;--groen-500:#22C55E;--groen:#008934;--groen-800:#007B2E;--marine:#0B1F4E;--marine-100:#E8ECF5;--marine-200:#C5CEE3;--inkt:#111827;--inkt-2:#4A5878;--inkt-3:#6B7480;--lijn:#E3E6EE;--vlak:#F6F8FA;--amber:#B45309;--amber-soft:#FEF3C7;color-scheme:light}
+*{box-sizing:border-box}
+body{margin:0;background:var(--vlak);color:var(--inkt);font-family:'Outfit',system-ui,sans-serif;font-size:16px;line-height:1.55}
+a{color:inherit}button{font:inherit}
+.schets{background:var(--amber-soft);color:var(--amber);font-size:13px;font-weight:600;text-align:center;padding:8px 16px}
+.top{display:flex;align-items:center;padding:16px 24px;max-width:720px;margin:0 auto}
+.logo{font-weight:800;font-size:20px;letter-spacing:-.02em;color:var(--marine);text-decoration:none}
+.logo i{font-style:normal;color:var(--groen)}
+.wrap{max-width:720px;margin:0 auto;padding:8px 24px 70px}
+.kaart{background:#fff;border:1px solid var(--lijn);border-radius:22px;padding:30px}
+h1{font-size:26px;font-weight:800;letter-spacing:-.02em;margin:0 0 8px;text-wrap:balance}
+.sub{color:var(--inkt-2);font-size:16px;margin:0 0 4px}
+.winkelregel{display:flex;align-items:center;gap:12px;background:var(--vlak);border-radius:14px;padding:14px 16px;margin:18px 0 24px}
+.winkelregel .av{width:42px;height:42px;border-radius:12px;background:var(--marine-100);color:var(--marine);display:grid;place-items:center;font-weight:800;flex:none}
+.winkelregel b{display:block;font-size:15.5px}
+.winkelregel span{font-size:13.5px;color:var(--inkt-3)}
+.blok{margin-bottom:24px}
+.blok>label{display:block;font-size:15px;font-weight:700;margin-bottom:10px}
+.blok .hint{font-size:13px;color:var(--inkt-3);font-weight:400;margin-top:2px}
+.cijfers{display:flex;gap:6px;flex-wrap:wrap}
+.cf{width:46px;height:46px;border-radius:13px;border:1.5px solid var(--lijn);background:#fff;font-weight:700;font-size:15px;cursor:pointer;color:var(--inkt-2);transition:all .12s}
+.cf:hover{border-color:var(--groen)}
+.cf.aan{background:var(--groen);border-color:var(--groen);color:#fff}
+.cijferuitleg{font-size:13.5px;color:var(--inkt-2);margin-top:10px;min-height:20px}
+.cijferuitleg b{color:var(--inkt)}
+textarea,input[type=text]{width:100%;padding:12px 14px;border:1.5px solid var(--lijn);border-radius:12px;font:inherit;font-size:15px;background:#fff}
+textarea:focus,input:focus{outline:none;border-color:var(--groen);box-shadow:0 0 0 3px var(--groen-100)}
+.tweekolom{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{padding:9px 15px;border-radius:999px;border:1.5px solid var(--lijn);background:#fff;font-size:14px;font-weight:600;color:var(--inkt-2);cursor:pointer}
+.chip:hover{border-color:var(--groen)}
+.chip.aan{background:var(--groen);border-color:var(--groen);color:#fff}
+.regels{background:var(--groen-50);border:1px solid var(--groen-200);border-radius:14px;padding:16px 18px;margin:0 0 24px}
+.regels b{font-size:14.5px}
+.regels ul{margin:8px 0 0;padding:0;list-style:none;display:grid;gap:7px}
+.regels li{display:flex;gap:9px;align-items:flex-start;font-size:13.5px;color:var(--inkt-2)}
+.regels li svg{width:16px;height:16px;color:var(--groen);flex:none;margin-top:2px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 24px;border-radius:999px;font-weight:600;font-size:16px;border:1.5px solid transparent;cursor:pointer;text-decoration:none}
+.btn-groen{background:var(--groen);color:#fff}.btn-groen:hover{background:var(--groen-800)}
+.btn-groen:disabled{opacity:.4;cursor:not-allowed}
+.btn-lijn{background:#fff;color:var(--inkt-2);border-color:var(--lijn)}
+.voet{font-size:12.5px;color:var(--inkt-3);margin:16px 0 0}
+/* bedankt */
+.bedankt{text-align:center;padding:12px 0}
+.bedankt .bal{width:64px;height:64px;border-radius:20px;background:var(--groen-100);display:grid;place-items:center;margin:0 auto 18px}
+.bedankt .bal svg{width:32px;height:32px;color:var(--groen)}
+.bedankt h1{margin-bottom:10px}
+.bedankt p{color:var(--inkt-2);margin:0 auto 20px;max-width:46ch}
+.wat{text-align:left;background:var(--vlak);border-radius:14px;padding:18px;margin:0 0 22px}
+.wat b{display:block;font-size:14.5px;margin-bottom:8px}
+.wat ol{margin:0;padding-left:18px;color:var(--inkt-2);font-size:14px}
+.wat li{margin-bottom:5px}
+.verborgen{display:none}
+@media(max-width:600px){.wrap{padding:8px 16px 60px}.kaart{padding:22px}.tweekolom{grid-template-columns:1fr}.cf{width:42px;height:42px}}
+.jurvoet{border-top:1px solid var(--lijn);margin-top:40px;padding:22px 32px 48px;max-width:1160px;margin-left:auto;margin-right:auto;color:var(--inkt-3);font-size:13px}
+.jurvoet .jur{display:flex;flex-wrap:wrap;gap:18px;margin-bottom:10px}
+.jurvoet .jur a{text-decoration:none;color:var(--inkt-2);font-weight:600}
+.jurvoet .jur a:hover{color:var(--groen)}
+@media(max-width:760px){.jurvoet{padding:20px 16px 44px}}
+</style>
+
+<div class="schets">Ontwerpschets. Deze pagina bereik je via de e-mail die wij twee dagen na je bezoek sturen.</div>
+<header class="top"><a class="logo" href="index.html">snel<i>repareren</i>.nl</a></header>
+
+<div class="wrap">
+  <!-- FORMULIER -->
+  <div class="kaart" id="formulier">
+    <h1>Hoe ging het bij deze winkel?</h1>
+    <p class="sub">Je ervaring helpt de volgende persoon met een kapot toestel. Het kost een minuut.</p>
+
+    <div class="winkelregel">
+      <div class="av">T</div>
+      <div><b>Telefoonhulp Leeuwarden</b><span>Scherm vervangen, iPhone 13 &middot; 4 september 2026</span></div>
+    </div>
+
+    <div class="blok">
+      <label>Welk cijfer geef je deze winkel?</label>
+      <div class="cijfers" id="cijfers"></div>
+      <div class="cijferuitleg" id="cijferuitleg">Kies een cijfer van 1 tot 10.</div>
+    </div>
+
+    <div class="blok">
+      <label>Wat ging er goed of juist niet?<span class="hint">Schrijf gerust kort. Noem geen namen van medewerkers.</span></label>
+      <textarea id="tekst" rows="4" placeholder="Bijvoorbeeld: scherm binnen een half uur vervangen, vooraf verteld welk type erin ging."></textarea>
+    </div>
+
+    <div class="blok">
+      <label>Klopt de reparatie die wij noteerden?</label>
+      <div class="chips" id="reps"></div>
+    </div>
+
+    <div class="blok">
+      <label>Hoe mogen we je noemen?<span class="hint">Wij tonen alleen je voornaam, de eerste letter van je achternaam en je woonplaats.</span></label>
+      <div class="tweekolom">
+        <input type="text" id="naam" placeholder="Voornaam en letter, bijv. Marije D.">
+        <input type="text" id="plaats" placeholder="Woonplaats" value="Leeuwarden">
+      </div>
+    </div>
+
+    <div class="regels">
+      <b>Zo gaan wij met beoordelingen om</b>
+      <ul>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Je kunt alleen beoordelen omdat je via ons bij deze winkel bent gekomen.</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Wij geven je niets terug voor een beoordeling, ook geen korting.</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>De winkel kan je beoordeling niet laten verwijderen. Hij mag er wel op reageren.</span></li>
+      </ul>
+    </div>
+
+    <button class="btn btn-groen" id="verstuur" disabled style="width:100%">Beoordeling versturen</button>
+    <p class="voet">Na het versturen verwijderen wij je e-mailadres. Je beoordeling blijft staan zolang de winkel bij ons vermeld is.</p>
+  </div>
+
+  <!-- BEDANKT -->
+  <div class="kaart bedankt verborgen" id="bedankt">
+    <div class="bal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+    <h1>Bedankt, je beoordeling staat erop</h1>
+    <p id="bedanktregel">Je gaf Telefoonhulp Leeuwarden een 9.</p>
+    <div class="wat">
+      <b>Wat er nu gebeurt</b>
+      <ol>
+        <li>Je beoordeling verschijnt binnen een dag op het profiel van de winkel.</li>
+        <li>De winkel krijgt bericht en mag er één keer op reageren.</li>
+        <li>Je e-mailadres is verwijderd. Je krijgt van ons geen andere post.</li>
+      </ol>
+    </div>
+    <a class="btn btn-groen" href="winkelprofiel.html">Bekijk het profiel van de winkel</a>
+    <p class="voet">Klopt er iets niet? <a href="melden.html" style="color:var(--groen);font-weight:600">Laat het ons weten</a>.</p>
+  </div>
+</div>
+
+
+<footer class="jurvoet">
+  <div class="jur"><a href="voorwaarden.html">Voorwaarden</a><a href="privacy.html">Privacy</a><a href="cookies.html">Cookies</a><a href="toegankelijkheid.html">Toegankelijkheid</a><a href="melden.html">Iets melden</a></div>
+  Wij vragen alleen je voornaam en je beoordeling. Wat wij daarmee doen staat in de <a href="privacy.html">privacyverklaring</a>.
+</footer>
+
+<script>
+const S={cijfer:null,rep:'Scherm vervangen'};
+const UITLEG={1:'Zeer slecht',2:'Slecht',3:'Slecht',4:'Onvoldoende',5:'Onvoldoende',6:'Voldoende',7:'Ruim voldoende',8:'Goed',9:'Zeer goed',10:'Uitstekend'};
+const REPS=['Scherm vervangen','Accu vervangen','Iets anders'];
+function cijfers(){
+  document.getElementById('cijfers').innerHTML=[1,2,3,4,5,6,7,8,9,10].map(n=>`<button class="cf${S.cijfer===n?' aan':''}" onclick="kiesCijfer(${n})">${n}</button>`).join('');
+  const u=document.getElementById('cijferuitleg');
+  u.innerHTML=S.cijfer?`Je gaf een <b>${S.cijfer}</b>: ${UITLEG[S.cijfer].toLowerCase()}.`:'Kies een cijfer van 1 tot 10.';
+  document.getElementById('verstuur').disabled=!S.cijfer;
+}
+function kiesCijfer(n){S.cijfer=n;cijfers()}
+function reps(){
+  document.getElementById('reps').innerHTML=REPS.map(r=>`<button class="chip${S.rep===r?' aan':''}" onclick="kiesRep('${r}')">${r}</button>`).join('');
+}
+function kiesRep(r){S.rep=r;reps()}
+document.getElementById('verstuur').onclick=()=>{
+  document.getElementById('formulier').classList.add('verborgen');
+  const b=document.getElementById('bedankt');b.classList.remove('verborgen');
+  document.getElementById('bedanktregel').textContent=`Je gaf Telefoonhulp Leeuwarden een ${S.cijfer}.`;
+  window.scrollTo(0,0);
+};
+cijfers();reps();
+</script>

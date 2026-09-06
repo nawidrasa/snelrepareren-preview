@@ -1,0 +1,267 @@
+<title>Achterkant vervangen: prijzen en uitleg</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap">
+<style>
+:root{--groen-50:#F0FDF4;--groen-100:#DCFCE7;--groen-200:#BBF7D0;--groen-300:#86EFAC;--groen-500:#22C55E;--groen:#008934;--groen-800:#007B2E;--marine:#0B1F4E;--marine-100:#E8ECF5;--marine-200:#C5CEE3;--inkt:#111827;--inkt-2:#4A5878;--inkt-3:#6B7480;--lijn:#E3E6EE;--vlak:#F6F8FA;--amber:#B45309;--amber-soft:#FEF3C7;--rood:#B91C1C;--rood-soft:#FEE2E2;color-scheme:light}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:#fff;color:var(--inkt);font-family:'Outfit',system-ui,sans-serif;font-size:16px;line-height:1.55}
+a{color:inherit}.in{max-width:860px;margin:0 auto;padding:0 32px}
+.num{font-variant-numeric:tabular-nums}
+.schets{background:var(--amber-soft);color:var(--amber);font-size:13px;font-weight:600;text-align:center;padding:8px 16px}
+.top{display:flex;align-items:center;gap:24px;padding:16px 32px;max-width:1160px;margin:0 auto}
+.logo{font-weight:800;font-size:20px;letter-spacing:-.02em;color:var(--marine);text-decoration:none}.logo i{font-style:normal;color:var(--groen)}
+.top nav{display:flex;gap:22px;font-size:15px;color:var(--inkt-2)}.top nav a{text-decoration:none}.top nav a:hover{color:var(--inkt)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:999px;font-weight:600;font-size:15px;border:1.5px solid transparent;cursor:pointer;text-decoration:none;font-family:inherit}
+.btn-groen{background:var(--groen);color:#fff}.btn-groen:hover{background:var(--groen-800)}
+.btn-lijn{background:#fff;color:var(--groen);border-color:var(--groen)}.btn-lijn:hover{background:var(--groen-50)}
+.btn-klein{padding:9px 16px;font-size:14px;margin-left:auto}
+.kruimels{font-size:13px;color:var(--inkt-3);padding:16px 0 0}.kruimels a{text-decoration:none}.kruimels span{margin:0 6px}
+h1{font-size:clamp(28px,3.8vw,40px);font-weight:800;letter-spacing:-.028em;margin:10px 0 14px;text-wrap:balance;max-width:20ch}
+.lead{font-size:18.5px;line-height:1.5;color:var(--inkt);max-width:68ch;margin:0 0 18px}
+.lead b{font-weight:800}
+.heroknoppen{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.heroknoppen .los{font-size:14px;color:var(--inkt-3)}
+/* prijsband */
+.band{border:1.5px solid var(--lijn);border-radius:20px;padding:24px 26px;margin:26px 0 0}
+.bandkop{display:flex;justify-content:space-between;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:22px}
+.bandkop b{font-size:17px}
+.bandkop small{font-size:13.5px;color:var(--inkt-3)}
+.baan{position:relative;height:92px;margin:0 8px}
+.baanlijn{position:absolute;left:0;right:0;top:26px;height:6px;border-radius:3px;background:linear-gradient(90deg,var(--groen-200),var(--marine-200))}
+.merk{position:absolute;top:14px;transform:translateX(-50%);text-align:center;white-space:nowrap}
+.merk i{display:block;width:3px;height:30px;background:var(--marine);margin:0 auto;border-radius:2px}
+.merk.uit i{background:var(--inkt-3);height:22px;margin-top:4px}
+.merk span{display:block;font-size:15px;font-weight:800;font-variant-numeric:tabular-nums;margin-top:5px}
+.merk small{display:block;font-size:11.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--inkt-3)}
+.bandvoet{margin-top:16px;padding-top:14px;border-top:1px solid var(--lijn);font-size:13.5px;color:var(--inkt-3)}
+.sneltoc{display:flex;gap:8px;flex-wrap:wrap;margin:28px 0 0;padding:16px 0;border-top:1px solid var(--lijn);border-bottom:1px solid var(--lijn)}
+.sneltoc a{font-size:14px;font-weight:600;color:var(--inkt-2);text-decoration:none;padding:6px 14px;border-radius:999px;background:var(--vlak)}
+.sneltoc a:hover{background:var(--groen-100);color:var(--groen-800)}
+section{padding:36px 0;scroll-margin-top:16px}
+h2{font-size:24px;font-weight:800;letter-spacing:-.022em;margin:0 0 10px;text-wrap:balance}
+h3{font-size:17.5px;font-weight:700;margin:24px 0 5px}
+p{margin:0 0 14px;color:var(--inkt-2);max-width:72ch}
+p b,li b{color:var(--inkt);font-weight:700}
+ul,ol{margin:0 0 16px;padding-left:22px;color:var(--inkt-2);max-width:72ch}
+li{margin:7px 0}
+.tabelwrap{overflow-x:auto}
+.schuifhint{font-size:13px;color:var(--inkt-3);margin:0 0 8px}
+.tbl{width:100%;border-collapse:collapse;font-size:14.5px;margin:0 0 18px}
+.tbl th,.tbl td{text-align:left;padding:10px 13px;border-bottom:1px solid var(--lijn);vertical-align:top;color:var(--inkt-2)}
+.tbl th{background:var(--vlak);color:var(--inkt);font-weight:700;font-size:13px}
+.tbl td b{color:var(--inkt)}
+.tbl .num{font-variant-numeric:tabular-nums;white-space:nowrap;text-align:right}
+.tbl th.num{text-align:right}
+.tbl .mid{color:var(--marine);font-weight:800}
+.let{border:1.5px solid var(--lijn);border-left:5px solid var(--amber);background:#FFFBEB;border-radius:16px;padding:18px 22px;margin:0 0 18px}
+.let>b{color:var(--amber);display:block;margin-bottom:4px}
+.let p b{color:var(--amber);font-weight:800}
+.let p{margin:0;font-size:14.5px;color:var(--amber);max-width:none}
+.tip{border:1.5px solid var(--groen-200);border-left:5px solid var(--groen);background:var(--groen-50);border-radius:16px;padding:18px 22px;margin:0 0 18px}
+.tip>b{display:block;margin-bottom:4px}
+.tip p{margin:0 0 8px;font-size:14.5px;max-width:none}
+.tip p:last-child{margin-bottom:0}
+.stop{border:1.5px solid var(--rood-soft);border-left:5px solid var(--rood);background:var(--rood-soft);border-radius:16px;padding:18px 22px;margin:0 0 18px}
+.stop>b{color:var(--rood);display:block;margin-bottom:4px}
+.stop p b{color:#7F1D1D;font-weight:800}
+.stop p{margin:0;font-size:14.5px;color:#7F1D1D;max-width:none}
+.kaarten{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:0 0 18px}
+.kaart{border:1.5px solid var(--lijn);border-radius:18px;padding:20px 22px}
+.kaart b{display:block;font-size:16.5px;margin-bottom:5px}
+.kaart p{margin:0;font-size:14.5px}
+.kaart .prijs{display:block;font-size:14px;font-weight:800;color:var(--marine);margin-top:10px;font-variant-numeric:tabular-nums}
+.soort{border:1.5px solid var(--lijn);border-radius:18px;padding:20px 22px;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:4px 18px;align-items:baseline;margin:0 0 10px}
+.soort .rang{grid-row:1/span 3;width:38px;height:38px;border-radius:12px;display:grid;place-items:center;font-weight:800;font-size:14px;color:#fff;align-self:start}
+.soort .snaam{grid-column:2;font-size:17px;font-weight:800}
+.soort .prijstag{grid-column:3;font-size:13.5px;font-weight:700;color:var(--inkt-2);white-space:nowrap;text-align:right}
+.soort .alias{grid-column:2;font-size:13px;color:var(--inkt-3);margin-top:-2px}
+.soort .sbody{grid-column:2/4;font-size:14.5px;color:var(--inkt-2);margin-top:7px}
+.stap{display:grid;grid-template-columns:34px minmax(0,1fr);gap:4px 16px;margin:0 0 16px;align-items:start}
+.stap .nr{grid-row:1/span 2;width:34px;height:34px;border-radius:50%;background:var(--groen);color:#fff;font-weight:800;font-size:14px;display:grid;place-items:center}
+.stap b{font-size:16.5px}
+.stap p{margin:2px 0 0;font-size:15px;max-width:none}
+.faq{border-top:1px solid var(--lijn);padding:18px 0}
+.faq:last-of-type{border-bottom:1px solid var(--lijn)}
+.faq b{display:block;font-size:16.5px;font-weight:700;margin-bottom:6px}
+.faq p{margin:0;font-size:15px}
+.verwant{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.vkaart{border:1.5px solid var(--lijn);border-radius:16px;padding:16px 18px;text-decoration:none;transition:border-color .15s}
+.vkaart:hover{border-color:var(--groen)}
+.vkaart b{font-size:15px;font-weight:700;display:block}
+.vkaart small{font-size:13px;color:var(--inkt-3)}
+.bronblok{background:var(--vlak);border-radius:18px;padding:22px;font-size:14px;color:var(--inkt-2)}
+.bronblok b{color:var(--inkt)}
+.bronblok p{font-size:14px;max-width:none}
+.zoekband{background:var(--marine);color:#fff;border-radius:22px;padding:28px;margin:30px 0 0;display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
+.zoekband b{display:block;font-size:19px;font-weight:800}
+.zoekband span{opacity:.85;font-size:15px}
+.zoekband .k{background:var(--groen);color:#fff;border:0}
+footer{border-top:1px solid var(--lijn);padding:28px 0 60px;color:var(--inkt-3);font-size:13px;margin-top:12px}
+footer .jur{display:flex;flex-wrap:wrap;gap:18px;margin-bottom:12px}
+footer .jur a{text-decoration:none;color:var(--inkt-2);font-weight:600}
+footer .jur a:hover{color:var(--groen)}
+@media(max-width:820px){.kaarten,.verwant{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:760px){.in{padding:0 16px}.top{padding:14px 16px;gap:12px}.top nav{display:none}
+ .band{padding:18px 16px}.baan{margin:0}.merk span{font-size:13.5px}.merk small{font-size:10.5px}
+ .soort{grid-template-columns:auto minmax(0,1fr)}.soort .prijstag{grid-column:2;grid-row:3;text-align:left;margin-top:6px}.soort .sbody{grid-column:2}}
+</style>
+
+<div class="schets">Ontwerpschets. De prijzen zijn echt gemeten bij Nederlandse winkels, peildatum 3 september 2026. Voorbeeldwinkels op andere pagina's zijn verzonnen.</div>
+<header class="top">
+  <a class="logo" href="index.html">snel<i>repareren</i>.nl</a>
+  <nav><a href="reparaties.html">Reparaties</a><a href="toestellen.html">Toestellen</a><a href="plaatsen.html">Plaatsen</a><a href="gidsen.html">Gidsen</a><a href="hoe-wij-rangschikken.html">Hoe wij rangschikken</a></nav>
+  <a class="btn btn-lijn btn-klein" href="voor-winkels.html">Voor winkels</a>
+</header>
+
+<div class="in">
+  <div class="kruimels"><a href="index.html">Home</a><span>&rsaquo;</span><a href="reparaties.html">Reparaties</a><span>&rsaquo;</span>Achterkant vervangen</div>
+  <h1>Achterkant vervangen</h1>
+  <p class="lead">Een gebarsten achterkant vervangen kost 39 tot 179 euro, mediaan ongeveer 75. <b>Het is meestal alleen lelijk</b>, dus de eerste vraag is of je het wel wilt laten doen. Hieronder de drie redenen waarom wel, en de ene waarom niet.</p>
+  <div class="heroknoppen">
+    <a class="btn btn-groen" href="reparatiekiezer.html">Vergelijk winkels bij jou in de buurt</a>
+    <span class="los">Prijzen uit eigen onderzoek, 45 metingen bij 4 winkels, 3 september 2026</span>
+  </div>
+
+  <div class="band">
+    <div class="bandkop"><b>Wat een achterkant vervangen kost</b><small>45 gemeten prijzen bij 4 winkels</small></div>
+    <div class="baan">
+      <span class="baanlijn"></span>
+      <span class="merk uit" style="left:4%"><i></i><span>&euro;&nbsp;39</span><small>Laagste</small></span>
+      <span class="merk" style="left:50%"><i></i><span>&euro;&nbsp;75</span><small>Mediaan</small></span>
+      <span class="merk uit" style="left:96%"><i></i><span>&euro;&nbsp;179</span><small>Hoogste</small></span>
+    </div>
+    <div class="bandvoet">De onderkant van deze band is een kopie-achterkant voor een middenklasse Samsung, de bovenkant een refurbished origineel voor een nieuwe iPhone. Kijk daarom naar de modeltabel, niet naar de uiterste bedragen.</div>
+  </div>
+
+  <nav class="sneltoc"><a href="#nodig">Moet het wel?</a><a href="#kwaliteit">Twee kwaliteiten</a><a href="#prijzen">Prijzen per model</a><a href="#letop">Vooraf vragen</a><a href="#vragen">Vragen</a></nav>
+
+  <section id="nodig">
+    <h2>Moet het eigenlijk wel?</h2>
+    <p>Een gebarsten achterkant is meestal alleen lelijk. Je telefoon werkt gewoon door. Toch zijn er drie redenen om het wel te laten doen, en één reden om het te laten zitten.</p>
+    <div class="kaarten">
+      <div class="kaart"><b>Wel doen: het glas komt los</b>
+        <p>Losse scherven snijden in je vingers en in je broekzak. Dit is de enige reden die echt haast heeft.</p></div>
+      <div class="kaart"><b>Wel doen: er kan vocht bij</b>
+        <p>Een scheur in de achterkant is een opening. Regen, zweet en stof komen zo bij de elektronica.</p></div>
+      <div class="kaart"><b>Wel doen: je wilt hem verkopen</b>
+        <p>Bij inruil of doorverkoop scheelt een gebarsten achterkant vaak meer dan de reparatie kost. Reken het na voordat je het laat zitten.</p></div>
+      <div class="kaart"><b>Niet doen: alleen een haarscheurtje</b>
+        <p>Zit er één scheurtje zonder losse stukken en houd je het toestel toch in een hoesje, dan is 69 tot 119 euro veel geld voor iets dat niemand ziet.</p></div>
+    </div>
+    <div class="tip">
+      <b>Een tussenoplossing die niemand noemt</b>
+      <p>Een stevig hoesje houdt losse scherven op hun plek en kost een tientje. Dat is geen reparatie, maar het lost het snijgevaar op tot je besluit wat je doet.</p>
+    </div>
+  </section>
+
+  <section id="kwaliteit">
+    <h2>Twee kwaliteiten, en het verschil is zichtbaar</h2>
+    <p>Bijna elke winkel biedt twee niveaus. Anders dan bij een scherm gaat het hier niet om beeldkwaliteit maar om kleur, glans en of het logo klopt.</p>
+    <div class="soort"><span class="rang" style="background:var(--groen-500)">1</span>
+      <span class="snaam">Premium of kopie</span>
+      <span class="prijstag">&euro; 39 - &euro; 109</span>
+      <span class="alias">nagemaakt glas, meestal zonder fabrieksmerk</span>
+      <span class="sbody">Past en beschermt prima. De kleur kan een tint afwijken van het origineel, en het logo ontbreekt of is anders afgewerkt. Voor een toestel dat je zelf gebruikt, is dit vaak ruim voldoende.</span></div>
+    <div class="soort"><span class="rang" style="background:var(--marine)">2</span>
+      <span class="snaam">OEM, origineel of refurbished origineel</span>
+      <span class="prijstag">&euro; 59 - &euro; 179</span>
+      <span class="alias">fabrieksonderdeel of gelijkwaardig</span>
+      <span class="sbody">Kleur, glans en logo kloppen met het origineel. Dit is wat je wilt als je het toestel gaat verkopen, want een afwijkende achterkant valt een koper meteen op.</span></div>
+    <div class="let">
+      <b>Let op het woord dat de winkel gebruikt</b>
+      <p>"Premium" is verkooptaal en zegt op zichzelf niets. Vraag of het een fabrieksonderdeel is of niet, en of het logo erop komt. Lees waarom in onze gids over <a href="gids-compatibel.html">wat compatibel betekent</a>.</p>
+    </div>
+  </section>
+
+  <section id="prijzen">
+    <h2>Wat wij per model maten</h2>
+    <p>Deze tabel komt van een winkel die beide kwaliteiten per model op zijn site zet. Dat maakt het verschil tussen de twee niveaus goed zichtbaar.</p>
+    <div class="tabelwrap">
+      <table class="tbl">
+        <tr><th>Model</th><th class="num">Premium</th><th class="num">Origineel</th><th class="num">Verschil</th></tr>
+        <tr><td><b>iPhone 8</b></td><td class="num">&euro; 49</td><td class="num mid">&euro; 65</td><td class="num">&euro; 16</td></tr>
+        <tr><td><b>iPhone SE</b></td><td class="num">&euro; 55</td><td class="num mid">&euro; 75</td><td class="num">&euro; 20</td></tr>
+        <tr><td><b>iPhone X</b></td><td class="num">&euro; 59</td><td class="num mid">&euro; 70</td><td class="num">&euro; 11</td></tr>
+        <tr><td><b>iPhone XR</b></td><td class="num">&euro; 59</td><td class="num mid">&euro; 75</td><td class="num">&euro; 16</td></tr>
+        <tr><td><b>iPhone 11</b></td><td class="num">&euro; 59</td><td class="num mid">&euro; 75</td><td class="num">&euro; 16</td></tr>
+        <tr><td><b>iPhone 12</b></td><td class="num">&euro; 65</td><td class="num mid">&euro; 89</td><td class="num">&euro; 24</td></tr>
+        <tr><td><b>iPhone 13</b></td><td class="num">&euro; 69</td><td class="num mid">&euro; 99</td><td class="num">&euro; 30</td></tr>
+        <tr><td><b>iPhone 14</b></td><td class="num">&euro; 69</td><td class="num mid">&euro; 99</td><td class="num">&euro; 30</td></tr>
+        <tr><td><b>iPhone 15</b></td><td class="num">&euro; 75</td><td class="num mid">&euro; 119</td><td class="num">&euro; 44</td></tr>
+        <tr><td><b>iPhone 16</b></td><td class="num">&euro; 79</td><td class="num mid">&euro; 119</td><td class="num">&euro; 40</td></tr>
+      </table>
+    </div>
+    <p>Andere winkels zaten in dezelfde orde van grootte: 49 tot 109 euro voor kopie of A-kwaliteit, en 59 tot 179 euro voor OEM, origineel of refurbished origineel. Bij Samsung lag het lager, met 39 euro voor een OEM-achterkant van een A52 en 89 euro voor een origineel exemplaar van een S22.</p>
+    <div class="let">
+      <b>Waarom nieuwere modellen duurder zijn</b>
+      <p>Bij veel modellen zit het achterglas vastgelijmd op het frame. De monteur moet het er met warmte en veel geduld uit halen, en dat is arbeid. Bij de iPhone 14 heeft Apple de bouw aangepast waardoor het achterglas makkelijker te vervangen is. In onze metingen zien wij dat prijsvoordeel <b>nog niet</b> terug: de 14 kost bij deze winkel hetzelfde als de 13.</p>
+    </div>
+  </section>
+
+  <section id="letop">
+    <h2>Twee dingen om vooraf te vragen</h2>
+    <div class="stap"><span class="nr">1</span><b>"Vervang je alleen het glas of de hele behuizing?"</b>
+      <p>Bij sommige modellen is de achterkant niet los te krijgen en vervangt een winkel in de praktijk het hele frame. Dat is een andere, duurdere reparatie waarbij alles uit het toestel moet. Vraag het, want het scheelt zowel in prijs als in risico.</p></div>
+    <div class="stap"><span class="nr">2</span><b>"Werkt draadloos laden daarna nog?"</b>
+      <p>De spoel voor draadloos laden zit vlak onder het achterglas. Bij een nette reparatie blijft die intact, maar het is een van de weinige functies die door deze reparatie kan sneuvelen. Laat het in de winkel testen voordat je weggaat.</p></div>
+    <div class="stop">
+      <b>Waterdichtheid komt niet terug</b>
+      <p>Zodra het toestel open is geweest, is de fabrieksafdichting verbroken. Een goede winkel plakt nieuwe afdichting terug, maar niemand kan garanderen dat je toestel weer waterdicht is. Dat geldt bij elke reparatie waarbij het toestel opengaat.</p>
+    </div>
+  </section>
+
+  <section id="vragen">
+    <h2>Veelgestelde vragen</h2>
+    <div class="faq"><b>Kan ik er een sticker of skin op plakken in plaats van repareren?</b>
+      <p>Als het glas heel blijft zitten wel, en dat is een prima goedkope oplossing tegen het snijden. Komen er stukjes los, dan lost een skin niets op en kan er alsnog vocht bij.</p></div>
+    <div class="faq"><b>Scheelt het echt zoveel bij inruil?</b>
+      <p>Vaak wel. Inruilprogramma's rekenen een gebarsten achterkant als schade en verlagen het bedrag flink. Vraag eerst wat je zonder reparatie krijgt en wat mét, en vergelijk dat verschil met de reparatieprijs.</p></div>
+    <div class="faq"><b>Hoe lang duurt het?</b>
+      <p>Meestal een tot twee uur, want het losmaken van het gelijmde glas kost tijd. Sommige winkels vragen je het toestel te brengen en later op te halen.</p></div>
+    <div class="faq"><b>Is de achterkant vaak samen met het scherm kapot?</b>
+      <p>Ja, na een val op de rand gebeurt dat regelmatig. Laat het dan tegelijk doen: het toestel gaat toch open, en dat scheelt vaak in de arbeid. Vraag naar een prijs voor beide samen.</p></div>
+  </section>
+
+
+  <section>
+    <h2>Verder lezen</h2>
+    <div class="verwant"><a class="vkaart" href="prijsindex.html"><b>De prijsindex 2026</b><small>Alle gemeten bandbreedtes</small></a><a class="vkaart" href="reparatiepagina-scherm-vervangen.html"><b>Scherm vervangen</b><small>Vaak samen kapot na dezelfde val</small></a><a class="vkaart" href="gids-compatibel.html"><b>Wat betekent "compatibel"?</b><small>Premium is verkooptaal</small></a></div>
+  </section>
+
+  <section>
+    <div class="bronblok"><p><b>Bron en peildatum.</b> Eigen prijsonderzoek: 45 concrete achterkantprijzen bij vier Nederlandse winkels, opgehaald op 3 september 2026, inclusief montage. De modeltabel met twee kwaliteiten komt van één winkel die beide niveaus per model publiceert; dat maakt het verschil tussen de kwaliteiten zichtbaar, maar het is geen marktbreed beeld.</p><p style="margin-bottom:0">Prijzen zijn een indicatie en geen aanbod. De winkel bepaalt de prijs en de garantie.</p></div>
+  </section>
+
+  <div class="zoekband">
+    <div><b>Wat vragen winkels bij jou in de buurt?</b><span>Kies je toestel en de reparatie, dan zie je de prijzen naast elkaar.</span></div>
+    <a class="btn k" href="reparatiekiezer.html">Start de reparatiekiezer</a>
+  </div>
+</div>
+
+<footer><div class="in">
+  <div class="jur"><a href="voorwaarden.html">Voorwaarden</a><a href="privacy.html">Privacy</a><a href="cookies.html">Cookies</a><a href="toegankelijkheid.html">Toegankelijkheid</a><a href="melden.html">Iets melden</a><a href="over-ons.html">Over ons</a></div>
+  Onderdeel van het reparatieoverzicht van snelrepareren.nl.
+</div></footer>
+
+<script>
+/* Een tabel die breder is dan het scherm schuift binnen zijn eigen kader.
+   Zonder aanwijzing ziet niemand dat, dus zetten wij er een regel boven. */
+function schuifhints(){
+  document.querySelectorAll('.tabelwrap').forEach(w=>{
+    const nodig=w.scrollWidth>w.clientWidth+1;
+    const h=w.previousElementSibling;
+    const heeftHint=h&&h.classList&&h.classList.contains('schuifhint');
+    if(nodig&&!heeftHint){
+      const p=document.createElement('p');
+      p.className='schuifhint';
+      p.textContent='Schuif de tabel opzij om alle kolommen te zien.';
+      w.parentNode.insertBefore(p,w);
+    } else if(!nodig&&heeftHint){ h.remove(); }
+  });
+}
+schuifhints();
+addEventListener('resize',schuifhints);
+</script>

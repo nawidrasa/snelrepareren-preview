@@ -1,0 +1,116 @@
+<title>Toegankelijkheid</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap">
+<style>
+:root{--groen-50:#F0FDF4;--groen-100:#DCFCE7;--groen-200:#BBF7D0;--groen-300:#86EFAC;--groen-500:#22C55E;--groen:#008934;--groen-800:#007B2E;--marine:#0B1F4E;--marine-100:#E8ECF5;--marine-200:#C5CEE3;--inkt:#111827;--inkt-2:#4A5878;--inkt-3:#6B7480;--lijn:#E3E6EE;--vlak:#F6F8FA;--amber:#B45309;--amber-soft:#FEF3C7;--rood:#B91C1C;--rood-soft:#FEE2E2;--rood-lijn:#FCA5A5;color-scheme:light}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:#fff;color:var(--inkt);font-family:'Outfit',system-ui,sans-serif;font-size:16px;line-height:1.6}
+a{color:inherit}
+.in{max-width:840px;margin:0 auto;padding:0 32px}
+.schets{background:var(--amber-soft);color:var(--amber);font-size:13px;font-weight:600;text-align:center;padding:8px 16px}
+.top{display:flex;align-items:center;gap:24px;padding:16px 32px;max-width:1160px;margin:0 auto}
+.logo{font-weight:800;font-size:20px;letter-spacing:-.02em;color:var(--marine);text-decoration:none}.logo i{font-style:normal;color:var(--groen)}
+.top nav{display:flex;gap:22px;font-size:15px;color:var(--inkt-2)}.top nav a{text-decoration:none}.top nav a:hover{color:var(--inkt)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:9px 16px;border-radius:999px;font-weight:600;font-size:14px;border:1.5px solid var(--groen);background:#fff;color:var(--groen);text-decoration:none;margin-left:auto}
+.btn:hover{background:var(--groen-50)}
+.kruimels{font-size:13px;color:var(--inkt-3);padding:16px 0 0}.kruimels a{text-decoration:none}.kruimels span{margin:0 6px}
+h1{font-size:clamp(28px,3.6vw,38px);font-weight:800;letter-spacing:-.025em;margin:10px 0 12px;text-wrap:balance}
+.intro{font-size:17.5px;color:var(--inkt-2);max-width:68ch;margin:0 0 22px}
+.concept{border:1.5px solid var(--rood-lijn);border-left:5px solid var(--rood);background:var(--rood-soft);border-radius:16px;padding:18px 22px;margin:0 0 24px}
+.concept b{display:block;color:var(--rood);font-size:15.5px;margin-bottom:5px}
+.concept p{margin:0;font-size:14.5px;color:#7F1D1D}
+.concept p+p{margin-top:8px}
+.eigen{border-color:var(--marine-200);border-left-color:var(--marine);background:var(--marine-100)}
+.eigen b{color:var(--marine)}.eigen p{color:var(--inkt-2)}
+.kort{background:var(--groen-50);border:1.5px solid var(--groen-200);border-radius:18px;padding:20px 24px;margin:0 0 26px}
+.kort h2{font-size:12.5px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--groen-800);margin:0 0 10px}
+.kort ul{margin:0;padding-left:20px}.kort li{margin:6px 0;color:var(--inkt)}
+.inhoud{border:1.5px solid var(--lijn);border-radius:18px;padding:18px 24px;margin:0 0 12px}
+.inhoud h2{font-size:12.5px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--inkt-3);margin:0 0 10px}
+.inhoud ol{margin:0;padding-left:22px;columns:2;column-gap:32px;font-size:14.5px}
+.inhoud li{margin:4px 0;break-inside:avoid}
+.inhoud a{color:var(--inkt-2);text-decoration:none}.inhoud a:hover{color:var(--groen);text-decoration:underline}
+article h2{font-size:21px;font-weight:800;letter-spacing:-.02em;margin:38px 0 8px;scroll-margin-top:16px;padding-top:2px}
+article h3{font-size:16.5px;font-weight:700;margin:22px 0 4px}
+article p{margin:0 0 12px;color:var(--inkt-2);max-width:72ch}
+article ul,article ol{margin:0 0 14px;padding-left:22px;color:var(--inkt-2);max-width:72ch}
+article li{margin:6px 0}
+article b,article strong{color:var(--inkt);font-weight:700}
+.tbl{width:100%;border-collapse:collapse;font-size:14.5px;margin:0 0 16px}
+.tbl th,.tbl td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--lijn);vertical-align:top;color:var(--inkt-2)}
+.tbl th{background:var(--vlak);color:var(--inkt);font-weight:700;font-size:13.5px}
+.tbl td b{color:var(--inkt)}
+.tbl .num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.let{border:1.5px solid var(--lijn);border-left:5px solid var(--amber);background:#FFFBEB;border-radius:14px;padding:14px 18px;margin:0 0 16px}
+.let p{margin:0;font-size:14.5px;color:var(--amber)}
+.let p b{color:var(--amber)}
+.keuze{border:1.5px dashed var(--marine-200);border-radius:14px;padding:14px 18px;margin:0 0 16px;background:var(--marine-100)}
+.keuze p{margin:0;font-size:14.5px;color:var(--marine)}
+.wijzig{border-top:1.5px solid var(--lijn);margin-top:40px;padding-top:18px;font-size:14px;color:var(--inkt-3)}
+.wijzig b{color:var(--inkt)}
+footer{border-top:1px solid var(--lijn);margin-top:44px;padding:26px 0 60px;color:var(--inkt-3);font-size:13px}
+footer .jur{display:flex;flex-wrap:wrap;gap:18px;margin-bottom:12px}
+footer .jur a{text-decoration:none;color:var(--inkt-2);font-weight:600}
+footer .jur a:hover{color:var(--groen)}
+@media(max-width:760px){.in{padding:0 16px}.top{padding:14px 16px;gap:12px}.top nav{display:none}.inhoud ol{columns:1}}
+</style>
+
+<div class="schets">Ontwerpschets. Deze tekst is een concept en heeft nog geen juridische toetsing gehad.</div>
+<header class="top">
+  <a class="logo" href="index.html">snel<i>repareren</i>.nl</a>
+  <nav><a href="reparaties.html">Reparaties</a><a href="toestellen.html">Toestellen</a><a href="plaatsen.html">Plaatsen</a><a href="gidsen.html">Gidsen</a><a href="hoe-wij-rangschikken.html">Hoe wij rangschikken</a></nav>
+  <a class="btn" href="voor-winkels.html">Voor winkels</a>
+</header>
+
+<div class="in">
+  <div class="kruimels"><a href="index.html">Home</a><span>&rsaquo;</span>Toegankelijkheid</div>
+  <h1>Toegankelijkheid van deze site</h1>
+  <p class="intro">Hoe bruikbaar deze site is voor mensen met een beperking, wat wij daaraan doen, en waar wij tekortschieten.</p>
+  <div class="concept eigen">
+    <b>Dit is onze eigen verklaring, en hij is nog niet onafhankelijk getoetst.</b>
+    <p>Wij hebben deze site zelf langs de richtlijnen gelegd. Er is geen externe toetsing geweest en er is geen toegankelijkheidsonderzoek uitgevoerd door een keuringsinstantie. Waar wij tekortschieten, staat dat hieronder met zoveel woorden.</p>
+    <p>De juridische kant, namelijk of wij onder de Europese toegankelijkheidsrichtlijn vallen, moet nog worden bevestigd. Zie het laatste artikel.</p>
+  </div>
+  <div class="kort"><h2>In het kort</h2><ul><li>Wij richten ons op WCAG 2.2, niveau AA.</li><li>Er is nog geen onafhankelijke toetsing en geen test met een schermlezergebruiker.</li><li>Vier bekende beperkingen staan hieronder met naam en toenaam.</li><li>Loop je ergens tegenaan, dan reageren wij binnen vijf werkdagen.</li></ul></div>
+  <nav class="inhoud"><h2>Wat er in dit document staat</h2><ol><li><a href="#a1">Wat wij nastreven</a></li><li><a href="#a2">Wat wij al doen</a></li><li><a href="#a3">Wat nog niet goed genoeg is</a></li><li><a href="#a4">Een probleem melden</a></li><li><a href="#a5">Wat de wet hierover zegt</a></li></ol></nav>
+  <article>
+    <h2 id="a1">1. Wat wij nastreven</h2>
+    <p>Wij richten ons op <b>WCAG 2.2, niveau AA</b>. Dat is de internationale standaard voor toegankelijke websites en de norm waar de Europese regels naar verwijzen.</p>
+    <p>De reden is praktisch. Iemand met een gebroken telefoon zoekt vaak op een geleend of beschadigd toestel, soms met een gebarsten scherm en met één hand. Een site die dat aankan, werkt voor iedereen beter.</p>
+    <h2 id="a2">2. Wat wij al doen</h2>
+    <ul>
+      <li><b>Contrast.</b> Elke tekstkleur is doorgerekend tegen zijn achtergrond en haalt minstens 4,5 op 1. Wij gebruiken kleur nooit als enige manier om iets duidelijk te maken; er staat altijd ook een woord of een vorm bij.</li>
+      <li><b>Aanraakdoelen.</b> Knoppen en links zijn minstens 24 bij 24 pixels, met ruimte ertussen.</li>
+      <li><b>Toetsenbord.</b> Alles is met de tab-toets te bereiken en te bedienen, en waar de aandacht staat is zichtbaar.</li>
+      <li><b>Geen dubbele invoer.</b> Wat je in de reparatiekiezer heeft ingevuld, hoef je verderop niet nog eens in te typen.</li>
+      <li><b>Tekst blijft tekst.</b> Prijzen, cijfers en tabellen zijn echte tekst, geen plaatjes. Je browser mag ze vergroten.</li>
+      <li><b>Geen tijdslimieten.</b> Niets op deze site verdwijnt na een aantal seconden.</li>
+      <li><b>Beweging.</b> Animaties zijn klein en kort, en zetten zichzelf uit als je in je systeem heeft aangegeven dat je minder beweging wilt.</li>
+    </ul>
+    <h2 id="a3">3. Wat nog niet goed genoeg is</h2>
+    <p>Eerlijk is eerlijk:</p>
+    <ul>
+      <li>Er is <b>geen test met echte gebruikers</b> geweest, en geen test met een schermlezer door iemand die er dagelijks mee werkt. Onze eigen controle is niet hetzelfde.</li>
+      <li>De prijsbalk met de laagste, gemiddelde en hoogste prijs is een visuele weergave. De cijfers staan er in tekst bij, maar de balk zelf voegt voor een schermlezer weinig toe.</li>
+      <li>De vergelijking van winkels staat in een lijst met kaarten. Voor iemand die per kaart luistert, is dat langer dan een tabel zou zijn.</li>
+      <li>Wij weten nog niet of alles klopt bij zeer sterke vergroting op een smal scherm.</li>
+    </ul>
+    <p>Dit zijn geen excuses maar een werklijst.</p>
+    <h2 id="a4">4. Een probleem melden</h2>
+    <p>Loop je ergens tegenaan, meld het dan via <a href="melden.html">Iets melden</a> of stuur een bericht naar hallo@snelrepareren.nl. Beschrijf wat je probeerde te doen en waar het misging; het hulpmiddel dat je gebruikt helpt ons ook.</p>
+    <p>Wij reageren binnen vijf werkdagen en zeggen erbij wanneer wij het oplossen. Lukt iets niet op korte termijn, dan zeggen wij dat ook, en helpen wij je ondertussen op een andere manier aan het antwoord.</p>
+    <h2 id="a5">5. Wat de wet hierover zegt</h2>
+    <p>De Europese toegankelijkheidsrichtlijn geldt sinds 28 juni 2025, onder meer voor diensten die online worden aangeboden aan consumenten. Voor micro-ondernemingen die een dienst leveren, geldt een uitzondering: minder dan tien werkzame personen en een jaaromzet of balanstotaal van hoogstens twee miljoen euro.</p>
+    <p>Snelrepareren.nl valt op dit moment ruim onder die grens. Dat betekent niet dat wij het laten zitten: wij houden ons aan WCAG 2.2 AA omdat het hoort, niet omdat het moet.</p>
+    <div class="keuze"><p><b>Nog te bevestigen door de jurist:</b> of wij onder de uitzondering vallen, en wat er precies moet gebeuren zodra wij eroverheen groeien.</p></div>
+  </article>
+  <div class="wijzig"><b>Versie 0.1, concept.</b> Laatst bijgewerkt op 6 september 2026. Deze verklaring werken wij bij zodra een van de genoemde beperkingen is opgelost of zodra er een onafhankelijke toetsing is geweest.</div>
+</div>
+
+<footer><div class="in">
+  <div class="jur"><a href="voorwaarden.html">Voorwaarden</a><a href="voorwaarden-winkels.html">Voorwaarden voor winkels</a><a href="privacy.html">Privacy</a><a href="cookies.html">Cookies</a><a href="toegankelijkheid.html">Toegankelijkheid</a><a href="melden.html">Iets melden</a><a href="over-ons.html">Over ons</a></div>
+  Onderdeel van snelrepareren.nl, de onafhankelijke vergelijker voor telefoonreparatie in Nederland.
+</div></footer>

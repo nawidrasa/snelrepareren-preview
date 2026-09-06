@@ -1,0 +1,242 @@
+<title>Accu vervangen telefoon</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap">
+<style>
+:root{--groen-50:#F0FDF4;--groen-100:#DCFCE7;--groen-200:#BBF7D0;--groen-300:#86EFAC;--groen-500:#22C55E;--groen:#008934;--groen-800:#007B2E;--marine:#0B1F4E;--marine-100:#E8ECF5;--marine-200:#C5CEE3;--inkt:#111827;--inkt-2:#4A5878;--inkt-3:#6B7480;--lijn:#E3E6EE;--vlak:#F6F8FA;--amber:#B45309;--amber-soft:#FEF3C7;color-scheme:light}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:#fff;color:var(--inkt);font-family:'Outfit',system-ui,sans-serif;font-size:16px;line-height:1.55}
+a{color:inherit}.in{max-width:820px;margin:0 auto;padding:0 32px}
+.num{font-variant-numeric:tabular-nums}
+.schets{background:var(--amber-soft);color:var(--amber);font-size:13px;font-weight:600;text-align:center;padding:8px 16px}
+.top{display:flex;align-items:center;gap:24px;padding:16px 32px;max-width:1160px;margin:0 auto}
+.logo{font-weight:800;font-size:20px;letter-spacing:-.02em;color:var(--marine);text-decoration:none}.logo i{font-style:normal;color:var(--groen)}
+.top nav{display:flex;gap:22px;font-size:15px;color:var(--inkt-2)}.top nav a{text-decoration:none}.top nav a:hover{color:var(--inkt)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:999px;font-weight:600;font-size:15px;border:1.5px solid transparent;cursor:pointer;text-decoration:none}
+.btn-groen{background:var(--groen);color:#fff}.btn-groen:hover{background:var(--groen-800)}
+.btn-lijn{background:#fff;color:var(--groen);border-color:var(--groen)}.btn-lijn:hover{background:var(--groen-50)}
+.btn-klein{padding:9px 16px;font-size:14px;margin-left:auto}
+.btn-groot{padding:15px 26px;font-size:16px}
+.kruimels{font-size:13px;color:var(--inkt-3);padding:16px 0 0}.kruimels a{text-decoration:none}.kruimels span{margin:0 6px}
+.hero{padding:8px 0 4px}
+h1{font-size:clamp(28px,3.8vw,40px);font-weight:800;letter-spacing:-.025em;margin:8px 0 14px;text-wrap:balance;max-width:20ch}
+.intro{font-size:18px;line-height:1.55;color:var(--inkt-2);max-width:70ch;margin:0 0 20px}.intro b{color:var(--inkt);font-weight:700}
+.heroknoppen{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.heroknoppen .los{font-size:14px;color:var(--inkt-3)}
+.sneltoc{display:flex;gap:8px;flex-wrap:wrap;margin:24px 0 8px;padding:16px 0;border-top:1px solid var(--lijn);border-bottom:1px solid var(--lijn)}
+.sneltoc a{font-size:14px;font-weight:600;color:var(--inkt-2);text-decoration:none;padding:6px 14px;border-radius:999px;background:var(--vlak)}
+.sneltoc a:hover{background:var(--groen-100);color:var(--groen-800)}
+section{padding:34px 0;scroll-margin-top:16px}
+h2{font-size:24px;font-weight:800;letter-spacing:-.02em;margin:0 0 8px}
+.uitleg{color:var(--inkt-2);font-size:16px;margin:0 0 22px;max-width:72ch}
+.symp{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.scard{border:1.5px solid var(--lijn);border-radius:16px;padding:18px}
+.scard .ic{width:38px;height:38px;border-radius:11px;background:var(--groen-100);display:grid;place-items:center;margin-bottom:12px}
+.scard .ic svg{width:20px;height:20px;color:var(--groen-800)}
+.scard b{display:block;font-size:15px;font-weight:700;margin-bottom:3px}
+.scard span{font-size:13.5px;color:var(--inkt-2)}
+.tip{background:var(--groen-50);border:1.5px solid var(--groen-200);border-radius:16px;padding:20px;margin-top:18px}
+.tip b{font-weight:800}
+.tip p{margin:6px 0 0;font-size:14.5px;color:var(--inkt-2)}
+.soorten{display:grid;gap:12px}
+.soort{border:1.5px solid var(--lijn);border-radius:18px;padding:20px 22px;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:6px 18px;align-items:baseline}
+.soort .rang{grid-row:1/span 3;grid-column:1;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;font-weight:800;font-size:15px;color:#fff;align-self:start}
+.soort.laag .rang{background:var(--groen-500)}
+.soort.hoog .rang{background:var(--marine)}
+.soort .snaam{grid-column:2;grid-row:1;font-size:17px;font-weight:800}
+.soort .prijstag{grid-column:3;grid-row:1;font-size:13px;font-weight:700;color:var(--inkt-2);white-space:nowrap;text-align:right}
+.soort .alias{grid-column:2;grid-row:2;font-size:13px;color:var(--inkt-3);margin-top:-2px}
+.soort .sbody{grid-column:2/4;grid-row:3;font-size:14.5px;color:var(--inkt-2);margin-top:6px}
+.soort .vd,.soort .nd{display:flex;gap:8px;align-items:flex-start;margin-top:6px;font-size:14px}
+.soort .vd svg{width:17px;height:17px;color:var(--groen);flex:none;margin-top:2px}
+.soort .nd svg{width:17px;height:17px;color:var(--amber);flex:none;margin-top:2px}
+.mtabel{border:1.5px solid var(--lijn);border-radius:18px;overflow:hidden}
+.mkop,.mrij{display:grid;grid-template-columns:minmax(0,1.2fr) repeat(3,minmax(0,1fr)) 44px;gap:12px;padding:13px 20px;align-items:center}
+.mkop{background:var(--vlak);font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--inkt-3)}
+.mkop span:not(:first-child){text-align:right}
+.mrij{border-top:1px solid var(--lijn);text-decoration:none;color:inherit;transition:background .12s}
+.mrij:hover{background:var(--groen-50)}
+.mrij .mm{font-weight:700;font-size:15px}
+.mrij .g{text-align:right;font-size:15px;font-weight:600}
+.mrij .g.mid{color:var(--marine);font-weight:800}
+.mrij .pijl{justify-self:end;color:var(--inkt-3)}
+.mrij:hover .pijl{color:var(--groen)}
+.mrij .pijl svg{width:16px;height:16px;display:block}
+.stappen3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.stap3{border:1.5px solid var(--lijn);border-radius:18px;padding:22px}
+.stap3 .nr{width:32px;height:32px;border-radius:50%;background:var(--groen);color:#fff;font-weight:800;font-size:14px;display:grid;place-items:center;margin-bottom:12px}
+.stap3 b{display:block;font-size:16px;font-weight:700;margin-bottom:4px}
+.stap3 p{margin:0;color:var(--inkt-2);font-size:14px}
+.zoekband{background:var(--marine);color:#fff;border-radius:24px;padding:30px;margin-top:20px}
+.zoekband h2{color:#fff;margin-bottom:6px}
+.zoekband p{color:#fff;opacity:.85;margin:0 0 18px;font-size:15px;max-width:58ch}
+.zoekrij{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.zoekveld{position:relative;flex:1;min-width:220px}
+.zoekveld svg{position:absolute;left:16px;top:15px;width:19px;height:19px;color:var(--inkt-3)}
+.zoekveld input{width:100%;padding:14px 16px 14px 44px;border:0;border-radius:999px;font:inherit;font-size:16px;color:var(--inkt)}
+.faq{border-top:1px solid var(--lijn);padding:18px 0}
+.faq:last-of-type{border-bottom:1px solid var(--lijn)}
+.faq b{display:block;font-size:16.5px;font-weight:700;margin-bottom:6px}
+.faq p{margin:0;color:var(--inkt-2);font-size:15px;max-width:75ch}
+.verwant{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.vkaart{border:1.5px solid var(--lijn);border-radius:16px;padding:16px 18px;text-decoration:none;transition:border-color .15s}
+.vkaart:hover{border-color:var(--groen)}
+.vkaart b{font-size:15px;font-weight:700;display:block}
+.vkaart small{font-size:13px;color:var(--inkt-3)}
+.bronblok{background:var(--vlak);border-radius:18px;padding:22px;font-size:14px;color:var(--inkt-2)}
+.bronblok b{color:var(--inkt)}
+footer{border-top:1px solid var(--lijn);padding:28px 0 60px;color:var(--inkt-3);font-size:13px;margin-top:12px}
+@media(max-width:820px){.symp{grid-template-columns:1fr 1fr}.verwant,.stappen3{grid-template-columns:1fr}}
+@media(max-width:760px){.in{padding:0 16px}.top{padding:14px 16px;gap:12px}.top nav{display:none}
+ .mkop{display:none}.mrij{grid-template-columns:1fr 1fr;gap:6px 12px;padding:14px 16px;position:relative}
+ .mrij .mm{grid-column:1/-1}.mrij .g::before{content:attr(data-l);display:block;font-size:11px;font-weight:600;color:var(--inkt-3)}
+ .mrij .g{text-align:left}.mrij .pijl{position:absolute;top:14px;right:16px}
+ .soort{grid-template-columns:auto minmax(0,1fr)}.soort .prijstag{grid-column:2;grid-row:auto;text-align:left;margin-top:2px}
+ .soort .alias,.soort .sbody{grid-column:2}.soort .sbody{grid-row:auto}
+ .zoekband{padding:22px}}
+footer .jur{display:flex;flex-wrap:wrap;gap:18px;margin-bottom:12px}footer .jur a{text-decoration:none;color:var(--inkt-2);font-weight:600}footer .jur a:hover{color:var(--groen)}
+.mrij .dun{display:block;font-size:12px;font-weight:600;color:var(--amber);margin-top:2px}
+</style>
+
+<div class="schets">Ontwerpschets. De prijzen zijn echt gemeten bij Nederlandse winkels (18 prijspunten, peildatum 3 september 2026).</div>
+<header class="top">
+  <a class="logo" href="index.html">snel<i>repareren</i>.nl</a>
+  <nav><a href="reparaties.html">Reparaties</a><a href="toestellen.html">Toestellen</a><a href="plaatsen.html">Plaatsen</a><a href="gidsen.html">Gidsen</a><a href="hoe-wij-rangschikken.html">Hoe wij rangschikken</a></nav>
+  <a class="btn btn-lijn btn-klein" href="voor-winkels.html">Voor winkels</a>
+</header>
+
+<div class="in">
+  <div class="kruimels"><a href="index.html">Home</a><span>&rsaquo;</span><a href="reparaties.html">Reparaties</a><span>&rsaquo;</span>Accu vervangen</div>
+
+  <div class="hero">
+    <h1>Telefoonaccu laten vervangen</h1>
+    <p class="intro">Gaat je telefoon halverwege de dag al leeg, of valt hij ineens uit bij kou? Dan is de accu waarschijnlijk versleten. Een nieuwe accu kost in Nederland <b>tussen 59 en 139 euro</b>, met 99 euro als middelste prijs, en is meestal binnen een half uur klaar.</p>
+    <div class="heroknoppen">
+      <a class="btn btn-groen btn-groot" href="reparatiekiezer.html">Bereken het voor mijn toestel</a>
+      <span class="los">Gratis, geen account nodig</span>
+    </div>
+  </div>
+
+  <nav class="sneltoc">
+    <a href="#wanneer">Wanneer vervangen</a>
+    <a href="#soorten">Soorten accu's</a>
+    <a href="#prijzen">Prijzen per model</a>
+    <a href="#faq">Vragen</a>
+  </nav>
+
+  <section id="wanneer">
+    <h2>Wanneer is de accu aan vervanging toe?</h2>
+    <p class="uitleg">Een accu slijt door gebruik. Na twee tot drie jaar merk je dat vaak. Dit zijn de signalen:</p>
+    <div class="symp">
+      <div class="scard"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="15" height="8" rx="2"/><path d="M21 11v2"/><path d="M6 12h4"/></svg></div><b>Halverwege de dag leeg</b><span>Je moet vaker bijladen dan vroeger, terwijl je het toestel niet anders gebruikt.</span></div>
+      <div class="scard"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M5 12H2M22 12h-3"/><circle cx="12" cy="12" r="4"/></svg></div><b>Valt uit bij kou</b><span>Buiten in de winter springt hij ineens van 30 procent naar uit.</span></div>
+      <div class="scard"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s5 5 5 9a5 5 0 0 1-10 0c0-4 5-9 5-9z"/></svg></div><b>Wordt warm bij laden</b><span>Het toestel voelt duidelijk warmer aan dan je gewend bent.</span></div>
+      <div class="scard"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><b>Accugezondheid onder 80%</b><span>Bij een iPhone staat dit bij Instellingen, Batterij, Batterijconditie.</span></div>
+    </div>
+    <div class="tip">
+      <b>Eerst zelf kijken: hoe gezond is je accu?</b>
+      <p>Op een iPhone: Instellingen, Batterij, Batterijconditie en opladen. Staat de maximale capaciteit onder de 80 procent, dan is vervangen zinvol. Op Android verschilt het per merk; sommige toestellen tonen het onder Batterij of Onderhoud, anders geeft een winkel het gratis bij een diagnose aan.</p>
+    </div>
+  </section>
+
+  <section id="soorten">
+    <h2>Twee soorten accu's, twee prijzen</h2>
+    <p class="uitleg">Bij accu's is het verschil kleiner dan bij schermen, maar het bestaat. Winkels bieden meestal deze twee:</p>
+    <div class="soorten">
+      <div class="soort laag">
+        <div class="rang">1</div>
+        <div class="snaam">Aftermarket accu</div>
+        <div class="prijstag">&euro;&nbsp;59 tot &euro;&nbsp;109</div>
+        <div class="alias">ook huismerk, A+ of compatibel</div>
+        <div class="sbody">Een accu van een andere fabrikant met dezelfde capaciteit. Voor de meeste mensen prima.
+          <div class="vd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Goedkoper, ruim verkrijgbaar, vaak 12 maanden garantie.</span></div>
+          <div class="nd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg><span>Op een iPhone verdwijnt de melding over de batterijconditie soms.</span></div>
+        </div>
+      </div>
+      <div class="soort hoog">
+        <div class="rang">2</div>
+        <div class="snaam">Originele accu</div>
+        <div class="prijstag">&euro;&nbsp;99 tot &euro;&nbsp;139</div>
+        <div class="alias">fabrieksonderdeel, via een erkende reparateur</div>
+        <div class="sbody">Een accu van de fabrikant zelf. Bij Apple loopt dat via een Independent Repair Provider.
+          <div class="vd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Alle meldingen en functies blijven werken zoals bedoeld.</span></div>
+          <div class="nd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg><span>Duurder, en niet elke winkel kan eraan komen.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="prijzen">
+    <h2>Wat kost een nieuwe accu per model?</h2>
+    <p class="uitleg">Dit is wat wij landelijk hebben gemeten, inclusief het plaatsen. De prijs hangt vooral af van het model en van de vraag of het een origineel onderdeel is.</p>
+    <div class="mtabel">
+      <div class="mkop"><span>Model</span><span>Laagste</span><span>Mediaan</span><span>Hoogste</span><span></span></div>
+      <div id="mtabel"></div>
+    </div>
+    <p class="uitleg" style="margin:14px 0 0;font-size:14px">Ook een Samsung, Google Pixel of ander merk? Die staan in de reparatiekiezer. De accuprijzen liggen daar in dezelfde orde van grootte.</p>
+  </section>
+
+  <section>
+    <h2>Zo gaat het bij de winkel</h2>
+    <div class="stappen3">
+      <div class="stap3"><div class="nr">1</div><b>Controle</b><p>De winkel leest de accugezondheid uit en bevestigt dat vervangen zinvol is.</p></div>
+      <div class="stap3"><div class="nr">2</div><b>Vervangen</b><p>Meestal binnen een half uur, vaak terwijl je wacht. Je gegevens blijven staan.</p></div>
+      <div class="stap3"><div class="nr">3</div><b>Testen</b><p>De winkel test het laden en geeft je een bon met het serienummer en de garantie.</p></div>
+    </div>
+    <div class="zoekband">
+      <h2>Wat kost het bij jou in de buurt?</h2>
+      <p>Vul je plaats in om te zien welke winkels een accu kunnen vervangen, wat zij vragen en of het vandaag klaar kan.</p>
+      <div class="zoekrij">
+        <label class="zoekveld"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6-5.3-6-10a6 6 0 0 1 12 0c0 4.7-6 10-6 10z"/><circle cx="12" cy="11" r="2.5"/></svg><input placeholder="Plaats of postcode" aria-label="Plaats of postcode"></label>
+        <a class="btn btn-groen btn-groot" href="plaatspagina-leeuwarden.html">Zoek winkels</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <h2>Veelgestelde vragen</h2>
+    <div class="faq"><b>Blijven mijn foto's en apps staan?</b><p>Ja. Bij het vervangen van een accu wordt je toestel niet gewist. Maak toch even een back-up voordat je langsgaat; dat is bij elke reparatie verstandig.</p></div>
+    <div class="faq"><b>Hoelang duurt het?</b><p>Bij een winkel met de accu op voorraad meestal twintig tot veertig minuten, vaak terwijl je wacht. Heeft de winkel je model niet liggen, dan is het meestal de volgende dag klaar.</p></div>
+    <div class="faq"><b>Krijg ik na vervanging weer de melding over de batterijconditie?</b><p>Bij een origineel onderdeel wel. Bij een aftermarket accu toont een iPhone soms de melding "Kan geen originele Apple-batterij vaststellen", ook als de accu prima werkt. Een goede winkel vertelt dit vooraf.</p></div>
+    <div class="faq"><b>Is het de moeite waard bij een ouder toestel?</b><p>Vaak wel. Een accu van rond de 99 euro geeft een toestel van drie of vier jaar oud er zo weer een paar jaar bij, en dat is een fractie van een nieuw toestel. Zit het scherm er ook slecht bij, dan kan de rekening samen wel hoog oplopen.</p></div>
+  </section>
+
+  <section>
+    <h2>Verder lezen</h2>
+    <div class="verwant">
+      <a class="vkaart" href="reparatiepagina-scherm-vervangen.html"><b>Scherm vervangen</b><small>prijzen en soorten schermen</small></a>
+      <a class="vkaart" href="reparaties.html"><b>Alle reparaties</b><small>wat een winkel nog meer doet</small></a>
+      <a class="vkaart" href="gidsen.html"><b>Onze gidsen</b><small>uitleg en je rechten</small></a>
+    </div>
+  </section>
+
+  <section>
+    <div class="bronblok">
+      <b>Waar de prijzen vandaan komen.</b> Uit ons eigen prijsonderzoek: 18 gemeten prijspunten voor het vervangen van een iPhone-accu bij vijf Nederlandse winkels, peildatum 3 september 2026, inclusief het plaatsen. Prijzen zijn een indicatie, geen aanbod. De winkel bepaalt de prijs en de garantie.
+    </div>
+  </section>
+</div>
+
+<footer><div class="in">
+  <div class="jur"><a href="voorwaarden.html">Voorwaarden</a><a href="privacy.html">Privacy</a><a href="cookies.html">Cookies</a><a href="toegankelijkheid.html">Toegankelijkheid</a><a href="melden.html">Iets melden</a><a href="over-ons.html">Over ons</a></div>
+  Onderdeel van het reparatieoverzicht van snelrepareren.nl.</div></footer>
+
+<script>
+const eur=n=>'&euro;&nbsp;'+n;
+/* gemeten accuprijzen per model, bron: prijsonderzoek 3 sept 2026 */
+const MODELLEN=[
+ ['iPhone 14',99,109,139,'#'],
+ ['iPhone 13',59,99,129,'prijspagina-iphone13-accu.html'],
+ ['iPhone 12',99,99,129,'#',1],
+ ['iPhone 11',79,99,119,'#'],
+];
+const PIJL='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+document.getElementById('mtabel').innerHTML=MODELLEN.map(([m,lo,md,hi,link,dun])=>`<a class="mrij" href="${link}">
+  <span class="mm">${m} accu${dun?'<small class="dun">Nog maar 2 winkels gemeten</small>':''}</span>
+  <span class="g num" data-l="Laagste">${eur(lo)}</span>
+  <span class="g num mid" data-l="Mediaan">${eur(md)}</span>
+  <span class="g num" data-l="Hoogste">${eur(hi)}</span>
+  <span class="pijl">${PIJL}</span></a>`).join('');
+</script>

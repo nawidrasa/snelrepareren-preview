@@ -1,0 +1,550 @@
+<title>Reparatiekiezer snelrepareren</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap">
+<style>
+:root{
+  color-scheme:light;
+  --gradient:linear-gradient(160deg,#008C34 0%,#22C55E 55%,#86EFAC 100%);
+  --groen-50:#F0FDF4;--groen-100:#DCFCE7;--groen-200:#BBF7D0;--groen-300:#86EFAC;--groen-500:#22C55E;--groen:#008934;--groen-800:#007B2E;--groen-900:#005A22;
+  --marine:#0B1F4E;--marine-d:#061238;--marine-100:#E8ECF5;--marine-200:#C5CEE3;
+  --inkt:#111827;--inkt-2:#4A5878;--inkt-3:#6B7480;--lijn:#E3E6EE;--vlak:#F6F8FA;
+  --amber:#B45309;--amber-soft:#FEF3C7;--rood:#B91C1C;
+  --rc:20px;--ri:12px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#fff;color:var(--inkt);font-family:'Outfit',system-ui,sans-serif;font-size:16px;line-height:1.5}
+.num{font-variant-numeric:tabular-nums}
+button{font:inherit}
+
+/* kop */
+.top{display:flex;align-items:center;gap:24px;padding:18px 32px;max-width:1160px;margin:0 auto}
+.logo{font-weight:800;font-size:21px;letter-spacing:-.02em;color:var(--marine);text-decoration:none}
+.logo i{font-style:normal;color:var(--groen)}
+.top nav{display:flex;gap:20px;font-size:15px;color:var(--inkt-2)}
+.top .btn{margin-left:auto}
+
+/* hero met zwevende kaart */
+.hero{background:var(--gradient);padding:44px 32px 96px}
+.hero-in{max-width:1160px;margin:0 auto}
+.hero h1{color:#fff;font-size:clamp(28px,4vw,44px);font-weight:800;line-height:1.06;letter-spacing:-.025em;margin:0 0 8px;max-width:20ch;text-wrap:balance}
+.hero p.lede{color:#fff;opacity:.92;margin:0 0 28px;font-size:17px;max-width:48ch}
+.kaart{background:#fff;border-radius:calc(var(--rc) + 8px);box-shadow:0 30px 70px -30px rgba(11,31,78,.45);overflow:hidden}
+
+/* stappen */
+.stappen{display:flex;align-items:center;border-bottom:1px solid var(--lijn);padding:0 28px}
+.stap{display:flex;align-items:center;gap:10px;padding:18px 22px 16px 0;margin-right:22px;border-bottom:3px solid transparent;color:var(--inkt-3);font-weight:600;font-size:14.5px;background:none;border-top:0;border-left:0;border-right:0;cursor:default}
+.stap b{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--vlak);color:var(--inkt-3);font-size:13px;transition:background .2s,color .2s}
+.stap.nu{color:var(--inkt);border-bottom-color:var(--groen)}
+.stap.nu b{background:var(--groen);color:#fff}
+.stap.af{color:var(--groen-800);cursor:pointer}
+.stap.af b{background:var(--groen-100);color:var(--groen-800)}
+.opnieuw{margin-left:auto;background:#fff;border:1.5px solid var(--lijn);border-radius:999px;padding:7px 14px;font-size:13px;font-weight:600;color:var(--inkt-2);cursor:pointer;white-space:nowrap}
+.opnieuw:hover{border-color:var(--inkt-3);color:var(--inkt)}
+
+/* lichaam */
+.lichaam{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:40px;padding:32px 28px 28px;min-height:520px}
+.inhoud{animation:in .28s ease both}
+@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.vraag{font-size:26px;font-weight:800;letter-spacing:-.02em;margin:0 0 6px;text-wrap:balance}
+.sub{margin:0 0 20px;color:var(--inkt-2);font-size:15px}
+.terug{background:none;border:0;color:var(--inkt-2);font-weight:600;font-size:14px;padding:0;cursor:pointer;margin:0 0 14px;display:inline-flex;align-items:center;gap:6px}
+.terug:hover{color:var(--inkt)}
+
+/* zoeken met suggesties */
+.zoek{position:relative}
+.zoek > svg{position:absolute;left:18px;top:19px;width:20px;height:20px;color:var(--inkt-3);pointer-events:none}
+.zoek input{width:100%;padding:17px 18px 17px 50px;border:2px solid var(--lijn);border-radius:999px;font:inherit;font-size:17px;color:var(--inkt);background:#fff;transition:border-color .15s,box-shadow .15s}
+.zoek input:focus{outline:none;border-color:var(--groen);box-shadow:0 0 0 4px var(--groen-100)}
+.sugg{position:absolute;left:0;right:0;top:calc(100% + 8px);background:#fff;border:1px solid var(--lijn);border-radius:16px;box-shadow:0 18px 40px -18px rgba(11,31,78,.35);padding:6px;z-index:3;display:none}
+.sugg.open{display:block}
+.sugg button{display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:10px 12px;border:0;background:none;border-radius:10px;cursor:pointer}
+.sugg button:hover,.sugg button:focus-visible{background:var(--groen-50);outline:none}
+.sugg b{font-weight:600}
+.sugg small{color:var(--inkt-3);font-size:12.5px;margin-left:auto;white-space:nowrap}
+.sugg .m{width:8px;height:8px;border-radius:50%;background:var(--groen);flex:none}
+.hulp{background:none;border:0;font-size:13.5px;font-weight:600;color:var(--groen);cursor:pointer;padding:10px 0 0 18px;text-decoration:underline;text-underline-offset:3px}
+.of{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--inkt-3);margin:26px 0 12px}
+
+/* tegels */
+.tegels{display:grid;gap:10px}
+.t4{grid-template-columns:repeat(4,1fr)}
+.tegel{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:74px;padding:12px 10px;border:1.5px solid var(--lijn);border-radius:14px;background:#fff;font-size:14.5px;font-weight:600;color:var(--inkt);cursor:pointer;text-align:center;transition:transform .15s,border-color .15s,box-shadow .15s}
+.tegel:hover,.tegel:focus-visible{border-color:var(--groen);color:var(--groen);transform:translateY(-2px);box-shadow:0 10px 20px -14px rgba(0,137,52,.5);outline:none}
+.tegel.aan{border-color:var(--groen);background:var(--groen-50);color:var(--groen-800)}
+.tegel small{font-weight:400;font-size:12px;color:var(--inkt-3)}
+.tegel .cnt{font-size:11.5px;color:var(--groen-800);background:var(--groen-100);padding:1px 8px;border-radius:999px;margin-top:2px}
+
+/* kleur van het toestel */
+.kleur{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 16px;padding:12px 14px;border:1.5px solid var(--lijn);border-radius:14px}
+.kleur .lab{font-size:13.5px;font-weight:600;line-height:1.2}
+.kleur .lab small{display:block;font-weight:400;color:var(--inkt-3);font-size:12px}
+.swatches{display:flex;gap:8px;margin-left:auto}
+.sw{width:30px;height:30px;border-radius:50%;background:var(--c);border:2px solid #fff;box-shadow:0 0 0 1.5px var(--lijn);cursor:pointer;padding:0;transition:transform .15s,box-shadow .15s}
+.sw:hover{transform:scale(1.12)}
+.sw.aan{box-shadow:0 0 0 2.5px var(--groen)}
+.kn{font-size:13px;color:var(--inkt-2);min-width:9ch}
+
+/* schade: de lijst naast de telefoon */
+.schade{display:grid;gap:10px}
+.deel-rij{border:1.5px solid var(--lijn);border-radius:14px;overflow:hidden;transition:border-color .15s,background .15s}
+.deel-rij.aan{border-color:var(--groen);background:var(--groen-50)}
+.deel-kop{display:flex;align-items:center;gap:12px;padding:13px 14px;cursor:pointer;background:none;border:0;width:100%;text-align:left}
+.deel-kop .vink{width:22px;height:22px;border-radius:7px;border:1.5px solid var(--lijn);background:#fff;display:grid;place-items:center;flex:none;transition:background .15s}
+.deel-rij.aan .vink{background:var(--groen);border-color:var(--groen)}
+.deel-kop .vink svg{width:13px;height:13px;color:#fff;opacity:0}
+.deel-rij.aan .vink svg{opacity:1}
+.deel-kop .naam{font-weight:600;flex:1}
+.deel-kop .vanaf{font-weight:700;color:var(--inkt)}
+.deel-kop .vanaf.aanvraag{font-weight:500;color:var(--inkt-3);font-size:13.5px}
+.deel-kop .weg{font-size:13px;font-weight:600;color:var(--inkt-3)}
+.deel-kop:hover .weg{color:var(--rood)}
+.kwal{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:0 14px 14px}
+.kw{position:relative;border:1.5px solid var(--lijn);border-radius:12px;padding:12px 8px 10px;text-align:center;background:#fff;cursor:pointer;transition:border-color .15s,background .15s}
+.kw:hover{border-color:var(--groen-500)}
+.kw.aan{border-color:var(--groen);background:var(--groen-100)}
+.kw small{display:block;font-size:12px;color:var(--inkt-2)}
+.kw b{display:block;font-size:17px;font-weight:800;margin:2px 0}
+.kw em{display:block;font-style:normal;font-size:11px;color:var(--inkt-3)}
+.kw .tip{position:absolute;top:-9px;left:50%;transform:translateX(-50%);background:var(--groen);color:#fff;font-size:9.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.uitleg-water{padding:0 14px 14px;font-size:13.5px;color:var(--inkt-2)}
+
+/* telefoonpaneel */
+.paneel{display:flex;flex-direction:column;align-items:center;gap:16px;padding-top:6px}
+.tel{width:224px;height:auto;filter:drop-shadow(0 24px 40px rgba(11,31,78,.28))}
+.tel .hot{cursor:pointer}
+.tel .hot .dot{transition:r .15s}
+.tel .hot:hover .dot{r:7px}
+.tel .hot .puls{animation:puls 1.8s ease-out infinite}
+@keyframes puls{0%{r:6px;opacity:.7}100%{r:17px;opacity:0}}
+.tel .ring{animation:ring .7s ease-out forwards}
+@keyframes ring{from{r:10px;opacity:.7}to{r:28px;opacity:0}}
+.tel .barst path{stroke-dasharray:900;stroke-dashoffset:900;animation:trek .7s ease forwards}
+.tel .barst{animation:vervaag 1.5s ease forwards}
+@keyframes trek{to{stroke-dashoffset:0}}
+@keyframes vervaag{0%,55%{opacity:1}100%{opacity:0}}
+.tel .leeg .vul{animation:leegloop 1s ease forwards}
+@keyframes leegloop{0%{width:17px;fill:#22C55E}70%{width:4.5px;fill:#B45309}100%{width:4.5px;fill:#B45309}}
+.tel .mk .pop{animation:pop .45s cubic-bezier(.2,1.5,.4,1);transform-box:fill-box;transform-origin:center}
+@keyframes pop{from{transform:scale(0)}to{transform:scale(1)}}
+@media (prefers-reduced-motion:reduce){.tel .hot .puls,.tel .ring,.tel .barst,.tel .barst path,.tel .leeg .vul,.tel .mk .pop{animation:none}.tel .barst{opacity:0}.inhoud{animation:none}.tegel{transition:none}}
+.tel-tekst{text-align:center;font-size:13.5px;color:var(--inkt-2);max-width:26ch;margin:0}
+.tel-tekst b{color:var(--inkt);display:block;font-size:15px;margin-bottom:2px}
+.som{width:100%;max-width:300px;border:1.5px solid var(--lijn);border-radius:14px;padding:4px 14px;background:#fff}
+.som .rij{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--lijn);font-size:13.5px}
+.som .rij:last-child{border-bottom:0}
+.som .rij span{flex:1;font-weight:600;line-height:1.2}
+.som .rij small{display:block;font-weight:400;color:var(--inkt-3);font-size:12px}
+.som .rij b{font-weight:700}
+.som .rij b.aanvraag{font-weight:500;color:var(--inkt-3);font-size:12.5px}
+.som .x{background:none;border:0;color:var(--inkt-3);font-size:20px;line-height:1;cursor:pointer;padding:0 0 2px 4px}
+.som .x:hover{color:var(--rood)}
+.som .tot{border-top:2px solid var(--inkt);margin-top:-1px}
+.som .tot span{font-weight:800}
+.som .tot b{font-size:16px;font-weight:800}
+.chip{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:999px;font-size:12.5px;font-weight:600}
+.chip svg{width:12px;height:12px}
+.chip-keur{background:var(--groen-100);color:var(--groen-800)}
+.chip-snel{background:var(--amber-soft);color:var(--amber)}
+.chip-uitg{background:var(--marine-100);color:var(--marine)}
+
+/* balk onder: live samenvatting */
+.balk{display:flex;align-items:center;gap:16px;padding:16px 28px;border-top:1px solid var(--lijn);background:var(--vlak)}
+.balk .live{flex:1;font-size:14.5px;color:var(--inkt-2);min-width:0}
+.balk .live b{color:var(--inkt)}
+.balk .live .amber{color:var(--amber);font-weight:600;white-space:nowrap}
+.balk .live svg{width:14px;height:14px;vertical-align:-2px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 22px;border-radius:999px;font-weight:600;font-size:15px;border:1.5px solid transparent;cursor:pointer;text-decoration:none;white-space:nowrap;transition:background .15s,transform .15s}
+.btn:active{transform:scale(.98)}
+.btn svg{width:16px;height:16px}
+.btn-groen{background:var(--groen);color:#fff}
+.btn-groen:hover{background:var(--groen-800)}
+.btn-lijn{background:#fff;color:var(--groen);border-color:var(--groen)}
+.btn-stil{background:transparent;color:var(--inkt-2)}
+.btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
+
+/* plaats en filters */
+.plaats{display:flex;gap:8px;align-items:center;margin:-6px 0 14px}
+.pin{display:inline-flex;gap:6px;align-items:center;padding:7px 14px 7px 12px;border-radius:999px;border:1.5px solid var(--lijn);background:#fff;font-size:13.5px;font-weight:600;color:var(--inkt);cursor:pointer}
+.pin svg{width:15px;height:15px;color:var(--groen)}
+.pin u{color:var(--groen);margin-left:4px;text-underline-offset:3px}
+.veld{position:relative;display:block;flex:1;max-width:300px}
+.veld input{width:100%;padding:21px 14px 7px;border:1.5px solid var(--lijn);border-radius:var(--ri);font:inherit;font-size:15px;color:var(--inkt);background:#fff}
+.veld input:focus{outline:none;border-color:var(--groen);box-shadow:0 0 0 4px var(--groen-100)}
+.veld span{position:absolute;left:14px;top:14px;font-size:15px;color:var(--inkt-3);transition:top .15s,font-size .15s;pointer-events:none}
+.veld input:focus+span,.veld input:not(:placeholder-shown)+span{top:6px;font-size:11px;color:var(--groen);font-weight:600}
+.filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:0 0 16px}
+.filters .lab{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--inkt-3);margin-right:4px}
+.fchip{padding:7px 14px;border-radius:999px;border:1.5px solid var(--lijn);background:#fff;font-size:13px;font-weight:600;color:var(--inkt-2);cursor:pointer;transition:background .15s,border-color .15s}
+.fchip:hover{border-color:var(--groen)}
+.fchip.aan{background:var(--groen);border-color:var(--groen);color:#fff}
+
+/* winkels */
+.winkels{display:grid;gap:12px}
+.winkel{border:1.5px solid var(--lijn);border-radius:var(--rc);padding:18px 18px 16px;background:#fff;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 20px;align-items:start;transition:border-color .15s}
+.winkel:hover{border-color:var(--groen-300)}
+.winkel.uitg{border-color:var(--marine-200);box-shadow:0 10px 28px -14px rgba(11,31,78,.28)}
+.winkel .kop{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.winkel .kop b{font-size:17px;font-weight:700}
+.winkel .kop span{font-size:13px;color:var(--inkt-3)}
+.winkel .cijfer{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;font-size:13.5px;color:var(--inkt-2)}
+.winkel .cijfer b{font-size:19px;color:var(--inkt)}
+.winkel .feit{color:var(--inkt-2)}
+.winkel .feit::before{content:"\00b7  "}
+.winkel .chips{display:flex;gap:6px;flex-wrap:wrap;grid-column:1}
+.winkel .betaal{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--inkt-3);grid-column:1}
+.winkel .betaal svg{width:14px;height:14px;flex:none}
+.winkel .prijsvak{grid-row:1/span 4;grid-column:2;text-align:right;display:grid;gap:4px;justify-items:end;min-width:150px}
+.winkel .prijs{font-size:24px;font-weight:800;line-height:1}
+.winkel .prijs small{font-size:12px;font-weight:500;color:var(--inkt-3);display:block}
+.bereik{width:150px;margin-top:6px}
+.bereik .track{position:relative;height:6px;border-radius:999px;background:var(--lijn)}
+.bereik .fill{position:absolute;top:0;bottom:0;border-radius:999px;background:var(--groen-200)}
+.bereik .tick{position:absolute;top:-4px;width:2px;height:14px;background:var(--marine);border-radius:2px;transform:translateX(-50%)}
+.bereik .jij{position:absolute;top:-4px;width:14px;height:14px;border-radius:50%;background:var(--groen);border:2.5px solid #fff;box-shadow:0 0 0 1.5px var(--groen);transform:translateX(-50%)}
+.bereik .lab{display:flex;justify-content:space-between;font-size:10.5px;color:var(--inkt-3);margin-top:6px}
+.winkel .acties{grid-column:1/-1;display:flex;gap:8px;flex-wrap:wrap;padding-top:12px;border-top:1px solid var(--lijn);margin-top:4px}
+.leeg{padding:22px;border:1.5px dashed var(--lijn);border-radius:14px;color:var(--inkt-2);font-size:14.5px;text-align:center}
+.rangschik{font-size:13px;color:var(--inkt-3);margin:14px 0 0}
+.rangschik button{background:none;border:0;padding:0;font:inherit;color:var(--groen);font-weight:600;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+
+/* dialoog */
+dialog{border:0;border-radius:var(--rc);padding:0;max-width:460px;width:calc(100% - 40px);box-shadow:0 24px 60px -20px rgba(11,31,78,.4)}
+dialog::backdrop{background:rgba(11,31,78,.45)}
+.dlg{padding:26px}
+.dlg h3{margin:0 0 4px;font-size:20px;font-weight:800}
+.dlg p{margin:0 0 16px;color:var(--inkt-2);font-size:14.5px}
+.dlg ol{margin:0;padding:0;list-style:none;counter-reset:s}
+.dlg li{counter-increment:s;position:relative;padding-left:34px;margin-bottom:12px;font-size:14.5px}
+.dlg li::before{content:counter(s);position:absolute;left:0;top:0;width:24px;height:24px;border-radius:50%;background:var(--groen-100);color:var(--groen-800);font-size:12px;font-weight:700;display:grid;place-items:center}
+.tabs{display:flex;gap:8px;margin:0 0 16px}
+.tabs button{font-size:13.5px;font-weight:600;padding:7px 14px;border-radius:999px;border:1.5px solid var(--lijn);background:#fff;cursor:pointer}
+.tabs button.aan{background:var(--groen);border-color:var(--groen);color:#fff}
+.dlg .sluit{display:flex;justify-content:flex-end;margin-top:18px}
+
+.onder{max-width:1160px;margin:0 auto;padding:40px 32px 80px;color:var(--inkt-3);font-size:13.5px;max-width:70ch}
+
+@media (max-width:900px){
+  .lichaam{grid-template-columns:1fr;gap:24px}
+  .paneel{order:-1}
+  .tel{width:150px}
+  .t4{grid-template-columns:repeat(2,1fr)}
+  .kwal{grid-template-columns:1fr}
+  .swatches{margin-left:0}
+  .winkel{grid-template-columns:1fr}
+  .winkel .prijsvak{grid-row:auto;grid-column:1;justify-items:start;text-align:left}
+  .winkel .feit{flex-basis:100%}.winkel .feit::before{content:""}
+  .hero{padding:28px 16px 60px}
+  .stappen{padding:0 16px}.stap{padding-right:12px;margin-right:10px;font-size:13px}.opnieuw{padding:6px 10px;font-size:12px}
+  .lichaam,.balk{padding-left:16px;padding-right:16px}
+  .balk{position:sticky;bottom:0;z-index:4;gap:10px}
+  .balk .live{font-size:13px}.balk .live .pl{display:none}
+}
+
+/* match-dialoog */
+dialog.match{border:0;border-radius:22px;padding:0;max-width:440px;width:calc(100% - 32px);box-shadow:0 24px 60px -20px rgba(11,31,78,.4)}
+dialog.match::backdrop{background:rgba(11,31,78,.45)}
+.mdlg{padding:26px}
+.mdlg h3{margin:0 0 4px;font-size:20px;font-weight:800}
+.mdlg .waar{color:var(--inkt-3);font-size:13.5px;margin:0 0 18px}
+.mdlg .nummer{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--vlak);border-radius:14px;padding:14px 16px;margin-bottom:18px}
+.mdlg .nummer b{font-size:19px;font-weight:800;letter-spacing:.01em}
+.mdlg .belknop{background:var(--groen);color:#fff;border-radius:999px;padding:11px 20px;font-weight:600;font-size:15px;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+.mdlg .belknop svg{width:16px;height:16px}
+.mdlg .streep{height:1px;background:var(--lijn);margin:0 0 16px}
+.mdlg .vraag{font-size:15px;font-weight:700;margin:0 0 4px}
+.mdlg .vraaguitleg{font-size:13.5px;color:var(--inkt-2);margin:0 0 12px}
+.mdlg input{width:100%;padding:12px 14px;border:1.5px solid var(--lijn);border-radius:12px;font:inherit;font-size:15px;margin-bottom:10px}
+.mdlg input:focus{outline:none;border-color:var(--groen);box-shadow:0 0 0 3px var(--groen-100)}
+.mdlg .knoppen{display:flex;gap:8px}
+.mdlg .knoppen .btn{flex:1}
+.mdlg .klein{font-size:12px;color:var(--inkt-3);margin:12px 0 0}
+.mdlg .gelukt{text-align:center;padding:8px 0 0}
+.mdlg .gelukt .bal{width:52px;height:52px;border-radius:16px;background:var(--groen-100);display:grid;place-items:center;margin:0 auto 12px}
+.mdlg .gelukt .bal svg{width:26px;height:26px;color:var(--groen)}
+.jurvoet{border-top:1px solid var(--lijn);margin-top:40px;padding:22px 32px 48px;max-width:1160px;margin-left:auto;margin-right:auto;color:var(--inkt-3);font-size:13px}
+.jurvoet .jur{display:flex;flex-wrap:wrap;gap:18px;margin-bottom:10px}
+.jurvoet .jur a{text-decoration:none;color:var(--inkt-2);font-weight:600}
+.jurvoet .jur a:hover{color:var(--groen)}
+@media(max-width:760px){.jurvoet{padding:20px 16px 44px}}
+.schets{background:var(--amber-soft);color:var(--amber);font-size:13px;font-weight:600;text-align:center;padding:8px 16px}
+</style>
+
+
+<div class="schets">Ontwerpschets. De winkels in stap 3 zijn verzonnen voorbeelden; de prijzen komen uit ons eigen prijsonderzoek van 3 september 2026.</div>
+<header class="top">
+  <a class="logo" href="index.html">snel<i>repareren</i>.nl</a>
+  <nav><a href="reparaties.html">Reparaties</a><a href="toestellen.html">Toestellen</a><a href="plaatsen.html">Plaatsen</a><a href="gidsen.html">Gidsen</a><a href="hoe-wij-rangschikken.html">Hoe wij rangschikken</a></nav>
+  <a class="btn btn-lijn" href="voor-winkels.html">Voor winkels</a>
+</header>
+
+<section class="hero"><div class="hero-in">
+  <h1>Telefoon kapot? Binnen een minuut weet je wie het vandaag kan.</h1>
+  <p class="lede">Kies je toestel, tik aan wat er kapot is, en vergelijk gecontroleerde winkels bij jou in de buurt. Gratis en onafhankelijk.</p>
+
+  <div class="kaart">
+    <div class="stappen" id="stappen">
+      <button class="stap nu" data-s="1"><b>1</b>Toestel</button>
+      <button class="stap" data-s="2"><b>2</b>Schade</button>
+      <button class="stap" data-s="3"><b>3</b>Winkel</button>
+      <button class="opnieuw" id="opnieuw" onclick="reset()" hidden>Opnieuw beginnen</button>
+    </div>
+    <div class="lichaam">
+      <div class="inhoud" id="inhoud"></div>
+      <aside class="paneel" id="paneel"></aside>
+    </div>
+    <div class="balk">
+      <div class="live" id="live">Begin met je toestel.</div>
+      <div id="balkknop"></div>
+    </div>
+  </div>
+</div></section>
+
+<div class="onder">Prijzen uit het prijsonderzoek (iPhone 13 scherm: 79 tot 309 euro over 224 metingen). Winkels, beoordelingen, afstanden en toestelkleuren zijn illustratief. Volgorde: onbetaald, op keurmerk en beoordeling; het blok Uitgelicht is betaald en zo gelabeld (besluit B2).</div>
+
+
+<dialog class="match" id="matchdlg"><div class="mdlg" id="matchinhoud"></div></dialog>
+<dialog id="hulp"><div class="dlg">
+  <h3>Ik weet mijn model niet</h3>
+  <p>Op je toestel staat een modelcode. Zo vind je hem, en dan typ je hem gewoon in het zoekveld.</p>
+  <div class="tabs"><button class="aan" data-os="ios">iPhone</button><button data-os="android">Android</button></div>
+  <ol id="stappenlijst"></ol>
+  <div class="sluit"><button class="btn btn-groen" onclick="document.getElementById('hulp').close()">Sluiten</button></div>
+</div></dialog>
+
+<dialog id="rang"><div class="dlg">
+  <h3>Hoe wij rangschikken</h3>
+  <p>De gewone lijst is niet te koop. Winkels staan op volgorde van keurmerk (door ons gecontroleerde verzekering), erkenningen, en beoordelingen van echte klanten. Winkels die "Uitgelicht" zijn, betalen daarvoor en staan altijd als zodanig gelabeld, in een eigen blok.</p>
+  <div class="sluit"><button class="btn btn-groen" onclick="document.getElementById('rang').close()">Sluiten</button></div>
+</div></dialog>
+
+
+<footer class="jurvoet">
+  <div class="jur"><a href="voorwaarden.html">Voorwaarden</a><a href="privacy.html">Privacy</a><a href="cookies.html">Cookies</a><a href="toegankelijkheid.html">Toegankelijkheid</a><a href="melden.html">Iets melden</a></div>
+  Wij vragen je nergens om een telefoonnummer; je belt de winkel zelf. Zie de <a href="privacy.html">privacyverklaring</a>.
+</footer>
+
+<script>
+/* ---------- gegevens ---------- */
+const MODELLEN=[
+ ['Apple','iPhone 15',['iPhone 15','A3090 A2846 A3089'],['iPhone 15 Plus','A3094 A2847'],['iPhone 15 Pro','A2848 A3101'],['iPhone 15 Pro Max','A2849 A3105']],
+ ['Apple','iPhone 14',['iPhone 14','A2882 A2649'],['iPhone 14 Plus','A2886 A2632'],['iPhone 14 Pro','A2890 A2650'],['iPhone 14 Pro Max','A2894 A2651']],
+ ['Apple','iPhone 13',['iPhone 13 mini','A2628 A2481'],['iPhone 13','A2633 A2482'],['iPhone 13 Pro','A2638 A2483'],['iPhone 13 Pro Max','A2643 A2484']],
+ ['Apple','iPhone 12',['iPhone 12 mini','A2399 A2176'],['iPhone 12','A2403 A2172'],['iPhone 12 Pro','A2407 A2341'],['iPhone 12 Pro Max','A2411 A2342']],
+ ['Apple','iPhone 11',['iPhone 11','A2221 A2111'],['iPhone 11 Pro','A2215 A2160'],['iPhone 11 Pro Max','A2218 A2161']],
+ ['Apple','iPhone SE',['iPhone SE (2022)','A2783 A2595'],['iPhone SE (2020)','A2275 A2296']],
+ ['Samsung','Galaxy S24',['Galaxy S24','SM-S921B'],['Galaxy S24+','SM-S926B'],['Galaxy S24 Ultra','SM-S928B']],
+ ['Samsung','Galaxy S23',['Galaxy S23','SM-S911B'],['Galaxy S23+','SM-S916B'],['Galaxy S23 Ultra','SM-S918B'],['Galaxy S23 FE','SM-S711B']],
+ ['Samsung','Galaxy A',['Galaxy A55','SM-A556B'],['Galaxy A54','SM-A546B'],['Galaxy A35','SM-A356B'],['Galaxy A15','SM-A155F']],
+ ['Google','Pixel 8',['Pixel 8','GKWS6'],['Pixel 8 Pro','GC3VE'],['Pixel 8a','G6GPR']],
+ ['Google','Pixel 7',['Pixel 7','GVU6C'],['Pixel 7 Pro','GP4BC'],['Pixel 7a','GHL1X']],
+];
+const KLEUREN={
+ 'iPhone 15':[['Zwart','#3A3A3C'],['Blauw','#CFD9DE'],['Groen','#D0DBCF'],['Geel','#EFE6C3'],['Roze','#F2D3D0']],
+ 'iPhone 14':[['Middernacht','#2E3641'],['Sterrenlicht','#EFEAE1'],['Blauw','#A7C1D9'],['Paars','#E5DDEA'],['Geel','#F6E27A'],['Rood','#C3222E']],
+ 'iPhone 13':[['Middernacht','#242A31'],['Sterrenlicht','#EFEAE1'],['Blauw','#3C5B86'],['Roze','#F7DAD8'],['Groen','#3E5F51'],['Rood','#BF1E2E']],
+ 'iPhone 12':[['Zwart','#202225'],['Wit','#F2F1EC'],['Blauw','#2F4B7E'],['Groen','#D3EAD5'],['Paars','#C8BBDF'],['Rood','#C81E2B']],
+ 'iPhone 11':[['Zwart','#212327'],['Wit','#F2F1EC'],['Groen','#C7E3D6'],['Geel','#F5E67C'],['Paars','#D2CCE4'],['Rood','#C6252E']],
+ 'iPhone SE':[['Middernacht','#242A31'],['Sterrenlicht','#EFEAE1'],['Rood','#BF1E2E']],
+ 'Galaxy S24':[['Onyx Black','#212325'],['Marble Gray','#B8B6B1'],['Cobalt Violet','#8D7DAE'],['Amber Yellow','#EFDB99']],
+ 'Galaxy S23':[['Phantom Black','#2A2A2A'],['Cream','#ECE4D3'],['Green','#B6C8B4'],['Lavender','#D7CEE5']],
+ 'Galaxy A':[['Awesome Navy','#22314F'],['Awesome Iceblue','#C8D8E5'],['Awesome Lilac','#D6C5E7'],['Awesome Lemon','#F1E9A7']],
+ 'Pixel 8':[['Obsidian','#2A2A2D'],['Hazel','#8C9995'],['Rose','#F1C8C5'],['Mint','#CEE6D3']],
+ 'Pixel 7':[['Obsidian','#2A2A2D'],['Snow','#ECECE9'],['Lemongrass','#DBE2B7']],
+};
+const MERKEN=['Apple','Samsung','Google','Xiaomi','OnePlus','Huawei','Oppo','Motorola','Nokia','Sony','Realme','Fairphone'];
+const ALLE=[];MODELLEN.forEach(([merk,serie,...ms])=>ms.forEach(([n,c])=>ALLE.push({merk,serie,n,c})));
+const REP={
+ scherm:{h:309,n:'Scherm',v:79,k:[{n:'Origineel',p:249,je:'Apple-onderdeel'},{n:'Service pack',p:154,je:'12 maanden garantie',pop:1},{n:'Compatibel',p:79,je:'6 maanden garantie'}]},
+ accu:{h:129,n:'Accu',v:59,k:[{n:'Origineel',p:99,je:'Apple-onderdeel'},{n:'Service pack',p:75,je:'12 maanden garantie',pop:1},{n:'Compatibel',p:59,je:'6 maanden garantie'}]},
+ laad:{h:119,n:'Laadpoort',v:65,k:[{n:'Origineel',p:95,je:'Apple-onderdeel'},{n:'Service pack',p:79,je:'12 maanden garantie',pop:1},{n:'Compatibel',p:65,je:'6 maanden garantie'}]},
+ camera:{h:189,n:'Camera',v:89,k:[{n:'Origineel',p:149,je:'Apple-onderdeel'},{n:'Service pack',p:109,je:'12 maanden garantie',pop:1},{n:'Compatibel',p:89,je:'6 maanden garantie'}]},
+ achter:{h:169,n:'Achterkant',v:69,k:[{n:'Origineel',p:129,je:'Apple-onderdeel'},{n:'Service pack',p:89,je:'12 maanden garantie',pop:1},{n:'Compatibel',p:69,je:'6 maanden garantie'}]},
+ water:{n:'Waterschade',v:null,k:null},
+};
+const VOLG=['scherm','accu','laad','camera','achter','water'];
+const HOT={scherm:[112,215],camera:[66,47],accu:[112,300],laad:[152,431],achter:[76,375]};
+const WINKELS=[
+ {n:'Phone Repair Leeuwarden',a:'Schrans 14',km:'1,2 km',c:'9,3',b:34,keur:1,snel:'Klaar terwijl je wacht',vandaag:1,erk:'Apple IRP',jaren:15,vest:1,betaal:['Pin','Contant','Apple Pay','iDEAL'],f:1.0,uit:0},
+ {n:'FixIt Leeuwarden',a:'Nieuwestad 88',km:'0,8 km',c:'8,9',b:61,keur:1,snel:'Vandaag klaar',vandaag:1,erk:'Samsung erkend',jaren:8,vest:3,betaal:['Pin','Apple Pay'],f:1.1,uit:1},
+ {n:'Mobiel Service Friesland',a:'Voorstreek 21',km:'2,1 km',c:'8,4',b:12,keur:0,snel:'1 tot 2 dagen',vandaag:0,erk:null,jaren:3,vest:1,betaal:['Pin','Contant'],f:.9,uit:0},
+];
+const FILTERS=[['vandaag','Vandaag klaar',w=>w.vandaag],['keur','Met keurmerk',w=>w.keur],['applepay','Apple Pay',w=>w.betaal.includes('Apple Pay')],['contant','Contant',w=>w.betaal.includes('Contant')]];
+const OS={ios:["Open Instellingen op je iPhone.","Tik op Algemeen en daarna op Info.","Bij Modelnummer staat een code die met een A begint, bijvoorbeeld A2633. Typ die in het zoekveld."],
+          android:["Open Instellingen op je toestel.","Scrol naar Over de telefoon of Systeem.","Bij Modelnummer staat de code, bijvoorbeeld SM-S911B. Typ die in het zoekveld."]};
+const S={stap:1,sub:'zoek',merk:null,serie:null,model:null,kleur:null,schade:{},plaats:'Leeuwarden',plaatsEdit:false,filters:{},laatst:null};
+const eur=n=>'&euro; '+n;
+const CHECK='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>';
+const BOLT='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 3 14h7l-1 8 10-12h-7z"/></svg>';
+const PIJL='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+const PIN='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6-5.3-6-10a6 6 0 0 1 12 0c0 4.7-6 10-6 10z"/><circle cx="12" cy="11" r="2.5"/></svg>';
+const TEL='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>';
+const KAART='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3 10h18"/></svg>';
+
+/* ---------- afgeleide getallen ---------- */
+
+/* match-moment: de belknop logt de match en biedt een beoordeelherinnering aan */
+function belMatch(naam,nummer){
+  const d=document.getElementById('matchdlg');
+  document.getElementById('matchinhoud').innerHTML=`
+    <h3>Bel ${naam}</h3>
+    <p class="waar">Je spreekt de winkel rechtstreeks. Wij zitten er niet tussen en rekenen niets.</p>
+    <div class="nummer"><b class="num">${nummer}</b><a class="belknop" href="tel:${nummer.replace(/\s/g,'')}"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>Bellen</a></div>
+    <div class="streep"></div>
+    <p class="vraag">Wil je anderen straks helpen?</p>
+    <p class="vraaguitleg">Laat je e-mailadres achter, dan vragen wij over twee dagen hoe het ging. Zo weten anderen bij welke winkel het goed zit.</p>
+    <input type="email" id="matchmail" placeholder="je@email.nl">
+    <div class="knoppen">
+      <button class="btn btn-lijn" onclick="document.getElementById('matchdlg').close()">Nee, bedankt</button>
+      <button class="btn btn-groen" onclick="matchJa()">Ja, herinner mij</button>
+    </div>
+    <p class="klein">Wij gebruiken je adres alleen voor deze ene vraag en verwijderen het daarna. Afmelden kan met een klik.</p>`;
+  d.showModal();
+}
+function matchJa(){
+  document.getElementById('matchinhoud').innerHTML=`
+    <div class="gelukt">
+      <div class="bal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+      <h3>Afgesproken</h3>
+      <p class="waar" style="margin-bottom:18px">Over twee dagen sturen wij je één e-mail met de vraag hoe het ging. Verder hoor je niets van ons.</p>
+      <button class="btn btn-groen" style="width:100%" onclick="document.getElementById('matchdlg').close()">Sluiten</button>
+    </div>`;
+}
+const waar=()=>(/^\d{4}/.test(S.plaats)?'rond ':'in ')+S.plaats;
+const gekozen=()=>VOLG.filter(k=>S.schade[k]);
+const som=()=>gekozen().reduce((a,k)=>a+(S.schade[k].p||0),0);
+const laagste=()=>gekozen().reduce((a,k)=>a+(REP[k].v||0),0);
+const hoogste=()=>gekozen().reduce((a,k)=>a+(REP[k].h||0),0);
+const lijst=()=>WINKELS.filter(w=>FILTERS.every(([id,,f])=>!S.filters[id]||f(w)));
+const donker=h=>'#'+[1,3,5].map(i=>Math.round(parseInt(h.slice(i,i+2),16)*.72).toString(16).padStart(2,'0')).join('');
+
+/* ---------- de telefoon ---------- */
+function telefoon(){
+  const st2=S.stap===2,geen=!gekozen().length;
+  const body=S.kleur?S.kleur[1]:'#0B1F4E',rand=S.kleur?donker(S.kleur[1]):'#061238';
+  const on=k=>st2?` onclick="tik('${k}')" style="cursor:pointer"`:'';
+  const punt=k=>{const [x,y]=HOT[k],net=S.laatst===k,r=k==='achter'?8:10;
+    if(S.schade[k])return `<g class="mk" transform="translate(${x},${y})"${on(k)}><title>${REP[k].n} weghalen</title>${net?'<circle class="ring" r="10" fill="none" stroke="#008934" stroke-width="2"/>':''}<g class="${net?'pop':''}"><circle r="${r}" fill="#008934" stroke="#fff" stroke-width="2"/><path d="M-4 .5l3 3 5-6" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></g></g>`;
+    if(!st2)return '';
+    return `<g class="hot" transform="translate(${x},${y})" onclick="tik('${k}')"><title>${REP[k].n}</title>${geen?'<circle class="puls" r="6" fill="none" stroke="#008934" stroke-width="1.5"/>':''}<circle r="13" fill="#fff" fill-opacity=".01"/><circle class="dot" r="5" fill="#008934" stroke="#fff" stroke-width="2"/></g>`};
+  return `<svg class="tel" viewBox="0 0 224 448" aria-label="Telefoon">
+    <rect x="6" y="6" width="212" height="436" rx="40" fill="${body}"/>
+    <rect x="14" y="14" width="196" height="420" rx="34" fill="#111827"/>
+    <rect x="24" y="24" width="176" height="400" rx="28" fill="#F6F8FA" stroke="#E3E6EE" stroke-width="2"${on('scherm')}><title>Scherm</title></rect>
+    <rect x="78" y="38" width="68" height="18" rx="9" fill="#111827"${on('camera')}/><circle cx="94" cy="47" r="4" fill="#4A5878" pointer-events="none"/>
+    <rect x="88" y="426" width="48" height="10" rx="5" fill="#4A5878"${on('laad')}/>
+    <rect x="0" y="120" width="5" height="30" rx="2" fill="${rand}"/><rect x="0" y="160" width="5" height="52" rx="2" fill="${rand}"/><rect x="219" y="140" width="5" height="70" rx="2" fill="${rand}"/>
+    ${S.schade.accu?`<g class="status${S.laatst==='accu'?' leeg':''}" transform="translate(170,36)" pointer-events="none"><rect width="20" height="10" rx="2.5" fill="none" stroke="#6B7480" stroke-width="1.2"/><rect x="21" y="3" width="2" height="4" rx="1" fill="#6B7480"/><rect class="vul" x="1.5" y="1.5" width="4.5" height="7" rx="1" fill="#B45309"/></g>`:''}
+    ${S.schade.scherm?`<g class="hoek" stroke="#4A5878" stroke-width="1.5" fill="none" stroke-linecap="round" pointer-events="none"><path d="M34 414l14-16-3-11M48 398l12-3M45 387l9-8"/></g>`:''}
+    ${S.laatst==='scherm'?`<g class="barst" stroke="#061238" stroke-width="2" fill="none" stroke-linecap="round" pointer-events="none"><path d="M62 60 L96 150 L88 205 L130 262 L118 330 L150 400"/><path d="M96 150 L60 176 M88 205 L44 236 M130 262 L176 240 M130 262 L160 300 M118 330 L80 350 M150 400 L184 380"/><path d="M96 150 L128 128 M88 205 L112 224 M118 330 L140 352" stroke-width="1"/></g>`:''}
+    ${S.model?`<text x="112" y="120" text-anchor="middle" font-family="Outfit" font-weight="800" font-size="17" fill="#0B1F4E" pointer-events="none">${S.model.n}</text><text x="112" y="140" text-anchor="middle" font-family="Outfit" font-size="11" fill="#6B7480" pointer-events="none">${S.kleur?S.kleur[0]+' &middot; ':''}${S.model.c.split(' ')[0]}</text>`:`<text x="112" y="230" text-anchor="middle" font-family="Outfit" font-weight="600" font-size="14" fill="#C5CEE3" pointer-events="none">jouw toestel</text>`}
+    ${S.stap>=2?`<g${on('achter')}><rect x="62" y="362" width="100" height="26" rx="13" fill="${S.schade.achter?'#DCFCE7':'#F6F8FA'}" stroke="${S.schade.achter?'#BBF7D0':'#E3E6EE'}" stroke-width="1"/><text x="88" y="379" font-family="Outfit" font-weight="600" font-size="11" fill="${S.schade.achter?'#005A22':'#4A5878'}">Achterkant</text></g>`:''}
+    ${['scherm','camera','accu','laad','achter'].map(punt).join('')}
+  </svg>`;
+}
+function opsomming(){
+  const g=gekozen();if(!g.length)return '';
+  const rij=k=>`<div class="rij"><span>${REP[k].n}${REP[k].k?`<small>${S.schade[k].n}</small>`:''}</span><b class="num${S.schade[k].p?'':' aanvraag'}">${S.schade[k].p?eur(S.schade[k].p):'na diagnose'}</b><button class="x" onclick="tik('${k}')" aria-label="${REP[k].n} weghalen" title="Weghalen">&times;</button></div>`;
+  return `<div class="som">${g.map(rij).join('')}<div class="rij tot"><span>Jouw keuze</span><b class="num">${som()?eur(som()):'na diagnose'}</b></div></div>`;
+}
+function paneel(){
+  const g=gekozen();let tekst='';
+  if(S.stap===1)tekst=S.model?`<b>${S.model.n}</b>Goed. Nu: wat is er kapot?`:`<b>Welk toestel?</b>Typ het model of de code, of kies je merk.`;
+  else if(S.stap===2&&!g.length)tekst=`<b>Tik op wat kapot is</b>Het scherm, de camera, de accu, de laadpoort of de achterkant.`;
+  document.getElementById('paneel').innerHTML=telefoon()+(tekst?`<p class="tel-tekst">${tekst}</p>`:'')+opsomming();
+}
+
+/* ---------- stappen ---------- */
+function stap1(){
+  if(S.sub==='zoek')return `<h2 class="vraag">Welk toestel heb je?</h2><p class="sub">Typ je model of de modelcode. Wij vullen aan terwijl je typt.</p>
+    <div class="zoek"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" placeholder="iPhone 13, Galaxy S23, A2633, SM-S911B" autocomplete="off" oninput="zoek(this.value)" onfocus="zoek(this.value)">
+      <div class="sugg" id="sugg"></div></div>
+    <button class="hulp" onclick="opendlg()">Ik weet mijn model niet</button>
+    <p class="of">Of kies je merk</p>
+    <div class="tegels t4">${MERKEN.map(m=>`<button class="tegel${S.merk===m?' aan':''}" onclick="kiesMerk('${m}')">${m}</button>`).join('')}</div>`;
+  if(S.sub==='serie'){const series=MODELLEN.filter(x=>x[0]===S.merk);
+    return `<button class="terug" onclick="terug()">&larr; Alle merken</button><h2 class="vraag">Welke ${S.merk}?</h2><p class="sub">Eerst de serie, dan het model. Zo scrol je niet door vijftig toestellen.</p>
+    <div class="tegels t4">${series.length?series.map(x=>`<button class="tegel${S.serie===x[1]?' aan':''}" onclick="kiesSerie('${x[1]}')">${x[1]}<span class="cnt">${x.length-2} modellen</span></button>`).join(''):`<p class="sub">Van ${S.merk} hebben we in deze schets nog geen modellen. Typ je model in het zoekveld.</p>`}</div>`}
+  const ms=(MODELLEN.find(x=>x[1]===S.serie)||[]).slice(2);
+  return `<button class="terug" onclick="terug()">&larr; ${S.merk}</button><h2 class="vraag">Welke ${S.serie}?</h2><p class="sub">Twijfel je? De code onder het model staat ook in je instellingen.</p>
+    <div class="tegels t4">${ms.map(([n,c])=>`<button class="tegel${S.model&&S.model.n===n?' aan':''}" onclick="kiesModel('${n}')">${n}<small>${c.split(' ')[0]}</small></button>`).join('')}</div>`;
+}
+function stap2(){
+  const kl=KLEUREN[S.model.serie]||[];
+  const kleur=kl.length?`<div class="kleur"><span class="lab">Kleur van je toestel<small>voor de juiste onderdelen</small></span><div class="swatches">${kl.map(([n,h],i)=>`<button class="sw${S.kleur&&S.kleur[0]===n?' aan':''}" style="--c:${h}" onclick="kiesKleur(${i})" aria-label="${n}" title="${n}"></button>`).join('')}</div><span class="kn">${S.kleur?S.kleur[0]:'Kies je kleur'}</span></div>`:'';
+  return `<button class="terug" onclick="terug()">&larr; ${S.model.n}</button><h2 class="vraag">Wat is er kapot?</h2><p class="sub">Tik op de telefoon, of vink het hier aan. Meer dan een mag; tik nog eens om het weg te halen.</p>${kleur}
+  <div class="schade">${VOLG.map(k=>{const r=REP[k],aan=!!S.schade[k],gk=S.schade[k];
+    return `<div class="deel-rij${aan?' aan':''}"><button class="deel-kop" onclick="tik('${k}')"><span class="vink">${CHECK}</span><span class="naam">${r.n}</span>${aan?'<span class="weg">weghalen &times;</span>':`<span class="vanaf${r.v?'':' aanvraag'} num">${r.v?'vanaf '+eur(r.v):'prijs na diagnose'}</span>`}</button>
+    ${aan&&r.k?`<div class="kwal">${r.k.map((q,i)=>`<button class="kw${gk.n===q.n?' aan':''}" onclick="kiesKw('${k}',${i})">${q.pop?'<span class="tip">Meest gekozen</span>':''}<small>${q.n}</small><b class="num">${eur(q.p)}</b><em>${q.u}</em></button>`).join('')}</div>`:''}
+    ${aan&&!r.k?'<div class="uitleg-water">Waterschade vraagt eerst onderzoek. De winkel noemt een prijs na de diagnose, meestal dezelfde dag.</div>':''}</div>`}).join('')}</div>`;
+}
+function stap3(){
+  const g=gekozen(),ws=lijst(),kan=ws.filter(w=>w.vandaag).length,lo=laagste(),hi=hoogste();
+  const gefilterd=Object.values(S.filters).some(Boolean);
+  const kop=gefilterd?(ws.length?`${ws.length} ${ws.length===1?'winkel voldoet':'winkels voldoen'} aan je filters`:'Geen winkel voldoet aan al je filters'):`${kan} van de ${ws.length} winkels ${waar()} kunnen dit vandaag`;
+  const kaart=w=>{const p=Math.round(som()*w.f);const pos=hi>lo?Math.min(96,Math.max(4,(p-lo)/(hi-lo)*100)):50;const med=hi>lo?((som()-lo)/(hi-lo)*100):50;
+    const feiten=[w.erk,w.jaren?`${w.jaren} jaar actief`:null,w.vest>1?`${w.vest} vestigingen`:null].filter(Boolean).join(' &middot; ');
+    return `<div class="winkel${w.uit?' uitg':''}">
+      <div class="kop"><b>${w.n}</b><span>${w.a} &middot; ${w.km}</span></div>
+      <div class="cijfer"><b class="num">${w.c}</b><span>${w.b} beoordelingen</span>${feiten?`<span class="feit">${feiten}</span>`:''}</div>
+      <div class="chips">${w.uit?'<span class="chip chip-uitg">Uitgelicht</span>':''}${w.keur?`<span class="chip chip-keur">${CHECK}Verzekerd, gecontroleerd</span>`:''}<span class="chip chip-snel">${BOLT}${w.snel}</span></div>
+      <div class="betaal">${KAART}${w.betaal.join(' &middot; ')}</div>
+      <div class="prijsvak"><div class="prijs num">${som()?eur(p):'op aanvraag'}<small>${g.map(k=>REP[k].n).join(' + ')}</small></div>
+        ${som()?`<div class="bereik"><div class="track"><div class="fill" style="left:4%;width:92%"></div><div class="tick" style="left:${med}%"></div><div class="jij" style="left:${pos}%"></div></div><div class="lab num"><span>${eur(lo)}</span><span>${eur(hi)}</span></div></div>`:''}</div>
+      <div class="acties"><button class="btn btn-groen" onclick="belMatch('${w.n}','058 123 45 67')">${TEL}Bel de winkel</button><a class="btn btn-lijn" href="#">Route</a><a class="btn btn-stil" href="winkelprofiel.html">Profiel</a></div>
+    </div>`};
+  const plaats=S.plaatsEdit?`<label class="veld"><input id="pl" value="${S.plaats}" placeholder=" " onkeydown="if(event.key==='Enter')zetPlaats(this.value)"><span>Plaats of postcode</span></label><button class="btn btn-groen" onclick="zetPlaats(document.getElementById('pl').value)">Zoek</button>`:`<button class="pin" onclick="S.plaatsEdit=true;teken();document.getElementById('pl').focus()">${PIN}${S.plaats}<je>wijzigen</je></button>`;
+  const filters=`<div class="filters"><span class="lab">Filter</span>${FILTERS.map(([id,n])=>`<button class="fchip${S.filters[id]?' aan':''}" onclick="zetFilter('${id}')">${n}</button>`).join('')}</div>`;
+  const uit=ws.filter(w=>w.uit),rest=ws.filter(w=>!w.uit);
+  return `<button class="terug" onclick="terug()">&larr; Schade</button><h2 class="vraag">${kop}</h2><p class="sub">Voor ${S.model.n}, ${g.map(k=>REP[k].n.toLowerCase()).join(' en ')}. Bel, loop binnen of vraag een offerte.</p>
+  <div class="plaats">${plaats}</div>${filters}
+  <div class="winkels">${ws.length?uit.map(kaart).join('')+rest.map(kaart).join(''):'<div class="leeg">Zet een filter uit om meer winkels te zien.</div>'}</div>
+  <p class="rangschik">De lijst is niet te koop. <button onclick="document.getElementById('rang').showModal()">Hoe wij rangschikken</button></p>`;
+}
+
+/* ---------- live balk ---------- */
+function balk(){
+  const l=document.getElementById('live'),k=document.getElementById('balkknop');const g=gekozen();
+  if(S.stap===1){l.innerHTML=S.model?`<b>${S.model.n}</b> gekozen.`:'Begin met je toestel.';k.innerHTML=S.model?`<button class="btn btn-groen" onclick="ga(2)">Wat is er kapot? ${PIJL}</button>`:'';return}
+  if(S.stap===2){
+    if(!g.length){l.innerHTML=`<b>${S.model.n}</b>. Tik aan wat er kapot is.`;k.innerHTML=`<button class="btn btn-groen" disabled>Bekijk winkels ${PIJL}</button>`;return}
+    const kan=WINKELS.filter(w=>w.vandaag).length;
+    l.innerHTML=`${som()?`Vanaf <b class="num">${eur(laagste())}</b> bij ${WINKELS.length} winkels<span class="pl"> ${waar()}</span>.`:`${WINKELS.length} winkels<span class="pl"> ${waar()}</span>.`} <span class="amber">${BOLT} ${kan} kunnen het vandaag.</span>`;
+    k.innerHTML=`<button class="btn btn-groen" onclick="ga(3)">Bekijk ${WINKELS.length} winkels ${PIJL}</button>`;return}
+  l.innerHTML=`<b>${S.model.n}</b>, ${g.map(x=>REP[x].n.toLowerCase()).join(' en ')}${som()?`, jouw keuze <b class="num">${eur(som())}</b>`:''}.`;
+  k.innerHTML=`<button class="btn btn-stil" onclick="ga(2)">Wijzig schade</button>`;
+}
+
+/* ---------- renderen en acties ---------- */
+function stappenbalk(){document.querySelectorAll('#stappen .stap').forEach(e=>{const n=+e.dataset.s;e.className='stap'+(n===S.stap?' nu':n<S.stap?' af':'');e.onclick=n<S.stap?()=>ga(n):null});document.getElementById('opnieuw').hidden=!S.model}
+let vorig='';
+function teken(){const inh=document.getElementById('inhoud');inh.innerHTML=[stap1,stap2,stap3][S.stap-1]();const nu=S.stap+S.sub;if(nu!==vorig){inh.style.animation='none';void inh.offsetWidth;inh.style.animation='';vorig=nu}paneel();balk();stappenbalk()}
+function zoek(v){const box=document.getElementById('sugg');v=v.trim().toLowerCase();if(v.length<2){box.className='sugg';return}
+  const hits=ALLE.filter(m=>m.n.toLowerCase().includes(v)||m.c.toLowerCase().includes(v)||(m.merk+' '+m.n).toLowerCase().includes(v)).slice(0,6);
+  box.innerHTML=hits.length?hits.map(m=>`<button onclick="kiesModelObj('${m.n}')"><span class="m"></span><b>${m.n}</b><span style="color:var(--inkt-3);font-size:13px">${m.merk}</span><small>${m.c.split(' ')[0]}</small></button>`).join(''):`<button onclick="opendlg()"><b>Niet gevonden.</b><small>Zoek je modelcode &rarr;</small></button>`;
+  box.className='sugg open'}
+function kiesMerk(m){S.merk=m;S.sub='serie';teken()}
+function kiesSerie(s){S.serie=s;S.sub='model';teken()}
+function kiesModel(n){kiesModelObj(n)}
+function kiesModelObj(n){const m=ALLE.find(x=>x.n===n);if(!S.model||S.model.n!==m.n){S.schade={};S.kleur=null;S.laatst=null;S.filters={}}S.model=m;S.merk=m.merk;S.serie=m.serie;S.sub='model';S.stap=2;teken()}
+function kiesKleur(i){S.kleur=KLEUREN[S.model.serie][i];teken()}
+function tik(k){if(S.stap<2)return;const r=REP[k];
+  if(S.schade[k]){delete S.schade[k];S.laatst=null;if(S.stap===3&&!gekozen().length)S.stap=2}
+  else{S.schade[k]=r.k?(r.k.find(q=>q.pop)||r.k[0]):{n:'Na diagnose',p:null};S.laatst=k;clearTimeout(tik.t);tik.t=setTimeout(()=>{S.laatst=null},1000)}
+  teken()}
+function kiesKw(k,i){S.schade[k]=REP[k].k[i];teken()}
+function zetFilter(id){S.filters[id]=!S.filters[id];teken()}
+function ga(n){if(n===3&&!gekozen().length)return;S.stap=n;teken();document.querySelector('.kaart').scrollIntoView({behavior:'smooth',block:'start'})}
+function terug(){if(S.stap===3)S.stap=2;else if(S.stap===2)S.stap=1;else if(S.sub==='model'){S.sub='serie'}else if(S.sub==='serie'){S.sub='zoek';S.merk=null}teken()}
+function zetPlaats(v){v=v.trim();if(v)S.plaats=v;S.plaatsEdit=false;teken()}
+function reset(){S.stap=1;S.sub='zoek';S.merk=null;S.serie=null;S.model=null;S.kleur=null;S.schade={};S.filters={};S.laatst=null;S.plaatsEdit=false;teken()}
+function opendlg(){zetOS('ios');document.getElementById('hulp').showModal()}
+function zetOS(os){document.querySelectorAll('.tabs button').forEach(b=>b.classList.toggle('aan',b.dataset.os===os));document.getElementById('stappenlijst').innerHTML=OS[os].map(t=>'<li>'+t+'</li>').join('')}
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>zetOS(b.dataset.os));
+document.addEventListener('click',e=>{if(!e.target.closest('.zoek'))document.getElementById('sugg')?.classList.remove('open')});
+teken();
+</script>

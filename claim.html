@@ -1,0 +1,151 @@
+<title>Is dit je winkel?</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap">
+<style>
+:root{--groen-50:#F0FDF4;--groen-100:#DCFCE7;--groen-200:#BBF7D0;--groen-500:#22C55E;--groen:#008934;--groen-800:#007B2E;--marine:#0B1F4E;--marine-d:#061238;--marine-100:#E8ECF5;--marine-200:#C5CEE3;--inkt:#111827;--inkt-2:#4A5878;--inkt-3:#6B7480;--lijn:#E3E6EE;--vlak:#F6F8FA;--amber:#B45309;--amber-soft:#FEF3C7;--rood:#B91C1C;--rood-soft:#FEE2E2;color-scheme:light}
+*{box-sizing:border-box}
+body{margin:0;background:var(--vlak);color:var(--inkt);font-family:'Outfit',system-ui,sans-serif;font-size:16px;line-height:1.55}
+a{color:inherit}button{font:inherit}
+.schets{background:var(--amber-soft);color:var(--amber);font-size:13px;font-weight:600;text-align:center;padding:8px 16px}
+.top{display:flex;align-items:center;gap:20px;padding:16px 24px;max-width:760px;margin:0 auto}
+.logo{font-weight:800;font-size:20px;letter-spacing:-.02em;color:var(--marine);text-decoration:none}.logo i{font-style:normal;color:var(--groen)}
+.wrap{max-width:760px;margin:0 auto;padding:8px 24px 70px}
+.kaart{background:#fff;border:1px solid var(--lijn);border-radius:22px;padding:30px}
+h1{font-size:27px;font-weight:800;letter-spacing:-.02em;margin:0 0 10px;text-wrap:balance}
+.sub{color:var(--inkt-2);font-size:16px;margin:0 0 22px;max-width:58ch}
+.winkelblok{border:1.5px solid var(--lijn);border-radius:16px;padding:18px;margin:0 0 24px;display:grid;grid-template-columns:48px minmax(0,1fr);gap:14px;align-items:center}
+.winkelblok .av{width:48px;height:48px;border-radius:14px;background:var(--vlak);border:1px solid var(--lijn);display:grid;place-items:center;font-weight:800;color:var(--inkt-2);font-size:19px}
+.winkelblok b{font-size:17px}
+.winkelblok span{display:block;font-size:14px;color:var(--inkt-3)}
+.winkelblok .bron{grid-column:1/-1;font-size:12.5px;color:var(--inkt-3);border-top:1px solid var(--lijn);padding-top:12px;margin-top:2px}
+.keuzes{display:grid;gap:12px;margin:0 0 24px}
+.keuze{display:grid;grid-template-columns:44px minmax(0,1fr) 20px;gap:14px;align-items:center;border:1.5px solid var(--lijn);border-radius:16px;padding:18px;background:#fff;cursor:pointer;text-align:left;width:100%}
+.keuze:hover{border-color:var(--groen);background:var(--groen-50)}
+.keuze.weg:hover{border-color:var(--rood);background:var(--rood-soft)}
+.keuze .ic{width:44px;height:44px;border-radius:13px;background:var(--groen-100);display:grid;place-items:center}
+.keuze.weg .ic{background:var(--vlak)}
+.keuze .ic svg{width:21px;height:21px;color:var(--groen-800)}
+.keuze.weg .ic svg{color:var(--inkt-2)}
+.keuze b{display:block;font-size:16.5px;margin-bottom:2px}
+.keuze p{margin:0;font-size:14px;color:var(--inkt-2)}
+.keuze .pijl{color:var(--inkt-3)}.keuze .pijl svg{width:18px;height:18px;display:block}
+.avg{background:var(--vlak);border-radius:16px;padding:20px;font-size:14px;color:var(--inkt-2)}
+.avg b{color:var(--inkt);display:block;margin-bottom:8px;font-size:14.5px}
+.avg p{margin:0 0 10px}
+.avg p:last-child{margin:0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 22px;border-radius:999px;font-weight:600;font-size:15.5px;border:1.5px solid transparent;cursor:pointer;text-decoration:none}
+.btn-marine{background:var(--marine);color:#fff}.btn-marine:hover{background:var(--marine-d)}
+.btn-lijn{background:#fff;color:var(--inkt-2);border-color:var(--lijn)}
+.btn-rood{background:var(--rood);color:#fff}
+.veld{margin-bottom:16px}
+.veld label{display:block;font-size:13.5px;font-weight:600;color:var(--inkt-2);margin-bottom:5px}
+.veld input{width:100%;padding:12px 14px;border:1.5px solid var(--lijn);border-radius:12px;font:inherit;font-size:15px}
+.veld input:focus{outline:none;border-color:var(--groen);box-shadow:0 0 0 3px var(--groen-100)}
+.veld .hint{font-size:12.5px;color:var(--inkt-3);margin-top:5px}
+.knoppen{display:flex;gap:10px;flex-wrap:wrap}
+.gelukt{text-align:center;padding:10px 0}
+.gelukt .bal{width:62px;height:62px;border-radius:19px;background:var(--groen-100);display:grid;place-items:center;margin:0 auto 16px}
+.gelukt .bal svg{width:31px;height:31px;color:var(--groen)}
+.gelukt.weg .bal{background:var(--vlak)}
+.gelukt.weg .bal svg{color:var(--inkt-2)}
+.gelukt p{color:var(--inkt-2);margin:0 auto 20px;max-width:46ch}
+.verborgen{display:none}
+@media(max-width:600px){.wrap{padding:8px 16px 60px}.kaart{padding:22px}}
+.jurvoet{border-top:1px solid var(--lijn);margin-top:40px;padding:22px 32px 48px;max-width:1160px;margin-left:auto;margin-right:auto;color:var(--inkt-3);font-size:13px}
+.jurvoet .jur{display:flex;flex-wrap:wrap;gap:18px;margin-bottom:10px}
+.jurvoet .jur a{text-decoration:none;color:var(--inkt-2);font-weight:600}
+.jurvoet .jur a:hover{color:var(--groen)}
+@media(max-width:760px){.jurvoet{padding:20px 16px 44px}}
+</style>
+
+<div class="schets">Ontwerpschets. Deze pagina hoort bij een winkel die wij vooraf hebben vermeld uit openbare bronnen.</div>
+<header class="top"><a class="logo" href="index.html">snel<i>repareren</i>.nl</a></header>
+
+<div class="wrap">
+  <!-- KEUZE -->
+  <div class="kaart" id="keuze">
+    <h1>Is dit je winkel?</h1>
+    <p class="sub">Wij hebben deze winkel alvast vermeld zodat mensen in de buurt hem kunnen vinden. Je bepaalt zelf wat ermee gebeurt.</p>
+
+    <div class="winkelblok">
+      <div class="av">G</div>
+      <div><b>GSM Hoek Leeuwarden</b><span>Sint Jacobsstraat 14, 8911 HR Leeuwarden</span></div>
+      <div class="bron">Deze gegevens komen uit het openbare Handelsregister van de Kamer van Koophandel. Wij tonen geen prijzen, geen beoordelingen en geen keurmerk zolang je de vermelding niet heeft aangevuld.</div>
+    </div>
+
+    <div class="keuzes">
+      <button class="keuze" onclick="ga('aanvullen')">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></span>
+        <span><b>Ja, ik wil de vermelding aanvullen</b><p>Je vult je prijzen, openingstijden en garantie aan. Gratis, en je kunt het keurmerk aanvragen.</p></span>
+        <span class="pijl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </button>
+      <button class="keuze weg" onclick="ga('verwijderen')">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></svg></span>
+        <span><b>Nee, haal de vermelding weg</b><p>Wij verwijderen je winkel van de site. Eén bevestiging en het is geregeld.</p></span>
+        <span class="pijl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </button>
+    </div>
+
+    <div class="avg">
+      <b>Waarom sta je hier al?</b>
+      <p>Wij hebben je bedrijfsnaam en adres overgenomen uit het openbare Handelsregister, zodat consumenten in je plaats een volledig beeld krijgen van waar zij terechtkunnen. Wij tonen geen persoonsgegevens die daar niet in staan, en geen prijzen of beoordelingen.</p>
+      <p>Ben je een eenmanszaak, dan zijn je bedrijfsgegevens ook persoonsgegevens. Je hebt daarom altijd het recht om de vermelding te laten verwijderen, zonder opgaaf van reden en zonder account. Dat kan met de knop hierboven of via winkels@snelrepareren.nl.</p>
+    </div>
+  </div>
+
+  <!-- AANVULLEN -->
+  <div class="kaart verborgen" id="aanvullen">
+    <h1>Vul je vermelding aan</h1>
+    <p class="sub">Wij hebben je naam en adres al. Vul aan wie je bent, dan sturen wij een uitnodiging waarmee je prijzen en openingstijden invult.</p>
+    <div class="veld"><label>Je naam</label><input placeholder="Voor- en achternaam"></div>
+    <div class="veld"><label>E-mailadres</label><input type="email" placeholder="naam@uwwinkel.nl"><div class="hint">Wij controleren of dit adres bij de inschrijving hoort voordat wij iets vrijgeven.</div></div>
+    <div class="veld"><label>KvK-nummer</label><input placeholder="12345678" inputmode="numeric"></div>
+    <div class="knoppen">
+      <button class="btn btn-lijn" onclick="ga('keuze')">Terug</button>
+      <button class="btn btn-marine" onclick="ga('aanvullenok')">Stuur mij de uitnodiging</button>
+    </div>
+  </div>
+
+  <div class="kaart verborgen" id="aanvullenok">
+    <div class="gelukt">
+      <div class="bal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+      <h1>Uitnodiging onderweg</h1>
+      <p>Wij controleren of het adres bij de inschrijving hoort en sturen je dan een link. Meestal binnen één werkdag.</p>
+      <a class="btn btn-marine" href="voor-winkels.html">Lees wat je erbij krijgt</a>
+    </div>
+  </div>
+
+  <!-- VERWIJDEREN -->
+  <div class="kaart verborgen" id="verwijderen">
+    <h1>Vermelding verwijderen</h1>
+    <p class="sub">Wij halen <b>GSM Hoek Leeuwarden</b> van de site. Je hoeft geen reden op te geven en er komt geen account aan te pas.</p>
+    <div class="veld"><label>Je e-mailadres</label><input type="email" placeholder="naam@uwwinkel.nl"><div class="hint">Alleen om de bevestiging naartoe te sturen. Wij verwijderen het daarna.</div></div>
+    <div class="knoppen">
+      <button class="btn btn-lijn" onclick="ga('keuze')">Terug</button>
+      <button class="btn btn-rood" onclick="ga('verwijderdok')">Verwijder de vermelding</button>
+    </div>
+  </div>
+
+  <div class="kaart verborgen" id="verwijderdok">
+    <div class="gelukt weg">
+      <div class="bal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+      <h1>De vermelding is verwijderd</h1>
+      <p>GSM Hoek Leeuwarden staat niet meer op snelrepareren.nl. Je krijgt hiervan een bevestiging per e-mail. Wij nemen de winkel niet opnieuw op.</p>
+      <a class="btn btn-lijn" href="index.html">Naar de homepage</a>
+    </div>
+  </div>
+</div>
+
+
+<footer class="jurvoet">
+  <div class="jur"><a href="voorwaarden.html">Voorwaarden</a><a href="privacy.html">Privacy</a><a href="cookies.html">Cookies</a><a href="toegankelijkheid.html">Toegankelijkheid</a><a href="melden.html">Iets melden</a></div>
+  Waarom je winkel hier al stond en hoe je hem laat verwijderen, staat in de <a href="privacy.html">privacyverklaring</a>.
+</footer>
+
+<script>
+const PANELEN=['keuze','aanvullen','aanvullenok','verwijderen','verwijderdok'];
+function ga(p){PANELEN.forEach(x=>document.getElementById(x).classList.toggle('verborgen',x!==p));window.scrollTo(0,0)}
+</script>

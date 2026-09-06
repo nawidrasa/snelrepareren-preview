@@ -1,0 +1,206 @@
+<title>Winkel aanmelden</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap">
+<style>
+:root{--groen-50:#F0FDF4;--groen-100:#DCFCE7;--groen-200:#BBF7D0;--groen-300:#86EFAC;--groen-500:#22C55E;--groen:#008934;--groen-800:#007B2E;--marine:#0B1F4E;--marine-d:#061238;--marine-100:#E8ECF5;--marine-200:#C5CEE3;--inkt:#111827;--inkt-2:#4A5878;--inkt-3:#6B7480;--lijn:#E3E6EE;--vlak:#F6F8FA;--amber:#B45309;--amber-soft:#FEF3C7;color-scheme:light}
+*{box-sizing:border-box}
+body{margin:0;background:var(--vlak);color:var(--inkt);font-family:'Outfit',system-ui,sans-serif;font-size:16px;line-height:1.55}
+a{color:inherit}button{font:inherit}.num{font-variant-numeric:tabular-nums}
+.schets{background:var(--amber-soft);color:var(--amber);font-size:13px;font-weight:600;text-align:center;padding:8px 16px}
+.top{display:flex;align-items:center;gap:20px;padding:16px 24px;max-width:1000px;margin:0 auto}
+.logo{font-weight:800;font-size:20px;letter-spacing:-.02em;color:var(--marine);text-decoration:none}.logo i{font-style:normal;color:var(--groen)}
+.top .terug{margin-left:auto;font-size:14.5px;color:var(--inkt-2);text-decoration:none;font-weight:600}
+.wrap{max-width:1000px;margin:0 auto;padding:8px 24px 70px;display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:28px;align-items:start}
+.kaart{background:#fff;border:1px solid var(--lijn);border-radius:22px;padding:30px}
+h1{font-size:28px;font-weight:800;letter-spacing:-.02em;margin:0 0 8px;text-wrap:balance}
+.sub{color:var(--inkt-2);font-size:16px;margin:0 0 26px;max-width:56ch}
+fieldset{border:0;padding:0;margin:0 0 26px}
+legend{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--inkt-3);margin-bottom:14px;padding:0}
+.veld{margin-bottom:14px}
+.veld label{display:block;font-size:13.5px;font-weight:600;color:var(--inkt-2);margin-bottom:5px}
+.veld label .opt{font-weight:400;color:var(--inkt-3)}
+.veld input,.veld select{width:100%;padding:12px 14px;border:1.5px solid var(--lijn);border-radius:12px;font:inherit;font-size:15px;background:#fff;color:var(--inkt)}
+.veld input:focus,.veld select:focus{outline:none;border-color:var(--groen);box-shadow:0 0 0 3px var(--groen-100)}
+.veld .hint{font-size:12.5px;color:var(--inkt-3);margin-top:5px}
+.tweekolom{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.merken{display:flex;gap:8px;flex-wrap:wrap}
+.mchip{padding:9px 15px;border-radius:999px;border:1.5px solid var(--lijn);background:#fff;font-size:14px;font-weight:600;color:var(--inkt-2);cursor:pointer}
+.mchip:hover{border-color:var(--groen)}
+.mchip.aan{background:var(--groen);border-color:var(--groen);color:#fff}
+.pakketten{display:grid;gap:10px}
+.pk{display:grid;grid-template-columns:22px minmax(0,1fr) auto;gap:12px;align-items:center;border:1.5px solid var(--lijn);border-radius:14px;padding:14px 16px;cursor:pointer}
+.pk:hover{border-color:var(--groen)}
+.pk.aan{border-color:var(--groen);background:var(--groen-50)}
+.pk .rond{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--lijn);display:grid;place-items:center}
+.pk.aan .rond{border-color:var(--groen);background:var(--groen)}
+.pk .rond svg{width:12px;height:12px;color:#fff;opacity:0}
+.pk.aan .rond svg{opacity:1}
+.pk b{font-size:15.5px}.pk small{display:block;font-size:13px;color:var(--inkt-3);font-weight:400}
+.pk .prijs{font-weight:800;font-size:16px;white-space:nowrap}
+.akkoord{display:flex;gap:11px;align-items:flex-start;background:var(--vlak);border-radius:14px;padding:15px 16px;margin-bottom:20px}
+.akkoord input{width:19px;height:19px;margin-top:2px;flex:none;accent-color:var(--groen)}
+.akkoord span{font-size:13.5px;color:var(--inkt-2)}
+.akkoord a{color:var(--groen);font-weight:600}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 24px;border-radius:999px;font-weight:600;font-size:16px;border:1.5px solid transparent;cursor:pointer;text-decoration:none}
+.btn-marine{background:var(--marine);color:#fff}.btn-marine:hover{background:var(--marine-d)}
+.btn-marine:disabled{opacity:.4;cursor:not-allowed}
+.btn-lijn{background:#fff;color:var(--inkt-2);border-color:var(--lijn)}
+.voet{font-size:12.5px;color:var(--inkt-3);margin:14px 0 0}
+/* zijkolom */
+.zij{position:sticky;top:16px;display:grid;gap:14px}
+.zk{background:#fff;border:1px solid var(--lijn);border-radius:18px;padding:20px}
+.zk h3{margin:0 0 12px;font-size:15px;font-weight:800}
+.zk ol{margin:0;padding:0;list-style:none;counter-reset:s;display:grid;gap:12px}
+.zk li{counter-increment:s;position:relative;padding-left:32px;font-size:14px;color:var(--inkt-2)}
+.zk li::before{content:counter(s);position:absolute;left:0;top:0;width:22px;height:22px;border-radius:50%;background:var(--marine-100);color:var(--marine);font-size:11.5px;font-weight:700;display:grid;place-items:center}
+.zk li b{color:var(--inkt);display:block;font-size:14.5px}
+.zk .gratis{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--inkt-2)}
+.zk .gratis svg{width:18px;height:18px;color:var(--groen);flex:none;margin-top:2px}
+/* bedankt */
+.bedankt{text-align:center;padding:14px 0}
+.bedankt .bal{width:66px;height:66px;border-radius:20px;background:var(--groen-100);display:grid;place-items:center;margin:0 auto 18px}
+.bedankt .bal svg{width:33px;height:33px;color:var(--groen)}
+.bedankt p{color:var(--inkt-2);margin:0 auto 22px;max-width:48ch}
+.stappen{text-align:left;background:var(--vlak);border-radius:16px;padding:20px;margin:0 0 22px}
+.stappen b{display:block;font-size:15px;margin-bottom:10px}
+.stappen ol{margin:0;padding-left:20px;color:var(--inkt-2);font-size:14.5px}
+.stappen li{margin-bottom:7px}
+.verborgen{display:none}
+@media(max-width:860px){.wrap{grid-template-columns:1fr}.zij{position:static}}
+@media(max-width:600px){.wrap{padding:8px 16px 60px}.kaart{padding:22px}.tweekolom{grid-template-columns:1fr}}
+.jurvoet{border-top:1px solid var(--lijn);margin-top:40px;padding:22px 32px 48px;max-width:1160px;margin-left:auto;margin-right:auto;color:var(--inkt-3);font-size:13px}
+.jurvoet .jur{display:flex;flex-wrap:wrap;gap:18px;margin-bottom:10px}
+.jurvoet .jur a{text-decoration:none;color:var(--inkt-2);font-weight:600}
+.jurvoet .jur a:hover{color:var(--groen)}
+@media(max-width:760px){.jurvoet{padding:20px 16px 44px}}
+</style>
+
+<div class="schets">Ontwerpschets van het aanmeldformulier voor winkels.</div>
+<header class="top">
+  <a class="logo" href="index.html">snel<i>repareren</i>.nl</a>
+  <a class="terug" href="voor-winkels.html">&larr; Terug naar Voor winkels</a>
+</header>
+
+<div class="wrap">
+  <div>
+    <!-- FORMULIER -->
+    <div class="kaart" id="formulier">
+      <h1>Meld je winkel aan</h1>
+      <p class="sub">Een basisvermelding is gratis en blijft gratis. Je hoeft nu geen wachtwoord te bedenken: na onze controle krijg je een uitnodiging per e-mail.</p>
+
+      <fieldset>
+        <legend>Je winkel</legend>
+        <div class="veld"><label>Bedrijfsnaam</label><input id="naam" placeholder="Zoals hij bij de KvK staat"></div>
+        <div class="tweekolom">
+          <div class="veld"><label>KvK-nummer</label><input id="kvk" placeholder="12345678" inputmode="numeric"><div class="hint">Wij controleren hiermee je inschrijving.</div></div>
+          <div class="veld"><label>Telefoonnummer winkel</label><input id="tel" placeholder="058 123 45 67"></div>
+        </div>
+        <div class="veld"><label>Adres</label><input id="adres" placeholder="Straat en huisnummer"></div>
+        <div class="tweekolom">
+          <div class="veld"><label>Postcode</label><input id="pc" placeholder="8911 KX"></div>
+          <div class="veld"><label>Plaats</label><input id="plaats" placeholder="Leeuwarden"></div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Contactpersoon</legend>
+        <div class="tweekolom">
+          <div class="veld"><label>Naam</label><input id="cnaam" placeholder="Voor- en achternaam"></div>
+          <div class="veld"><label>E-mailadres</label><input id="mail" type="email" placeholder="naam@uwwinkel.nl"><div class="hint">Hier sturen wij de uitnodiging naartoe.</div></div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Welke merken repareer je?</legend>
+        <div class="merken" id="merken"></div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Met welk pakket wil je beginnen?</legend>
+        <div class="pakketten" id="pakketten"></div>
+      </fieldset>
+
+      <label class="akkoord">
+        <input type="checkbox" id="akkoord">
+        <span>Ik ben bevoegd om deze winkel aan te melden en ga akkoord met de <a href="voorwaarden-winkels.html">voorwaarden voor winkels</a> en de <a href="privacy.html">privacyverklaring</a>. Ik begrijp dat mijn plek in de gewone lijst niet te koop is.</span>
+      </label>
+
+      <button class="btn btn-marine" id="verstuur" disabled style="width:100%">Aanmelding versturen</button>
+      <p class="voet">Aanmelden verplicht je tot niets. Wij nemen contact op voordat er iets live gaat.</p>
+    </div>
+
+    <!-- BEDANKT -->
+    <div class="kaart bedankt verborgen" id="bedankt">
+      <div class="bal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+      <h1>Aanmelding ontvangen</h1>
+      <p id="bedanktregel">Wij hebben je aanmelding binnen. Je hoort binnen twee werkdagen van ons.</p>
+      <div class="stappen">
+        <b>Wat er nu gebeurt</b>
+        <ol>
+          <li>Wij controleren je KvK-inschrijving op het opgegeven adres.</li>
+          <li>Je krijgt een e-mail met een link om je account in te stellen.</li>
+          <li>In het portaal vul je je prijzen, openingstijden en garantie in.</li>
+          <li>Wil je het keurmerk, dan upload je je polis; die controleren wij binnen een week.</li>
+        </ol>
+      </div>
+      <a class="btn btn-marine" href="portaal.html">Bekijk vast het portaal</a>
+      <p class="voet">Vragen? Mail naar winkels@snelrepareren.nl.</p>
+    </div>
+  </div>
+
+  <aside class="zij">
+    <div class="zk">
+      <h3>Zo werkt het</h3>
+      <ol>
+        <li><b>Aanmelden</b>Dit formulier, twee minuten.</li>
+        <li><b>Wij controleren</b>KvK-inschrijving en adres.</li>
+        <li><b>Je vult aan</b>Prijzen, tijden, garantie.</li>
+        <li><b>Je staat erin</b>Klanten kunnen je vinden en bellen.</li>
+      </ol>
+    </div>
+    <div class="zk">
+      <h3>Goed om te weten</h3>
+      <div class="gratis"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Gratis blijft gratis. Je kunt later altijd upgraden.</span></div>
+      <div class="gratis" style="margin-top:12px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Geen commissie per klant, geen opzegtermijn.</span></div>
+      <div class="gratis" style="margin-top:12px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Je plek in de gewone lijst is niet te koop.</span></div>
+    </div>
+  </aside>
+</div>
+
+
+<footer class="jurvoet">
+  <div class="jur"><a href="voorwaarden.html">Voorwaarden</a><a href="privacy.html">Privacy</a><a href="cookies.html">Cookies</a><a href="toegankelijkheid.html">Toegankelijkheid</a><a href="melden.html">Iets melden</a></div>
+  Wat wij met je aanmelding doen staat in de <a href="privacy.html">privacyverklaring</a>. Onderdeel van snelrepareren.nl.
+</footer>
+
+<script>
+const MERKEN=['Apple','Samsung','Google','Xiaomi','OnePlus','Huawei','Oppo','Motorola','Fairphone','Overig'];
+const PAKKETTEN=[
+ ['gratis','Gratis','Vermelding, prijzen en openingstijden','&euro; 0'],
+ ['start','Start','Klein aandeel in het blok Uitgelicht','&euro; 29'],
+ ['groei','Groei','Groter aandeel, meerdere vestigingen','&euro; 79'],
+ ['max','Max','Het grootste aandeel, meerdere plaatsen','&euro; 149'],
+];
+const S={merken:new Set(['Apple','Samsung']),pakket:'gratis'};
+const CHECK='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>';
+function merken(){
+  document.getElementById('merken').innerHTML=MERKEN.map(m=>`<button type="button" class="mchip${S.merken.has(m)?' aan':''}" onclick="wisselMerk('${m}')">${m}</button>`).join('');
+}
+function wisselMerk(m){S.merken.has(m)?S.merken.delete(m):S.merken.add(m);merken()}
+function pakketten(){
+  document.getElementById('pakketten').innerHTML=PAKKETTEN.map(([id,n,s,p])=>
+   `<div class="pk${S.pakket===id?' aan':''}" onclick="S.pakket='${id}';pakketten()"><span class="rond">${CHECK}</span><span><b>${n}</b><small>${s}</small></span><span class="prijs num">${p}${id==='gratis'?'':' p/m'}</span></div>`).join('');
+}
+document.getElementById('akkoord').onchange=e=>{document.getElementById('verstuur').disabled=!e.target.checked};
+document.getElementById('verstuur').onclick=()=>{
+  const naam=document.getElementById('naam').value.trim();
+  document.getElementById('formulier').classList.add('verborgen');
+  document.getElementById('bedankt').classList.remove('verborgen');
+  if(naam)document.getElementById('bedanktregel').textContent=`Wij hebben de aanmelding van ${naam} binnen. Je hoort binnen twee werkdagen van ons.`;
+  window.scrollTo(0,0);
+};
+merken();pakketten();
+</script>

@@ -1,0 +1,243 @@
+<title>Je gegevens tijdens een reparatie</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap">
+<style>
+:root{--groen-50:#F0FDF4;--groen-100:#DCFCE7;--groen-200:#BBF7D0;--groen-300:#86EFAC;--groen-500:#22C55E;--groen:#008934;--groen-800:#007B2E;--marine:#0B1F4E;--marine-100:#E8ECF5;--marine-200:#C5CEE3;--inkt:#111827;--inkt-2:#4A5878;--inkt-3:#6B7480;--lijn:#E3E6EE;--vlak:#F6F8FA;--amber:#B45309;--amber-soft:#FEF3C7;--rood:#B91C1C;--rood-soft:#FEE2E2;color-scheme:light}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:#fff;color:var(--inkt);font-family:'Outfit',system-ui,sans-serif;font-size:16px;line-height:1.6}
+a{color:inherit}.in{max-width:820px;margin:0 auto;padding:0 32px}
+.num{font-variant-numeric:tabular-nums}
+.schets{background:var(--amber-soft);color:var(--amber);font-size:13px;font-weight:600;text-align:center;padding:8px 16px}
+.top{display:flex;align-items:center;gap:24px;padding:16px 32px;max-width:1160px;margin:0 auto}
+.logo{font-weight:800;font-size:20px;letter-spacing:-.02em;color:var(--marine);text-decoration:none}.logo i{font-style:normal;color:var(--groen)}
+.top nav{display:flex;gap:22px;font-size:15px;color:var(--inkt-2)}.top nav a{text-decoration:none}.top nav a:hover{color:var(--inkt)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 20px;border-radius:999px;font-weight:600;font-size:15px;border:1.5px solid transparent;cursor:pointer;text-decoration:none;font-family:inherit}
+.btn-groen{background:var(--groen);color:#fff}.btn-groen:hover{background:var(--groen-800)}
+.btn-lijn{background:#fff;color:var(--groen);border-color:var(--groen)}.btn-lijn:hover{background:var(--groen-50)}
+.btn-klein{padding:9px 16px;font-size:14px;margin-left:auto}
+.kruimels{font-size:13px;color:var(--inkt-3);padding:16px 0 0}.kruimels a{text-decoration:none}.kruimels span{margin:0 6px}
+.groepje{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--groen-800);background:var(--groen-100);padding:3px 11px;border-radius:999px;margin-top:12px}
+h1{font-size:clamp(28px,3.8vw,40px);font-weight:800;letter-spacing:-.028em;margin:12px 0 14px;text-wrap:balance;max-width:22ch}
+.lead{font-size:18.5px;line-height:1.5;color:var(--inkt);max-width:66ch;margin:0 0 8px}
+.lead b{font-weight:800}
+.leestijd{font-size:13.5px;color:var(--inkt-3);margin:14px 0 0}
+.kort{background:var(--groen-50);border:1.5px solid var(--groen-200);border-radius:18px;padding:20px 24px;margin:24px 0 0}
+.kort h2{font-size:12.5px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--groen-800);margin:0 0 10px}
+.kort ul{margin:0;padding-left:20px}.kort li{margin:6px 0;color:var(--inkt)}
+section{padding:34px 0;scroll-margin-top:16px}
+h2{font-size:24px;font-weight:800;letter-spacing:-.022em;margin:0 0 10px;text-wrap:balance}
+h3{font-size:17.5px;font-weight:700;margin:24px 0 5px}
+p{margin:0 0 14px;color:var(--inkt-2);max-width:72ch}
+p b,li b{color:var(--inkt);font-weight:700}
+ul,ol{margin:0 0 16px;padding-left:22px;color:var(--inkt-2);max-width:72ch}
+li{margin:7px 0}
+.tbl{width:100%;border-collapse:collapse;font-size:14.5px;margin:0 0 18px}
+.tbl th,.tbl td{text-align:left;padding:10px 13px;border-bottom:1px solid var(--lijn);vertical-align:top;color:var(--inkt-2)}
+.tbl th{background:var(--vlak);color:var(--inkt);font-weight:700;font-size:13px}
+.tbl td b{color:var(--inkt)}
+.tbl .num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.tabelwrap{overflow-x:auto}
+.let{border:1.5px solid var(--lijn);border-left:5px solid var(--amber);background:#FFFBEB;border-radius:16px;padding:18px 22px;margin:0 0 18px}
+.let>b{color:var(--amber);display:block;margin-bottom:4px}
+.let p b{color:var(--amber);font-weight:800}
+.let p{margin:0;font-size:14.5px;color:var(--amber);max-width:none}
+.tip{border:1.5px solid var(--groen-200);border-left:5px solid var(--groen);background:var(--groen-50);border-radius:16px;padding:18px 22px;margin:0 0 18px}
+.tip>b{display:block;margin-bottom:4px}
+.tip p{margin:0;font-size:14.5px;max-width:none}
+.stop{border:1.5px solid var(--rood-soft);border-left:5px solid var(--rood);background:var(--rood-soft);border-radius:16px;padding:18px 22px;margin:0 0 18px}
+.stop>b{color:var(--rood);display:block;margin-bottom:4px}
+.stop p b{color:#7F1D1D;font-weight:800}
+.stop p{margin:0;font-size:14.5px;color:#7F1D1D;max-width:none}
+.kaarten{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:0 0 18px}
+.kaart{border:1.5px solid var(--lijn);border-radius:18px;padding:20px 22px}
+.kaart b{display:block;font-size:16.5px;margin-bottom:5px}
+.kaart p{margin:0;font-size:14.5px}
+.kaart .prijs{display:block;font-size:13.5px;font-weight:700;color:var(--marine);margin-top:8px;font-variant-numeric:tabular-nums}
+.trap{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:3px 18px;align-items:baseline;border:1.5px solid var(--lijn);border-radius:16px;padding:16px 20px;margin:0 0 10px}
+.trap .rang{grid-row:1/span 2;width:34px;height:34px;border-radius:11px;display:grid;place-items:center;font-weight:800;font-size:14px;color:#fff;align-self:start}
+.trap b{font-size:16.5px}
+.trap .band{font-size:13.5px;font-weight:700;color:var(--inkt-2);white-space:nowrap;text-align:right}
+.trap p{grid-column:2/4;margin:3px 0 0;font-size:14.5px;max-width:none}
+.stap{display:grid;grid-template-columns:34px minmax(0,1fr);gap:4px 16px;margin:0 0 16px;align-items:start}
+.stap .nr{grid-row:1/span 2;width:34px;height:34px;border-radius:50%;background:var(--groen);color:#fff;font-weight:800;font-size:14px;display:grid;place-items:center}
+.stap b{font-size:16.5px}
+.stap p{margin:2px 0 0;font-size:15px;max-width:none}
+.vink{list-style:none;padding:0;margin:0 0 18px}
+.vink li{display:flex;gap:11px;align-items:flex-start;padding:12px 16px;border:1.5px solid var(--lijn);border-radius:14px;margin:0 0 8px;cursor:pointer;transition:border-color .12s,background .12s;color:var(--inkt-2)}
+.vink li:hover{border-color:var(--groen-200);background:var(--groen-50)}
+.vink li.af{border-color:var(--groen);background:var(--groen-50)}
+.vink .vak{width:22px;height:22px;border-radius:7px;border:2px solid var(--lijn);flex:none;margin-top:1px;display:grid;place-items:center;background:#fff}
+.vink li.af .vak{background:var(--groen);border-color:var(--groen)}
+.vink .vak svg{width:13px;height:13px;color:#fff;opacity:0}
+.vink li.af .vak svg{opacity:1}
+.vink b{display:block;color:var(--inkt)}
+.vink small{font-size:14px;color:var(--inkt-2)}
+.voortgang{font-size:14px;color:var(--inkt-3);margin:0 0 14px}
+.hulp{border:1.5px solid var(--lijn);border-radius:20px;padding:24px 26px;margin:0 0 18px}
+.hulp .vraag{font-size:17px;font-weight:800;margin-bottom:12px}
+.opties{display:flex;gap:8px;flex-wrap:wrap}
+.opties button{border:1.5px solid var(--lijn);background:#fff;border-radius:999px;padding:9px 18px;font:inherit;font-size:14.5px;font-weight:600;color:var(--inkt-2);cursor:pointer}
+.opties button:hover{border-color:var(--groen);color:var(--groen)}
+.opties button.aan{background:var(--groen);border-color:var(--groen);color:#fff}
+.uitslag{margin-top:18px;padding-top:18px;border-top:1px solid var(--lijn);font-size:15.5px;color:var(--inkt)}
+.uitslag b{display:block;font-size:17.5px;margin-bottom:5px}
+.uitslag.leeg{color:var(--inkt-3);font-size:14.5px}
+.faq{border-top:1px solid var(--lijn);padding:18px 0}
+.faq:last-of-type{border-bottom:1px solid var(--lijn)}
+.faq b{display:block;font-size:16.5px;font-weight:700;margin-bottom:6px}
+.faq p{margin:0;font-size:15px}
+.verwant{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.vkaart{border:1.5px solid var(--lijn);border-radius:16px;padding:16px 18px;text-decoration:none;transition:border-color .15s}
+.vkaart:hover{border-color:var(--groen)}
+.vkaart b{font-size:15px;font-weight:700;display:block}
+.vkaart small{font-size:13px;color:var(--inkt-3)}
+.bronblok{background:var(--vlak);border-radius:18px;padding:22px;font-size:14px;color:var(--inkt-2)}
+.bronblok b{color:var(--inkt)}
+.bronblok p{font-size:14px;max-width:none}
+.bronblok a{color:var(--inkt-2)}
+.kiezerband{background:var(--marine);color:#fff;border-radius:20px;padding:26px;margin:34px 0 0;display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
+.kiezerband b{display:block;font-size:19px;font-weight:800}
+.kiezerband span{opacity:.85;font-size:15px}
+.kiezerband .k{background:var(--groen);color:#fff;border:0}
+footer{border-top:1px solid var(--lijn);padding:28px 0 60px;color:var(--inkt-3);font-size:13px;margin-top:12px}
+footer .jur{display:flex;flex-wrap:wrap;gap:18px;margin-bottom:12px}
+footer .jur a{text-decoration:none;color:var(--inkt-2);font-weight:600}
+footer .jur a:hover{color:var(--groen)}
+.schuifhint{font-size:13px;color:var(--inkt-3);margin:0 0 8px}
+@media(max-width:820px){.kaarten,.verwant{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:760px){.in{padding:0 16px}.top{padding:14px 16px;gap:12px}.top nav{display:none}
+ .trap{grid-template-columns:auto minmax(0,1fr)}.trap .band{grid-column:2;grid-row:3;text-align:left;margin-top:6px}.trap p{grid-column:2}}
+</style>
+
+<div class="schets">Ontwerpschets. De uitleg is echt en met bronnen onderbouwd; de prijzen komen uit ons eigen prijsonderzoek van 3 september 2026.</div>
+<header class="top">
+  <a class="logo" href="index.html">snel<i>repareren</i>.nl</a>
+  <nav><a href="reparaties.html">Reparaties</a><a href="toestellen.html">Toestellen</a><a href="plaatsen.html">Plaatsen</a><a href="gidsen.html">Gidsen</a><a href="hoe-wij-rangschikken.html">Hoe wij rangschikken</a></nav>
+  <a class="btn btn-lijn btn-klein" href="voor-winkels.html">Voor winkels</a>
+</header>
+
+<div class="in">
+  <div class="kruimels"><a href="index.html">Home</a><span>&rsaquo;</span><a href="gidsen.html">Gidsen</a><span>&rsaquo;</span>Je gegevens</div>
+  <span class="groepje">Voorbereiden</span>
+  <h1>Je gegevens tijdens een reparatie</h1>
+  <p class="lead">Je telefoon is versleuteld: <b>zonder je toegangscode komt niemand bij je gegevens.</b> Maar voor een schermreparatie is die code vaak wel nodig om te kunnen testen. Hier staat wat dat betekent en wat je eraan kunt doen.</p>
+  <p class="leestijd">Leestijd 5 minuten</p>
+  <div class="kort"><h2>In het kort</h2><ul><li>Zonder je toegangscode is de inhoud van je toestel niet te lezen, ook niet door iemand die hem openmaakt.</li><li>Voor het testen na een schermreparatie is die code meestal wel nodig.</li><li>Zet een tijdelijke code die je nergens anders gebruikt, en zet hem daarna terug.</li><li>Staan er gegevens van anderen op, lever het toestel dan leeg in na een back-up.</li></ul></div>
+
+  <section>
+    <h2>Eerst het goede nieuws: je telefoon is versleuteld</h2>
+    <p>Moderne telefoons, iPhone en Android allebei, versleutelen standaard alles wat erop staat. <b>Zonder je toegangscode is de inhoud niet te lezen</b>, ook niet door iemand die het toestel openmaakt en de opslagchip eruit haalt.</p>
+    <p>Dat betekent: geef je je code niet, dan komt niemand bij je foto's, berichten of e-mail. Dat is niet een belofte van de winkel, dat zit in het toestel zelf.</p>
+    <div class="let">
+      <b>Maar voor veel reparaties is die code wel nodig</b>
+      <p>Na een schermreparatie moet de monteur testen of het hele scherm reageert, of de camera's werken en of de sensoren het doen. Dat kan hij niet vanaf het vergrendelscherm. Bij een accu of een laadpoort is dat vaak minder nodig; vraag ernaar.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Wat een winkel kan zien, en wat niet</h2>
+    <div class="tabelwrap">
+      <table class="tbl">
+        <tr><th>Situatie</th><th>Wat er mogelijk is</th></tr>
+        <tr><td><b>Je geeft je code niet</b></td><td>De winkel kan het toestel niet ontgrendelen en niets van je gegevens zien. Testen kan dan maar beperkt.</td></tr>
+        <tr><td><b>Je geeft je code wel</b></td><td>De winkel kan alles zien wat je zelf kunt zien: foto's, berichten, e-mail, en apps die niet apart vergrendeld zijn.</td></tr>
+        <tr><td><b>Je vingerafdruk of gezicht</b></td><td>Die kan een winkel niet gebruiken. Daarvoor ben je zelf nodig. Daarom vragen zij om de cijfercode.</td></tr>
+        <tr><td><b>Je bank-app</b></td><td>Vrijwel altijd achter een eigen code of gezichtsherkenning. Die staat los van de toegangscode van het toestel.</td></tr>
+        <tr><td><b>Je Apple- of Google-account</b></td><td>Daar hebben zij je wachtwoord voor nodig, en dat geeft je nooit. Zonder dat wachtwoord komen zij niet bij je back-ups.</td></tr>
+      </table>
+    </div>
+    <p>Dat iets <b>kan</b>, betekent niet dat het <b>mag</b>. Een winkel mag alleen doen wat voor de reparatie nodig is. Door je foto's bladeren mag niet, kopiëren al helemaal niet, en dat is niet alleen in strijd met de privacywet maar kan ook strafbaar zijn.</p>
+  </section>
+
+  <section>
+    <h2>Drie manieren om het te regelen</h2>
+    <p>Van makkelijk naar veilig. Kies wat bij je situatie past; ze zijn geen van drieën fout.</p>
+    <div class="trap"><span class="rang" style="background:var(--groen-500)">1</span><b>Gewoon de code geven</b><span class="band">meest gekozen</span>
+      <p>Voor de meeste mensen prima. Kies wel een tijdelijke code die je nergens anders gebruikt, en zet hem na de reparatie terug. Gebruik je dezelfde vier cijfers als voor je pinpas, verander die dan zeker.</p></div>
+    <div class="trap"><span class="rang" style="background:var(--groen-500)">2</span><b>Vragen of het zonder kan</b><span class="band">kost je niets om te vragen</span>
+      <p>Sommige winkels kunnen een deel van de test doen zonder te ontgrendelen, of laten je de test zelf uitvoeren als je wacht. Bij een accu of een laadpoort lukt dat vaker dan bij een scherm. Wacht je er toch, dan is dit de eenvoudigste oplossing.</p></div>
+    <div class="trap"><span class="rang" style="background:var(--marine)">3</span><b>Leeg inleveren</b><span class="band">voor gevoelige gegevens</span>
+      <p>Maak een back-up, zet het toestel terug naar de fabrieksinstellingen en lever hem leeg in. Na de reparatie zet je de back-up terug. Kost je een uur en het toestel is dan echt leeg. Dit is de weg als er werkgegevens, medische gegevens of gegevens van anderen op staan.</p></div>
+    <div class="tip">
+      <b>Werk je met gegevens van anderen?</b>
+      <p>Staan er klantgegevens, patiëntgegevens of dossiers op je telefoon, dan is optie 3 niet overdreven maar de aangewezen weg. Je bent dan zelf verantwoordelijk voor die gegevens, en die verantwoordelijkheid geeft je niet weg door een toestel af te geven.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Wat je vraagt en wat je erna doet</h2>
+    <div class="stap"><span class="nr">1</span><b>Vraag vooraf: heb je mijn code nodig, en waarvoor?</b>
+      <p>Een goede winkel legt uit wat hij gaat testen. Krijg je geen antwoord, of het antwoord "dat moet altijd", vraag dan door.</p></div>
+    <div class="stap"><span class="nr">2</span><b>Zet een tijdelijke code</b>
+      <p>Zes cijfers die je nergens anders gebruikt. Dat kost een halve minuut en het scheelt dat je later niet je echte code hoeft te wisselen op tien plekken.</p></div>
+    <div class="stap"><span class="nr">3</span><b>Zet je code na afloop terug</b>
+      <p>En doe dat meteen bij het afhalen, anders vergeet je het. Bij een iPhone gaat dat via Instellingen, Face ID en toegangscode; bij Android via Instellingen, Beveiliging.</p></div>
+    <div class="stap"><span class="nr">4</span><b>Kijk of er niets is bijgekomen</b>
+      <p>Controleer in je Apple- of Google-account of er geen onbekende apparaten zijn toegevoegd, en of er geen nieuwe app op je toestel staat die je niet kent. Dit is zelden nodig, maar het kost een minuut.</p></div>
+  </section>
+
+  <section>
+    <h2>Wat wij hierin doen, en wat niet</h2>
+    <p>Wij zitten niet tussen jou en de winkel. Je belt zelf, je geeft je toestel zelf af, en wij weten niet wat daar besproken wordt. Wij vragen bezoekers ook nergens om een telefoonnummer.</p>
+    <p>Wat wij wel doen: gaat er iets mis met je gegevens bij een winkel op onze site, dan willen wij dat weten. Meld het via <a href="melden.html">Iets melden</a>. Wij vragen de winkel om een reactie en kunnen een winkel pauzeren of verwijderen. Wij doen geen uitspraak over wie gelijk heeft.</p>
+    <div class="stop">
+      <b>Vermoed je dat er in je gegevens is gekeken?</b>
+      <p>Dan is dat meer dan een klacht over een reparatie. Je kunt aangifte doen bij de politie, en bij misbruik van persoonsgegevens kun je een klacht indienen bij de Autoriteit Persoonsgegevens. Verander in elk geval meteen je toegangscode en de wachtwoorden van accounts waar je op dat toestel bij kon.</p>
+    </div>
+    <p>Wat wij van jezelf vastleggen als je onze site gebruikt, staat in onze <a href="privacy.html">privacyverklaring</a>. Kort gezegd: geen volgcookies, geen doorverkoop, en een e-mailadres alleen als je zelf om een herinnering vraagt.</p>
+  </section>
+
+  <section>
+    <h2>Veelgestelde vragen</h2>
+    <div class="faq"><b>Mag een winkel weigeren als ik mijn code niet geef?</b>
+      <p>Ja. Kan hij de reparatie niet testen, dan kan hij ook niet garanderen dat alles werkt, en dat mag hij weigeren. Vraag dan of hij het wel wil doen zonder garantie op de functies die hij niet kon testen, of kies een winkel waar je kunt wachten.</p></div>
+    <div class="faq"><b>Is een pincode van vier cijfers genoeg?</b>
+      <p>Voor de duur van een reparatie is dat meestal geen probleem, maar zes cijfers is beter en het kost niets. Gebruik in elk geval niet dezelfde cijfers als van je bankpas.</p></div>
+    <div class="faq"><b>Wat als mijn scherm kapot is en ik de code niet meer kan intikken?</b>
+      <p>Dan kun je het toestel ook niet leegmaken. Vraag de winkel of hij tijdelijk een testscherm kan aansluiten zodat je het zelf kunt doen. Kan dat niet, weeg dan af hoe gevoelig de inhoud is; versleuteling beschermt je tot iemand de code heeft.</p></div>
+    <div class="faq"><b>Blijft mijn simkaart veilig?</b>
+      <p>Neem hem er gewoon uit. Op de simkaart zelf staat tegenwoordig weinig, maar het scheelt dat er niet met je nummer gebeld of geverifieerd kan worden terwijl het toestel weg is.</p></div>
+  </section>
+
+
+  <section>
+    <h2>Verder lezen</h2>
+    <div class="verwant"><a class="vkaart" href="gids-voorbereiden.html"><b>Voordat je naar de winkel gaat</b><small>De lijst om af te vinken</small></a><a class="vkaart" href="privacy.html"><b>Onze privacyverklaring</b><small>Wat wij zelf van je vastleggen</small></a><a class="vkaart" href="melden.html"><b>Iets melden</b><small>Als er iets is misgegaan</small></a></div>
+  </section>
+
+  <section>
+    <div class="bronblok"><p><b>Waar dit op gebaseerd is.</b> Dat iPhone en moderne Android-toestellen standaard versleuteld zijn, staat in de eigen documentatie van Apple en Google. Wat winkels bij een reparatie testen en waarom zij daarvoor willen ontgrendelen, komt uit de reparatievoorwaarden van Nederlandse winkels zoals bekeken op 3 september 2026.</p><p style="margin-bottom:0">Wij zijn geen partij bij je reparatie en zitten niet tussen jou en de winkel in.</p></div>
+  </section>
+
+  <div class="kiezerband">
+    <div><b>Weet je wat er moet gebeuren?</b><span>Kies je toestel en de reparatie, dan zie je wat winkels bij jou in de buurt vragen.</span></div>
+    <a class="btn k" href="reparatiekiezer.html">Start de reparatiekiezer</a>
+  </div>
+</div>
+
+<footer><div class="in">
+  <div class="jur"><a href="voorwaarden.html">Voorwaarden</a><a href="privacy.html">Privacy</a><a href="cookies.html">Cookies</a><a href="toegankelijkheid.html">Toegankelijkheid</a><a href="melden.html">Iets melden</a><a href="over-ons.html">Over ons</a></div>
+  Onze gidsen zijn redactioneel en onafhankelijk. Onderdeel van snelrepareren.nl.
+</div></footer>
+<script>
+/* Een tabel die breder is dan het scherm schuift binnen zijn eigen kader.
+   Zonder aanwijzing ziet niemand dat, dus zetten wij er een regel boven. */
+function schuifhints(){
+  document.querySelectorAll('.tabelwrap').forEach(w=>{
+    const nodig=w.scrollWidth>w.clientWidth+1;
+    let h=w.previousElementSibling;
+    const heeftHint=h&&h.classList&&h.classList.contains('schuifhint');
+    if(nodig&&!heeftHint){
+      const p=document.createElement('p');
+      p.className='schuifhint';
+      p.textContent='Schuif de tabel opzij om alle kolommen te zien.';
+      w.parentNode.insertBefore(p,w);
+    } else if(!nodig&&heeftHint){ h.remove(); }
+  });
+}
+schuifhints();
+addEventListener('resize',schuifhints);
+</script>

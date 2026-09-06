@@ -1,0 +1,255 @@
+<title>De zes e-mails die wij versturen</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap">
+<style>
+:root{--groen-50:#F0FDF4;--groen-100:#DCFCE7;--groen-200:#BBF7D0;--groen-500:#22C55E;--groen:#008934;--groen-800:#007B2E;--marine:#0B1F4E;--marine-100:#E8ECF5;--marine-200:#C5CEE3;--inkt:#111827;--inkt-2:#4A5878;--inkt-3:#6B7480;--lijn:#E3E6EE;--vlak:#F6F8FA;--amber:#B45309;--amber-soft:#FEF3C7;--rood:#B91C1C;--rood-soft:#FEE2E2;color-scheme:light}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:#fff;color:var(--inkt);font-family:'Outfit',system-ui,sans-serif;font-size:16px;line-height:1.55}
+a{color:inherit}.in{max-width:1060px;margin:0 auto;padding:0 32px}
+.schets{background:var(--amber-soft);color:var(--amber);font-size:13px;font-weight:600;text-align:center;padding:8px 16px}
+.top{display:flex;align-items:center;gap:24px;padding:16px 32px;max-width:1160px;margin:0 auto}
+.logo{font-weight:800;font-size:20px;letter-spacing:-.02em;color:var(--marine);text-decoration:none}.logo i{font-style:normal;color:var(--groen)}
+.top nav{display:flex;gap:22px;font-size:15px;color:var(--inkt-2)}.top nav a{text-decoration:none}.top nav a:hover{color:var(--inkt)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:9px 16px;border-radius:999px;font-weight:600;font-size:14px;border:1.5px solid var(--groen);background:#fff;color:var(--groen);text-decoration:none;margin-left:auto}
+.btn:hover{background:var(--groen-50)}
+.kruimels{font-size:13px;color:var(--inkt-3);padding:16px 0 0}.kruimels a{text-decoration:none}.kruimels span{margin:0 6px}
+h1{font-size:clamp(28px,3.6vw,38px);font-weight:800;letter-spacing:-.025em;margin:10px 0 12px;text-wrap:balance}
+.intro{font-size:17.5px;color:var(--inkt-2);max-width:68ch;margin:0 0 22px}
+
+.regels{border:1.5px solid var(--lijn);border-radius:18px;padding:20px 24px;margin:0 0 12px}
+.regels h2{font-size:12.5px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--inkt-3);margin:0 0 12px}
+.regels ul{margin:0;padding-left:20px;color:var(--inkt-2);font-size:14.5px;columns:2;column-gap:34px}
+.regels li{margin:6px 0;break-inside:avoid}
+.regels b{color:var(--inkt)}
+.adres{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.adres span{font-size:13px;background:var(--vlak);border:1px solid var(--lijn);border-radius:999px;padding:5px 13px;color:var(--inkt-2)}
+.adres span b{color:var(--inkt)}
+
+.mail{display:grid;grid-template-columns:262px minmax(0,1fr);gap:26px;align-items:start;padding:34px 0;border-top:1px solid var(--lijn)}
+.mail:first-of-type{border-top:0}
+.meta .nr{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:8px;background:var(--marine);color:#fff;font-size:13px;font-weight:800;margin-bottom:10px}
+.meta h3{font-size:18px;font-weight:800;letter-spacing:-.02em;margin:0 0 6px}
+.meta dl{margin:14px 0 0;font-size:13.5px}
+.meta dt{color:var(--inkt-3);font-weight:600;margin-top:10px}
+.meta dd{margin:1px 0 0;color:var(--inkt-2)}
+.meta dd b{color:var(--inkt)}
+.merk{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;background:var(--groen-100);color:var(--groen-800);padding:2px 9px;border-radius:999px;margin-top:12px}
+.merk.klant{background:var(--marine-100);color:var(--marine)}
+
+.venster{background:var(--vlak);border:1.5px solid var(--lijn);border-radius:20px;padding:18px}
+.balk{font-size:13px;color:var(--inkt-2);padding:0 6px 14px;border-bottom:1px solid var(--lijn);margin-bottom:18px}
+.balk div{margin:3px 0}
+.balk b{color:var(--inkt)}
+.onderwerp{font-size:15.5px;font-weight:700;color:var(--inkt)}
+.brief{background:#fff;border:1px solid var(--lijn);border-radius:14px;padding:26px 28px;max-width:560px;margin:0 auto}
+.brief .logo{font-size:17px;display:inline-block;margin-bottom:18px}
+.brief p{margin:0 0 13px;font-size:15px;color:var(--inkt-2);line-height:1.6}
+.brief p.eerste{color:var(--inkt);font-size:16px}
+.brief ol,.brief ul{margin:0 0 13px;padding-left:20px;font-size:15px;color:var(--inkt-2)}
+.brief li{margin:6px 0}
+.knop{display:inline-block;background:var(--groen);color:#fff;text-decoration:none;font-weight:700;font-size:15px;padding:13px 24px;border-radius:999px;margin:6px 0 16px}
+.brief table{width:100%;border-collapse:collapse;font-size:14px;margin:0 0 16px}
+.brief th,.brief td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--lijn);color:var(--inkt-2)}
+.brief th{background:var(--vlak);color:var(--inkt);font-weight:700;font-size:13px}
+.brief td.num{font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--inkt);font-weight:600}
+.vak{border:1px solid var(--lijn);border-left:4px solid var(--groen);background:var(--groen-50);border-radius:10px;padding:12px 16px;margin:0 0 16px}
+.vak p{margin:0;font-size:14px}
+.vak.let{border-left-color:var(--amber);background:#FFFBEB}
+.vak.let p{color:var(--amber)}
+.voet{border-top:1px solid var(--lijn);margin-top:20px;padding-top:14px;font-size:12.5px;color:var(--inkt-3)}
+.voet p{margin:0 0 6px;font-size:12.5px;color:var(--inkt-3)}
+.voet a{color:var(--inkt-2)}
+.va{background:var(--marine-100);color:var(--marine);border-radius:5px;padding:0 5px;font-weight:600;font-size:.94em}
+.va.dicht{padding-right:3px;margin-right:-3px}
+footer{border-top:1px solid var(--lijn);margin-top:20px;padding:26px 0 60px;color:var(--inkt-3);font-size:13px}
+footer .jur{display:flex;flex-wrap:wrap;gap:18px;margin-bottom:12px}
+footer .jur a{text-decoration:none;color:var(--inkt-2);font-weight:600}
+footer .jur a:hover{color:var(--groen)}
+@media(max-width:860px){.mail{grid-template-columns:minmax(0,1fr);gap:16px}.regels ul{columns:1}}
+@media(max-width:760px){.in{padding:0 16px}.top{padding:14px 16px;gap:12px}.top nav{display:none}.venster{padding:12px;border-radius:16px}.brief{padding:20px 18px}}
+</style>
+
+<div class="schets">Ontwerpschets. Dit is een overzicht van de e-mailsjablonen, geen pagina voor bezoekers. De namen, bedragen en datums zijn voorbeelden.</div>
+<header class="top">
+  <a class="logo" href="index.html">snel<i>repareren</i>.nl</a>
+  <nav><a href="reparaties.html">Reparaties</a><a href="toestellen.html">Toestellen</a><a href="plaatsen.html">Plaatsen</a><a href="gidsen.html">Gidsen</a><a href="hoe-wij-rangschikken.html">Hoe wij rangschikken</a></nav>
+  <a class="btn" href="voor-winkels.html">Voor winkels</a>
+</header>
+
+<div class="in">
+  <div class="kruimels"><a href="index.html">Home</a><span>&rsaquo;</span>E-mailsjablonen</div>
+  <h1>De zes e-mails die wij versturen</h1>
+  <p class="intro">Meer dan deze zes sturen wij niet. Er is geen nieuwsbrief, geen aanbieding en geen herinnering die je aan het twijfelen moet brengen. Elke e-mail hieronder heeft één aanleiding, één doel en één knop.</p>
+
+  <div class="regels">
+    <h2>De regels waar elke e-mail aan voldoet</h2>
+    <ul>
+      <li><b>Eén doel, één knop.</b> Wie de mail scant, ziet meteen wat er van hem wordt gevraagd.</li>
+      <li><b>De aanleiding staat in de eerste zin.</b> Waarom krijg je dit, en wanneer deed je iets.</li>
+      <li><b>Geen marketing in een bericht dat over je account gaat.</b> Geen pakketaanbod in een incassomail.</li>
+      <li><b>Alles ook in platte tekst.</b> Een mail die zonder plaatjes onleesbaar is, is een slechte mail.</li>
+      <li><b>Wat wij niet weten, verzinnen wij niet.</b> Is de reden van de bank onduidelijk, dan schrijven wij dat.</li>
+      <li><b>De klantmail heeft afmelden met één klik</b>, in de mail zelf en in de kopregels.</li>
+    </ul>
+    <div class="adres">
+      <span>Aan winkels: <b>winkels@snelrepareren.nl</b></span>
+      <span>Aan bezoekers: <b>hallo@snelrepareren.nl</b></span>
+      <span>Antwoorden komt bij een mens terecht, niet bij noreply</span>
+    </div>
+  </div>
+
+  <div id="mails"></div>
+</div>
+
+<footer><div class="in">
+  <div class="jur"><a href="voorwaarden.html">Voorwaarden</a><a href="voorwaarden-winkels.html">Voorwaarden voor winkels</a><a href="privacy.html">Privacy</a><a href="cookies.html">Cookies</a><a href="melden.html">Iets melden</a></div>
+  Onderdeel van snelrepareren.nl. Deze pagina is een werkdocument voor het ontwerp en staat niet in de navigatie.
+</div></footer>
+
+<script>
+const V=s=>`<span class="va">${s}</span>`;
+const LOGO='<span class="logo">snel<i style="font-style:normal;color:var(--groen)">repareren</i>.nl</span>';
+
+const MAILS=[
+{
+ titel:'Aanmelding ontvangen',
+ aan:'winkel', van:'winkels@snelrepareren.nl',
+ naar:'Het adres uit het aanmeldformulier',
+ wanneer:'Direct na het versturen van het aanmeldformulier.',
+ doel:'Bevestigen dat het is aangekomen, en zeggen wat er nu gebeurt zodat niemand gaat bellen.',
+ afspraak:'Hoort bij de aanmeldpagina.',
+ onderwerp:['Wij hebben de aanmelding van ',V('{winkelnaam}'),' ontvangen'],
+ body:`<p class="eerste">Bedankt, je aanmelding is binnen. Je hoeft nu niets te doen.</p>
+  <p>Wat wij de komende dagen doen:</p>
+  <ol>
+    <li>Wij controleren je inschrijving bij de Kamer van Koophandel en of het adres klopt.</li>
+    <li>Wil je het keurmerk, dan kijken wij naar het polisblad dat je hebt meegestuurd.</li>
+    <li>Binnen twee werkdagen krijg je bericht. Gaat het door, dan zit daar meteen de link in om je wachtwoord in te stellen.</li>
+  </ol>
+  <p>Klopt er iets niet aan je aanmelding, dan mailen wij je wat er ontbreekt. Wij wijzen niemand af zonder de reden erbij te zetten.</p>
+  <a class="knop" href="keurmerk.html">Bekijk wat wij controleren</a>
+  <p>Vragen? Antwoord gewoon op deze mail.</p>`,
+ voet:`<p>Je krijgt deze mail omdat er een aanmelding is gedaan voor ${V('{winkelnaam}')} op snelrepareren.nl.</p><p>Was je dat niet? Laat het ons weten, dan verwijderen wij de aanmelding.</p>`
+},
+{
+ titel:'Uitnodiging voor het portaal',
+ aan:'winkel', van:'winkels@snelrepareren.nl',
+ naar:'De contactpersoon uit de aanmelding',
+ wanneer:'Zodra wij de aanmelding hebben goedgekeurd.',
+ doel:'Eén ding: het wachtwoord laten instellen. Alles daarna gebeurt in het portaal.',
+ afspraak:'De link is zeven dagen geldig en kan één keer worden gebruikt.',
+ onderwerp:[V('{winkelnaam}'),' staat klaar. Stel je wachtwoord in.'],
+ body:`<p class="eerste">Je aanmelding is goedgekeurd. Je winkel staat klaar op snelrepareren.nl.</p>
+  <p>Kies eerst een wachtwoord. Daarna vul je in acht korte stappen je openingstijden, prijzen en garantie in. Dat kost ongeveer tien minuten en je kunt tussendoor stoppen.</p>
+  <a class="knop" href="inloggen.html">Wachtwoord instellen</a>
+  <p>Deze link is zeven dagen geldig en werkt één keer. Is hij verlopen, vraag dan in het inlogscherm een nieuwe aan.</p>
+  <div class="vak"><p>Zolang je profiel niet compleet is, staat je winkel wel op de plaatspagina, maar zonder prijzen. Winkels met prijzen worden vaker aangeklikt.</p></div>`,
+ voet:`<p>Heb je geen aanmelding gedaan? Klik dan niet op de knop en mail ons; wij verwijderen de vermelding dezelfde dag.</p>`
+},
+{
+ titel:'Je prijzen zijn 90 dagen niet bevestigd',
+ aan:'winkel', van:'winkels@snelrepareren.nl',
+ naar:'De contactpersoon van het account',
+ wanneer:'Negentig dagen na de laatste bevestiging. Daarna nog één keer op dag 105.',
+ doel:'Prijzen laten bevestigen of laten bijwerken, met één klik als ze nog kloppen.',
+ afspraak:'Een prijs die niet is bevestigd, weegt lichter mee en verdwijnt uiteindelijk.',
+ onderwerp:['Je prijzen zijn 90 dagen niet bevestigd'],
+ body:`<p class="eerste">Op je vermelding staat sinds vandaag: prijs 3 maanden niet bevestigd. Bezoekers zien die melding ook.</p>
+  <p>Dit staat er nu:</p>
+  <table>
+    <tr><th>Reparatie</th><th>Onderdeel</th><th>Prijs</th></tr>
+    <tr><td>Scherm iPhone 13</td><td>Origineel</td><td class="num">&euro; 154</td></tr>
+    <tr><td>Accu iPhone 13</td><td>Aftermarket</td><td class="num">&euro; 79</td></tr>
+    <tr><td>Laadpoort iPhone 13</td><td>Origineel</td><td class="num">&euro; 75</td></tr>
+  </table>
+  <p>Kloppen ze nog? Dan ben je met één klik klaar. Klopt er iets niet, dan pas je het in hetzelfde scherm aan.</p>
+  <a class="knop" href="portaal.html">Prijzen bevestigen</a>
+  <div class="vak let"><p>Doe je niets, dan halen wij deze prijzen over 30 dagen weg. Je vermelding blijft staan, maar dan zonder prijs, en dat scheelt aanzienlijk in hoe vaak je wordt aangeklikt.</p></div>`,
+ voet:`<p>Dit is een bericht over je account. Je kunt zich er niet voor afmelden zolang je een vermelding heeft met prijzen.</p>`
+},
+{
+ titel:'De incasso is niet gelukt',
+ aan:'winkel', van:'winkels@snelrepareren.nl',
+ naar:'De contactpersoon van het account',
+ wanneer:'Dezelfde dag dat de bank de incasso terugstuurt.',
+ doel:'Rustig laten herstellen, zonder dreigtaal. Er verandert de eerste zeven dagen niets.',
+ afspraak:'Zeven dagen de tijd, daarna pauzeren wij het pakket. Wij verwijderen nooit gegevens om een mislukte betaling.',
+ onderwerp:['De incasso van deze maand is niet gelukt'],
+ body:`<p class="eerste">De incasso van ${V('{bedrag}')} voor het pakket ${V('{pakket}')} is door de bank teruggestuurd. Reden: ${V('{reden van de bank}')}.</p>
+  <p>Er verandert nu niets. Je vermelding, je prijzen en je beoordelingen blijven precies zoals ze zijn.</p>
+  <p>Je hebt tot ${V('{datum, zeven dagen later}')} om het te herstellen. Meestal is het een saldokwestie of een gewijzigd rekeningnummer.</p>
+  <a class="knop" href="portaal.html">Betaling herstellen</a>
+  <p>Lukt het niet voor die datum, dan zetten wij de betaalde onderdelen van je pakket op pauze en val je terug op Gratis. Je vermelding, prijzen en beoordelingen blijven staan. Zodra de betaling binnen is, gaat alles dezelfde dag weer aan.</p>
+  <p>Loop je ergens tegenaan? Antwoord op deze mail, dan zoeken wij het samen uit.</p>`,
+ voet:`<p>Dit is een bericht over je abonnement. Je kunt zich hier niet voor afmelden.</p>`
+},
+{
+ titel:'Hoe ging je reparatie?',
+ aan:'klant', van:'hallo@snelrepareren.nl',
+ naar:'Het e-mailadres dat de bezoeker zelf achterliet',
+ wanneer:'Twee dagen nadat de bezoeker het nummer opvroeg, of direct nadat de winkel de reparatie klaarmeldde.',
+ doel:'Eén beoordeling ophalen. Eén keer vragen, daarna nooit meer.',
+ afspraak:'Alleen naar wie via ons een winkel opzocht. Geen beloning. De winkel kan niet kiezen wie er een krijgt.',
+ onderwerp:['Hoe ging je reparatie bij ',V('{winkelnaam}'),'?'],
+ body:`<p class="eerste">Op ${V('{datum}')} zocht je via snelrepareren.nl een winkel voor ${V('{reparatie}')} aan je ${V('{toestel}')}, en je koos ${V('{winkelnaam}')}.</p>
+  <p>Is het doorgegaan? Dan help je de volgende met een cijfer en een paar zinnen. Hoe lang duurde het, wat kostte het, en zou je er weer heen gaan?</p>
+  <a class="knop" href="beoordelen.html">Beoordeling geven</a>
+  <p>Twee dingen die je moet weten. Wij geven geen korting of cadeau voor een beoordeling, want dan is een cijfer niets waard. En de winkel kan je beoordeling niet laten verwijderen; hij mag er alleen onder reageren.</p>
+  <p>Ging het niet door, of ging het mis? Dan horen wij dat net zo graag.</p>`,
+ voet:`<p>Je krijgt deze mail omdat je zelf je e-mailadres achterliet voor een herinnering. Dit is de enige mail die je van ons krijgt.</p>
+  <p><a href="#">Afmelden met één klik</a> &middot; Wij verwijderen je e-mailadres sowieso 30 dagen na deze mail.</p>`
+},
+{
+ titel:'Je polis verloopt',
+ aan:'winkel', van:'winkels@snelrepareren.nl',
+ naar:'De contactpersoon van het account',
+ wanneer:'Dertig dagen voor de einddatum op het polisblad, en nog een keer zeven dagen ervoor.',
+ doel:'Een nieuw polisblad binnenkrijgen voordat het keurmerk automatisch vervalt.',
+ afspraak:'Zonder geldig polisblad vervalt het label op de einddatum. Dat gaat vanzelf, wij beslissen daar niets over.',
+ onderwerp:['Je polis verloopt op ',V('{datum}'),', en daarmee je keurmerk'],
+ body:`<p class="eerste">Volgens het polisblad dat wij van je hebben, loopt je aansprakelijkheidsverzekering af op ${V('{datum}')}.</p>
+  <p>Het label <b>Verzekerd, gecontroleerd</b> vervalt op die datum automatisch als wij geen nieuw polisblad hebben. Dat is geen straf, het is de betekenis van het label: wij zeggen alleen wat wij hebben gezien.</p>
+  <p>Wat er dan verandert: het label verdwijnt van je profiel en je zakt in de volgorde op de plaatspagina, omdat het keurmerk daarin het zwaarst weegt.</p>
+  <a class="knop" href="portaal.html">Nieuw polisblad uploaden</a>
+  <p>Wij controleren het binnen twee werkdagen. Stuur je het op tijd, dan merk je van dit alles niets.</p>
+  <div class="vak"><p>Is je verzekering al verlengd bij dezelfde verzekeraar? Dan volstaat het nieuwe polisblad. Wij hoeven verder niets van je.</p></div>`,
+ voet:`<p>Dit is een bericht over je keurmerk. Je kunt zich hier niet voor afmelden zolang je het label voert.</p>`
+},
+];
+
+document.getElementById('mails').innerHTML=MAILS.map((m,i)=>`
+<section class="mail">
+  <div class="meta">
+    <span class="nr">${i+1}</span>
+    <h3>${m.titel}</h3>
+    <span class="merk ${m.aan==='klant'?'klant':''}">${m.aan==='klant'?'Naar de bezoeker':'Naar de winkel'}</span>
+    <dl>
+      <dt>Wanneer</dt><dd>${m.wanneer}</dd>
+      <dt>Doel</dt><dd>${m.doel}</dd>
+      <dt>Afspraak</dt><dd>${m.afspraak}</dd>
+      <dt>Ontvanger</dt><dd>${m.naar}</dd>
+    </dl>
+  </div>
+  <div class="venster">
+    <div class="balk">
+      <div>Van: <b>snelrepareren.nl</b> &lt;${m.van}&gt;</div>
+      <div>Aan: ${m.aan==='klant'?'de bezoeker':'de contactpersoon van de winkel'}</div>
+      <div class="onderwerp">${m.onderwerp.join('')}</div>
+    </div>
+    <div class="brief">
+      ${LOGO}
+      ${m.body}
+      <div class="voet">${m.voet}</div>
+    </div>
+  </div>
+</section>`).join('');
+
+/* Een variabele-label direct gevolgd door een leesteken laat anders een gat zien. */
+document.querySelectorAll('.va').forEach(v=>{
+  const na=v.nextSibling;
+  if(na&&na.nodeType===3&&/^[.,;:?!)]/.test(na.nodeValue)) v.classList.add('dicht');
+});
+</script>

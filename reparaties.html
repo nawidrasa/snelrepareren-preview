@@ -1,0 +1,140 @@
+<title>Alle telefoonreparaties</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap">
+<style>
+:root{--groen-50:#F0FDF4;--groen-100:#DCFCE7;--groen-200:#BBF7D0;--groen-300:#86EFAC;--groen-500:#22C55E;--groen:#008934;--groen-800:#007B2E;--marine:#0B1F4E;--marine-100:#E8ECF5;--marine-200:#C5CEE3;--inkt:#111827;--inkt-2:#4A5878;--inkt-3:#6B7480;--lijn:#E3E6EE;--vlak:#F6F8FA;--amber:#B45309;--amber-soft:#FEF3C7;color-scheme:light}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:#fff;color:var(--inkt);font-family:'Outfit',system-ui,sans-serif;font-size:16px;line-height:1.55}
+a{color:inherit}.in{max-width:900px;margin:0 auto;padding:0 32px}
+.num{font-variant-numeric:tabular-nums}
+.schets{background:var(--amber-soft);color:var(--amber);font-size:13px;font-weight:600;text-align:center;padding:8px 16px}
+.top{display:flex;align-items:center;gap:24px;padding:16px 32px;max-width:1160px;margin:0 auto}
+.logo{font-weight:800;font-size:20px;letter-spacing:-.02em;color:var(--marine);text-decoration:none}.logo i{font-style:normal;color:var(--groen)}
+.top nav{display:flex;gap:22px;font-size:15px;color:var(--inkt-2)}.top nav a{text-decoration:none}.top nav a:hover{color:var(--inkt)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:9px 16px;border-radius:999px;font-weight:600;font-size:14px;border:1.5px solid var(--groen);background:#fff;color:var(--groen);text-decoration:none;margin-left:auto}
+.btn:hover{background:var(--groen-50)}
+.kruimels{font-size:13px;color:var(--inkt-3);padding:16px 0 0}.kruimels a{text-decoration:none}.kruimels span{margin:0 6px}
+h1{font-size:clamp(28px,3.6vw,38px);font-weight:800;letter-spacing:-.025em;margin:10px 0 12px;text-wrap:balance}
+.intro{font-size:17.5px;color:var(--inkt-2);max-width:68ch;margin:0 0 26px}.intro b{color:var(--inkt)}
+h2{font-size:20px;font-weight:800;letter-spacing:-.02em;margin:34px 0 4px}
+.h2sub{color:var(--inkt-3);font-size:14px;margin:0 0 14px}
+.reps{display:grid;gap:10px}
+.rep{display:grid;grid-template-columns:44px minmax(0,1fr) 150px 20px;gap:16px;align-items:center;border:1.5px solid var(--lijn);border-radius:16px;padding:15px 18px;text-decoration:none;color:inherit;transition:border-color .15s,background .12s}
+.rep:hover{border-color:var(--groen-300);background:var(--groen-50)}
+.rep.geen{border-style:dashed;cursor:default}
+.rep.geen:hover{border-color:var(--lijn);background:#fff}
+.rep .ic{width:44px;height:44px;border-radius:13px;background:var(--groen-100);display:grid;place-items:center;grid-column:1}
+.rep.geen .ic{background:var(--vlak)}
+.rep .ic svg{width:21px;height:21px;color:var(--groen-800)}
+.rep.geen .ic svg{color:var(--inkt-3)}
+.rep .nm{grid-column:2}
+.rep .nm b{font-size:16px;font-weight:700;display:block}
+.rep .nm small{font-size:13px;color:var(--inkt-3)}
+.rep .pr{grid-column:3;text-align:right;font-size:14.5px;font-weight:700}
+.rep .pr small{display:block;font-size:11.5px;font-weight:500;color:var(--inkt-3)}
+.rep .pr.offerte{font-weight:500;color:var(--inkt-2);font-size:13.5px}
+.rep .pijl{grid-column:4;color:var(--inkt-3)}
+.rep:hover .pijl{color:var(--groen)}
+.rep .pijl svg{width:17px;height:17px;display:block}
+.rep.geen .pijl{visibility:hidden}
+.bron{font-size:13px;color:var(--inkt-3);margin:20px 0 0}
+.kiezerband{background:var(--marine);color:#fff;border-radius:20px;padding:26px;margin:30px 0 0;display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
+.kiezerband b{display:block;font-size:19px;font-weight:800}
+.kiezerband span{opacity:.85;font-size:15px}
+.kiezerband .k{background:var(--groen);color:#fff;border:0}
+footer{border-top:1px solid var(--lijn);margin-top:44px;padding:26px 0 60px;color:var(--inkt-3);font-size:13px}
+@media(max-width:760px){.in{padding:0 16px}.top{padding:14px 16px;gap:12px}.top nav{display:none}
+ .rep{grid-template-columns:44px minmax(0,1fr);gap:6px 14px}.rep .pr{grid-column:2;text-align:left}.rep .pijl{display:none}}
+footer .jur{display:flex;flex-wrap:wrap;gap:18px;margin-bottom:12px}footer .jur a{text-decoration:none;color:var(--inkt-2);font-weight:600}footer .jur a:hover{color:var(--groen)}
+</style>
+
+<div class="schets">Ontwerpschets. De prijzen zijn echt gemeten (peildatum 3 september 2026); reparaties zonder prijs zijn nog niet breed genoeg gemeten.</div>
+<header class="top">
+  <a class="logo" href="index.html">snel<i>repareren</i>.nl</a>
+  <nav><a href="reparaties.html">Reparaties</a><a href="toestellen.html">Toestellen</a><a href="plaatsen.html">Plaatsen</a><a href="gidsen.html">Gidsen</a><a href="hoe-wij-rangschikken.html">Hoe wij rangschikken</a></nav>
+  <a class="btn" href="voor-winkels.html">Voor winkels</a>
+</header>
+
+<div class="in">
+  <div class="kruimels"><a href="index.html">Home</a><span>&rsaquo;</span>Reparaties</div>
+  <h1>Alle telefoonreparaties</h1>
+  <p class="intro">Dit zijn de reparaties die Nederlandse telefoonwinkels aanbieden, in gewone taal. Bij de reparaties die wij breed hebben gemeten staat de <b>landelijke bandbreedte</b>. Klik erop voor de uitleg en de winkels bij jou in de buurt.</p>
+
+  <h2>De meest gevraagde</h2>
+  <p class="h2sub">Samen goed voor het grootste deel van alle reparaties.</p>
+  <div class="reps" id="veel"></div>
+
+  <h2>Geluid, knoppen en behuizing</h2>
+  <p class="h2sub">Kleinere onderdelen die los vervangen kunnen worden.</p>
+  <div class="reps" id="klein"></div>
+
+  <h2>Specialistisch</h2>
+  <p class="h2sub">Werk waar niet elke winkel voor is uitgerust. Vraag altijd vooraf een prijsopgave.</p>
+  <div class="reps" id="spec"></div>
+
+  <p class="bron">Prijzen uit ons eigen prijsonderzoek: 224 gemeten prijspunten bij Nederlandse winkels, peildatum 3 september 2026. Bij reparaties zonder bedrag hebben wij nog te weinig metingen om een eerlijke bandbreedte te tonen. <a href="prijsindex.html" style="font-weight:700;color:var(--groen)">Bekijk de volledige prijsindex</a>.</p>
+
+  <div class="kiezerband">
+    <div><b>Weet je niet wat er kapot is?</b><span>Tik op de telefoon aan wat er mis is, dan zoeken wij het uit.</span></div>
+    <a class="btn k" href="reparatiekiezer.html">Start de reparatiekiezer</a>
+  </div>
+</div>
+
+<footer><div class="in">
+  <div class="jur"><a href="voorwaarden.html">Voorwaarden</a><a href="privacy.html">Privacy</a><a href="cookies.html">Cookies</a><a href="toegankelijkheid.html">Toegankelijkheid</a><a href="melden.html">Iets melden</a><a href="over-ons.html">Over ons</a></div>
+  Indeling op basis van onze reparatietaxonomie. Onderdeel van snelrepareren.nl.</div></footer>
+
+<script>
+const eur=n=>'&euro;&nbsp;'+n;
+const IC={
+ scherm:'<path d="M13 2 3 14h7l-1 8 10-12h-7z"/>',
+ accu:'<rect x="4" y="8" width="15" height="8" rx="2"/><path d="M21 11v2"/>',
+ laad:'<path d="M9 4v6M15 4v6M7 10h10v4a5 5 0 0 1-10 0z M12 19v2"/>',
+ cam:'<rect x="3" y="6" width="18" height="14" rx="3"/><circle cx="12" cy="13" r="3.5"/>',
+ achter:'<rect x="6" y="3" width="12" height="18" rx="3"/><circle cx="12" cy="8" r="2"/>',
+ water:'<path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/>',
+ frame:'<rect x="5" y="3" width="14" height="18" rx="3"/>',
+ knop:'<circle cx="12" cy="12" r="8"/><path d="M12 8v4"/>',
+ speaker:'<path d="M5 9v6h4l5 4V5L9 9z"/><path d="M17 9a4 4 0 0 1 0 6"/>',
+ mic:'<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/>',
+ bord:'<rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h6v6H9z"/>',
+ data:'<ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6"/>',
+ soft:'<path d="M12 3v12M8 11l4 4 4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/>',
+ sim:'<path d="M6 3h8l4 4v14H6z"/><rect x="9" y="12" width="6" height="5" rx="1"/>',
+ diag:'<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',
+};
+const VEEL=[
+ ['Scherm vervangen','gebarsten glas, zwarte vlekken, geen touch',IC.scherm,'65','389','reparatiepagina-scherm-vervangen.html'],
+ ['Accu vervangen','gaat snel leeg, valt uit bij kou',IC.accu,'59','139','reparatiepagina-accu-vervangen.html'],
+ ['Laadpoort vervangen','laadt niet of alleen in een bepaalde stand',IC.laad,'45','99','reparatiepagina-laadpoort-vervangen.html'],
+ ['Waterschade-behandeling','in water of regen gevallen',IC.water,null,null,'reparatiepagina-waterschade.html','Diagnose vanaf &euro; 25, daarna offerte'],
+ ['Camera vervangen','wazig beeld, vlekken of zwart beeld',IC.cam,null,null,'reparatiepagina-camera-vervangen.html','Front vanaf &euro; 25, achter vanaf &euro; 69'],
+ ['Achterkant vervangen','gebarsten achterglas',IC.achter,'39','179','reparatiepagina-achterkant-vervangen.html'],
+];
+const KLEIN=[
+ ['Frontcamera vervangen','selfiecamera doet niets',IC.cam],
+ ['Oorspeaker vervangen','je hoort de beller niet',IC.speaker],
+ ['Luidspreker vervangen','geen geluid bij muziek of luidspreken',IC.speaker],
+ ['Microfoon vervangen','ze horen je niet bij het bellen',IC.mic],
+ ['Knoppen vervangen','aan/uit, volume of thuisknop kapot',IC.knop],
+ ['Behuizing of frame vervangen','frame verbogen na een val',IC.frame],
+];
+const SPEC=[
+ ['Moederbordreparatie','start niet op, blijft in een herstartlus',IC.bord],
+ ['Dataherstel','foto\'s en bestanden redden van een dood toestel',IC.data],
+ ['Software herstellen','vastgelopen na een update, opnieuw installeren',IC.soft],
+ ['Simlock verwijderen','toestel zit vast aan een provider',IC.sim],
+ ['Diagnose','je weet niet wat er mis is; onderzoek met prijsopgave',IC.diag],
+];
+const PIJL='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+function icoon(p){return `<span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">${p}</svg></span>`}
+document.getElementById('veel').innerHTML=VEEL.map(([n,s,ic,lo,hi,link,note])=>{
+  const prijs=lo?`<span class="pr num">${eur(lo)} tot ${eur(hi)}<small>landelijk gemeten</small></span>`:`<span class="pr offerte">${note}</span>`;
+  return `<a class="rep" href="${link}">${icoon(ic)}<span class="nm"><b>${n}</b><small>${s}</small></span>${prijs}<span class="pijl">${PIJL}</span></a>`}).join('');
+const kaal=(arr)=>arr.map(([n,s,ic])=>`<div class="rep geen">${icoon(ic)}<span class="nm"><b>${n}</b><small>${s}</small></span><span class="pr offerte">Prijs op aanvraag</span><span class="pijl"></span></div>`).join('');
+document.getElementById('klein').innerHTML=kaal(KLEIN);
+document.getElementById('spec').innerHTML=kaal(SPEC);
+</script>
