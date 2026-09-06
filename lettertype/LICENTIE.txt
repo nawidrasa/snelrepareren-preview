@@ -1,0 +1,6 @@
+Outfit is uitgebracht onder de SIL Open Font License, versie 1.1.
+De volledige licentietekst staat op https://openfontlicense.org en bij het project zelf
+op https://github.com/Outfitio/Outfit-Fonts.
+
+Kern: het lettertype mag vrij worden gebruikt, aangepast en zelf gehost, ook commercieel.
+Het mag niet los worden doorverkocht, en een aangepaste versie mag niet Outfit heten.

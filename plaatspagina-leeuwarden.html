@@ -1,9 +1,7 @@
 <title>Telefoon repareren Leeuwarden</title>
 <meta name="robots" content="noindex,nofollow">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="lettertype/outfit.css">
 <style>
 :root{
   --gradient:linear-gradient(160deg,#008C34 0%,#22C55E 55%,#86EFAC 100%);
@@ -421,7 +419,7 @@ function winkelkaart(w,uitgelicht){
       ${w.keur?`<span class="chip chip-keur">${CHECK}Verzekerd, gecontroleerd</span>`:''}
       ${w.vandaag?`<span class="chip chip-snel">${BOLT}Vandaag klaar</span>`:''}
       <span class="chip chip-feit">${w.open}</span>
-      ${w.oud?`<span class="chip chip-let">Prijs 4 maanden niet bevestigd</span>`:''}
+      ${w.oud?`<span class="chip chip-let">Prijs 3 maanden niet bevestigd</span>`:''}
     </div>
     ${feiten?`<p class="feiten">${feiten}</p>`:''}
     <div class="acties"><a class="btn btn-stil" href="winkelprofiel.html">Profiel</a><a class="btn btn-lijn" href="#">Route</a><button class="btn btn-groen" onclick="belMatch('${w.n}','058 123 45 67')">${TEL}Bel de winkel</button></div>

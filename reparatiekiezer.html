@@ -1,9 +1,7 @@
 <title>Reparatiekiezer snelrepareren</title>
 <meta name="robots" content="noindex,nofollow">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="lettertype/outfit.css">
 <style>
 :root{
   color-scheme:light;
@@ -269,7 +267,17 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
 .jurvoet .jur{display:flex;flex-wrap:wrap;gap:18px;margin-bottom:10px}
 .jurvoet .jur a{text-decoration:none;color:var(--inkt-2);font-weight:600}
 .jurvoet .jur a:hover{color:var(--groen)}
-@media(max-width:760px){.jurvoet{padding:20px 16px 44px}}
+@media(max-width:760px){
+  .jurvoet{padding:20px 16px 44px}
+  /* Op smalle schermen passen drie stappen en de knop niet op een regel; de knop
+     viel buiten beeld. Hij mag nu naar een eigen regel zakken. */
+  .stappen{flex-wrap:wrap}
+  .opnieuw{margin:0 0 10px auto}
+  /* Op een telefoon hoort de keuze bovenaan, niet de tekening. De tekening en de
+     prijsopsomming blijven eronder staan, waar ze het antwoord bevestigen. */
+  .paneel{order:0}
+  .top nav{display:none}
+}
 .schets{background:var(--amber-soft);color:var(--amber);font-size:13px;font-weight:600;text-align:center;padding:8px 16px}
 </style>
 
@@ -368,9 +376,16 @@ const REP={
 const VOLG=['scherm','accu','laad','camera','achter','water'];
 const HOT={scherm:[112,215],camera:[66,47],accu:[112,300],laad:[152,431],achter:[76,375]};
 const WINKELS=[
- {n:'Phone Repair Leeuwarden',a:'Schrans 14',km:'1,2 km',c:'9,3',b:34,keur:1,snel:'Klaar terwijl je wacht',vandaag:1,erk:'Apple IRP',jaren:15,vest:1,betaal:['Pin','Contant','Apple Pay','iDEAL'],f:1.0,uit:0},
- {n:'FixIt Leeuwarden',a:'Nieuwestad 88',km:'0,8 km',c:'8,9',b:61,keur:1,snel:'Vandaag klaar',vandaag:1,erk:'Samsung erkend',jaren:8,vest:3,betaal:['Pin','Apple Pay'],f:1.1,uit:1},
- {n:'Mobiel Service Friesland',a:'Voorstreek 21',km:'2,1 km',c:'8,4',b:12,keur:0,snel:'1 tot 2 dagen',vandaag:0,erk:null,jaren:3,vest:1,betaal:['Pin','Contant'],f:.9,uit:0},
+ /* Dezelfde zes voorbeeldwinkels als op de plaatspagina en het winkelprofiel.
+    Eerder had de kiezer een eigen, andere set; wie doorklikte kwam bij een winkel
+    die hij niet had gezien. De prijsfactor f is afgeleid van het prijsniveau (niv)
+    op de plaatspagina, zodat de goedkope winkel hier ook de goedkope is. */
+ {n:'Telefoonhulp Leeuwarden',a:'Nieuwestad 112, Centrum',km:'1,4 km',c:'9,1',b:48,keur:1,snel:'Klaar terwijl je wacht',vandaag:1,erk:'Apple IRP',jaren:12,vest:1,betaal:['Pin','Contant','Apple Pay','iDEAL'],f:1.0,uit:0},
+ {n:'FixPoint Friesland',a:'Wirdumerdijk 22, Centrum',km:'0,6 km',c:'8,7',b:112,keur:1,snel:'Vandaag klaar',vandaag:1,erk:'Samsung erkend',jaren:8,vest:3,betaal:['Pin','Apple Pay','iDEAL'],f:1.05,uit:1},
+ {n:'De Schermwerkplaats',a:'Voorstreek 45, Centrum',km:'0,9 km',c:'9,4',b:26,keur:1,snel:'Morgen klaar',vandaag:0,erk:null,jaren:6,vest:1,betaal:['Pin','Contant'],f:1.2,uit:0},
+ {n:'Studio Repair Huizum',a:'Huizumerlaan 8, Schrans en Huizum',km:'2,3 km',c:'8,9',b:19,keur:1,snel:'Vandaag klaar',vandaag:1,erk:null,jaren:4,vest:1,betaal:['Pin','Apple Pay'],f:1.08,uit:0},
+ {n:'Mobiel Service Schrans',a:'Schrans 68, Schrans en Huizum',km:'1,5 km',c:'8,2',b:63,keur:0,snel:'1 tot 2 werkdagen',vandaag:0,erk:null,jaren:9,vest:1,betaal:['Pin','Contant'],f:.9,uit:0},
+ {n:'Camminghaburen Telecom',a:'Egelantierstraat 2, Camminghaburen',km:'3,8 km',c:'8,5',b:8,keur:0,snel:'1 tot 2 werkdagen',vandaag:0,erk:null,jaren:3,vest:1,betaal:['Pin'],f:.96,uit:0},
 ];
 const FILTERS=[['vandaag','Vandaag klaar',w=>w.vandaag],['keur','Met keurmerk',w=>w.keur],['applepay','Apple Pay',w=>w.betaal.includes('Apple Pay')],['contant','Contant',w=>w.betaal.includes('Contant')]];
 const OS={ios:["Open Instellingen op je iPhone.","Tik op Algemeen en daarna op Info.","Bij Modelnummer staat een code die met een A begint, bijvoorbeeld A2633. Typ die in het zoekveld."],
