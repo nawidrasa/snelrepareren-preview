@@ -115,6 +115,15 @@ button{font:inherit}
 .kw b{display:block;font-size:17px;font-weight:800;margin:2px 0}
 .kw .kwuit{display:block;font-size:11.5px;line-height:1.35;color:var(--inkt-2);margin:2px 0 4px}
 .kw em{display:block;font-style:normal;font-size:11px;color:var(--inkt-3)}
+/* Een landelijke trede moet er anders uitzien dan een gemeten prijs voor jouw
+   toestel, anders lees je 249 als de prijs van jouw scherm. Gestippelde rand,
+   het bedrag in grijs en een merkje erbij. */
+.kw.land{border-style:dashed;background:var(--vlak)}
+.kw.land b{color:var(--inkt-2)}
+.kw.land.aan{border-style:solid;background:#fff}
+.kw .landmerk{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--amber);background:var(--amber-soft);
+  border-radius:999px;padding:1px 8px;margin:0 0 4px}
 /* De kop boven de onderdeelkeuze. Die keuze zat achter een uitklap; hij staat nu
    meteen open, met het prijsverschil erboven omdat dat de hele reden is. */
 .kwalkop{padding:2px 14px 10px;font-size:13.5px;color:var(--inkt-2)}
@@ -216,8 +225,8 @@ button{font:inherit}
 .fchip.aan{background:var(--groen);border-color:var(--groen);color:#fff}
 
 /* winkels */
-.winkels{display:grid;gap:12px}
-.winkel{border:1.5px solid var(--lijn);border-radius:var(--rc);padding:18px 18px 16px;background:#fff;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 20px;align-items:start;transition:border-color .15s}
+.winkels{display:grid;gap:14px}
+.winkel{border:1.5px solid var(--lijn);border-radius:var(--rc);padding:22px 22px 18px;background:#fff;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px 24px;align-items:start;transition:border-color .15s}
 .winkel:hover{border-color:var(--groen-300)}
 .winkel.uitg{border-color:var(--marine-200);box-shadow:0 10px 28px -14px rgba(11,31,78,.28)}
 .winkel .kop{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
@@ -233,7 +242,19 @@ button{font:inherit}
 .winkel .chips{display:flex;gap:6px;flex-wrap:wrap;grid-column:1}
 .winkel .betaal{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--inkt-3);grid-column:1}
 .winkel .betaal svg{width:14px;height:14px;flex:none}
-.winkel .prijsvak{grid-row:1/span 4;grid-column:2;text-align:right;display:grid;gap:4px;justify-items:end;min-width:150px}
+.winkel .prijsvak{grid-row:1/span 3;grid-column:2;text-align:right;display:grid;gap:4px;justify-items:end;min-width:150px}
+/* De knop naar de rest. Onopvallend, want hij is er voor wie meer wil weten en
+   niet voor wie wil kiezen. */
+.winkel .meer{grid-column:1/-1;justify-self:start;display:inline-flex;align-items:center;gap:5px;
+  background:none;border:0;padding:4px 0;margin:2px 0 0;font:inherit;font-size:13.5px;font-weight:600;
+  color:var(--inkt-2);cursor:pointer}
+.winkel .meer:hover{color:var(--groen)}
+.winkel .meer svg{width:15px;height:15px;transition:transform .15s}
+.winkel .meer[aria-expanded="true"] svg{transform:rotate(180deg)}
+.winkel .detail{grid-column:1/-1;padding:12px 0 2px;border-top:1px solid var(--lijn);margin-top:2px}
+.winkel .detailijst{list-style:none;margin:0;padding:0;display:grid;gap:6px;font-size:13.5px;color:var(--inkt-2)}
+.winkel .detail .bereik{margin-top:14px;max-width:320px}
+.winkel .detail .lablinks{font-size:12px;color:var(--inkt-3);margin-bottom:6px}
 .winkel .prijs{font-size:24px;font-weight:800;line-height:1}
 .winkel .prijs small{font-size:12px;font-weight:500;color:var(--inkt-3);display:block}
 .bereik{width:150px;margin-top:6px}
@@ -273,6 +294,12 @@ dialog::backdrop{background:rgba(11,31,78,.45)}
   .winkel{grid-template-columns:1fr}
   .winkel .prijsvak{grid-row:auto;grid-column:1;justify-items:start;text-align:left}
   .winkel .feit{flex-basis:100%}.winkel .feit::before{content:""}
+  /* Op een smal scherm braken de drie knoppen over twee regels met Profiel los
+     eronder. De belknop krijgt nu de hele breedte en de andere twee staan
+     daaronder naast elkaar. */
+  .winkel{padding:18px 18px 16px}
+  .winkel .acties{gap:12px 18px}
+  .winkel .acties .btn-groen{flex:1 1 100%;justify-content:center}
   .hero{padding:28px 16px 60px}
   .stappen{padding:0 16px}.stap{padding-right:12px;margin-right:10px;font-size:13px}.opnieuw{padding:6px 10px;font-size:12px}
   .lichaam,.balk{padding-left:16px;padding-right:16px}
@@ -440,11 +467,12 @@ const VOLG=['scherm','accu','laadpoort','camera','achterkant','waterschade'];
 const FILTERS=[['vandaag','Vandaag klaar',w=>vandaagKlaar(w)],['keur','Polis gecontroleerd',w=>w.keur],['applepay','Apple Pay',w=>(w.betaal||[]).includes('Apple Pay')],['contant','Contant',w=>(w.betaal||[]).includes('Contant')]];
 const OS={ios:["Open Instellingen op je iPhone.","Tik op Algemeen en daarna op Info.","Bij Modelnummer staat een code die met een A begint, bijvoorbeeld A2633. Typ die in het zoekveld."],
           android:["Open Instellingen op je toestel.","Scrol naar Over de telefoon of Systeem.","Bij Modelnummer staat de code, bijvoorbeeld SM-S911B. Typ die in het zoekveld."]};
-const S={stap:1,sub:'zoek',merk:null,serie:null,model:null,kleur:null,schade:{},plaats:'Leeuwarden',plaatsEdit:false,filters:{},laatst:null};
+const S={stap:1,sub:'zoek',merk:null,serie:null,model:null,kleur:null,schade:{},plaats:'Leeuwarden',plaatsEdit:false,filters:{},laatst:null,open:{}};
 const eur=n=>'&euro; '+n;
 const CHECK='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>';
 const BOLT='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 3 14h7l-1 8 10-12h-7z"/></svg>';
 const PIJL='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+const MEERPIJL='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
 const PIN='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6-5.3-6-10a6 6 0 0 1 12 0c0 4.7-6 10-6 10z"/><circle cx="12" cy="11" r="2.5"/></svg>';
 const TEL='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>';
 const KAART='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3 10h18"/></svg>';
@@ -812,7 +840,8 @@ function opsomming(){
      dat onder de accu, terwijl er niets te kiezen was. */
   const teKiezen=k=>{const m=meting(k);return !!(m&&m.opties&&m.opties.length)};
   const rij=k=>{const gk=S.schade[k],p=prijsVan(k),m=meting(k);
-    const onder=gk&&gk.naam?`<small>${esc(gk.naam)}</small>`
+    const onder=gk&&gk.naam&&gk.land?`<small>${esc(gk.naam)}, landelijk ${eur(gk.land.prijs)}</small>`
+      :gk&&gk.naam?`<small>${esc(gk.naam)}</small>`
       :k==='waterschade'?'<small>na diagnose</small>'
       :teKiezen(k)?'<small>kies nog een onderdeel</small>'
       :m&&m.band?'<small>winkels noemen geen onderdeel</small>'
@@ -825,7 +854,7 @@ function opsomming(){
   const staart=nogKiezen.length
     ? 'Kies bij elke reparatie een onderdeel voor een totaal'
     : buiten.length
-      ? `${buiten.join(' en ').replace(/^./,c=>c.toUpperCase())} ${buiten.length===1?'zit':'zitten'} niet in dit bedrag; daarvoor noemen wij geen prijs.`
+      ? `${buiten.join(' en ').replace(/^./,c=>c.toUpperCase())} ${buiten.length===1?'zit':'zitten'} niet in dit bedrag; voor dit toestel hebben wij daar geen prijs van.`
       : '';
   const tot=som();
   return `<div class="som">${g.map(rij).join('')}<div class="rij tot"><span>Jouw keuze</span><b class="num">${tot?eur(tot):'nog geen prijs'}</b></div>${staart?`<div class="rij"><span style="color:var(--inkt-3);font-size:13px">${staart}</span></div>`:''}</div>`;
@@ -858,6 +887,33 @@ function stap1(){
 function stap2(){
   const kl=KLEUREN[S.model.serie]||[];
   const kleur=kl.length?`<div class="kleur"><span class="lab">Kleur van je toestel<small>voor de juiste onderdelen</small></span><div class="swatches">${kl.map(([n,h],i)=>`<button class="sw${S.kleur&&S.kleur[0]===n?' aan':''}" style="--c:${h}" onclick="kiesKleur(${i})" aria-label="${n}" title="${n}"></button>`).join('')}</div><span class="kn">${S.kleur?S.kleur[0]:'Kies je kleur'}</span></div>`:'';
+
+  /* De tegels van de onderdeelkeuze. Een keer opgeschreven, want de ladder van
+     dit model en de landelijke ladder tekenen hetzelfde; alleen het bijschrift
+     en de knop eronder verschillen. */
+  const kwalTegels=(k,opties,gk,land)=>`<div class="kwal" role="group" aria-label="Welk onderdeel wil je voor ${esc(REP[k].n.toLowerCase())}">${opties.map((o,i)=>`<button class="kw${gk&&gk.sleutel===o.sleutel?' aan':''}${land?' land':''}" aria-pressed="${gk&&gk.sleutel===o.sleutel?'true':'false'}" onclick="${land?'kiesKwLand':'kiesKw'}('${k}',${i})">
+      <span class="kwnaam">${esc(o.naam)}</span>
+      <b class="num">${o.laagste===o.hoogste?eur(o.prijs):eur(o.laagste)+' tot '+eur(o.hoogste)}</b>
+      ${land?'<span class="landmerk">landelijk</span>':''}
+      ${o.uitleg?`<span class="kwuit">${esc(o.uitleg)}</span>`:''}
+      <em>${o.metingen===1?'1 meting':o.metingen+' metingen, midden '+eur(o.prijs)}</em></button>`).join('')}</div>`;
+
+  /* DE LADDER STAAT ER ALTIJD, OOK ALS WIJ DIT MODEL NIET HEBBEN GEMETEN.
+     Daar stond eerder alleen "nog niet gemeten" en verder niets, en dan weet je
+     niet eens WELKE keuze je in de winkel hebt. De ladder is kennis en geen
+     prijs; het bedrag erbij is uitdrukkelijk landelijk en gaat daarom niet mee
+     in jouw totaal. Wat je hier kiest, is wat je in de winkel gaat vragen.
+     Bij de laadpoort en de camera staat hij niet: daar noemt landelijk geen
+     enkele winkel het onderdeel, dus er is geen ladder om te tonen. */
+  const landLadder=(k,gk)=>{
+    const l=landelijk(k), opties=(l&&l.opties)||[];
+    if(!opties.length)return '';
+    return `<div class="kwalkop"><b>Welk onderdeel wil je?</b>
+      <span>Dit zijn de onderdelen waaruit je in de winkel kunt kiezen, met wat ze
+      <b>landelijk</b> kosten over alle modellen heen. Voor de ${esc(S.model.n)} weten wij
+      het bedrag niet, dus dit telt niet mee in jouw totaal. Kies wat je wilt, dan weet je
+      waar je naar vraagt.</span></div>${kwalTegels(k,opties,gk,true)}`;
+  };
 
   /* Per reparatie tonen wij wat wij voor DIT model hebben gemeten:
      - opties: winkels noemen het onderdeel, dus je kunt kiezen
@@ -894,21 +950,17 @@ function stap2(){
           ${verschil>0?`<span>Tussen ${esc(echt[0].naam.toLowerCase())} en ${esc(echt[echt.length-1].naam.toLowerCase())} zit <b class="num">${eur(verschil)}</b>. Dat verschil bepaalt de prijs meer dan de winkel.</span>`
             :echt.length===1?'<span>Wij maten voor dit model maar een prijsniveau.</span>'
             :'<span>Geen van de winkels die wij hier maten, zei welk onderdeel zij gebruiken.</span>'}</div>
-        <div class="kwal" role="group" aria-label="Welk onderdeel wil je voor ${esc(r.n.toLowerCase())}">${m.opties.map((o,i)=>`<button class="kw${gk&&gk.sleutel===o.sleutel?' aan':''}" aria-pressed="${gk&&gk.sleutel===o.sleutel?'true':'false'}" onclick="kiesKw('${k}',${i})">
-          <span class="kwnaam">${esc(o.naam)}</span>
-          <b class="num">${o.laagste===o.hoogste?eur(o.prijs):eur(o.laagste)+' tot '+eur(o.hoogste)}</b>
-          ${o.uitleg?`<span class="kwuit">${esc(o.uitleg)}</span>`:''}
-          <em>${o.metingen===1?'1 meting':o.metingen+' metingen, midden '+eur(o.prijs)}</em></button>`).join('')}</div>
+        ${kwalTegels(k,m.opties,gk,false)}
         ${!gk?'<div class="uitleg-water">Kies er een, dan rekenen wij verder met die prijs.</div>':''}
         ${!m.genoeg?`<div class="uitleg-water">Let op: voor dit model hebben wij ${m.winkels===1?'maar een winkel':'pas '+m.winkels+' winkels'} met een prijs. Te weinig voor een eerlijke vergelijking.</div>`:''}`;
     } else if(m&&m.band){
       const b=m.band;
       rechts=`<span class="vanaf num">${b.laagste===b.hoogste?eur(b.laagste):eur(b.laagste)+" tot "+eur(b.hoogste)}</span>`;
-      if(aan)uitklap=`<div class="uitleg-water">De winkels die wij hier maten, zetten er niet bij welk onderdeel zij gebruiken. Wij rekenen met de middelste prijs, ${eur(b.mediaan)}, uit ${b.metingen} ${b.metingen===1?'meting':'metingen'} bij ${m.winkels} ${m.winkels===1?'winkel':'winkels'}. Vraag in de winkel welk onderdeel je krijgt.</div>`;
+      if(aan)uitklap=`<div class="uitleg-water">De winkels die wij hier maten, zetten er niet bij welk onderdeel zij gebruiken. Wij rekenen met de middelste prijs, ${eur(b.mediaan)}, uit ${b.metingen} ${b.metingen===1?'meting':'metingen'} bij ${m.winkels} ${m.winkels===1?'winkel':'winkels'}. Vraag in de winkel welk onderdeel je krijgt.</div>${landLadder(k,gk)}`;
     } else {
       const l=landelijk(k);
       rechts='<span class="vanaf aanvraag num">nog niet gemeten</span>';
-      if(aan)uitklap=`<div class="uitleg-water">Voor de ${S.model.n} hebben wij deze reparatie nog niet gemeten, dus wij noemen geen bedrag.${l?` Landelijk, over alle modellen heen, maten wij ${eur(l.laagste)} tot ${eur(l.hoogste)}.`:''} De winkels hieronder doen de reparatie wel; vraag hun prijs.</div>`;
+      if(aan)uitklap=`<div class="uitleg-water">Voor de ${esc(S.model.n)} hebben wij deze reparatie nog niet gemeten, dus wij noemen geen bedrag voor jouw toestel.${l?` Landelijk, over alle modellen heen, maten wij ${eur(l.laagste)} tot ${eur(l.hoogste)}.`:''} De winkels hieronder doen de reparatie wel; vraag hun prijs.</div>${landLadder(k,gk)}`;
     }
     /* aria-pressed, want dit is een knop die aan en uit gaat. Zonder dat hoort
        iemand met een schermlezer alleen "Accu, knop" en niet of hij aanstaat;
@@ -952,14 +1004,36 @@ function stap3(){
     const tijd=kanVandaag(w,eerste)?doorlooptijd(eerste):(eerste?doorlooptijd(eerste):null);
     const dicht=heeftRooster(w)&&!vandaagOpen(w);
     const regel=[esc(w.a),afstandVan(w)].filter(Boolean).join(' &middot; ');
+    /* EERST HET ANTWOORD, DE REST OP AANVRAAG.
+       Er stond alles tegelijk in een kaart: naam, adres, afstand, cijfer, aantal
+       beoordelingen, erkenningen, jaren, vestigingen, drie labels met datum,
+       openingsstatus, betaalmethoden, prijs, prijsbalk en drie knoppen. Dat is
+       geen kaart meer maar een dossier, en je moet er dertien dingen in lezen om
+       er twee uit te halen.
+       Boven blijft staan wat de keuze bepaalt: wie, hoe ver, wat het kost, welk
+       cijfer, of het vandaag kan, en of wij zijn polis hebben gezien. Uitgelicht
+       blijft ook boven, want een betaalde plek moet je zien zonder te klikken
+       (besluit B2). De rest zit achter een knop.
+       Klikken en niet zweven: zweven bestaat niet op een telefoon, en daar komt
+       het meeste verkeer vandaan. */
+    const sleutel=String(w.id||w.n),open=!!S.open[sleutel];
+    const detail=[
+      feitenVan(w)||null,
+      w.keur?'Polis gecontroleerd op '+esc(w.keurdatum):null,
+      (w.betaal||[]).length?'Betalen: '+w.betaal.map(esc).join(', '):null,
+      eigenBeoordelingen(w),
+    ].filter(Boolean);
     return `<div class="winkel${w.uit?' uitg':''}">
-      <div class="kop"><b>${esc(w.n)}</b><span>${regel}</span></div>
+      <div class="kop"><b>${esc(w.n)}</b>${regel?`<span>${regel}</span>`:''}</div>
       <div class="cijfer">${w.g?`<b class="num">${esc(w.g)}</b><span><a href="${link(w.glink||'#')}" rel="nofollow noopener">${esc(w.gb||0)} beoordelingen op Google</a></span>`
-        :'<span class="geencijfer">Nog geen cijfer op Google</span>'}<span class="eigen">${eigenBeoordelingen(w)}</span>${feitenVan(w)?`<span class="feit">${feitenVan(w)}</span>`:''}</div>
-      <div class="chips">${w.uit?`<span class="chip chip-uitg">Uitgelicht &middot; ${uitgelichtReden(w)}</span>`:''}${w.keur?`<span class="chip chip-keur">${CHECK}${keurlabel(w)}</span>`:''}${tijd?`<span class="chip chip-snel">${BOLT}${tijd}</span>`:''}${dicht?`<span class="chip">Vandaag gesloten</span>`:''}</div>
-      ${(w.betaal||[]).length?`<div class="betaal">${KAART}${w.betaal.map(esc).join(' &middot; ')}</div>`:''}
-      <div class="prijsvak"><div class="prijs num">${p!=null?eur(p):'op aanvraag'}<small>${g.map(k=>REP[k].n).join(' + ')}</small></div>
-        ${p!=null&&som()?`<div class="bereik"><div class="track"><div class="fill" style="left:4%;width:92%"></div><div class="tick" style="left:${med}%"></div><div class="jij" style="left:${pos}%"></div></div><div class="lab num"><span>${eur(lo)}</span><span>${eur(hi)}</span></div></div>`:''}</div>
+        :'<span class="geencijfer">Nog geen cijfer op Google</span>'}</div>
+      <div class="chips">${w.uit?`<span class="chip chip-uitg">Uitgelicht &middot; ${uitgelichtReden(w)}</span>`:''}${w.keur?`<span class="chip chip-keur">${CHECK}Polis gecontroleerd</span>`:''}${tijd?`<span class="chip chip-snel">${BOLT}${tijd}</span>`:''}${dicht?`<span class="chip">Vandaag gesloten</span>`:''}</div>
+      <div class="prijsvak"><div class="prijs num">${p!=null?eur(p):'op aanvraag'}<small>${g.map(k=>REP[k].n).join(' + ')}</small></div></div>
+      <button class="meer" aria-expanded="${open?'true':'false'}" onclick="toonMeer('${esc(sleutel)}')">${open?'Minder':'Meer over deze winkel'}${MEERPIJL}</button>
+      <div class="detail"${open?'':' hidden'}>
+        <ul class="detailijst">${detail.map(t=>`<li>${t}</li>`).join('')}</ul>
+        ${p!=null&&som()?`<div class="bereik"><div class="lablinks">Wat deze prijs landelijk is</div><div class="track"><div class="fill" style="left:4%;width:92%"></div><div class="tick" style="left:${med}%"></div><div class="jij" style="left:${pos}%"></div></div><div class="lab num"><span>${eur(lo)}</span><span>${eur(hi)}</span></div></div>`:''}
+      </div>
       <div class="acties"><button class="btn btn-groen" onclick="belWinkel(${i})">${TEL}Bel de winkel</button><a class="btn btn-lijn" href="#">Route</a><a class="btn btn-stil" href="${winkelLink(w)}">Profiel</a></div>
     </div>`};
   const plaats=S.plaatsEdit?`<label class="veld"><input id="pl" value="${S.plaats}" placeholder=" " onkeydown="if(event.key==='Enter')zetPlaats(this.value)"><span>Plaats of postcode</span></label><button class="btn btn-groen" onclick="zetPlaats(document.getElementById('pl').value)">Zoek</button>`:`<button class="pin" onclick="S.plaatsEdit=true;teken();document.getElementById('pl').focus()">${PIN}${S.plaats}<span class="wijzig">wijzigen</span></button>`;
@@ -996,35 +1070,11 @@ function balk(){
 function stappenbalk(){document.querySelectorAll('#stappen .stap').forEach(e=>{const n=+e.dataset.s;e.className='stap'+(n===S.stap?' nu':n<S.stap?' af':'');e.onclick=n<S.stap?()=>ga(n):null});document.getElementById('opnieuw').hidden=!S.model}
 let vorig='';
 function teken(){const inh=document.getElementById('inhoud');inh.innerHTML=[stap1,stap2,stap3][S.stap-1]();const nu=S.stap+S.sub;if(nu!==vorig){inh.style.animation='none';void inh.offsetWidth;inh.style.animation='';vorig=nu}paneel();balk();stappenbalk()}
-/* In welke volgorde de series van een merk staan, is al bepaald voor de tegels.
-   Zoeken hergebruikt die volgorde, anders zeggen bladeren en zoeken iets anders:
-   op "galax" kwamen de Galaxy A37 en A57 boven de S26, alleen omdat de A eerder
-   in het alfabet staat. Eenmalig uitgerekend; dit verandert niet tijdens bezoek. */
-let SERIERANG=null;
-function serieRang(m){
-  if(!SERIERANG){SERIERANG={};
-    for(const merk of merkenOpVolgorde())
-      seriesVan(merk).forEach((s,i)=>{SERIERANG[merk+'|'+s.serie]=i})}
-  const r=SERIERANG[m.merk+'|'+m.serie];
-  return r==null?99:r;
-}
-
 function zoek(v){const box=document.getElementById('sugg');v=v.trim().toLowerCase();if(v.length<2){box.className='sugg';return}
-  /* Nieuwste eerst, net als de tegels. ALLE staat in de volgorde van het
-     toestellenbestand en dat is oudste eerst: op "galax" kreeg je Galaxy S8,
-     S10e, S10, S10+, Note 10. Wie zijn toestel intypt, zoekt zelden een S8.
-     Een voltreffer op de modelcode of de hele naam gaat voor, daarna een naam
-     die met je zoekwoord begint, en binnen elke groep het nieuwste toestel. */
-  const rang=m=>{const n=m.n.toLowerCase(),c=(modelcode(m)||'').toLowerCase();
-    return c===v||n===v?0:n.startsWith(v)?1:2};
-  const hits=ALLE.filter(m=>zoekbaar(m).includes(v))
-    /* Binnen een serie eerst de kortste naam: dat is het basismodel. Op jaar
-       sorteren zette de iPhone 17e boven de iPhone 17, want die e kwam later
-       uit. Het jaar beslist daarna nog wel, en dat is precies wat de twee
-       iPhone SE's uit elkaar houdt, want die namen zijn even lang. */
-    .sort((a,b)=>rang(a)-rang(b)||serieRang(a)-serieRang(b)
-      ||a.n.length-b.n.length||(b.j||0)-(a.j||0)||a.n.localeCompare(b.n,'nl'))
-    .slice(0,6);
+  /* De volgorde zit in data/kiezer.js, want de homepage heeft hetzelfde
+     zoekveld en twee kopieen lopen uit elkaar. Daar stond het bewijs van: de
+     kiezer was op 6 september gerepareerd en de homepage niet. */
+  const hits=zoekTreffers(ALLE,v,6);
   box.innerHTML=hits.length?hits.map(m=>`<button onclick="kiesModelObj('${m.n}')"><span class="m"></span><b>${m.n}</b><span style="color:var(--inkt-3);font-size:13px">${m.merk}</span><small>${codeLabel(m)}</small></button>`).join(''):`<button onclick="opendlg()"><b>Niet gevonden.</b><small>Zoek je modelcode &rarr;</small></button>`;
   box.className='sugg open'}
 function kiesMerk(m){S.merk=m;S.sub='serie';teken()}
@@ -1047,14 +1097,38 @@ function tik(k){if(S.stap<2)return;
   teken()}
 function kiesKw(k,i){const o=meting(k).opties[i];
   S.schade[k]={sleutel:o.sleutel,naam:o.naam,prijs:o.prijs,metingen:o.metingen};teken()}
+/* Een landelijke trede heeft GEEN prijs voor jouw toestel, dus prijs blijft null
+   en het bedrag komt niet in het totaal. Wat je hier kiest, is je voorkeur: het
+   staat in de opsomming en het is wat je in de winkel vraagt. */
+function kiesKwLand(k,i){const l=landelijk(k),o=l.opties[i];
+  S.schade[k]={sleutel:o.sleutel,naam:o.naam,prijs:null,land:{laagste:o.laagste,hoogste:o.hoogste,prijs:o.prijs},metingen:o.metingen};teken()}
 function zetFilter(id){S.filters[id]=!S.filters[id];teken()}
+/* Welke winkelkaarten opengeklapt staan. In S en niet in de DOM, want teken()
+   tekent de hele lijst opnieuw en dan zou het uitklappen bij elke filterklik
+   weer dichtvallen. */
+function toonMeer(sleutel){S.open[sleutel]=!S.open[sleutel];teken()}
 function ga(n){if(n===3&&!gekozen().length)return;S.stap=n;teken();document.querySelector('.kaart').scrollIntoView({behavior:'smooth',block:'start'})}
 function terug(){if(S.stap===3)S.stap=2;else if(S.stap===2)S.stap=1;else if(S.sub==='model'){S.sub='serie'}else if(S.sub==='serie'){S.sub='zoek';S.merk=null}teken()}
 function zetPlaats(v){v=v.trim();if(v)S.plaats=v;S.plaatsEdit=false;teken()}
-function reset(){S.stap=1;S.sub='zoek';S.merk=null;S.serie=null;S.model=null;S.kleur=null;S.schade={};S.filters={};S.laatst=null;S.plaatsEdit=false;teken()}
+function reset(){S.stap=1;S.sub='zoek';S.merk=null;S.serie=null;S.model=null;S.kleur=null;S.schade={};S.filters={};S.laatst=null;S.plaatsEdit=false;S.open={};teken()}
 function opendlg(){zetOS('ios');document.getElementById('hulp').showModal()}
 function zetOS(os){document.querySelectorAll('.tabs button').forEach(b=>b.classList.toggle('aan',b.dataset.os===os));document.getElementById('stappenlijst').innerHTML=OS[os].map(t=>'<li>'+t+'</li>').join('')}
 document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>zetOS(b.dataset.os));
 document.addEventListener('click',e=>{if(!e.target.closest('.zoek'))document.getElementById('sugg')?.classList.remove('open')});
+
+/* Kwam je hier met een toestel in het adres, dan sla je stap 1 over. Op de
+   homepage koos je je toestel al; die keuze ging nergens heen en je moest hem
+   in de kiezer opnieuw maken. Een onbekende of rommelige waarde negeren wij
+   stil: dan begin je gewoon bovenaan, en dat is geen fout die je hoeft te lezen.
+   Het adres is meteen ook deelbaar en werkt in de terugknop van de browser. */
+function uitAdres(){
+  const p=new URLSearchParams(location.search).get('toestel');
+  if(!p)return;
+  const gezocht=p.trim().toLowerCase();
+  const m=ALLE.find(x=>x.n.toLowerCase()===gezocht)
+    ||ALLE.find(x=>(modelcode(x)||'').toLowerCase()===gezocht);
+  if(m)kiesModelObj(m.n);
+}
+uitAdres();
 teken();
 </script>

@@ -423,7 +423,7 @@ function startkaart(){
     el.innerHTML=`<div class="gekozen">
       <div class="bal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
       <b>${gekozen.n}</b><span>${gekozen.merk} &middot; ${gekozen.c}</span>
-      <a class="btn btn-groen btn-groot" href="${KIEZER}">Wat is er kapot? <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="btn btn-groen btn-groot" href="${KIEZER}?toestel=${encodeURIComponent(gekozen.n)}">Wat is er kapot? <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       <button class="ander" onclick="gekozen=null;startkaart()">Ander toestel kiezen</button>
     </div>`;return}
   el.innerHTML=`<h2>Welk toestel heb je?</h2><p class="sub">Typ je model of de code die op je toestel staat.</p>
@@ -437,7 +437,10 @@ function startkaart(){
     <p class="chipuitleg">Een stip betekent dat wij voor dat toestel prijzen hebben gemeten.</p>`;
 }
 function zoek(v){const box=document.getElementById('sugg');v=v.trim().toLowerCase();if(v.length<2){box.className='sugg';return}
-  const hits=ALLE.filter(m=>zoekbaar(m).includes(v)).slice(0,6);
+  /* Nieuwste eerst. Dit stond hier ongesorteerd, en KIEZERDATA.modellen staat op
+     volgorde van toestellen.md: oudste eerst. Op "galax" kreeg je dus de Galaxy
+     S8 bovenaan. De volgorde zit in data/kiezer.js, samen met die van de kiezer. */
+  const hits=zoekTreffers(ALLE,v,6);
   box.innerHTML=hits.length?hits.map(m=>`<button onclick="kies('${m.n}')"><span class="m"></span><b>${m.n}</b><small>${codeLabel(m)}</small></button>`).join(''):`<button onclick="opendlg()"><b>Niet gevonden.</b><small>Zoek je modelcode &rarr;</small></button>`;
   box.className='sugg open'}
 function kies(n){gekozen=ALLE.find(m=>m.n===n);startkaart()}
