@@ -65,6 +65,8 @@ h2{font-size:clamp(24px,3vw,32px);font-weight:800;letter-spacing:-.02em;margin:0
 .of{font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--inkt-3);margin:22px 0 10px}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 .chip-k{padding:9px 15px;border-radius:999px;border:1.5px solid var(--lijn);background:#fff;font-size:14px;font-weight:600;color:var(--inkt);cursor:pointer;transition:border-color .15s,color .15s,background .15s}
+.chip-k .gemeten{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--groen);margin-left:7px;vertical-align:middle}
+.chipuitleg{font-size:12.5px;color:var(--inkt-3);margin:10px 0 0}
 .chip-k:hover{border-color:var(--groen);color:var(--groen);background:var(--groen-50)}
 .gekozen{text-align:center;padding:6px 0 2px}
 .gekozen .bal{width:56px;height:56px;border-radius:50%;background:var(--groen-100);display:grid;place-items:center;margin:0 auto 14px}
@@ -380,11 +382,24 @@ const KIEZER='reparatiekiezer.html';
 /* cs moet mee: dat zijn alle modelcodes van een toestel. Zonder dat veld valt
    zoekbaar() terug op alleen de getoonde code, en vindt iemand met een toestel
    uit de Verenigde Staten of Japan zijn eigen nummer niet. */
-const ALLE=KIEZERDATA.modellen.map(m=>({merk:m.merk,serie:m.serie,n:m.n,c:m.c,cs:m.cs,data:m.data}));
-/* Alleen toestellen waar wij een gemeten schermprijs voor hebben. Galaxy S23 en
-   Pixel 8 stonden erbij zonder een enkele meting. */
-const POPULAIR=['iPhone 15','iPhone 14','iPhone 13','Galaxy S23 Ultra','Galaxy A54']
-  .filter(n=>bandVan(n,'scherm'));
+const ALLE=KIEZERDATA.modellen.map(m=>({merk:m.merk,serie:m.serie,n:m.n,c:m.c,cs:m.cs,j:m.j,data:m.data}));
+/* De rij toestellen onder het zoekveld.
+ *
+ * Die stond hier met de hand: iPhone 15, 14, 13, Galaxy S23 Ultra, A54. Het
+ * nieuwste toestel daarin was van 2023, terwijl de catalogus tot de iPhone 17 en
+ * de Galaxy S26 loopt. Er stond bovendien "Veelgezocht" boven, en dat weten wij
+ * niet: er is nog geen bezoeker geweest. Nu: de nieuwste toestellen van Apple en
+ * Samsung, uit de gegevens.
+ *
+ * DE AFWEGING DIE HIER ONDER ZIT. Onze gemeten prijzen zitten bij de oudere
+ * toestellen; van de iPhone 17 hebben wij er nog geen. De oude lijst filterde
+ * daarop, en dat is precies waarom er alleen oude toestellen stonden. Je eigen
+ * telefoon kunnen aanwijzen weegt zwaarder dan onze dekking, dus tonen wij de
+ * nieuwste en zetten wij een merkje bij de toestellen waarvoor wij prijzen
+ * hebben. Wie op een toestel zonder prijs klikt, krijgt daarna te horen dat wij
+ * er nog niets voor hebben gemeten. Dat is eerlijker dan hem niet laten kiezen.
+ */
+const POPULAIR=[...nieuwsteBasismodellen('Apple',3),...nieuwsteBasismodellen('Samsung',3)];
 /* De schermprijzen per model, rechtstreeks uit de metingen. Ze stonden hier
    overgetypt, met een factor die met de hand was uitgerekend. */
 const PRIJZEN=['iPhone 16','iPhone 15','iPhone 14','iPhone 13','iPhone 12','iPhone 11']
@@ -410,8 +425,10 @@ function startkaart(){
       <input id="q" placeholder="iPhone 13, Galaxy S23, A2633" autocomplete="off" oninput="zoek(this.value)" onfocus="zoek(this.value)">
       <div class="sugg" id="sugg"></div></div>
     <button class="hulp" onclick="opendlg()">Ik weet mijn model niet</button>
-    <p class="of">Veelgezocht</p>
-    <div class="chips">${POPULAIR.map(n=>`<button class="chip-k" onclick="kies('${n}')">${n}</button>`).join('')}</div>`;
+    <p class="of">De nieuwste toestellen</p>
+    <div class="chips">${POPULAIR.map(m=>`<button class="chip-k" onclick="kies('${m.n}')">${m.n}${
+      bandVan(m.n,'scherm')?'<i class="gemeten" title="Wij hebben prijzen voor dit toestel gemeten"></i>':''}</button>`).join('')}</div>
+    <p class="chipuitleg">Een stip betekent dat wij voor dat toestel prijzen hebben gemeten.</p>`;
 }
 function zoek(v){const box=document.getElementById('sugg');v=v.trim().toLowerCase();if(v.length<2){box.className='sugg';return}
   const hits=ALLE.filter(m=>zoekbaar(m).includes(v)).slice(0,6);
