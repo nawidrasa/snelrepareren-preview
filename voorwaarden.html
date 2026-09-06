@@ -50,6 +50,14 @@ article b,article strong{color:var(--inkt);font-weight:700}
 footer{border-top:1px solid var(--lijn);margin-top:44px;padding:26px 0 60px;color:var(--inkt-3);font-size:13px}
 
 @media(max-width:760px){.in{padding:0 16px}.top{padding:14px 16px;gap:12px}.top nav{display:none}.inhoud ol{columns:1}}
+
+/* Bedrijfsgegevens: gezet door bouwvoorbereiding/generatoren/vul_bedrijfsgegevens.py */
+.bedrijfsgegevens{border:1.5px solid var(--lijn);border-radius:16px;overflow:hidden;margin:16px 0}
+.bg-rij{display:grid;grid-template-columns:minmax(0,200px) minmax(0,1fr);gap:16px;padding:11px 18px;font-size:14.5px;border-top:1px solid var(--lijn)}
+.bg-rij:first-child{border-top:0}
+.bg-rij span{color:var(--inkt-2)}
+.bg-rij b{font-weight:700}
+@media(max-width:600px){.bg-rij{grid-template-columns:minmax(0,1fr);gap:2px}}
 </style>
 
 <div class="schets">Ontwerpschets. Deze tekst is een concept en heeft nog geen juridische toetsing gehad.</div>
@@ -68,12 +76,12 @@ footer{border-top:1px solid var(--lijn);margin-top:44px;padding:26px 0 60px;colo
     <p>Deze tekst is geschreven om te laten zien wat er in dit document komt te staan en hoe wij het uitleggen. Een jurist heeft er nog niet naar gekeken. Je kunt er geen rechten aan ontlenen en wij gebruiken hem nog nergens.</p>
     <p>Voor de livegang gaat deze tekst langs een jurist. Wat daar verandert, verandert ook op deze pagina. Zolang deze melding er staat, is dit een schets.</p>
   </div>
-  <div class="kort"><h2>In het kort</h2><ul><li>Wij zijn een vergelijker. Je reparatie regel je met de winkel, niet met ons.</li><li>Prijzen op deze site zijn indicaties met een kwaliteitslabel en een datum, geen aanbod.</li><li>De volgorde van de gewone lijst is niet te koop. Alleen het blok Uitgelicht is betaald en dat staat er ook bij.</li><li>Beoordelen kan alleen na een koppeling via ons, zonder beloning, en een winkel kan een beoordeling niet laten verwijderen.</li><li>Ons keurmerk gaat alleen over de verzekering van de winkel, niet over de kwaliteit van de reparatie.</li></ul></div>
-  <nav class="inhoud"><h2>Wat er in dit document staat</h2><ol><li><a href="#a1">Wie wij zijn</a></li><li><a href="#a2">Wat wij doen en wat wij niet doen</a></li><li><a href="#a3">De prijzen op deze site</a></li><li><a href="#a4">Hoe wij winkels rangschikken</a></li><li><a href="#a5">Uitgelicht: de enige plek die te koop is</a></li><li><a href="#a6">Beoordelingen</a></li><li><a href="#a7">Het keurmerk</a></li><li><a href="#a8">Je gegevens</a></li><li><a href="#a9">Klachten</a></li><li><a href="#a10">Aansprakelijkheid</a></li><li><a href="#a11">Wijzigingen in deze voorwaarden</a></li><li><a href="#a12">Toepasselijk recht</a></li></ol></nav>
+  <div class="kort"><h2>In het kort</h2><ul><li>Wij zijn een vergelijker. Je reparatie regel je met de winkel, niet met ons.</li><li>Prijzen op deze site zijn indicaties met een kwaliteitslabel en een datum, geen aanbod.</li><li>De volgorde van de gewone lijst is niet te koop. Alleen het blok Uitgelicht is betaald en dat staat er ook bij.</li><li>Beoordelen kan alleen na een koppeling via ons, zonder beloning, en een winkel kan een beoordeling niet laten verwijderen.</li><li>Onze poliscontrole gaat alleen over de verzekering van de winkel, niet over de kwaliteit van de reparatie.</li></ul></div>
+  <nav class="inhoud"><h2>Wat er in dit document staat</h2><ol><li><a href="#a1">Wie wij zijn</a></li><li><a href="#a2">Wat wij doen en wat wij niet doen</a></li><li><a href="#a3">De prijzen op deze site</a></li><li><a href="#a4">Hoe wij winkels rangschikken</a></li><li><a href="#a5">Uitgelicht: de enige plek die te koop is</a></li><li><a href="#a6">Beoordelingen</a></li><li><a href="#a7">De poliscontrole</a></li><li><a href="#a8">Je gegevens</a></li><li><a href="#a9">Klachten</a></li><li><a href="#a10">Aansprakelijkheid</a></li><li><a href="#a11">Wijzigingen in deze voorwaarden</a></li><li><a href="#a12">Toepasselijk recht</a></li></ol></nav>
   <article>
     <h2 id="a1">1. Wie wij zijn</h2>
     <p>Snelrepareren.nl is een vergelijkingssite voor telefoonreparatie in Nederland. Wij worden hierna "wij" genoemd. Met "je" bedoelen wij iedereen die deze site bezoekt.</p>
-    <div class="keuze"><p><b>Nog invullen:</b> handelsnaam, rechtsvorm, vestigingsadres, KvK-nummer en btw-nummer. Die gegevens moeten hier staan voordat de site live gaat, want de wet verplicht een webwinkel of dienstverlener ze te tonen.</p></div>
+    <div class="bedrijfsblok"><div class="keuze"><p><b>Nog invullen:</b> handelsnaam, rechtsvorm, vestigingsadres, postcode, plaats, kvk-nummer, btw-identificatienummer. Deze gegevens moeten hier staan voordat de site live gaat; de wet verplicht een dienstverlener ze te tonen. Ze komen uit bouwvoorbereiding/bedrijfsgegevens.md.</p></div></div><!--/bedrijfsblok-->
     <h2 id="a2">2. Wat wij doen en wat wij niet doen</h2>
     <p>Wij verzamelen informatie over reparatiewinkels en tonen die bij elkaar, zodat je kunt vergelijken. Wij laten je het telefoonnummer van een winkel zien en je belt zelf.</p>
     <p><b>Wij zijn geen partij bij je reparatie.</b> Als je een afspraak maakt met een winkel, dan sluit je die overeenkomst met die winkel en niet met ons. Wij repareren niets, wij nemen geen toestellen aan, wij ontvangen geen geld voor een reparatie en wij bepalen geen prijzen.</p>
@@ -90,7 +98,7 @@ footer{border-top:1px solid var(--lijn);margin-top:44px;padding:26px 0 60px;colo
     <h2 id="a4">4. Hoe wij winkels rangschikken</h2>
     <p>De volgorde van de gewone lijst is niet te koop. Wij bepalen die volgorde op drie hoofdpunten, in deze volgorde van gewicht:</p>
     <ol>
-      <li><b>Het keurmerk.</b> Winkels waarvan wij hebben gecontroleerd dat schade aan het toestel van de klant is meeverzekerd, staan hoger.</li>
+      <li><b>De poliscontrole.</b> Winkels waarvan wij hebben gecontroleerd dat schade aan het toestel van de klant is meeverzekerd, staan hoger.</li>
       <li><b>Controleerbare erkenningen.</b> Bijvoorbeeld Apple Independent Repair Provider of een Samsung-partnerschap. Wij trekken die na bij de fabrikant.</li>
       <li><b>Beoordelingen van klanten.</b> Het cijfer, het aantal beoordelingen en hoe recent ze zijn.</li>
     </ol>
@@ -101,15 +109,16 @@ footer{border-top:1px solid var(--lijn);margin-top:44px;padding:26px 0 60px;colo
     <h2 id="a6">6. Beoordelingen</h2>
     <p>Voor beoordelingen gelden drie regels:</p>
     <ul>
-      <li><b>Alleen na een koppeling via ons.</b> Je kunt alleen beoordelen als je via deze site het nummer van die winkel heeft opgevraagd. Zo weten wij dat je er echt bent geweest.</li>
+      <li><b>Alleen na een koppeling via ons.</b> Je kunt alleen beoordelen als je via deze site het nummer van die winkel hebt opgevraagd. Zo weten wij dat je er echt bent geweest.</li>
       <li><b>Geen beloning.</b> Wij en de winkel geven geen korting, cadeau of andere vergoeding voor een beoordeling. Dat mag namelijk niet, en het maakt cijfers waardeloos.</li>
       <li><b>De winkel kan niets laten verwijderen.</b> Een winkel mag onder je beoordeling reageren. Verwijderen kan alleen als een beoordeling in strijd is met de wet of met de regels hieronder, en dat beoordelen wij.</li>
     </ul>
-    <p>Wij verwijderen een beoordeling die beledigend is, persoonsgegevens van anderen bevat, duidelijk niet over deze winkel gaat, of aantoonbaar vals is. Wie het niet eens is met een beoordeling of met onze beslissing daarover, kan dat melden via <a href="melden.html">Iets melden</a>.</p>
+    <p><b>Wat je nu op de site ziet, is Google.</b> Ons eigen systeem levert de eerste jaren te weinig beoordelingen om iets te betekenen. Daarom staat bij een winkel het cijfer van Google, met de bron en de datum erbij, en niet een cijfer van ons. Wij nemen de teksten van die beoordelingen niet over en wij rekenen ze niet om.</p>
+      <p>Wij verwijderen een beoordeling die beledigend is, persoonsgegevens van anderen bevat, duidelijk niet over deze winkel gaat, of aantoonbaar vals is. Wie het niet eens is met een beoordeling of met onze beslissing daarover, kan dat melden via <a href="melden.html">Iets melden</a>.</p>
     <p>Bij een gemiddeld cijfer vermelden wij altijd op hoeveel beoordelingen het is gebaseerd en per wanneer. Wij gebruiken geen woorden als "de beste".</p>
-    <h2 id="a7">7. Het keurmerk</h2>
-    <p>Het label <b>Verzekerd, gecontroleerd</b> betekent één ding: wij hebben het polisblad van de winkel gezien en vastgesteld dat schade aan toestellen van klanten is meeverzekerd. Wij controleren dat zelf en herhalen die controle bij verlenging.</p>
-    <p>Het is <b>geen</b> garantie op de kwaliteit van de reparatie, geen keurmerk van een toezichthouder, en geen verzekering die je bij ons afsluit. Wij keren zelf nooit iets uit. Wat het label wel en niet betekent staat op <a href="keurmerk.html">Ons keurmerk</a>.</p>
+    <h2 id="a7">7. De poliscontrole</h2>
+    <p>Het label <b>Polis gecontroleerd</b> betekent één ding: wij hebben het polisblad van de winkel gezien en vastgesteld dat schade aan toestellen van klanten is meeverzekerd. Wij controleren dat zelf en herhalen die controle bij verlenging.</p>
+    <p>Het is <b>geen</b> garantie op de kwaliteit van de reparatie, geen keurmerk van een toezichthouder, en geen verzekering die je bij ons afsluit. Wij keren zelf nooit iets uit. Wat het label wel en niet betekent staat op <a href="keurmerk.html">Onze poliscontrole</a>.</p>
     <h2 id="a8">8. Je gegevens</h2>
     <p>Wat wij van je vastleggen en waarom, staat in onze <a href="privacy.html">privacyverklaring</a>. Kort gezegd: wij meten zonder volgcookies, wij verkopen niets door, en wij vragen alleen een e-mailadres als je een herinnering voor een beoordeling wilt.</p>
     <h2 id="a9">9. Klachten</h2>

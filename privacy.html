@@ -50,6 +50,14 @@ article b,article strong{color:var(--inkt);font-weight:700}
 footer{border-top:1px solid var(--lijn);margin-top:44px;padding:26px 0 60px;color:var(--inkt-3);font-size:13px}
 
 @media(max-width:760px){.in{padding:0 16px}.top{padding:14px 16px;gap:12px}.top nav{display:none}.inhoud ol{columns:1}}
+
+/* Bedrijfsgegevens: gezet door bouwvoorbereiding/generatoren/vul_bedrijfsgegevens.py */
+.bedrijfsgegevens{border:1.5px solid var(--lijn);border-radius:16px;overflow:hidden;margin:16px 0}
+.bg-rij{display:grid;grid-template-columns:minmax(0,200px) minmax(0,1fr);gap:16px;padding:11px 18px;font-size:14.5px;border-top:1px solid var(--lijn)}
+.bg-rij:first-child{border-top:0}
+.bg-rij span{color:var(--inkt-2)}
+.bg-rij b{font-weight:700}
+@media(max-width:600px){.bg-rij{grid-template-columns:minmax(0,1fr);gap:2px}}
 </style>
 
 <div class="schets">Ontwerpschets. Deze tekst is een concept en heeft nog geen juridische toetsing gehad.</div>
@@ -73,7 +81,7 @@ footer{border-top:1px solid var(--lijn);margin-top:44px;padding:26px 0 60px;colo
   <article>
     <h2 id="a1">1. Wie is verantwoordelijk</h2>
     <p>Snelrepareren.nl bepaalt welke gegevens op deze site worden verwerkt en waarom. Wij zijn dus de verwerkingsverantwoordelijke in de zin van de AVG.</p>
-    <div class="keuze"><p><b>Nog invullen:</b> handelsnaam, adres, KvK-nummer en het e-mailadres voor privacyvragen. Voor onze omvang is een functionaris voor gegevensbescherming niet verplicht; de jurist bevestigt dat.</p></div>
+    <div class="bedrijfsblok"><div class="keuze"><p><b>Nog invullen:</b> handelsnaam, rechtsvorm, vestigingsadres, postcode, plaats, kvk-nummer, btw-identificatienummer. Deze gegevens moeten hier staan voordat de site live gaat; de wet verplicht een dienstverlener ze te tonen. Ze komen uit bouwvoorbereiding/bedrijfsgegevens.md.</p></div></div><!--/bedrijfsblok-->
     <h2 id="a2">2. Het korte antwoord</h2>
     <p>Wij plaatsen geen volgcookies, wij gebruiken geen advertentienetwerken, wij doen niet aan fingerprinting en wij verkopen geen gegevens door. Wij meten hoeveel mensen een pagina bekijken en welke winkel zij aanklikken, en dat doen wij zo dat het niet naar je persoonlijk te herleiden is.</p>
     <p>De enige momenten waarop wij iets van je persoonlijk vastleggen, zijn: als je een e-mailadres achterlaat voor een herinnering, als je een beoordeling schrijft, als je iets meldt, of als je een winkelaccount aanmaakt.</p>

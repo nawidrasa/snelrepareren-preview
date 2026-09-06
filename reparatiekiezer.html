@@ -188,6 +188,8 @@ button{font:inherit}
 .winkel .kop span{font-size:13px;color:var(--inkt-3)}
 .winkel .cijfer{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;font-size:13.5px;color:var(--inkt-2)}
 .winkel .cijfer b{font-size:19px;color:var(--inkt)}
+.winkel .cijfer a{color:var(--inkt-2)}
+.winkel .cijfer .eigen{flex-basis:100%;font-size:12.5px;color:var(--inkt-3)}
 .winkel .feit{color:var(--inkt-2)}
 .winkel .feit::before{content:"\00b7  "}
 .winkel .chips{display:flex;gap:6px;flex-wrap:wrap;grid-column:1}
@@ -309,7 +311,7 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
   </div>
 </div></section>
 
-<div class="onder">Prijzen uit het prijsonderzoek (iPhone 13 scherm: 79 tot 309 euro over 198 metingen). Winkels, beoordelingen, afstanden en toestelkleuren zijn illustratief. Volgorde: onbetaald, op keurmerk en beoordeling; het blok Uitgelicht is betaald en zo gelabeld (besluit B2).</div>
+<div class="onder">Prijzen uit het prijsonderzoek (iPhone 13 scherm: 79 tot 309 euro over 198 metingen). Winkels, beoordelingen, afstanden en toestelkleuren zijn illustratief. Volgorde: onbetaald, op poliscontrole en beoordeling; het blok Uitgelicht is betaald en zo gelabeld (besluit B2).</div>
 
 <dialog class="match" id="matchdlg"><div class="mdlg" id="matchinhoud"></div></dialog>
 <dialog id="hulp"><div class="dlg">
@@ -322,7 +324,7 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
 
 <dialog id="rang"><div class="dlg">
   <h3>Hoe wij rangschikken</h3>
-  <p>De gewone lijst is niet te koop. Winkels staan op volgorde van keurmerk (door ons gecontroleerde verzekering), erkenningen, en beoordelingen van echte klanten. Winkels die "Uitgelicht" zijn, betalen daarvoor en staan altijd als zodanig gelabeld, in een eigen blok.</p>
+  <p>De gewone lijst is niet te koop. Winkels staan op volgorde van poliscontrole (door ons gecontroleerde verzekering), erkenningen, en beoordelingen van echte klanten. Winkels die "Uitgelicht" zijn, betalen daarvoor en staan altijd als zodanig gelabeld, in een eigen blok.</p>
   <div class="sluit"><button class="btn btn-groen" onclick="document.getElementById('rang').close()">Sluiten</button></div>
 </div></dialog>
 
@@ -384,7 +386,7 @@ function prijsVan(k){
 const VOLG=['scherm','accu','laadpoort','camera','achterkant','waterschade'];
 const HOT={scherm:[112,215],camera:[66,47],accu:[112,300],laadpoort:[152,431],achterkant:[76,375]};
 
-const FILTERS=[['vandaag','Vandaag klaar',w=>w.vandaag],['keur','Met keurmerk',w=>w.keur],['applepay','Apple Pay',w=>w.betaal.includes('Apple Pay')],['contant','Contant',w=>w.betaal.includes('Contant')]];
+const FILTERS=[['vandaag','Vandaag klaar',w=>w.vandaag],['keur','Polis gecontroleerd',w=>w.keur],['applepay','Apple Pay',w=>w.betaal.includes('Apple Pay')],['contant','Contant',w=>w.betaal.includes('Contant')]];
 const OS={ios:["Open Instellingen op je iPhone.","Tik op Algemeen en daarna op Info.","Bij Modelnummer staat een code die met een A begint, bijvoorbeeld A2633. Typ die in het zoekveld."],
           android:["Open Instellingen op je toestel.","Scrol naar Over de telefoon of Systeem.","Bij Modelnummer staat de code, bijvoorbeeld SM-S911B. Typ die in het zoekveld."]};
 const S={stap:1,sub:'zoek',merk:null,serie:null,model:null,kleur:null,schade:{},plaats:'Leeuwarden',plaatsEdit:false,filters:{},laatst:null};
@@ -436,7 +438,7 @@ const hoogste=()=>gekozen().reduce((a,k)=>{const m=meting(k);if(!m)return a;
 /* 1.4 De plaats filtert nu echt. Eerder was het een tekstje bovenaan: koos je
    Drachten, dan kreeg je gewoon de Leeuwarder winkels te zien.
    1.5 De volgorde is de volgorde die wij op 'Hoe wij rangschikken' beloven:
-   eerst het keurmerk, dan een controleerbare erkenning, dan het cijfer. Betalen
+   eerst de poliscontrole, dan een controleerbare erkenning, dan het cijfer. Betalen
    verandert hier niets aan; het blok Uitgelicht staat apart en is als zodanig gelabeld. */
 const inPlaats=()=>WINKELS.filter(w=>w.plaats.toLowerCase()===S.plaats.trim().toLowerCase());
 
@@ -462,7 +464,7 @@ function telefoon(){
     ${S.schade.accu?`<g class="status${S.laatst==='accu'?' leeg':''}" transform="translate(170,36)" pointer-events="none"><rect width="20" height="10" rx="2.5" fill="none" stroke="#6B7480" stroke-width="1.2"/><rect x="21" y="3" width="2" height="4" rx="1" fill="#6B7480"/><rect class="vul" x="1.5" y="1.5" width="4.5" height="7" rx="1" fill="#B45309"/></g>`:''}
     ${S.schade.scherm?`<g class="hoek" stroke="#4A5878" stroke-width="1.5" fill="none" stroke-linecap="round" pointer-events="none"><path d="M34 414l14-16-3-11M48 398l12-3M45 387l9-8"/></g>`:''}
     ${S.laatst==='scherm'?`<g class="barst" stroke="#061238" stroke-width="2" fill="none" stroke-linecap="round" pointer-events="none"><path d="M62 60 L96 150 L88 205 L130 262 L118 330 L150 400"/><path d="M96 150 L60 176 M88 205 L44 236 M130 262 L176 240 M130 262 L160 300 M118 330 L80 350 M150 400 L184 380"/><path d="M96 150 L128 128 M88 205 L112 224 M118 330 L140 352" stroke-width="1"/></g>`:''}
-    ${S.model?`<text x="112" y="120" text-anchor="middle" font-family="Outfit" font-weight="800" font-size="17" fill="#0B1F4E" pointer-events="none">${S.model.n}</text><text x="112" y="140" text-anchor="middle" font-family="Outfit" font-size="11" fill="#6B7480" pointer-events="none">${S.kleur?S.kleur[0]+' &middot; ':''}${S.model.c.split(' ')[0]}</text>`:`<text x="112" y="230" text-anchor="middle" font-family="Outfit" font-weight="600" font-size="14" fill="#C5CEE3" pointer-events="none">jouw toestel</text>`}
+    ${S.model?`<text x="112" y="120" text-anchor="middle" font-family="Outfit" font-weight="800" font-size="17" fill="#0B1F4E" pointer-events="none">${S.model.n}</text><text x="112" y="140" text-anchor="middle" font-family="Outfit" font-size="11" fill="#6B7480" pointer-events="none">${S.kleur?S.kleur[0]+' &middot; ':''}${codeLabel(S.model)}</text>`:`<text x="112" y="230" text-anchor="middle" font-family="Outfit" font-weight="600" font-size="14" fill="#C5CEE3" pointer-events="none">jouw toestel</text>`}
     ${S.stap>=2?`<g${on('achterkant')}><rect x="62" y="362" width="100" height="26" rx="13" fill="${S.schade.achterkant?'#DCFCE7':'#F6F8FA'}" stroke="${S.schade.achterkant?'#BBF7D0':'#E3E6EE'}" stroke-width="1"/><text x="88" y="379" font-family="Outfit" font-weight="600" font-size="11" fill="${S.schade.achterkant?'#005A22':'#4A5878'}">Achterkant</text></g>`:''}
     ${['scherm','camera','accu','laadpoort','achterkant'].map(punt).join('')}
   </svg>`;
@@ -497,7 +499,7 @@ function stap1(){
     <div class="tegels t4">${series.length?series.map(x=>`<button class="tegel${S.serie===x[1]?' aan':''}" onclick="kiesSerie('${x[1]}')">${x[1]}<span class="cnt">${x.length-2} modellen</span></button>`).join(''):`<p class="sub">Van ${S.merk} hebben we in deze schets nog geen modellen. Typ je model in het zoekveld.</p>`}</div>`}
   const ms=(MODELLEN.find(x=>x[1]===S.serie)||[]).slice(2);
   return `<button class="terug" onclick="terug()">&larr; ${S.merk}</button><h2 class="vraag">Welke ${S.serie}?</h2><p class="sub">Twijfel je? De code onder het model staat ook in je instellingen.</p>
-    <div class="tegels t4">${ms.map(([n,c])=>`<button class="tegel${S.model&&S.model.n===n?' aan':''}" onclick="kiesModel('${n}')">${n}<small>${c.split(' ')[0]}</small></button>`).join('')}</div>`;
+    <div class="tegels t4">${ms.map(([n,c])=>`<button class="tegel${S.model&&S.model.n===n?' aan':''}" onclick="kiesModel('${n}')">${n}<small>${codeLabel({c})}</small></button>`).join('')}</div>`;
 }
 function stap2(){
   const kl=KLEUREN[S.model.serie]||[];
@@ -545,9 +547,9 @@ function stap3(){
   const kaart=w=>{const p=Math.round(som()*w.f);const pos=hi>lo?Math.min(96,Math.max(4,(p-lo)/(hi-lo)*100)):50;const med=hi>lo?((som()-lo)/(hi-lo)*100):50;
     const feiten=[w.erk,w.jaren?`${w.jaren} jaar actief`:null,w.vest>1?`${w.vest} vestigingen`:null].filter(Boolean).join(' &middot; ');
     return `<div class="winkel${w.uit?' uitg':''}">
-      <div class="kop"><b>${w.n}</b><span>${w.a} &middot; ${w.km}</span></div>
-      <div class="cijfer"><b class="num">${w.c}</b><span>${w.b} beoordelingen</span>${feiten?`<span class="feit">${feiten}</span>`:''}</div>
-      <div class="chips">${w.uit?'<span class="chip chip-uitg">Uitgelicht</span>':''}${w.keur?`<span class="chip chip-keur">${CHECK}Verzekerd, gecontroleerd</span>`:''}<span class="chip chip-snel">${BOLT}${w.snel}</span></div>
+      <div class="kop"><b>${w.n}</b><span>${w.a} &middot; ${String(w.km).replace('.',',')} km</span></div>
+      <div class="cijfer"><b class="num">${w.g}</b><span><a href="${w.glink}" rel="nofollow noopener">${w.gb} beoordelingen op Google</a></span><span class="eigen">${eigenBeoordelingen(w)}</span>${feiten?`<span class="feit">${feiten}</span>`:''}</div>
+      <div class="chips">${w.uit?'<span class="chip chip-uitg">Uitgelicht</span>':''}${w.keur?`<span class="chip chip-keur">${CHECK}${keurlabel(w)}</span>`:''}<span class="chip chip-snel">${BOLT}${w.tijd}</span></div>
       <div class="betaal">${KAART}${w.betaal.join(' &middot; ')}</div>
       <div class="prijsvak"><div class="prijs num">${som()?eur(p):'op aanvraag'}<small>${g.map(k=>REP[k].n).join(' + ')}</small></div>
         ${som()?`<div class="bereik"><div class="track"><div class="fill" style="left:4%;width:92%"></div><div class="tick" style="left:${med}%"></div><div class="jij" style="left:${pos}%"></div></div><div class="lab num"><span>${eur(lo)}</span><span>${eur(hi)}</span></div></div>`:''}</div>
@@ -584,8 +586,8 @@ function stappenbalk(){document.querySelectorAll('#stappen .stap').forEach(e=>{c
 let vorig='';
 function teken(){const inh=document.getElementById('inhoud');inh.innerHTML=[stap1,stap2,stap3][S.stap-1]();const nu=S.stap+S.sub;if(nu!==vorig){inh.style.animation='none';void inh.offsetWidth;inh.style.animation='';vorig=nu}paneel();balk();stappenbalk()}
 function zoek(v){const box=document.getElementById('sugg');v=v.trim().toLowerCase();if(v.length<2){box.className='sugg';return}
-  const hits=ALLE.filter(m=>m.n.toLowerCase().includes(v)||m.c.toLowerCase().includes(v)||(m.merk+' '+m.n).toLowerCase().includes(v)).slice(0,6);
-  box.innerHTML=hits.length?hits.map(m=>`<button onclick="kiesModelObj('${m.n}')"><span class="m"></span><b>${m.n}</b><span style="color:var(--inkt-3);font-size:13px">${m.merk}</span><small>${m.c.split(' ')[0]}</small></button>`).join(''):`<button onclick="opendlg()"><b>Niet gevonden.</b><small>Zoek je modelcode &rarr;</small></button>`;
+  const hits=ALLE.filter(m=>zoekbaar(m).includes(v)).slice(0,6);
+  box.innerHTML=hits.length?hits.map(m=>`<button onclick="kiesModelObj('${m.n}')"><span class="m"></span><b>${m.n}</b><span style="color:var(--inkt-3);font-size:13px">${m.merk}</span><small>${codeLabel(m)}</small></button>`).join(''):`<button onclick="opendlg()"><b>Niet gevonden.</b><small>Zoek je modelcode &rarr;</small></button>`;
   box.className='sugg open'}
 function kiesMerk(m){S.merk=m;S.sub='serie';teken()}
 function kiesSerie(s){S.serie=s;S.sub='model';teken()}

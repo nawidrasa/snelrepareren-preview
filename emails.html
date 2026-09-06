@@ -119,7 +119,7 @@ const MAILS=[
   <p>Wat wij de komende dagen doen:</p>
   <ol>
     <li>Wij controleren je inschrijving bij de Kamer van Koophandel en of het adres klopt.</li>
-    <li>Wil je het keurmerk, dan kijken wij naar het polisblad dat je hebt meegestuurd.</li>
+    <li>Wil je de poliscontrole, dan kijken wij naar het polisblad dat je hebt meegestuurd.</li>
     <li>Binnen twee werkdagen krijg je bericht. Gaat het door, dan zit daar meteen de link in om je wachtwoord in te stellen.</li>
   </ol>
   <p>Klopt er iets niet aan je aanmelding, dan mailen wij je wat er ontbreekt. Wij wijzen niemand af zonder de reden erbij te zetten.</p>
@@ -161,7 +161,7 @@ const MAILS=[
   <p>Kloppen ze nog? Dan ben je met één klik klaar. Klopt er iets niet, dan pas je het in hetzelfde scherm aan.</p>
   <a class="knop" href="portaal.html">Prijzen bevestigen</a>
   <div class="vak let"><p>Doe je niets, dan halen wij deze prijzen over 30 dagen weg. Je vermelding blijft staan, maar dan zonder prijs, en dat scheelt aanzienlijk in hoe vaak je wordt aangeklikt.</p></div>`,
- voet:`<p>Dit is een bericht over je account. Je kunt zich er niet voor afmelden zolang je een vermelding heeft met prijzen.</p>`
+ voet:`<p>Dit is een bericht over je account. Je kunt je er niet voor afmelden zolang je een vermelding hebt met prijzen.</p>`
 },
 {
  titel:'De incasso is niet gelukt',
@@ -177,7 +177,7 @@ const MAILS=[
   <a class="knop" href="portaal.html">Betaling herstellen</a>
   <p>Lukt het niet voor die datum, dan zetten wij de betaalde onderdelen van je pakket op pauze en val je terug op Gratis. Je vermelding, prijzen en beoordelingen blijven staan. Zodra de betaling binnen is, gaat alles dezelfde dag weer aan.</p>
   <p>Loop je ergens tegenaan? Antwoord op deze mail, dan zoeken wij het samen uit.</p>`,
- voet:`<p>Dit is een bericht over je abonnement. Je kunt zich hier niet voor afmelden.</p>`
+ voet:`<p>Dit is een bericht over je abonnement. Je kunt je hier niet voor afmelden.</p>`
 },
 {
  titel:'Hoe ging je reparatie?',
@@ -200,16 +200,16 @@ const MAILS=[
  aan:'winkel', van:'winkels@snelrepareren.nl',
  naar:'De contactpersoon van het account',
  wanneer:'Dertig dagen voor de einddatum op het polisblad, en nog een keer zeven dagen ervoor.',
- doel:'Een nieuw polisblad binnenkrijgen voordat het keurmerk automatisch vervalt.',
+ doel:'Een nieuw polisblad binnenkrijgen voordat de poliscontrole automatisch vervalt.',
  afspraak:'Zonder geldig polisblad vervalt het label op de einddatum. Dat gaat vanzelf, wij beslissen daar niets over.',
- onderwerp:['Je polis verloopt op ',V('{datum}'),', en daarmee je keurmerk'],
+ onderwerp:['Je polis verloopt op ',V('{datum}'),', en daarmee Polis gecontroleerd'],
  body:`<p class="eerste">Volgens het polisblad dat wij van je hebben, loopt je aansprakelijkheidsverzekering af op ${V('{datum}')}.</p>
-  <p>Het label <b>Verzekerd, gecontroleerd</b> vervalt op die datum automatisch als wij geen nieuw polisblad hebben. Dat is geen straf, het is de betekenis van het label: wij zeggen alleen wat wij hebben gezien.</p>
-  <p>Wat er dan verandert: het label verdwijnt van je profiel en je zakt in de volgorde op de plaatspagina, omdat het keurmerk daarin het zwaarst weegt.</p>
+  <p>Het label <b>Polis gecontroleerd</b> vervalt op die datum automatisch als wij geen nieuw polisblad hebben. Dat is geen straf, het is de betekenis van het label: wij zeggen alleen wat wij hebben gezien.</p>
+  <p>Wat er dan verandert: het label verdwijnt van je profiel en je zakt in de volgorde op de plaatspagina, omdat de poliscontrole daarin het zwaarst weegt.</p>
   <a class="knop" href="portaal.html">Nieuw polisblad uploaden</a>
   <p>Wij controleren het binnen twee werkdagen. Stuur je het op tijd, dan merk je van dit alles niets.</p>
   <div class="vak"><p>Is je verzekering al verlengd bij dezelfde verzekeraar? Dan volstaat het nieuwe polisblad. Wij hoeven verder niets van je.</p></div>`,
- voet:`<p>Dit is een bericht over je keurmerk. Je kunt zich hier niet voor afmelden zolang je het label voert.</p>`
+ voet:`<p>Dit is een bericht over je poliscontrole. Je kunt je hier niet voor afmelden zolang je het label voert.</p>`
 },
 ];
 

@@ -105,10 +105,10 @@ function teken(){
     gevonden+=treffers.length;
     h+=`<h2>${merk} ${serie}</h2><p class="h2sub">${treffers.length} ${treffers.length===1?'model':'modellen'}</p><div class="modellen">`;
     h+=treffers.map(([n,c,pagina,metingen])=>pagina
-      ? `<a class="md" href="${pagina}"><b>${n}</b><small>${c} &middot; prijzen bekend</small></a>`
+      ? `<a class="md" href="${pagina}"><b>${n}</b><small>${codeLabel({c})} &middot; prijzen bekend</small></a>`
       : (metingen
-        ? `<div class="md"><b>${n}</b><small>${c} &middot; ${metingen} ${metingen===1?'reparatie':'reparaties'} gemeten</small></div>`
-        : `<div class="md geen"><b>${n}</b><small>${c} &middot; nog geen prijzen</small></div>`)).join('');
+        ? `<div class="md"><b>${n}</b><small>${codeLabel({c})} &middot; ${metingen} ${metingen===1?'reparatie':'reparaties'} gemeten</small></div>`
+        : `<div class="md geen"><b>${n}</b><small>${codeLabel({c})} &middot; nog geen prijzen</small></div>`)).join('');
     h+='</div>';
   });
   document.getElementById('lijst').innerHTML=gevonden?h:`<div class="leeg">Geen model gevonden voor "${q}". Probeer de modelcode, of gebruik de <a href="reparatiekiezer.html" style="color:var(--groen);font-weight:600">reparatiekiezer</a>.</div>`;

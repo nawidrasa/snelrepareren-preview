@@ -115,6 +115,8 @@ h1{font-size:clamp(26px,3.4vw,36px);font-weight:800;letter-spacing:-.025em;margi
 .score b{font-size:18px;font-weight:800}
 .score .aant{font-size:13px;color:var(--inkt-2)}
 .score .vers{display:block;font-size:11.5px;color:var(--inkt-3)}
+.score .bron{font-size:13px;color:var(--inkt-2)}
+.score .bron a{color:var(--inkt-2)}
 .streep{height:1px;background:var(--lijn);margin:12px 0}
 .prijsrij{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap}
 .prijsrij .wat{font-size:14.5px;color:var(--inkt-2)}
@@ -227,6 +229,8 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
 .mdlg .gelukt .bal{width:52px;height:52px;border-radius:16px;background:var(--groen-100);display:grid;place-items:center;margin:0 auto 12px}
 .mdlg .gelukt .bal svg{width:26px;height:26px;color:var(--groen)}
 
+.cijferbron{font-size:13px;color:var(--inkt-2);margin:14px 0 0;max-width:70ch}
+.cijferbron a{color:var(--inkt-2)}
 </style>
 
 <div class="schets">Ontwerpschets. De winkels, beoordelingen en prijzen op deze pagina zijn verzonnen voorbeelden, geen echte bedrijven.</div>
@@ -244,6 +248,7 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
   <div class="kies" id="kies"></div>
   <div class="mob" id="mob"></div>
   <div class="filters" id="filters"></div>
+  <p class="cijferbron">De cijfers bij de winkels komen van Google. Wij hebben zelf nog geen beoordelingen: alleen wie via deze site contact opneemt, krijgt van ons de vraag hoe het ging, en dat systeem loopt nog niet. <a href="hoe-wij-rangschikken.html">Hoe wij rangschikken</a>.</p>
 </div>
 
 <div class="in wrap">
@@ -252,7 +257,7 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
     <div class="zkaart" id="zprijs"></div>
     <div class="zkaart">
       <h3>Hoe deze lijst tot stand komt</h3>
-      <p>De volgorde is niet te koop. Winkels staan gerangschikt op keurmerk, erkenning en beoordelingen van klanten. Betaalde plekken staan apart, heten Uitgelicht en wisselen elk uur.</p>
+      <p>De volgorde is niet te koop. Winkels staan gerangschikt op poliscontrole, erkenning en hun beoordelingen op Google. Betaalde plekken staan apart, heten Uitgelicht en wisselen elk uur.</p>
       <a class="link" href="#" onclick="document.getElementById('rang').showModal();return false">Lees hoe wij rangschikken <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </div>
     <div class="zkaart">
@@ -270,7 +275,7 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
   <div class="vraag"><b>Wat kost een schermreparatie in Leeuwarden?</b><p id="faq1"></p></div>
   <div class="vraag"><b>Kan ik mijn telefoon laten repareren terwijl ik wacht?</b><p>Twee winkels in Leeuwarden doen een schermreparatie terwijl je wacht, meestal in twintig tot veertig minuten. Filter op "vandaag klaar" om te zien welke dat vandaag kunnen. Een accu duurt vaak korter, waterschade altijd langer omdat het toestel eerst open moet.</p></div>
   <div class="vraag"><b>Origineel, service pack of compatibel scherm?</b><p>Een origineel scherm komt van de fabrikant en kost het meest. Een service pack is een origineel onderdeel dat de reparateur los inkoopt. Een compatibel scherm is namaak en is goedkoper, maar verschilt in kleur, helderheid en soms in aanraakgevoeligheid. Wij zetten bij elke prijs welk type het is, want zonder dat label vergelijk je appels met peren.</p></div>
-  <div class="vraag"><b>Wat betekent het label Verzekerd, gecontroleerd?</b><p>De meeste aansprakelijkheidsverzekeringen van bedrijven sluiten schade uit aan het voorwerp waaraan gewerkt wordt, en dat is bij een reparatie precies je toestel. Wij vragen de polis op en controleren of die dekking er wel is. Wij toetsen zelf en zijn geen toezichthouder.</p></div>
+  <div class="vraag"><b>Wat betekent het label Polis gecontroleerd?</b><p>De meeste aansprakelijkheidsverzekeringen van bedrijven sluiten schade uit aan het voorwerp waaraan gewerkt wordt, en dat is bij een reparatie precies je toestel. Wij vragen de polis op en controleren of die dekking er wel is. Wij toetsen zelf en zijn geen toezichthouder.</p></div>
 
   <div class="tegels">
     <a href="prijspagina-iphone13-scherm.html">iPhone 13 scherm<small>prijzen en uitleg</small></a>
@@ -302,23 +307,26 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
 <dialog class="match" id="matchdlg"><div class="mdlg" id="matchinhoud"></div></dialog>
 <dialog id="rang"><div class="dlg">
   <h3>Hoe wij rangschikken</h3>
-  <p>De gewone lijst is niet te koop. Wij rangschikken op drie dingen: het keurmerk (wij hebben de verzekering gezien), erkenningen zoals Apple IRP die controleerbaar zijn, en de beoordelingen van echte klanten. Een prijs die negentig dagen niet is bevestigd, weegt minder mee.</p>
+  <p>De gewone lijst is niet te koop. Wij rangschikken op drie dingen: de poliscontrole (wij hebben de verzekering gezien), erkenningen zoals Apple IRP die controleerbaar zijn, en de beoordelingen die de winkel op Google heeft. Een prijs die negentig dagen niet is bevestigd, weegt minder mee.</p>
   <p>Winkels kunnen een plek kopen in het blok Uitgelicht. Dat blok staat apart, is altijd gelabeld en de winkels erin wisselen elk uur. Een winkel die niets betaalt kan gewoon bovenaan de gewone lijst staan.</p>
   <div class="sluit"><button class="btn btn-groen" onclick="document.getElementById('rang').close()">Sluiten</button></div>
 </div></dialog>
 
+<script src="data/kiezer.js"></script>
 <script src="data/winkels.js"></script>
 <script>
-/* ---- gemeten bandbreedtes, bron: eigen prijsonderzoek 3 sept 2026 (198 prijspunten) ---- */
-const BAND={
- 'iPhone 13':{scherm:[79,154,309],accu:[59,99,139],laad:[45,75,99]},
- 'iPhone 14':{scherm:[89,159,259],accu:[59,99,139],laad:[45,75,99]},
- 'iPhone 15':{scherm:[109,179,389],accu:[59,99,139],laad:[45,75,99]},
-};
-const REPS={scherm:'Scherm vervangen',accu:'Accu vervangen',laad:'Laadpoort vervangen'};
+/* De bandbreedtes komen uit data/kiezer.js, dat uit het prijsonderzoek wordt
+   gegenereerd. Ze stonden hier met de hand overgetypt en weken op vijf van de
+   negen combinaties af van de metingen: accu iPhone 14 stond op 59 tot 139 waar
+   99 tot 139 gemeten is, laadpoort op 45 tot 99 waar 80 tot 89 gemeten is, en
+   accu iPhone 15 had een band terwijl daar nul metingen voor zijn. */
+const MODELLEN_HIER=['iPhone 13','iPhone 14','iPhone 15'];
+const REPS={scherm:'Scherm vervangen',accu:'Accu vervangen',laadpoort:'Laadpoort vervangen'};
+/* Wat wij voor dit model echt hebben gemeten. Zonder metingen geen keuze. */
+const repsHier=model=>Object.keys(REPS).filter(r=>bandVan(model,r));
 const KWAL={alle:'Alle kwaliteiten',compatibel:'Compatibel',service:'Service pack',origineel:'Origineel'};
 
-const FILTERS=[['vandaag','Vandaag klaar',w=>w.vandaag],['keur','Met keurmerk',w=>w.keur],['origineel','Origineel onderdeel',w=>w.kw==='origineel'],['open','Nu open',w=>!w.open.startsWith('Gesloten')]];
+const FILTERS=[['vandaag','Vandaag klaar',w=>w.vandaag],['keur','Polis gecontroleerd',w=>w.keur],['origineel','Origineel onderdeel',w=>w.kw==='origineel'],['open','Nu open',w=>!w.open.startsWith('Gesloten')]];
 const S={model:'iPhone 13',rep:'scherm',kw:'alle',filters:{},uitgVerbergen:false};
 const eur=n=>'&euro; '+n;
 const CHECK='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>';
@@ -353,21 +361,21 @@ function matchJa(){
       <button class="btn btn-groen" style="width:100%" onclick="document.getElementById('matchdlg').close()">Sluiten</button>
     </div>`;
 }
-const band=()=>BAND[S.model][S.rep];
-const prijs=w=>{const [lo,,hi]=band();return Math.max(lo,Math.round((lo+(hi-lo)*w.niv)/5)*5-1)};
+const band=()=>bandVan(S.model,S.rep);
+const prijs=w=>prijsVanWinkel(w,S.model,S.rep);
 
 const zichtbaar=()=>rangschik(WINKELS.filter(w=>FILTERS.every(([id,,f])=>!S.filters[id]||f(w))).filter(w=>S.kw==='alle'||w.kw===S.kw));
 
 function kies(){
   const menu=(id,huidig,opties,fn)=>`<span class="sel" id="sel-${id}"><button onclick="openSel('${id}')">${huidig} ${CHEV}</button><span class="menu">${Object.entries(opties).map(([k,v])=>`<button class="${k===huidig||v===huidig?'aan':''}" onclick="${fn}('${k}')">${v}</button>`).join('')}</span></span>`;
   document.getElementById('kies').innerHTML=`<span class="lab">Prijzen voor</span>
-    ${menu('model',S.model,Object.fromEntries(Object.keys(BAND).map(m=>[m,m])),'zetModel')}
-    ${menu('rep',REPS[S.rep],REPS,'zetRep')}
+    ${menu('model',S.model,Object.fromEntries(MODELLEN_HIER.map(m=>[m,m])),'zetModel')}
+    ${menu('rep',REPS[S.rep],Object.fromEntries(repsHier(S.model).map(r=>[r,REPS[r]])),'zetRep')}
     <span class="plus">met</span>
     ${menu('kw',KWAL[S.kw],KWAL,'zetKw')}`;
 }
 function openSel(id){document.querySelectorAll('.sel').forEach(s=>s.classList.toggle('open',s.id==='sel-'+id&&!s.classList.contains('open')))}
-function zetModel(v){S.model=v;teken()}
+function zetModel(v){S.model=v;if(!bandVan(v,S.rep))S.rep=repsHier(v)[0];teken()}
 function zetRep(v){S.rep=v;teken()}
 function zetKw(v){S.kw=v;teken()}
 function zetFilter(id){S.filters[id]=!S.filters[id];teken()}
@@ -382,7 +390,9 @@ function filters(){
 function winkelkaart(w,uitgelicht){
   const [lo,md,hi]=band(),p=prijs(w);
   const pos=Math.min(96,Math.max(4,(p-lo)/(hi-lo)*100)),mpos=((md-lo)/(hi-lo))*100;
-  const kwn={service:'Service pack',origineel:'Origineel onderdeel',compatibel:'Compatibel onderdeel'}[w.kw];
+  const kwn=heeftKwaliteit(S.rep)
+    ? {service:'Service pack',origineel:'Origineel onderdeel',compatibel:'Compatibel onderdeel'}[w.kw]
+    : 'Onderdeel niet gespecificeerd';
   const feiten=[w.erk,`${w.jaren} jaar in Leeuwarden`,w.vest>1?`${w.vest} vestigingen`:null].filter(Boolean).join(' &middot; ');
   return `<div class="winkel${uitgelicht?' uitg':''}">
     ${uitgelicht?`<span class="adv">Uitgelicht <button onclick="document.getElementById('rang').showModal()" aria-label="Wat betekent Uitgelicht?" title="Wat betekent Uitgelicht?">?</button></span>`:''}
@@ -392,7 +402,7 @@ function winkelkaart(w,uitgelicht){
         <div class="naam"><b>${w.n}</b></div>
         <p class="adres">${w.a} &middot; ${w.km.toString().replace('.',',')} km</p>
       </div>
-      <div class="score"><b class="num">${w.c}</b> <span class="aant num">(${w.b})</span><span class="vers">${w.vers}</span></div>
+      <div class="score"><b class="num">${w.g}</b> <span class="aant num">(${w.gb})</span> <span class="bron"><a href="${w.glink}" rel="nofollow noopener">op Google</a></span><span class="vers">${w.vers}</span></div>
     </div>
     <div class="streep"></div>
     <div class="prijsrij">
@@ -402,7 +412,7 @@ function winkelkaart(w,uitgelicht){
     </div>
     <p class="regel">${w.tijd} &middot; ${w.gar}</p>
     <div class="labels">
-      ${w.keur?`<span class="chip chip-keur">${CHECK}Verzekerd, gecontroleerd</span>`:''}
+      ${w.keur?`<span class="chip chip-keur">${CHECK}${keurlabel(w)}</span>`:''}
       ${w.vandaag?`<span class="chip chip-snel">${BOLT}Vandaag klaar</span>`:''}
       <span class="chip chip-feit">${w.open}</span>
       ${w.oud?`<span class="chip chip-let">Prijs 3 maanden niet bevestigd</span>`:''}
@@ -414,7 +424,7 @@ function winkelkaart(w,uitgelicht){
 function vermelding(v){
   return `<div class="verm"><div class="rij"><div class="pui">${v.i}</div>
     <div><div class="naam"><b>${v.n}</b></div><p class="adres">${v.a} &middot; ${v.km.toString().replace('.',',')} km</p>
-    <p>Deze winkel is nog niet aangesloten. Wij hebben geen prijzen, geen doorlooptijd en geen keurmerkcontrole.</p>
+    <p>Deze winkel is nog niet aangesloten. Wij hebben geen prijzen, geen doorlooptijd en geen poliscontrole.</p>
     <p class="eig">Ben je de eigenaar? <a href="claim.html">Vul je gegevens aan</a> of <a href="claim.html">laat de vermelding verwijderen</a>.</p></div></div></div>`;
 }
 function lijst(){
@@ -445,7 +455,7 @@ function zijkolom(){
   document.getElementById('zprijs').innerHTML=`<h3>${REPS[S.rep]} in Leeuwarden</h3>
     <p>${ps.length?`Wat de winkels op deze pagina vragen voor een ${S.model}.`:`Wat een ${S.model} landelijk kost.`}</p>
     ${lokaal}
-    <p class="bron">Landelijk gemeten: ${eur(lo)} tot ${eur(hi)} voor dit model, over 198 prijspunten (3 september 2026).</p>`;
+    <p class="bron">${bronZin(S.model,S.rep)}</p>`;
 }
 function kop(){
   const kan=WINKELS.filter(w=>w.vandaag).length;
@@ -465,8 +475,8 @@ function mob(){
   const kaart=(groep,opties,huidig,fn)=>`<p class="kl">${groep}</p>`+Object.entries(opties).map(([k,v])=>
     `<button class="kk${k===huidig?' aan':''}" onclick="${fn}('${k}')"><span class="rond">${CHECK}</span>${v}</button>`).join('');
   document.getElementById('optieskaarten').innerHTML=`<div class="kaarten">
-    ${kaart('Toestel',Object.fromEntries(Object.keys(BAND).map(m=>[m,m])),S.model,'zetModel')}</div>
-    <div class="kaarten">${kaart('Reparatie',REPS,S.rep,'zetRep')}</div>
+    ${kaart('Toestel',Object.fromEntries(MODELLEN_HIER.map(m=>[m,m])),S.model,'zetModel')}</div>
+    <div class="kaarten">${kaart('Reparatie',Object.fromEntries(repsHier(S.model).map(r=>[r,REPS[r]])),S.rep,'zetRep')}</div>
     <div class="kaarten">${kaart('Kwaliteit',KWAL,S.kw,'zetKw')}</div>`;
   document.getElementById('filterkaarten').innerHTML=`<div class="kaarten">`+
     FILTERS.map(([id,naam])=>`<button class="kk${S.filters[id]?' aan':''}" onclick="zetFilter('${id}')"><span class="rond">${CHECK}</span>${naam}</button>`).join('')+

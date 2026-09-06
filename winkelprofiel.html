@@ -118,6 +118,14 @@ h1{font-size:clamp(26px,3.4vw,34px);font-weight:800;letter-spacing:-.025em;margi
 
 /* reviews */
 .geenreviews{border:1.5px solid var(--lijn);border-radius:18px;padding:22px 24px}
+.extern-groot{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;align-items:center;padding:18px 20px;margin-bottom:20px}
+.extern-groot b{font-size:34px;font-weight:800;line-height:1}
+.extern-groot .bronregel{grid-column:1/-1;font-size:12.5px;color:var(--inkt-3);margin:0}
+.extern-groot .btn{justify-self:start;grid-column:2}
+.eigenkop{font-size:17px;font-weight:800;margin:0 0 12px}
+.nietgemeten{font-size:12.5px;font-weight:600;color:var(--inkt-3)}
+.prij .breed{grid-column:span 3}
+.tabelbron{font-size:12.5px;color:var(--inkt-3);margin:12px 0 0;padding:0 4px}
 .geenreviews b{display:block;font-size:17px;margin-bottom:8px}
 .geenreviews p{margin:0 0 10px;font-size:14.5px;color:var(--inkt-2);max-width:70ch}
 .geenreviews p:last-child{margin-bottom:0}
@@ -240,16 +248,16 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
     <div>
       <h1>Telefoonhulp Leeuwarden</h1>
       <div class="meta">
-        <span class="cijfer num">9,1</span>
-        <span>48 beoordelingen</span>
-        <a href="#reviews">lees de reviews</a>
+        <span class="cijfer num">4,6</span>
+        <span>op Google, 210 beoordelingen</span>
+        <a href="#reviews">wat wij hiermee doen</a>
         <span>&middot;</span>
         <span>Nieuwestad 112, Leeuwarden</span>
         <span>&middot;</span>
         <span>1,4 km</span>
       </div>
       <div class="labels">
-        <span class="chip chip-keur"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>Verzekerd, gecontroleerd</span>
+        <span class="chip chip-keur"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>Polis gecontroleerd 12 aug 2026</span>
         <span class="chip chip-snel"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 3 14h7l-1 8 10-12h-7z"/></svg>Klaar terwijl je wacht</span>
         <span class="chip chip-feit">Apple IRP</span>
         <span class="chip chip-feit">12 jaar in Leeuwarden</span>
@@ -277,7 +285,7 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
   <div>
     <div class="blok">
       <h2>Prijzen bij deze winkel</h2>
-      <p class="uitleg">Alle prijzen zijn inclusief btw en inclusief het monteren. Bij elke prijs staat welke kwaliteit onderdeel je krijgt, want dat verklaart vrijwel het hele prijsverschil tussen winkels.</p>
+      <p class="uitleg">Alle prijzen zijn inclusief btw en inclusief het monteren. Waar de winkel kwaliteiten onderscheidt, staat erbij welk onderdeel je krijgt; dat verklaart vrijwel het hele prijsverschil tussen winkels. Bij een accu of een laadpoort doen winkels dat meestal niet, en dan staat er de gemeten bandbreedte.</p>
       <div class="toestelkies" id="toestelkies"></div>
       <div class="ptabel" id="ptabel"></div>
       <p class="bevestigd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>Deze winkel heeft de prijzen bevestigd op 2 september 2026. Prijzen die negentig dagen niet zijn bevestigd, halen wij weg.</p>
@@ -310,11 +318,11 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
     </div>
 
     <div class="blok">
-      <h2>Ons keurmerk bij deze winkel</h2>
+      <h2>Onze poliscontrole bij deze winkel</h2>
       <div class="keurblok">
-        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 3v5.4c0 4.3-3.1 8.3-7.5 9.6-4.4-1.3-7.5-5.3-7.5-9.6V6z"/><path d="M9 12l2 2 4-4"/></svg>Verzekerd, gecontroleerd</h3>
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 3v5.4c0 4.3-3.1 8.3-7.5 9.6-4.4-1.3-7.5-5.3-7.5-9.6V6z"/><path d="M9 12l2 2 4-4"/></svg>Polis gecontroleerd 12 aug 2026</h3>
         <ul class="lijstje">
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Wij hebben de polis gezien. Schade aan het toestel van de klant is meeverzekerd, dus als er tijdens de reparatie iets misgaat, is dat gedekt.</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Wij hebben het polisblad gezien. Daarop staat dat schade aan het toestel van de klant is meeverzekerd. Of de verzekeraar in een concreet geval uitkeert, beslist de verzekeraar, niet wij.</span></li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Ingeschreven bij de Kamer van Koophandel op dit adres.</span></li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Erkend als Apple Independent Repair Provider. Dat hebben wij nagetrokken bij Apple.</span></li>
         </ul>
@@ -324,15 +332,13 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
 
     <div class="blok" id="reviews">
       <h2>Beoordelingen</h2>
-      <p class="uitleg">Alleen mensen die via ons bij deze winkel zijn gekomen, kunnen bij ons een beoordeling achterlaten. Wij vragen er niets voor terug en de winkel kan een beoordeling niet laten verwijderen.</p>
-      <div class="scores">
-        <div class="groot"><b class="num">9,1</b><span>48 beoordelingen</span></div>
-        <div class="verdeling" id="verdeling"></div>
-      </div>
-      <div class="extern">
+      <p class="uitleg">Het cijfer hieronder is van Google, niet van ons. Wij hebben zelf nog bijna geen beoordelingen en wij tonen liever een cijfer dat ergens op berust dan een van onszelf dat dat niet doet.</p>
+      <div class="extern extern-groot">
         <b class="num">4,6</b><span>op Google, 210 beoordelingen</span>
-        <span class="bronregel">Wij tonen dit cijfer ter vergelijking en halen het eens per week op bij Google, laatst op 3 september 2026. Wij nemen de teksten van die reviews niet over.</span>
+        <a class="btn btn-lijn btn-klein" href="#" rel="nofollow noopener">Lees ze op Google</a>
+        <span class="bronregel">Opgehaald bij Google op 3 september 2026. Wij nemen de teksten van die beoordelingen niet over en wij rekenen ze niet om naar een eigen cijfer.</span>
       </div>
+      <h3 class="eigenkop">Beoordelingen via snelrepareren</h3>
       <div id="reviewlijst"></div>
     </div>
   </div>
@@ -390,26 +396,23 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
 
 <dialog class="match" id="matchdlg"><div class="mdlg" id="matchinhoud"></div></dialog>
 <dialog id="criteria"><div class="dlg">
-  <h3>Wanneer krijgt een winkel ons keurmerk?</h3>
+  <h3>Wanneer staat er Polis gecontroleerd bij een winkel?</h3>
   <p>Wij vragen drie dingen op en controleren ze zelf: een geldige aansprakelijkheidsverzekering waarin schade aan het toestel van de klant is meeverzekerd, een inschrijving bij de Kamer van Koophandel op het opgegeven adres, en eventuele erkenningen zoals Apple IRP, die wij natrekken bij de fabrikant.</p>
   <p>Wij publiceren bij elke winkel de datum van de laatste controle en de einddatum van de polis. Wij houden geen toezicht op het werk zelf en geven geen garantie op de reparatie. Dat is een afspraak tussen jou en de winkel.</p>
   <div class="sluit"><button class="btn btn-groen" onclick="document.getElementById('criteria').close()">Sluiten</button></div>
 </div></dialog>
 
+<script src="data/kiezer.js"></script>
 <script src="data/winkels.js"></script>
 <script>
-/* landelijke bandbreedtes: eigen prijsonderzoek 3 sept 2026, 198 prijspunten */
-const BAND={
- 'iPhone 13':{scherm:[79,154,309],accu:[59,99,139],laad:[45,75,99],achter:[69,109,169]},
- 'iPhone 14':{scherm:[89,159,259],accu:[59,99,139],laad:[45,75,99],achter:[79,119,179]},
- 'iPhone 15':{scherm:[109,179,389],accu:[59,99,139],laad:[45,75,99],achter:[89,129,199]},
-};
-const REPS=[['scherm','Scherm vervangen','30 tot 45 minuten'],['accu','Accu vervangen','30 minuten'],['laad','Laadpoort vervangen','45 minuten'],['achter','Achterkant vervangen','1 werkdag']];
+/* De bandbreedtes komen uit data/kiezer.js. Ze stonden hier met de hand
+   overgetypt en weken voor accu en laadpoort af van de metingen. */
+const MODELLEN_HIER=['iPhone 13','iPhone 14','iPhone 15'];
+const REPS=[['scherm','Scherm vervangen','30 tot 45 minuten'],['accu','Accu vervangen','30 minuten'],['laadpoort','Laadpoort vervangen','45 minuten'],['achterkant','Achterkant vervangen','1 werkdag']];
 /* waar deze winkel in de landelijke band zit, per kwaliteit */
 const NIV={compatibel:.09,service:.33,origineel:.78};
 const TIJDEN=[['maandag','09:30 tot 18:00'],['dinsdag','09:30 tot 18:00'],['woensdag','09:30 tot 18:00'],['donderdag','09:30 tot 21:00'],['vrijdag','09:30 tot 18:00'],['zaterdag','10:00 tot 17:00'],['zondag',null]];
 const VANDAAG=4; /* vrijdag, vast voor deze schets */
-const VERDELING=[[5,39],[4,6],[3,2],[2,1],[1,0]];
 /* Beoordelingen. Deze zijn VERZONNEN en horen bij de zes voorbeeldwinkels.
    Zij verdwijnen samen met die winkels als VOORBEELDEN in data/winkels.js op false
    gaat. Dat moet ook: een beoordeling die niet van een klant komt maar er wel
@@ -422,7 +425,11 @@ const VOORBEELDREVIEWS=[
  {n:'Anouk V.',p:'Leeuwarden',c:'8',d:'3 weken geleden',via:0,t:'Goede uitleg over het verschil tussen origineel en een goedkoper scherm. Ik heb voor de tussenvariant gekozen en ben er tevreden mee.',antwoord:'Fijn dat je het verschil duidelijk vond. Kom je gerust langs als er iets is, de garantie loopt twaalf maanden.'},
  {n:'Peter K.',p:'Leeuwarden',c:'6',d:'2 maanden geleden',via:1,t:'Reparatie zelf is prima, maar mijn toestel was niet op de beloofde tijd klaar en ik ben daar niet over gebeld.',antwoord:'Dat spijt ons, je had bericht moeten krijgen. We hebben sindsdien afgesproken dat we altijd bellen zodra een reparatie uitloopt.'},
 ];
-const REVIEWS=(typeof VOORBEELDEN!=="undefined"&&VOORBEELDEN)?VOORBEELDREVIEWS:[];
+/* Leeg, ook met de voorbeeldwinkels aan. Het belmoment slaat niets op zolang er
+   geen server is, dus er kan geen enkele beoordeling geverifieerd zijn. De
+   voorbeeldteksten blijven hieronder staan zodat het ontwerp van een review te
+   beoordelen is zodra er wel een server is. */
+const REVIEWS=[];
 const S={model:'iPhone 13'};
 
 /* match-moment: de belknop logt de match en biedt een beoordeelherinnering aan */
@@ -454,29 +461,42 @@ function matchJa(){
 }
 const eur=n=>'&euro; '+n;
 const CHECK='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>';
-const prijs=(rep,kw)=>{const [lo,,hi]=BAND[S.model][rep];return Math.max(lo,Math.round((lo+(hi-lo)*NIV[kw])/5)*5-1)};
+/* Geeft null als wij voor dit model en deze reparatie niets hebben gemeten. De
+   tabel toont dan een streepje in plaats van een verzonnen bedrag. */
+const prijs=(rep,kw)=>{const b=bandVan(S.model,rep);if(!b)return null;
+  const [lo,,hi]=b;return Math.max(lo,Math.round((lo+(hi-lo)*NIV[kw])/5)*5-1)};
+const bedrag=n=>n===null?'<span class="nietgemeten">niet gemeten</span>':eur(n);
 
 function toestelkies(){
-  document.getElementById('toestelkies').innerHTML=Object.keys(BAND).map(m=>
+  document.getElementById('toestelkies').innerHTML=MODELLEN_HIER.map(m=>
     `<button class="tchip${m===S.model?' aan':''}" onclick="S.model='${m}';teken()">${m}</button>`).join('')+
     `<a class="tchip" href="reparatiekiezer.html" style="text-decoration:none">Ander toestel zoeken</a>`;
 }
 function tabel(){
-  const rij=([id,naam,tijd])=>`<div class="prij">
+  /* Een accu of een laadpoort kent geen kwaliteitsklassen, dus daar hoort geen
+     kolom Compatibel, Service pack en Origineel bij. Die stonden er wel, met drie
+     bedragen die alleen maar leken te betekenen dat je iets te kiezen had. */
+  const rij=([id,naam,tijd])=>{
+    const b=bandVan(S.model,id);
+    const cellen=heeftKwaliteit(id)
+      ? `<span class="prijs" data-kw="Compatibel">${bedrag(prijs(id,'compatibel'))}<em>vanaf</em></span>
+         <span class="prijs beste" data-kw="Service pack">${bedrag(prijs(id,'service'))}<em>meest gekozen</em></span>
+         <span class="prijs" data-kw="Origineel">${bedrag(prijs(id,'origineel'))}</span>`
+      : `<span class="prijs breed">${eur(b[0])}${b[0]===b[2]?'':' tot '+eur(b[2])}<em>onderdeel niet gespecificeerd</em></span>`;
+    return `<div class="prij">
       <span class="naam">${naam}<small>${S.model}</small></span>
-      <span class="prijs" data-kw="Compatibel">${eur(prijs(id,'compatibel'))}<em>vanaf</em></span>
-      <span class="prijs beste" data-kw="Service pack">${eur(prijs(id,'service'))}<em>meest gekozen</em></span>
-      <span class="prijs" data-kw="Origineel">${eur(prijs(id,'origineel'))}</span>
-      <span class="tijd">${tijd}</span></div>`;
+      ${cellen}
+      <span class="tijd">${tijd}</span></div>`;};
   document.getElementById('ptabel').innerHTML=
     `<div class="pkop"><span>Reparatie</span><span>Compatibel</span><span>Service pack</span><span>Origineel</span><span>Klaar in</span></div>`+
-    REPS.map(rij).join('')+
+    REPS.filter(([id])=>bandVan(S.model,id)).map(rij).join('')+
     `<div class="prij offerte"><span class="naam">Waterschade<small>${S.model}</small></span>
       <span class="offertetekst">Diagnose ${eur(39)}, daarna een prijs op maat. De diagnose wordt verrekend.</span>
-      <span class="tijd">1 tot 3 werkdagen</span></div>`;
+      <span class="tijd">1 tot 3 werkdagen</span></div>`+
+    `<p class="tabelbron">${bronZin(S.model,'scherm')}</p>`;
 }
 function vergelijk(){
-  const [lo,md,hi]=BAND[S.model].scherm,p=prijs('scherm','service');
+  const [lo,md,hi]=bandVan(S.model,'scherm'),p=prijs('scherm','service');
   const pct=v=>((v-lo)/(hi-lo))*100;
   const klem=v=>Math.min(88,Math.max(12,pct(v))),gelijk=Math.abs(p-md)<(hi-lo)*.03;
   document.getElementById('verg').innerHTML=`<h3>Hoe deze prijs zich verhoudt tot de rest van Nederland</h3>
@@ -493,19 +513,14 @@ function tijden(){
   document.getElementById('tijden').innerHTML=TIJDEN.map(([d,t],i)=>
     `<div class="${i===VANDAAG?'nu':(t?'':'dicht')}"><span>${d}</span><span>${t||'gesloten'}</span></div>`).join('');
 }
-function verdeling(){
-  const totaal=VERDELING.reduce((a,[,n])=>a+n,0);
-  document.getElementById('verdeling').innerHTML=VERDELING.map(([s,n])=>
-    `<div class="vrij"><span class="num">${s} sterren</span><span class="baan"><i style="width:${Math.round(n/totaal*100)}%"></i></span><span class="n num">${n}</span></div>`).join('');
-}
 function reviews(){
   /* Zonder aangesloten winkels zijn er geen beoordelingen. Dat is de eerlijke
      staat op dag een, en hij hoort er goed uit te zien in plaats van leeg. */
   if(!REVIEWS.length){
     document.getElementById('reviewlijst').innerHTML=`<div class="geenreviews">
-      <b>Nog geen beoordelingen</b>
-      <p>Deze winkel is net aangesloten. Zodra iemand via ons contact opneemt en de reparatie laat doen, vragen wij hem een keer om een beoordeling. Wij plaatsen er zelf geen, en wij kopen ze niet.</p>
-      <p>Wil je weten hoe wij dit doen? Lees <a href="hoe-wij-rangschikken.html">hoe wij rangschikken</a>.</p>
+      <b>Nog geen beoordelingen via ons</b>
+      <p>Alleen wie via deze site contact opnam met de winkel, krijgt van ons de vraag hoe het ging. Wij plaatsen er zelf geen, wij kopen ze niet, en een winkel kan er geen laten verwijderen.</p>
+      <p>Dat gaat langzaam: wij verwachten dat een winkel er in het eerste jaar een handvol heeft, terwijl er op Google honderden staan. Daarom staat het Google-cijfer hierboven en niet het onze.</p>
     </div>`;
     return;
   }
@@ -516,5 +531,5 @@ function reviews(){
     ${r.antwoord?`<div class="antwoord"><b>Reactie van de winkel</b>${r.antwoord}</div>`:''}</div>`).join('');
 }
 function teken(){toestelkies();tabel();vergelijk()}
-teken();tijden();verdeling();reviews();
+teken();tijden();reviews();
 </script>
