@@ -121,9 +121,11 @@ button{font:inherit}
 .kw.land{border-style:dashed;background:var(--vlak)}
 .kw.land b{color:var(--inkt-2)}
 .kw.land.aan{border-style:solid;background:#fff}
-.kw .landmerk{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.04em;
+/* Een keer boven de rij en niet op elke tegel. Vijf keer LANDELIJK naast elkaar
+   is vijf keer dezelfde mededeling; de gestippelde rand zegt het daarna zelf. */
+.kwalkop .landmerk{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.04em;
   text-transform:uppercase;color:var(--amber);background:var(--amber-soft);
-  border-radius:999px;padding:1px 8px;margin:0 0 4px}
+  border-radius:999px;padding:1px 8px;margin-right:6px;vertical-align:1px}
 /* De kop boven de onderdeelkeuze. Die keuze zat achter een uitklap; hij staat nu
    meteen open, met het prijsverschil erboven omdat dat de hele reden is. */
 .kwalkop{padding:2px 14px 10px;font-size:13.5px;color:var(--inkt-2)}
@@ -177,18 +179,34 @@ button{font:inherit}
 }
 .tel-tekst{text-align:center;font-size:13.5px;color:var(--inkt-2);max-width:26ch;margin:0}
 .tel-tekst b{color:var(--inkt);display:block;font-size:15px;margin-bottom:2px}
-.som{width:100%;max-width:300px;border:1.5px solid var(--lijn);border-radius:14px;padding:4px 14px;background:#fff}
-.som .rij{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--lijn);font-size:13.5px}
-.som .rij:last-child{border-bottom:0}
-.som .rij span{flex:1;font-weight:600;line-height:1.2}
-.som .rij small{display:block;font-weight:400;color:var(--inkt-3);font-size:12px}
-.som .rij b{font-weight:700}
+/* De opsomming naast de tekening.
+   Hier stonden de naam, het gekozen onderdeel, een vraagteken als prijs en een
+   kruisje op een rij tegen elkaar aan geduwd. Het vraagteken en het kruisje
+   leken allebei een knop, en het zwaarste woord op het hele blok was
+   "nog geen prijs". Nu: een raster met de bedragen onder elkaar aan de
+   rechterkant, het kruisje klein en pas zichtbaar als je erover gaat, en de
+   toelichting eronder in gewone tekst in plaats van vet. */
+.som{width:100%;max-width:320px;border:1.5px solid var(--lijn);border-radius:16px;
+  padding:14px 16px 12px;background:#fff}
+.som .kop{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--inkt-3);margin:0 0 8px}
+.som .rij{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:baseline;
+  column-gap:10px;padding:7px 0;font-size:13.5px}
+.som .rij+.rij{border-top:1px solid var(--lijn)}
+.som .rij .wat{min-width:0;font-weight:700;line-height:1.25}
+.som .rij small{display:block;font-weight:400;color:var(--inkt-3);font-size:12px;
+  overflow:hidden;text-overflow:ellipsis}
+.som .rij b{font-weight:700;white-space:nowrap}
 .som .rij b.aanvraag{font-weight:500;color:var(--inkt-3);font-size:12.5px}
-.som .x{background:none;border:0;color:var(--inkt-3);font-size:20px;line-height:1;cursor:pointer;padding:0 0 2px 4px}
+.som .x{background:none;border:0;color:var(--lijn);font-size:17px;line-height:1;
+  cursor:pointer;padding:0;transition:color .15s}
+.som .rij:hover .x{color:var(--inkt-3)}
 .som .x:hover{color:var(--rood)}
-.som .tot{border-top:2px solid var(--inkt);margin-top:-1px}
-.som .tot span{font-weight:800}
-.som .tot b{font-size:16px;font-weight:800}
+.som .tot{border-top:1.5px solid var(--inkt);margin-top:6px;padding-top:10px}
+.som .tot .wat{font-weight:800}
+.som .tot b{font-size:17px;font-weight:800}
+.som .tot b.aanvraag{font-size:13px}
+.som .staart{font-size:12px;color:var(--inkt-3);line-height:1.4;margin:8px 0 0}
 .chip{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:999px;font-size:12.5px;font-weight:600}
 .chip svg{width:12px;height:12px}
 .chip-keur{background:var(--groen-100);color:var(--groen-800)}
@@ -252,7 +270,22 @@ button{font:inherit}
 .winkel .meer svg{width:15px;height:15px;transition:transform .15s}
 .winkel .meer[aria-expanded="true"] svg{transform:rotate(180deg)}
 .winkel .detail{grid-column:1/-1;padding:12px 0 2px;border-top:1px solid var(--lijn);margin-top:2px}
-.winkel .detailijst{list-style:none;margin:0;padding:0;display:grid;gap:6px;font-size:13.5px;color:var(--inkt-2)}
+.winkel .detailijst{list-style:none;margin:0;padding:0;display:grid;gap:9px;font-size:13.5px;color:var(--inkt-2)}
+.winkel .detailijst li{display:flex;align-items:flex-start;gap:9px}
+.winkel .detailijst .di{width:17px;height:17px;flex:none;color:var(--inkt-3);margin-top:1px}
+.winkel .detailijst .di svg{width:17px;height:17px;display:block}
+/* De betaalmethoden als merkjes naast elkaar. */
+.winkel .betaalrij{display:flex;flex-wrap:wrap;gap:6px}
+.betaalmerk{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--lijn);
+  border-radius:8px;padding:3px 8px;font-size:12px;font-weight:600;color:var(--inkt-2);background:#fff}
+.betaalmerk svg{width:15px;height:15px;flex:none}
+/* Een beoordeling van een echte klant, met het cijfer ervoor. */
+.winkel .quotes{display:grid;gap:10px;margin-top:14px}
+.winkel .quotes blockquote{display:grid;grid-template-columns:auto minmax(0,1fr);gap:2px 10px;
+  margin:0;padding:10px 12px;background:var(--vlak);border-radius:12px}
+.winkel .quotes b{grid-row:1/span 2;align-self:center;font-size:16px;font-weight:800;color:var(--groen-800)}
+.winkel .quotes span{font-size:13.5px;color:var(--inkt)}
+.winkel .quotes cite{font-style:normal;font-size:12px;color:var(--inkt-3)}
 .winkel .detail .bereik{margin-top:14px;max-width:320px}
 .winkel .detail .lablinks{font-size:12px;color:var(--inkt-3);margin-bottom:6px}
 .winkel .prijs{font-size:24px;font-weight:800;line-height:1}
@@ -473,6 +506,12 @@ const CHECK='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 1
 const BOLT='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 3 14h7l-1 8 10-12h-7z"/></svg>';
 const PIJL='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
 const MEERPIJL='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
+/* De pictogrammen voor de regels achter "Meer over deze winkel". */
+const L='fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"';
+const KEURMERK=`<svg viewBox="0 0 24 24" ${L}><path d="M12 2.5 4 6v6c0 4.4 3.4 8.2 8 9.5 4.6-1.3 8-5.1 8-9.5V6z"/></svg>`;
+const SCHILD=`<svg viewBox="0 0 24 24" ${L}><path d="M12 2.5 4 6v6c0 4.4 3.4 8.2 8 9.5 4.6-1.3 8-5.1 8-9.5V6z"/><path d="m8.8 12 2.2 2.2 4.2-4.4"/></svg>`;
+const KLOK=`<svg viewBox="0 0 24 24" ${L}><circle cx="12" cy="12" r="9"/><path d="M12 7v5.4l3.2 2"/></svg>`;
+const STER=`<svg viewBox="0 0 24 24" ${L}><path d="m12 3.5 2.7 5.5 6 .9-4.3 4.2 1 6-5.4-2.8-5.4 2.8 1-6L3.3 9.9l6-.9z"/></svg>`;
 const PIN='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6-5.3-6-10a6 6 0 0 1 12 0c0 4.7-6 10-6 10z"/><circle cx="12" cy="11" r="2.5"/></svg>';
 const TEL='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>';
 const KAART='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3 10h18"/></svg>';
@@ -846,18 +885,28 @@ function opsomming(){
       :teKiezen(k)?'<small>kies nog een onderdeel</small>'
       :m&&m.band?'<small>winkels noemen geen onderdeel</small>'
       :'<small>nog niet gemeten</small>';
-    return `<div class="rij"><span>${REP[k].n}${onder}</span><b class="num${p?'':' aanvraag'}">${p?eur(p):'?'}</b><button class="x" onclick="tik('${k}')" aria-label="${REP[k].n} weghalen" title="Weghalen">&times;</button></div>`;};
+    /* Geen vraagteken meer als bedrag. Dat las als een knop naast het kruisje,
+       en het zei niets. Weten wij het landelijke bedrag, dan staat dat er in
+       grijs; weten wij niets, dan staat er waarom. */
+    const bedrag=p?`<b class="num">${eur(p)}</b>`
+      :gk&&gk.land?`<b class="num aanvraag">${eur(gk.land.prijs)}</b>`
+      :k==='waterschade'?'<b class="aanvraag">na diagnose</b>'
+      :'<b class="aanvraag">vraag de winkel</b>';
+    return `<div class="rij"><span class="wat">${REP[k].n}${onder}</span>${bedrag}<button class="x" onclick="tik('${k}')" aria-label="${REP[k].n} weghalen" title="Weghalen">&times;</button></div>`;};
   const nogKiezen=g.filter(k=>prijsVan(k)==null&&teKiezen(k));
   /* Wat er niet in het totaal zit, hoort erbij te staan. Anders leest "Jouw
      keuze 249" als de prijs van alles wat je hebt aangetikt. */
   const buiten=g.filter(k=>prijsVan(k)==null&&!teKiezen(k)).map(k=>REP[k].n.toLowerCase());
   const staart=nogKiezen.length
-    ? 'Kies bij elke reparatie een onderdeel voor een totaal'
+    ? 'Kies bij elke reparatie een onderdeel, dan staat hier een totaal.'
     : buiten.length
-      ? `${buiten.join(' en ').replace(/^./,c=>c.toUpperCase())} ${buiten.length===1?'zit':'zitten'} niet in dit bedrag; voor dit toestel hebben wij daar geen prijs van.`
+      ? `${buiten.join(' en ').replace(/^./,c=>c.toUpperCase())} ${buiten.length===1?'telt':'tellen'} niet mee: daar hebben wij voor dit toestel geen prijs van.`
       : '';
   const tot=som();
-  return `<div class="som">${g.map(rij).join('')}<div class="rij tot"><span>Jouw keuze</span><b class="num">${tot?eur(tot):'nog geen prijs'}</b></div>${staart?`<div class="rij"><span style="color:var(--inkt-3);font-size:13px">${staart}</span></div>`:''}</div>`;
+  return `<div class="som"><p class="kop">Jouw keuze</p>${g.map(rij).join('')}
+    <div class="rij tot"><span class="wat">Totaal</span>${
+      tot?`<b class="num">${eur(tot)}</b>`:'<b class="aanvraag">nog geen prijs</b>'}<span></span></div>
+    ${staart?`<p class="staart">${staart}</p>`:''}</div>`;
 }
 function paneel(){
   const g=gekozen();let tekst='';
@@ -894,9 +943,8 @@ function stap2(){
   const kwalTegels=(k,opties,gk,land)=>`<div class="kwal" role="group" aria-label="Welk onderdeel wil je voor ${esc(REP[k].n.toLowerCase())}">${opties.map((o,i)=>`<button class="kw${gk&&gk.sleutel===o.sleutel?' aan':''}${land?' land':''}" aria-pressed="${gk&&gk.sleutel===o.sleutel?'true':'false'}" onclick="${land?'kiesKwLand':'kiesKw'}('${k}',${i})">
       <span class="kwnaam">${esc(o.naam)}</span>
       <b class="num">${o.laagste===o.hoogste?eur(o.prijs):eur(o.laagste)+' tot '+eur(o.hoogste)}</b>
-      ${land?'<span class="landmerk">landelijk</span>':''}
       ${o.uitleg?`<span class="kwuit">${esc(o.uitleg)}</span>`:''}
-      <em>${o.metingen===1?'1 meting':o.metingen+' metingen, midden '+eur(o.prijs)}</em></button>`).join('')}</div>`;
+      <em>${o.metingen===1?'1 meting':o.metingen+' metingen'}</em></button>`).join('')}</div>`;
 
   /* DE LADDER STAAT ER ALTIJD, OOK ALS WIJ DIT MODEL NIET HEBBEN GEMETEN.
      Daar stond eerder alleen "nog niet gemeten" en verder niets, en dan weet je
@@ -909,10 +957,9 @@ function stap2(){
     const l=landelijk(k), opties=(l&&l.opties)||[];
     if(!opties.length)return '';
     return `<div class="kwalkop"><b>Welk onderdeel wil je?</b>
-      <span>Dit zijn de onderdelen waaruit je in de winkel kunt kiezen, met wat ze
-      <b>landelijk</b> kosten over alle modellen heen. Voor de ${esc(S.model.n)} weten wij
-      het bedrag niet, dus dit telt niet mee in jouw totaal. Kies wat je wilt, dan weet je
-      waar je naar vraagt.</span></div>${kwalTegels(k,opties,gk,true)}`;
+      <span class="landmerk">Landelijke bedragen</span>
+      <span>Niet voor dit toestel gemeten, dus ze tellen niet mee in je totaal.</span>
+      </div>${kwalTegels(k,opties,gk,true)}`;
   };
 
   /* Per reparatie tonen wij wat wij voor DIT model hebben gemeten:
@@ -960,7 +1007,9 @@ function stap2(){
     } else {
       const l=landelijk(k);
       rechts='<span class="vanaf aanvraag num">nog niet gemeten</span>';
-      if(aan)uitklap=`<div class="uitleg-water">Voor de ${esc(S.model.n)} hebben wij deze reparatie nog niet gemeten, dus wij noemen geen bedrag voor jouw toestel.${l?` Landelijk, over alle modellen heen, maten wij ${eur(l.laagste)} tot ${eur(l.hoogste)}.`:''} De winkels hieronder doen de reparatie wel; vraag hun prijs.</div>${landLadder(k,gk)}`;
+      /* Een regel, niet twee alinea's. Er stond twee keer hetzelfde: eerst dat
+         wij dit toestel niet hebben gemeten, en daaronder nog eens. */
+      if(aan)uitklap=`<div class="uitleg-water">Dit toestel hebben wij nog niet gemeten${l?`; landelijk maten wij ${eur(l.laagste)} tot ${eur(l.hoogste)}`:''}. De winkels hieronder doen de reparatie wel.</div>${landLadder(k,gk)}`;
     }
     /* aria-pressed, want dit is een knop die aan en uit gaat. Zonder dat hoort
        iemand met een schermlezer alleen "Accu, knop" en niet of hij aanstaat;
@@ -999,7 +1048,12 @@ function stap3(){
    * niet weten en niet een bedrag dat wij eromheen rekenen. */
   const somVan=w=>{let t=0;for(const k of g){const a=aanbod(w,S.model.n,k);if(!a)return null;t+=a.b}return t};
   const kaart=w=>{const i=WINKELS.indexOf(w),p=somVan(w);
-    const pos=(p!=null&&hi>lo)?Math.min(96,Math.max(4,(p-lo)/(hi-lo)*100)):50;const med=hi>lo?((som()-lo)/(hi-lo)*100):50;
+    /* Allebei binnen de balk houden. pos werd al geknepen, med niet, en die kan
+       buiten 0 tot 100 vallen zodra de gekozen som lager of hoger is dan de
+       landelijke uitersten. Dan stond er een streepje naast de kaart. */
+    const knijp=n=>Math.min(96,Math.max(4,n));
+    const pos=(p!=null&&hi>lo)?knijp((p-lo)/(hi-lo)*100):50;
+    const med=hi>lo?knijp((som()-lo)/(hi-lo)*100):50;
     const eerste=g.length?aanbod(w,S.model.n,g[0]):null;
     const tijd=kanVandaag(w,eerste)?doorlooptijd(eerste):(eerste?doorlooptijd(eerste):null);
     const dicht=heeftRooster(w)&&!vandaagOpen(w);
@@ -1017,11 +1071,19 @@ function stap3(){
        Klikken en niet zweven: zweven bestaat niet op een telefoon, en daar komt
        het meeste verkeer vandaan. */
     const sleutel=String(w.id||w.n),open=!!S.open[sleutel];
+    /* Elke regel zijn eigen pictogram. Het waren vier regels grijze tekst onder
+       elkaar die je moest lezen om te zien wat er stond; met een merkje ervoor
+       zie je in een oogopslag waar een regel over gaat. */
     const detail=[
-      feitenVan(w)||null,
-      w.keur?'Polis gecontroleerd op '+esc(w.keurdatum):null,
-      (w.betaal||[]).length?'Betalen: '+w.betaal.map(esc).join(', '):null,
-      eigenBeoordelingen(w),
+      feitenVan(w)?[KEURMERK,feitenVan(w)]:null,
+      w.keur?[SCHILD,'Polis gecontroleerd op '+esc(w.keurdatum)]:null,
+      /* De hele week, niet de status van vandaag. Die staat al als merkje boven,
+         en anders stond er twee keer "Vandaag gesloten" op dezelfde kaart. En
+         zonder de voorwaarde stond er een klokje met niets erachter, want zonder
+         rooster geeft roosterVan een lege lijst. */
+      weekTekst(w)?[KLOK,esc(weekTekst(w))]:null,
+      (w.betaal||[]).length?[null,`<span class="betaalrij">${w.betaal.map(betaalmerk).join('')}</span>`]:null,
+      [STER,eigenBeoordelingen(w)],
     ].filter(Boolean);
     return `<div class="winkel${w.uit?' uitg':''}">
       <div class="kop"><b>${esc(w.n)}</b>${regel?`<span>${regel}</span>`:''}</div>
@@ -1031,7 +1093,8 @@ function stap3(){
       <div class="prijsvak"><div class="prijs num">${p!=null?eur(p):'op aanvraag'}<small>${g.map(k=>REP[k].n).join(' + ')}</small></div></div>
       <button class="meer" aria-expanded="${open?'true':'false'}" onclick="toonMeer('${esc(sleutel)}')">${open?'Minder':'Meer over deze winkel'}${MEERPIJL}</button>
       <div class="detail"${open?'':' hidden'}>
-        <ul class="detailijst">${detail.map(t=>`<li>${t}</li>`).join('')}</ul>
+        <ul class="detailijst">${detail.map(([ic,t])=>`<li>${ic?`<span class="di">${ic}</span>`:'<span class="di"></span>'}<span>${t}</span></li>`).join('')}</ul>
+        ${(w.bs||[]).length?`<div class="quotes">${w.bs.map(b=>`<blockquote><b class="num">${esc(String(b.c).replace('.',','))}</b><span>${esc(b.t)}</span><cite>${esc(b.n)}, via ons</cite></blockquote>`).join('')}</div>`:''}
         ${p!=null&&som()?`<div class="bereik"><div class="lablinks">Wat deze prijs landelijk is</div><div class="track"><div class="fill" style="left:4%;width:92%"></div><div class="tick" style="left:${med}%"></div><div class="jij" style="left:${pos}%"></div></div><div class="lab num"><span>${eur(lo)}</span><span>${eur(hi)}</span></div></div>`:''}
       </div>
       <div class="acties"><button class="btn btn-groen" onclick="belWinkel(${i})">${TEL}Bel de winkel</button>${

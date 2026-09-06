@@ -36,26 +36,26 @@ const WINKELDATA = {
   voorbeelden: [
     {n:'Telefoonhulp Leeuwarden',i:'T',plaats:'Leeuwarden',buurt:'Centrum',a:'Nieuwestad 112',km:1.4,
      g:'9,1',gb:48,vers:'nieuwste Google-beoordeling 3 dagen geleden',keur:1,keurdatum:'12 aug 2026',
-     polistot:'1 jan 2027',glink:'#',eigen:0,erk:'Apple IRP',jaren:12,vest:1,
+     polistot:'1 jan 2027',glink:'#',eigen:3,bs:[{c:9,t:'Scherm binnen een uur vervangen, prijs klopte met wat er stond.',n:'Marijke'},{c:8,t:'Netjes uitgelegd welk scherm ik kreeg en waarom dat scheelt.',n:'Bouke'}],erk:'Apple IRP',jaren:12,vest:1,
      tijd:'Klaar terwijl je wacht',min:35,vandaag:1,gar:'12 maanden garantie',kw:'oem',niv:.33,
      ot:'ma 09:30-18:00\ndi 09:30-18:00\nwo 09:30-18:00\ndo 09:30-21:00\nvr 09:30-18:00\nza 10:00-17:00',betaal:['Pin','Contant','Apple Pay','iDEAL'],f:1.0,uit:0},
     {n:'FixPoint Friesland',i:'F',plaats:'Leeuwarden',buurt:'Centrum',a:'Wirdumerdijk 22',km:0.6,
      g:'8,7',gb:112,vers:'nieuwste Google-beoordeling 1 week geleden',keur:1,keurdatum:'28 jul 2026',
-     polistot:'1 apr 2027',glink:'#',eigen:0,erk:'Samsung erkend',jaren:8,vest:3,
+     polistot:'1 apr 2027',glink:'#',eigen:5,bs:[{c:9,t:'Duidelijke prijs vooraf, geen verrassingen achteraf.',n:'Jeroen'},{c:7,t:'Reparatie prima, maar het duurde een dag langer dan gezegd.',n:'Sanne'}],erk:'Samsung erkend',jaren:8,vest:3,
      tijd:'Vandaag klaar',min:120,vandaag:1,gar:'12 maanden garantie',kw:'oem',niv:.44,
      ot:'ma 10:00-17:30\ndi 10:00-17:30\nwo 10:00-17:30\ndo 10:00-17:30\nvr 10:00-17:30\nza 10:00-16:00',betaal:['Pin','Apple Pay','iDEAL'],f:1.05,uit:'nieuw'},
     {n:'De Schermwerkplaats',i:'S',plaats:'Leeuwarden',buurt:'Centrum',a:'Voorstreek 45',km:0.9,
      g:'9,4',gb:26,vers:'nieuwste Google-beoordeling 5 dagen geleden',keur:1,
-     keurdatum:'3 sep 2026',polistot:'1 sep 2027',glink:'#',eigen:0,erk:null,jaren:6,vest:1,
+     keurdatum:'3 sep 2026',polistot:'1 sep 2027',glink:'#',eigen:2,bs:[{c:10,t:'Accu vervangen terwijl ik koffie dronk. Niks op aan te merken.',n:'Anouk'}],erk:null,jaren:6,vest:1,
      tijd:'Morgen klaar',min:1440,vandaag:0,gar:'24 maanden garantie',kw:'origineel',niv:.78,
      ot:'di 09:00-17:00\nwo 09:00-17:00\ndo 09:00-17:00\nvr 09:00-17:00\nza 09:00-16:00',betaal:['Pin','Contant'],f:1.2,uit:0},
     {n:'Studio Repair Huizum',i:'R',plaats:'Leeuwarden',buurt:'Schrans en Huizum',a:'Huizumerlaan 8',km:2.3,
      g:'8,9',gb:19,vers:'nieuwste Google-beoordeling 2 weken geleden',keur:1,
-     keurdatum:'19 jun 2026',polistot:'1 jul 2027',glink:'#',eigen:0,erk:null,jaren:4,vest:1,
+     keurdatum:'19 jun 2026',polistot:'1 jul 2027',glink:'#',eigen:1,bs:[{c:8,t:'Kleine zaak, snel geholpen, eerlijk advies over de kosten.',n:'Wietse'}],erk:null,jaren:4,vest:1,
      tijd:'Vandaag klaar',min:180,vandaag:1,gar:'12 maanden garantie',kw:'oem',niv:.5,
      ot:'ma 09:00-18:00\ndi 09:00-18:00\nwo 09:00-18:00\ndo 09:00-18:00\nvr 09:00-18:00',betaal:['Pin','Apple Pay'],f:1.08,uit:0},
     {n:'Mobiel Service Schrans',i:'M',plaats:'Leeuwarden',buurt:'Schrans en Huizum',a:'Schrans 68',km:1.5,
-     g:'8,2',gb:63,vers:'nieuwste Google-beoordeling 4 maanden geleden',keur:0,glink:'#',eigen:0,erk:null,jaren:9,vest:1,
+     g:'8,2',gb:63,vers:'nieuwste Google-beoordeling 4 maanden geleden',keur:0,glink:'#',eigen:0,bs:[],erk:null,jaren:9,vest:1,
      tijd:'1 tot 2 werkdagen',min:2880,vandaag:0,gar:'6 maanden garantie',kw:'kopie',niv:.1,
      ot:'ma 09:00-17:00\ndi 09:00-17:00\nwo 09:00-17:00\ndo 09:00-17:00\nvr 09:00-17:00',oud:1,betaal:['Pin','Contant'],f:.9,uit:0},
     {n:'Camminghaburen Telecom',i:'C',plaats:'Leeuwarden',buurt:'Camminghaburen',a:'Egelantierstraat 2',km:3.8,
@@ -498,4 +498,60 @@ async function verzoekVerstuur() {
       <p class="waar" style="margin-bottom:18px">Je vraag staat bij ${esc(w.n)}. Je krijgt een kopie in je mail. De winkel antwoordt rechtstreeks aan jou; wij kunnen geen antwoord beloven.</p>
       <button class="btn btn-groen" style="width:100%" onclick="document.getElementById('matchdlg').close()">Sluiten</button>
     </div>`;
+}
+
+/* ---------- betaalmethoden als merkjes ----------
+ *
+ * Ze stonden als "Pin &middot; Apple Pay &middot; iDEAL" achter een kaartje: vier
+ * woorden op een rij die je moet lezen om te zien wat je zoekt. Als merkje zie je
+ * het in een oogopslag.
+ *
+ * GEEN echte logo's. Het beeldmerk van iDEAL, Apple Pay of Mastercard is van hen,
+ * en die mag je niet zomaar natekenen of overnemen; er horen merkregels bij en
+ * daar hoort iemand naar te kijken voordat wij ze gebruiken. Wat hier staat is
+ * een eigen pictogram plus de naam, in de kleur die erbij hoort. Wil Nawid de
+ * echte merken, dan is dat een aparte stap met hun richtlijnen erbij. */
+const BETAALICOON = {
+  kaart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5" width="19" height="14" rx="3"/><path d="M2.5 10h19"/></svg>',
+  biljet: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2.5"/><circle cx="12" cy="12" r="2.6"/></svg>',
+  telefoon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="6.5" y="2.5" width="11" height="19" rx="3"/><path d="M10.5 18.5h3"/></svg>',
+  bank: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 4l9 5.5"/><path d="M5 10.5v8M9.7 10.5v8M14.3 10.5v8M19 10.5v8"/><path d="M3 20.5h18"/></svg>',
+};
+
+/* Welk pictogram en welke kleur bij welke methode. Onbekende methode: het
+   kaartje en de gewone inktkleur, want raden is erger dan neutraal. */
+function betaalmerk(naam) {
+  const t = String(naam).toLowerCase();
+  const kies = t.includes('ideal') ? ['bank', '#C0006E']
+    : t.includes('contant') || t.includes('cash') ? ['biljet', null]
+    : t.includes('pay') ? ['telefoon', null]
+    : ['kaart', null];
+  const kleur = kies[1] ? ` style="color:${kies[1]}"` : '';
+  return `<span class="betaalmerk"${kleur}>${BETAALICOON[kies[0]]}${esc(naam)}</span>`;
+}
+
+/* Het rooster als EEN regel: "ma-vr 09:30-18:00, za 10:00-17:00". Dagen met
+   dezelfde tijden worden samengevat, want zeven regels onder elkaar is een
+   tabel en dit is een kaart. Geeft null zonder rooster; dan laat de pagina de
+   regel weg in plaats van een leeg klokje te tonen.
+   Waarom niet vandaagTekst: die zegt "Vandaag gesloten", en dat staat al als
+   merkje boven in de kaart. Twee keer hetzelfde op een kaart is een keer te
+   veel. */
+const vorigeDag = dag => DAGVOLGORDE[DAGVOLGORDE.indexOf(dag) - 1] ?? null;
+
+function weekTekst(w) {
+  const rooster = roosterVan(w);
+  if (!rooster.length) return null;
+  const per = new Map(rooster.map(([d, van, tot]) => [d, van + '-' + tot]));
+  const blokken = [];
+  for (const dag of DAGVOLGORDE) {
+    const tijd = per.get(dag);
+    if (!tijd) continue;
+    const laatste = blokken[blokken.length - 1];
+    if (laatste && laatste.tijd === tijd && laatste.tot === vorigeDag(dag)) laatste.tot = dag;
+    else blokken.push({ van: dag, tot: dag, tijd });
+  }
+  return blokken
+    .map(b => (b.van === b.tot ? b.van : b.van + '-' + b.tot) + ' ' + b.tijd)
+    .join(', ');
 }
