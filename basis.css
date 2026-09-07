@@ -5,7 +5,7 @@
 
    Gemaakt door bouwvoorbereiding/generatoren/gedeelde_stijl.py. */
 
-:root{--groen-50:#F0FDF4;--groen-100:#DCFCE7;--groen-200:#BBF7D0;--groen-300:#86EFAC;--groen-500:#22C55E;--groen:#008934;--groen-800:#007B2E;--marine:#0B1F4E;--marine-100:#E8ECF5;--marine-200:#C5CEE3;--inkt:#111827;--inkt-2:#4A5878;--inkt-3:#6B7480;--lijn:#E3E6EE;--vlak:#F6F8FA;--amber:#B45309;--amber-soft:#FEF3C7;--rood:#B91C1C;--rood-soft:#FEE2E2;color-scheme:light}
+:root{--groen-50:#F0FDF4;--groen-100:#DCFCE7;--groen-200:#BBF7D0;--groen-300:#86EFAC;--groen-500:#22C55E;--groen:#008934;--groen-800:#007B2E;--marine:#0B1F4E;--marine-100:#E8ECF5;--marine-200:#C5CEE3;--inkt:#111827;--inkt-2:#4A5878;--inkt-3:#616A76;--lijn:#E3E6EE;--vlak:#F6F8FA;--amber:#B45309;--amber-soft:#FEF3C7;--rood:#B91C1C;--rood-soft:#FEE2E2;color-scheme:light}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;background:#fff;color:var(--inkt);font-family:'Outfit',system-ui,sans-serif;font-size:16px;line-height:1.55}
@@ -27,16 +27,23 @@ a{color:inherit}
 .logo{font-weight:800;font-size:20px;letter-spacing:-.02em;color:var(--marine);text-decoration:none}
 .logo i{font-style:normal;color:var(--groen)}
 .top nav{display:flex;gap:22px;font-size:15px;color:var(--inkt-2)}
-.top nav a{text-decoration:none}
+/* Rijen met losse links (de navigatie, de kruimels, de voettekst) hadden een
+   klikvlak van 17 tot 23 pixels hoog, terwijl de toegankelijkheidspagina 24 bij
+   24 belooft. De breedte was altijd ruim genoeg; het ging alleen om de hoogte.
+   Met inline-flex en een minimale hoogte wordt het vlak groter zonder dat de
+   tekst verspringt. Links MIDDEN IN EEN ZIN blijven zoals ze zijn: die kun je
+   niet oprekken zonder de regelafstand te slopen, en de richtlijn zondert ze
+   met zoveel woorden uit. */
+.top nav a{text-decoration:none;display:inline-flex;align-items:center;min-height:24px}
 .top nav a:hover{color:var(--inkt)}
 .btn-groen{background:var(--groen);color:#fff}
 .btn-groen:hover{background:var(--groen-800)}
 .btn-lijn{background:#fff;color:var(--groen);border-color:var(--groen)}
 .kruimels{font-size:13px;color:var(--inkt-3);padding:16px 0 0}
-.kruimels a{text-decoration:none}
+.kruimels a{text-decoration:none;display:inline-flex;align-items:center;min-height:24px}
 .kruimels span{margin:0 6px}
 footer .jur{display:flex;flex-wrap:wrap;gap:18px;margin-bottom:12px}
-footer .jur a{text-decoration:none;color:var(--inkt-2);font-weight:600}
+footer .jur a{text-decoration:none;color:var(--inkt-2);font-weight:600;display:inline-flex;align-items:center;min-height:24px}
 footer .jur a:hover{color:var(--groen)}
 
 /* Een element met het hidden-attribuut hoort weg te zijn, ook als een klas er
@@ -86,3 +93,38 @@ footer .jur a:hover{color:var(--groen)}
 .sterren .sterrenleeg{color:var(--marine-100)}
 .sterren .sterrenvol{position:absolute;left:0;top:0;overflow:hidden;color:#F5B50A}
 .sterren svg{width:15px;height:15px;display:block;flex:none}
+
+/* ---------- minder beweging ----------
+
+   De toegankelijkheidspagina belooft: "Animaties zijn klein en kort, en zetten
+   zichzelf uit als je in je systeem hebt aangegeven dat je minder beweging
+   wilt." Dat werd nergens gelezen. Vijftig pagina's hebben een animatie of een
+   overgang, en `html{scroll-behavior:smooth}` hierboven laat de pagina ook nog
+   glijden bij een sprong naar een anker.
+
+   Wie deze instelling aanzet, doet dat vaak omdat beweging misselijk maakt of
+   duizelig, dus dit is geen kleinigheid. Wij zetten alles stil in plaats van op
+   nul: een animatie die nul milliseconden duurt vuurt zijn afloop nog wel af, en
+   code die op dat einde wacht blijft dus gewoon werken. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto }
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---------- klikvlak van losstaande links ----------
+
+   Een link die op zichzelf staat (een actielink, een terugverwijzing, een
+   inhoudsopgave) is een knop in ander jasje en hoort dus een klikvlak van
+   minstens 24 pixels hoog te hebben. Ze waren 15 tot 23. Met :where() weegt
+   deze regel nul, dus elke pagina kan hem gewoon overschrijven en er verandert
+   niets aan de kleuren of de letters; alleen het vlak wordt groter.
+
+   Links MIDDEN IN EEN ZIN staan hier expres niet bij. Die kun je niet oprekken
+   zonder de regelafstand te verpesten, en de richtlijn zondert ze ook uit. */
+:where(.link,.terug,.mail,.inhoud a,.uitloggen,.later,.score .bron a,.meta a,footer a){
+  display:inline-flex;align-items:center;min-height:24px}

@@ -6,9 +6,9 @@
 <meta name="description" content="Zoek je telefoon of blader per merk. Bij een klikbaar model hebben wij genoeg prijzen gemeten voor een eerlijke vergelijking. Zoeken op je modelcode kan ook.">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="stylesheet" href="lettertype/outfit.css">
-<link rel="stylesheet" href="basis.css?v=08b720d9">
+<link rel="stylesheet" href="basis.css?v=01d4ea8e">
 <style>
-:root{--groen-50:#F0FDF4;--groen-100:#DCFCE7;--groen-200:#BBF7D0;--groen-300:#86EFAC;--groen-500:#22C55E;--groen:#008934;--groen-800:#007B2E;--marine:#0B1F4E;--marine-100:#E8ECF5;--marine-200:#C5CEE3;--inkt:#111827;--inkt-2:#4A5878;--inkt-3:#6B7480;--lijn:#E3E6EE;--vlak:#F6F8FA;--amber:#B45309;--amber-soft:#FEF3C7;color-scheme:light}
+:root{--groen-50:#F0FDF4;--groen-100:#DCFCE7;--groen-200:#BBF7D0;--groen-300:#86EFAC;--groen-500:#22C55E;--groen:#008934;--groen-800:#007B2E;--marine:#0B1F4E;--marine-100:#E8ECF5;--marine-200:#C5CEE3;--inkt:#111827;--inkt-2:#4A5878;--inkt-3:#616A76;--lijn:#E3E6EE;--vlak:#F6F8FA;--amber:#B45309;--amber-soft:#FEF3C7;color-scheme:light}
 
 .in{max-width:900px;margin:0 auto;padding:0 32px}
 button{font:inherit}
@@ -67,7 +67,7 @@ footer{border-top:1px solid var(--lijn);margin-top:44px;padding:26px 0 60px;colo
   <div id="lijst"></div>
 
   <div class="uitleg">
-    <b>Waarom staat mijn toestel er niet bij?</b> Wij tonen een model pas als wij er echte prijzen voor hebben gemeten bij minstens drie winkels. Zonder die metingen zouden we een prijs moeten verzinnen, en dat doen we niet. Staat je model er nog niet bij, gebruik dan de <a href="reparatiekiezer.html" style="color:var(--groen);font-weight:600">reparatiekiezer</a>; daarin staan meer modellen.
+    <b>Waarom staat mijn toestel er niet bij?</b> Wij tonen een model pas als wij er echte prijzen voor hebben gemeten bij minstens drie winkels. Zonder die metingen zouden we een prijs moeten verzinnen, en dat doen we niet. Staat je model er nog niet bij, gebruik dan de <a href="reparatiekiezer.html" style="color:var(--groen-800);font-weight:600">reparatiekiezer</a>; daarin staan meer modellen.
   </div>
 </div>
 
@@ -115,7 +115,7 @@ function teken(){
         : `<div class="md geen"><b>${n}</b><small>${codeLabel({c})} &middot; nog geen prijzen</small></div>`)).join('');
     h+='</div>';
   });
-  document.getElementById('lijst').innerHTML=gevonden?h:`<div class="leeg">Geen model gevonden voor "${q}". Probeer de modelcode, of gebruik de <a href="reparatiekiezer.html" style="color:var(--groen);font-weight:600">reparatiekiezer</a>.</div>`;
+  document.getElementById('lijst').innerHTML=gevonden?h:`<div class="leeg">Geen model gevonden voor "${q}". Probeer de modelcode, of gebruik de <a href="reparatiekiezer.html" style="color:var(--groen-800);font-weight:600">reparatiekiezer</a>.</div>`;
 }
 teken();
 </script>

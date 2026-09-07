@@ -6,12 +6,12 @@
 <meta name="description" content="Het profiel van een aangesloten reparatiewinkel: prijzen per model inclusief btw en montage, openingstijden, garantie en de poliscontrole.">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="stylesheet" href="lettertype/outfit.css">
-<link rel="stylesheet" href="basis.css?v=08b720d9">
+<link rel="stylesheet" href="basis.css?v=01d4ea8e">
 <style>
 :root{
   --groen-50:#F0FDF4;--groen-100:#DCFCE7;--groen-200:#BBF7D0;--groen-300:#86EFAC;--groen-500:#22C55E;--groen:#008934;--groen-800:#007B2E;--groen-900:#005A22;
   --marine:#0B1F4E;--marine-d:#061238;--marine-100:#E8ECF5;--marine-200:#C5CEE3;
-  --inkt:#111827;--inkt-2:#4A5878;--inkt-3:#6B7480;--lijn:#E3E6EE;--vlak:#F6F8FA;
+  --inkt:#111827;--inkt-2:#4A5878;--inkt-3:#616A76;--lijn:#E3E6EE;--vlak:#F6F8FA;
   --amber:#B45309;--amber-soft:#FEF3C7;--rood:#B91C1C;
   color-scheme:light;
 }
@@ -97,8 +97,14 @@ h1{font-size:clamp(26px,3.4vw,34px);font-weight:800;letter-spacing:-.025em;margi
 .bereik .lab{position:relative;height:34px;margin-top:9px;font-size:11.5px;color:var(--inkt-3)}
 .bereik .lab .lo{position:absolute;left:0}
 .bereik .lab .hi{position:absolute;right:0}
-.bereik .lab .jij{position:absolute;top:14px;transform:translateX(-50%);white-space:nowrap;font-weight:700;color:var(--groen-800);font-size:13px}
-.bereik .lab .jij::before{content:"";position:absolute;left:50%;top:-12px;width:1.5px;height:10px;background:var(--groen);transform:translateX(-50%)}
+/* Dit label heette ook .jij, net als het puntje op de balk. Het overschreef
+   wel de kleur en de plaats, maar niet de achtergrond, de maat en de rand,
+   dus stond "deze winkel 99 euro" in donkergroen op een groen bolletje van
+   16 bij 16. Contrast 1,2, en de tekst liep buiten zijn eigen vakje.
+   Dezelfde soort botsing als eerder bij .leeg en de sterren: een onderdeel
+   hoort zijn eigen delen te benoemen, dus dit label heet nu .jijlab. */
+.bereik .lab .jijlab{position:absolute;top:14px;transform:translateX(-50%);white-space:nowrap;font-weight:700;color:var(--groen-800);font-size:13px}
+.bereik .lab .jijlab::before{content:"";position:absolute;left:50%;top:-12px;width:1.5px;height:10px;background:var(--groen);transform:translateX(-50%)}
 
 /* garantie en tekst */
 .lijstje{list-style:none;margin:0;padding:0;display:grid;gap:11px}
@@ -178,7 +184,7 @@ h1{font-size:clamp(26px,3.4vw,34px);font-weight:800;letter-spacing:-.025em;margi
 
 footer{border-top:1px solid var(--lijn);padding:30px 0 60px;color:var(--inkt-3);font-size:13px}
 footer p{max-width:85ch;margin:0 0 8px}
-.link{display:inline-flex;align-items:center;gap:6px;color:var(--groen);font-weight:600;font-size:14px;text-decoration:underline;text-underline-offset:3px}
+.link{display:inline-flex;align-items:center;gap:6px;color:var(--groen-800);font-weight:600;font-size:14px;text-decoration:underline;text-underline-offset:3px}
 .link svg{width:14px;height:14px}
 
 dialog{border:0;border-radius:20px;padding:0;max-width:460px;width:calc(100% - 40px);box-shadow:0 24px 60px -20px rgba(11,31,78,.4)}
@@ -525,7 +531,7 @@ function vergelijk(){
       <div class="track"><div class="fill" style="left:2%;width:96%"></div>
       <div class="med" style="left:${pct(md)}%"></div><div class="jij" style="left:${pct(p)}%"></div></div>
       <div class="lab num"><span class="lo">${eur(lo)}</span><span class="hi">${eur(hi)}</span>
-        <span class="jij" style="left:${klem(p)}%">deze winkel ${eur(p)}${gelijk?', de landelijke mediaan':''}</span></div>
+        <span class="jijlab" style="left:${klem(p)}%">deze winkel ${eur(p)}${gelijk?', de landelijke mediaan':''}</span></div>
     </div>`;
 }
 

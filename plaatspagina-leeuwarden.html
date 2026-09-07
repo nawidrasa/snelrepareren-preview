@@ -6,13 +6,13 @@
 <meta name="description" content="Telefoon repareren in Leeuwarden: vergelijk gecontroleerde winkels op prijs, doorlooptijd en garantie, en zie wie het vandaag nog voor je kan doen.">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="stylesheet" href="lettertype/outfit.css">
-<link rel="stylesheet" href="basis.css?v=08b720d9">
+<link rel="stylesheet" href="basis.css?v=01d4ea8e">
 <style>
 :root{
   --gradient:linear-gradient(160deg,#008C34 0%,#22C55E 55%,#86EFAC 100%);
   --groen-50:#F0FDF4;--groen-100:#DCFCE7;--groen-200:#BBF7D0;--groen-300:#86EFAC;--groen-500:#22C55E;--groen:#008934;--groen-800:#007B2E;--groen-900:#005A22;
   --marine:#0B1F4E;--marine-d:#061238;--marine-100:#E8ECF5;--marine-200:#C5CEE3;
-  --inkt:#111827;--inkt-2:#4A5878;--inkt-3:#6B7480;--lijn:#E3E6EE;--vlak:#F6F8FA;
+  --inkt:#111827;--inkt-2:#4A5878;--inkt-3:#616A76;--lijn:#E3E6EE;--vlak:#F6F8FA;
   --amber:#B45309;--amber-soft:#FEF3C7;--rood:#B91C1C;
   color-scheme:light;
 }
@@ -108,7 +108,8 @@ h1{font-size:clamp(26px,3.4vw,36px);font-weight:800;letter-spacing:-.025em;margi
 .winkel:hover{border-color:var(--groen-300)}
 .winkel.uitg{border-color:var(--marine-200);box-shadow:0 10px 28px -14px rgba(11,31,78,.28)}
 .adv{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--marine);background:var(--marine-100);padding:3px 10px;border-radius:999px;margin-bottom:10px}
-.adv button{background:none;border:0;color:var(--marine);cursor:pointer;font-size:12px;padding:0;line-height:1;opacity:.75}
+/* Deze knop was 6 bij 12 pixels. Dat is geen knop, dat is een mikpunt. */
+.adv button{background:none;border:0;color:var(--marine);cursor:pointer;font-size:12px;padding:0;line-height:1;opacity:.75;width:24px;height:24px;display:inline-grid;place-items:center;border-radius:50%;margin:-6px 0}
 .adv button:hover{opacity:1}
 .rij{display:grid;grid-template-columns:56px minmax(0,1fr) auto;gap:14px}
 .pui{width:56px;height:56px;border-radius:14px;background:var(--vlak);border:1px solid var(--lijn);display:grid;place-items:center;font-weight:800;font-size:20px;color:var(--inkt-2)}
@@ -150,7 +151,7 @@ h1{font-size:clamp(26px,3.4vw,36px);font-weight:800;letter-spacing:-.025em;margi
 .verm .pui{background:#fff}
 .verm p{margin:6px 0 0;font-size:13.5px;color:var(--inkt-2)}
 .verm .eig{font-size:13px;color:var(--inkt-3);margin-top:8px}
-.verm .eig a{color:var(--groen);font-weight:600}
+.verm .eig a{color:var(--groen-800);font-weight:600}
 
 /* zijkolom */
 .zkaart{border:1.5px solid var(--lijn);border-radius:20px;padding:20px}

@@ -6,14 +6,14 @@
 <meta name="description" content="Kies je toestel, tik aan wat er kapot is, en zie binnen een minuut welke winkels bij jou in de buurt het vandaag kunnen. Gratis en zonder account.">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="stylesheet" href="lettertype/outfit.css">
-<link rel="stylesheet" href="basis.css?v=08b720d9">
+<link rel="stylesheet" href="basis.css?v=01d4ea8e">
 <style>
 :root{
   color-scheme:light;
   --gradient:linear-gradient(160deg,#008C34 0%,#22C55E 55%,#86EFAC 100%);
   --groen-50:#F0FDF4;--groen-100:#DCFCE7;--groen-200:#BBF7D0;--groen-300:#86EFAC;--groen-500:#22C55E;--groen:#008934;--groen-800:#007B2E;--groen-900:#005A22;
   --marine:#0B1F4E;--marine-d:#061238;--marine-100:#E8ECF5;--marine-200:#C5CEE3;
-  --inkt:#111827;--inkt-2:#4A5878;--inkt-3:#6B7480;--lijn:#E3E6EE;--vlak:#F6F8FA;
+  --inkt:#111827;--inkt-2:#4A5878;--inkt-3:#616A76;--lijn:#E3E6EE;--vlak:#F6F8FA;
   --amber:#B45309;--amber-soft:#FEF3C7;--rood:#B91C1C;
   --rc:20px;--ri:12px;
 }
@@ -851,7 +851,7 @@ function telefoon(){
     ? `<text x="112" y="${hoog}" text-anchor="middle" font-family="Outfit" font-weight="800"
          font-size="17" fill="${kant==='voor'?'#0B1F4E':'#E7ECF5'}" pointer-events="none" ${halo}>${esc(S.model.n)}</text>
        <text x="112" y="${hoog+20}" text-anchor="middle" font-family="Outfit" font-size="11"
-         fill="${kant==='voor'?'#6B7480':'#A7B4CE'}" pointer-events="none" ${halo}>${
+         fill="${kant==='voor'?'#616A76':'#A7B4CE'}" pointer-events="none" ${halo}>${
          S.kleur?esc(S.kleur[0])+' &middot; ':''}${esc(codeLabel(S.model))}</text>`
     : `<text x="112" y="230" text-anchor="middle" font-family="Outfit" font-weight="600"
          font-size="14" fill="#C5CEE3" pointer-events="none">jouw toestel</text>`;
