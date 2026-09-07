@@ -128,3 +128,20 @@ footer .jur a:hover{color:var(--groen)}
    zonder de regelafstand te verpesten, en de richtlijn zondert ze ook uit. */
 :where(.link,.terug,.mail,.inhoud a,.uitloggen,.later,.score .bron a,.meta a,footer a){
   display:inline-flex;align-items:center;min-height:24px}
+
+/* ---------- de overslaanlink ----------
+
+   Elke pagina begint met zes navigatielinks. Wie met het toetsenbord werkt,
+   moest daar op ELKE pagina doorheen voor hij bij de inhoud was. Deze link
+   staat er nu als eerste en springt eroverheen.
+
+   Hij is onzichtbaar tot je hem met de tab-toets bereikt. Niet met display:none
+   of visibility:hidden, want dan haalt hij ook geen focus meer; hij staat buiten
+   beeld en komt tevoorschijn zodra hij aan de beurt is. */
+.naar-inhoud{
+  position:absolute;left:-9999px;top:0;z-index:100;
+  background:var(--marine);color:#fff;font-weight:600;font-size:15px;
+  padding:12px 20px;border-radius:0 0 14px 0;text-decoration:none;
+}
+.naar-inhoud:focus{left:0}
+main:focus{outline:none}

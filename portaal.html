@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <link rel="stylesheet" href="lettertype/outfit.css">
-<link rel="stylesheet" href="basis.css?v=01d4ea8e">
+<link rel="stylesheet" href="basis.css?v=efb36082">
 <style>
 :root{--groen-50:#F0FDF4;--groen-100:#DCFCE7;--groen-200:#BBF7D0;--groen-300:#86EFAC;--groen-500:#22C55E;--groen:#008934;--groen-800:#007B2E;--groen-900:#005A22;--marine:#0B1F4E;--marine-d:#061238;--marine-100:#E8ECF5;--marine-200:#C5CEE3;--inkt:#111827;--inkt-2:#4A5878;--inkt-3:#616A76;--lijn:#E3E6EE;--vlak:#F6F8FA;--amber:#B45309;--amber-soft:#FEF3C7;--rood:#B91C1C;--rood-soft:#FEE2E2;color-scheme:light}
 
@@ -252,6 +252,7 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.02em;margin:0 0 3px}
 .codestatus.goed{color:var(--groen-800);font-weight:600}
 </style>
 
+<a class="naar-inhoud" href="#inhoud">Naar de inhoud</a>
 <div class="schets">Ontwerpschets van het winkelportaal. Alle cijfers en gegevens zijn voorbeelden. De vormgeving is een voorstel.</div>
 
 <div class="shell">
@@ -269,7 +270,7 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.02em;margin:0 0 3px}
     <div class="winkel"><div class="av">T</div><div><b>Telefoonhulp</b><span><a class="uitloggen" href="inloggen.html" style="color:var(--inkt-3);text-decoration:none">Uitloggen</a></span></div></div>
   </aside>
 
-  <main class="main">
+  <main class="main" id="inhoud">
     <!-- OVERZICHT -->
     <section class="paneel aan" data-p="overzicht">
       <div class="paginakop"><div><h1>Goedemorgen, Telefoonhulp</h1><p id="o-maand">Dit is je maand tot nu toe.</p></div><a class="btn btn-marine btn-klein" href="#" onclick="ga('profiel');return false">Profiel bijwerken</a></div>
@@ -314,12 +315,12 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.02em;margin:0 0 3px}
       <div class="paginakop"><div><h1>Profiel en prijzen</h1><p>Dit ziet de klant op je openbare profiel.</p></div><a class="btn btn-lijn btn-klein" id="alsklant" href="winkelprofiel.html">Bekijk als klant</a></div>
       <div class="kaart"><h2>Winkelgegevens</h2><p class="toel">Naam, adres en hoe een klant kan betalen.</p>
         <div class="tweekolom">
-          <div class="veld"><label for="p-naam">Winkelnaam</label><input id="p-naam" value="Telefoonhulp Leeuwarden"></div>
-          <div class="veld"><label for="p-telefoon">Telefoon</label><input id="p-telefoon" value="058 123 45 67"></div>
+          <div class="veld"><label for="p-naam">Winkelnaam</label><input id="p-naam" autocomplete="organization" value="Telefoonhulp Leeuwarden"></div>
+          <div class="veld"><label for="p-telefoon">Telefoon</label><input id="p-telefoon" autocomplete="tel" value="058 123 45 67"></div>
         </div>
         <div class="tweekolom">
-          <div class="veld"><label for="p-adres">Adres</label><input id="p-adres" value="Nieuwestad 112"></div>
-          <div class="veld"><label for="p-postcodeplaats">Postcode en plaats</label><input id="p-postcodeplaats" value="8911 KX Leeuwarden"></div>
+          <div class="veld"><label for="p-adres">Adres</label><input id="p-adres" autocomplete="street-address" value="Nieuwestad 112"></div>
+          <div class="veld"><label for="p-postcodeplaats">Postcode en plaats</label><input id="p-postcodeplaats" autocomplete="address-level2" value="8911 KX Leeuwarden"></div>
         </div>
         <div class="veld"><label for="p-omschrijving">Korte omschrijving (max 3 zinnen)</label><textarea id="p-omschrijving" rows="2">Wij repareren sinds 2014 aan de Nieuwestad en doen bijna alles terwijl je wacht.</textarea></div>
         <fieldset class="veld betaalveld" id="p-tijden">

@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <link rel="stylesheet" href="lettertype/outfit.css">
-<link rel="stylesheet" href="basis.css?v=01d4ea8e">
+<link rel="stylesheet" href="basis.css?v=efb36082">
 <style>
 :root{--groen-50:#F0FDF4;--groen-100:#DCFCE7;--groen-200:#BBF7D0;--groen-500:#22C55E;--groen:#008934;--groen-800:#007B2E;--marine:#0B1F4E;--marine-d:#061238;--marine-100:#E8ECF5;--marine-200:#C5CEE3;--inkt:#111827;--inkt-2:#4A5878;--inkt-3:#616A76;--lijn:#E3E6EE;--vlak:#F6F8FA;--amber:#B45309;--amber-soft:#FEF3C7;color-scheme:light}
 
@@ -51,9 +51,10 @@ h1{font-size:22px;font-weight:800;letter-spacing:-.02em;margin:0 0 6px}
 @media(max-width:760px){.jurvoet{padding:20px 16px 44px}}
 </style>
 
+<a class="naar-inhoud" href="#inhoud">Naar de inhoud</a>
 <div class="schets">Ontwerpschets van het inlogscherm voor winkels.</div>
 
-<div class="wrap">
+<main class="wrap" id="inhoud">
   <div class="merkkop">
     <a class="logo" href="index.html">snel<i>repareren</i>.nl</a>
     <div class="sub">Winkelportaal</div>
@@ -63,8 +64,8 @@ h1{font-size:22px;font-weight:800;letter-spacing:-.02em;margin:0 0 6px}
   <div class="kaart" id="inloggen">
     <h1>Inloggen</h1>
     <p class="sub2">Beheer je prijzen, bekijk je vertoningen en beantwoord beoordelingen.</p>
-    <div class="veld"><label for="v-e-mailadres">E-mailadres</label><input id="v-e-mailadres" type="email" placeholder="naam@uwwinkel.nl" value="jelle@telefoonhulp.nl"></div>
-    <div class="veld"><label for="v-wachtwoord">Wachtwoord</label><input id="v-wachtwoord" type="password" placeholder="Je wachtwoord" value="xxxxxxxxxxxx"></div>
+    <div class="veld"><label for="v-e-mailadres">E-mailadres</label><input id="v-e-mailadres" type="email" placeholder="naam@uwwinkel.nl" value="jelle@telefoonhulp.nl" autocomplete="email"></div>
+    <div class="veld"><label for="v-wachtwoord">Wachtwoord</label><input id="v-wachtwoord" type="password" placeholder="Je wachtwoord" value="xxxxxxxxxxxx" autocomplete="current-password"></div>
     <div class="rij">
       <label class="onthoud"><input type="checkbox" checked> Ingelogd blijven</label>
       <a class="link" href="#" onclick="ga('vergeten');return false">Wachtwoord vergeten?</a>
@@ -90,7 +91,7 @@ h1{font-size:22px;font-weight:800;letter-spacing:-.02em;margin:0 0 6px}
   <div class="kaart verborgen" id="vergeten">
     <h1>Wachtwoord vergeten</h1>
     <p class="sub2">Vul je e-mailadres in, dan sturen wij een link waarmee je een nieuw wachtwoord instelt.</p>
-    <div class="veld"><label for="v-e-mailadres-2">E-mailadres</label><input id="v-e-mailadres-2" type="email" placeholder="naam@uwwinkel.nl"><div class="hint">Wij sturen alleen een link als dit adres bij ons bekend is.</div></div>
+    <div class="veld"><label for="v-e-mailadres-2">E-mailadres</label><input id="v-e-mailadres-2" type="email" placeholder="naam@uwwinkel.nl" autocomplete="email"><div class="hint">Wij sturen alleen een link als dit adres bij ons bekend is.</div></div>
     <button class="btn btn-marine" id="stuurlink">Stuur mij een link</button>
     <p class="onder"><a href="#" onclick="ga('inloggen');return false">Terug naar inloggen</a></p>
   </div>
@@ -104,7 +105,7 @@ h1{font-size:22px;font-weight:800;letter-spacing:-.02em;margin:0 0 6px}
       <button class="btn btn-lijn" onclick="ga('inloggen')">Terug naar inloggen</button>
     </div>
   </div>
-</div>
+</main>
 
 
 <footer class="jurvoet">

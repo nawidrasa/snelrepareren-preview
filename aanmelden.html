@@ -6,7 +6,7 @@
 <meta name="description" content="Meld je reparatiewinkel gratis aan bij snelrepareren.nl. Geen commissie en geen wachtwoord bedenken: na onze controle krijg je een uitnodiging per mail.">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="stylesheet" href="lettertype/outfit.css">
-<link rel="stylesheet" href="basis.css?v=01d4ea8e">
+<link rel="stylesheet" href="basis.css?v=efb36082">
 <style>
 :root{--groen-50:#F0FDF4;--groen-100:#DCFCE7;--groen-200:#BBF7D0;--groen-300:#86EFAC;--groen-500:#22C55E;--groen:#008934;--groen-800:#007B2E;--marine:#0B1F4E;--marine-d:#061238;--marine-100:#E8ECF5;--marine-200:#C5CEE3;--inkt:#111827;--inkt-2:#4A5878;--inkt-3:#616A76;--lijn:#E3E6EE;--vlak:#F6F8FA;--amber:#B45309;--amber-soft:#FEF3C7;color-scheme:light}
 
@@ -75,11 +75,13 @@ legend{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:upperc
 @media(max-width:760px){.jurvoet{padding:20px 16px 44px}}
 </style>
 
+<a class="naar-inhoud" href="#inhoud">Naar de inhoud</a>
 <div class="schets">Ontwerpschets van het aanmeldformulier voor winkels.</div>
 <header class="top">
   <a class="logo" href="index.html">snel<i>repareren</i>.nl</a>
   <a class="terug" href="voor-winkels.html">&larr; Terug naar Voor winkels</a>
 </header>
+<main id="inhoud">
 
 <div class="wrap">
   <div>
@@ -90,23 +92,23 @@ legend{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:upperc
 
       <fieldset>
         <legend>Je winkel</legend>
-        <div class="veld"><label for="naam">Bedrijfsnaam</label><input id="naam" placeholder="Zoals hij bij de KvK staat"></div>
+        <div class="veld"><label for="naam">Bedrijfsnaam</label><input id="naam" autocomplete="organization" placeholder="Zoals hij bij de KvK staat"></div>
         <div class="tweekolom">
           <div class="veld"><label for="kvk">KvK-nummer</label><input id="kvk" placeholder="12345678" inputmode="numeric"><div class="hint">Wij controleren hiermee je inschrijving.</div></div>
-          <div class="veld"><label for="tel">Telefoonnummer winkel</label><input id="tel" placeholder="058 123 45 67"></div>
+          <div class="veld"><label for="tel">Telefoonnummer winkel</label><input id="tel" autocomplete="tel" placeholder="058 123 45 67"></div>
         </div>
-        <div class="veld"><label for="adres">Adres</label><input id="adres" placeholder="Straat en huisnummer"></div>
+        <div class="veld"><label for="adres">Adres</label><input id="adres" autocomplete="street-address" placeholder="Straat en huisnummer"></div>
         <div class="tweekolom">
-          <div class="veld"><label for="pc">Postcode</label><input id="pc" placeholder="8911 KX"></div>
-          <div class="veld"><label for="plaats">Plaats</label><input id="plaats" placeholder="Leeuwarden"></div>
+          <div class="veld"><label for="pc">Postcode</label><input id="pc" autocomplete="postal-code" placeholder="8911 KX"></div>
+          <div class="veld"><label for="plaats">Plaats</label><input id="plaats" autocomplete="address-level2" placeholder="Leeuwarden"></div>
         </div>
       </fieldset>
 
       <fieldset>
         <legend>Contactpersoon</legend>
         <div class="tweekolom">
-          <div class="veld"><label for="cnaam">Naam</label><input id="cnaam" placeholder="Voor- en achternaam"></div>
-          <div class="veld"><label for="mail">E-mailadres</label><input id="mail" type="email" placeholder="naam@uwwinkel.nl"><div class="hint">Hier sturen wij de uitnodiging naartoe.</div></div>
+          <div class="veld"><label for="cnaam">Naam</label><input id="cnaam" autocomplete="name" placeholder="Voor- en achternaam"></div>
+          <div class="veld"><label for="mail">E-mailadres</label><input id="mail" autocomplete="email" type="email" placeholder="naam@uwwinkel.nl"><div class="hint">Hier sturen wij de uitnodiging naartoe.</div></div>
         </div>
       </fieldset>
 
@@ -175,6 +177,7 @@ legend{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:upperc
 </div>
 
 
+</main>
 <footer class="jurvoet">
   <div class="jur"><a href="voorwaarden.html">Voorwaarden</a><a href="privacy.html">Privacy</a><a href="cookies.html">Cookies</a><a href="toegankelijkheid.html">Toegankelijkheid</a><a href="melden.html">Iets melden</a></div>
   Wat wij met je aanmelding doen staat in de <a href="privacy.html">privacyverklaring</a>. Onderdeel van snelrepareren.nl.

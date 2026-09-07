@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <link rel="stylesheet" href="lettertype/outfit.css">
-<link rel="stylesheet" href="basis.css?v=01d4ea8e">
+<link rel="stylesheet" href="basis.css?v=efb36082">
 <style>
 :root{--groen-50:#F0FDF4;--groen-100:#DCFCE7;--groen-200:#BBF7D0;--groen-500:#22C55E;--groen:#008934;--groen-800:#007B2E;--marine:#0B1F4E;--marine-d:#061238;--marine-100:#E8ECF5;--marine-200:#C5CEE3;--inkt:#111827;--inkt-2:#4A5878;--inkt-3:#616A76;--lijn:#E3E6EE;--vlak:#F6F8FA;--amber:#B45309;--amber-soft:#FEF3C7;--rood:#B91C1C;--rood-soft:#FEE2E2;color-scheme:light}
 
@@ -64,8 +64,10 @@ h1{font-size:27px;font-weight:800;letter-spacing:-.02em;margin:0 0 10px;text-wra
 @media(max-width:760px){.jurvoet{padding:20px 16px 44px}}
 </style>
 
+<a class="naar-inhoud" href="#inhoud">Naar de inhoud</a>
 <div class="schets">Ontwerpschets. Deze pagina hoort bij een winkel die wij vooraf hebben vermeld uit openbare bronnen.</div>
 <header class="top"><a class="logo" href="index.html">snel<i>repareren</i>.nl</a></header>
+<main id="inhoud">
 
 <div class="wrap">
   <!-- KEUZE -->
@@ -103,8 +105,8 @@ h1{font-size:27px;font-weight:800;letter-spacing:-.02em;margin:0 0 10px;text-wra
   <div class="kaart verborgen" id="aanvullen">
     <h1>Vul je vermelding aan</h1>
     <p class="sub">Wij hebben je naam en adres al. Vul aan wie je bent, dan sturen wij een uitnodiging waarmee je prijzen en openingstijden invult.</p>
-    <div class="veld"><label for="v-je-naam">Je naam</label><input id="v-je-naam" placeholder="Voor- en achternaam"></div>
-    <div class="veld"><label for="v-e-mailadres">E-mailadres</label><input id="v-e-mailadres" type="email" placeholder="naam@uwwinkel.nl"><div class="hint">Wij controleren of dit adres bij de inschrijving hoort voordat wij iets vrijgeven.</div></div>
+    <div class="veld"><label for="v-je-naam">Je naam</label><input id="v-je-naam" autocomplete="name" placeholder="Voor- en achternaam"></div>
+    <div class="veld"><label for="v-e-mailadres">E-mailadres</label><input id="v-e-mailadres" type="email" placeholder="naam@uwwinkel.nl" autocomplete="email"><div class="hint">Wij controleren of dit adres bij de inschrijving hoort voordat wij iets vrijgeven.</div></div>
     <div class="veld"><label for="v-kvk-nummer">KvK-nummer</label><input id="v-kvk-nummer" placeholder="12345678" inputmode="numeric"></div>
     <div class="knoppen">
       <button class="btn btn-lijn" onclick="ga('keuze')">Terug</button>
@@ -125,7 +127,7 @@ h1{font-size:27px;font-weight:800;letter-spacing:-.02em;margin:0 0 10px;text-wra
   <div class="kaart verborgen" id="verwijderen">
     <h1>Vermelding verwijderen</h1>
     <p class="sub">Wij halen <b>GSM Hoek Leeuwarden</b> van de site. Je hoeft geen reden op te geven en er komt geen account aan te pas.</p>
-    <div class="veld"><label for="v-je-e-mailadres">Je e-mailadres</label><input id="v-je-e-mailadres" type="email" placeholder="naam@uwwinkel.nl"><div class="hint">Alleen om de bevestiging naartoe te sturen. Wij verwijderen het daarna.</div></div>
+    <div class="veld"><label for="v-je-e-mailadres">Je e-mailadres</label><input id="v-je-e-mailadres" type="email" placeholder="naam@uwwinkel.nl" autocomplete="email"><div class="hint">Alleen om de bevestiging naartoe te sturen. Wij verwijderen het daarna.</div></div>
     <div class="knoppen">
       <button class="btn btn-lijn" onclick="ga('keuze')">Terug</button>
       <button class="btn btn-rood" onclick="ga('verwijderdok')">Verwijder de vermelding</button>
@@ -143,6 +145,7 @@ h1{font-size:27px;font-weight:800;letter-spacing:-.02em;margin:0 0 10px;text-wra
 </div>
 
 
+</main>
 <footer class="jurvoet">
   <div class="jur"><a href="voorwaarden.html">Voorwaarden</a><a href="privacy.html">Privacy</a><a href="cookies.html">Cookies</a><a href="toegankelijkheid.html">Toegankelijkheid</a><a href="melden.html">Iets melden</a></div>
   Waarom je winkel hier al stond en hoe je hem laat verwijderen, staat in de <a href="privacy.html">privacyverklaring</a>.

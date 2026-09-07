@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <link rel="stylesheet" href="lettertype/outfit.css">
-<link rel="stylesheet" href="basis.css?v=01d4ea8e">
+<link rel="stylesheet" href="basis.css?v=efb36082">
 <style>
 :root{--groen-50:#F0FDF4;--groen-100:#DCFCE7;--groen-200:#BBF7D0;--groen-300:#86EFAC;--groen-500:#22C55E;--groen:#008934;--groen-800:#007B2E;--marine:#0B1F4E;--marine-100:#E8ECF5;--marine-200:#C5CEE3;--inkt:#111827;--inkt-2:#4A5878;--inkt-3:#616A76;--lijn:#E3E6EE;--vlak:#F6F8FA;--amber:#B45309;--amber-soft:#FEF3C7;color-scheme:light}
 
@@ -68,8 +68,10 @@ textarea:focus,input:focus{outline:none;border-color:var(--groen);box-shadow:0 0
 @media(max-width:760px){.jurvoet{padding:20px 16px 44px}}
 </style>
 
+<a class="naar-inhoud" href="#inhoud">Naar de inhoud</a>
 <div class="schets">Ontwerpschets. Deze pagina bereik je via de e-mail die wij twee dagen na je bezoek sturen.</div>
 <header class="top"><a class="logo" href="index.html">snel<i>repareren</i>.nl</a></header>
+<main id="inhoud">
 
 <div class="wrap">
   <!-- FORMULIER -->
@@ -101,8 +103,8 @@ textarea:focus,input:focus{outline:none;border-color:var(--groen);box-shadow:0 0
     <div class="blok">
       <label>Hoe mogen we je noemen?<span class="hint">Wij tonen alleen je voornaam, de eerste letter van je achternaam en je woonplaats.</span></label>
       <div class="tweekolom">
-        <input type="text" id="naam" aria-label="Je voornaam en de eerste letter van je achternaam" placeholder="Voornaam en letter, bijv. Marije D.">
-        <input type="text" id="plaats" aria-label="Je woonplaats" placeholder="Woonplaats" value="Leeuwarden">
+        <input type="text" id="naam" autocomplete="name" aria-label="Je voornaam en de eerste letter van je achternaam" placeholder="Voornaam en letter, bijv. Marije D.">
+        <input type="text" id="plaats" autocomplete="address-level2" aria-label="Je woonplaats" placeholder="Woonplaats" value="Leeuwarden">
       </div>
     </div>
 
@@ -139,6 +141,7 @@ textarea:focus,input:focus{outline:none;border-color:var(--groen);box-shadow:0 0
 </div>
 
 
+</main>
 <footer class="jurvoet">
   <div class="jur"><a href="voorwaarden.html">Voorwaarden</a><a href="privacy.html">Privacy</a><a href="cookies.html">Cookies</a><a href="toegankelijkheid.html">Toegankelijkheid</a><a href="melden.html">Iets melden</a></div>
   Wij vragen alleen je voornaam en je beoordeling. Wat wij daarmee doen staat in de <a href="privacy.html">privacyverklaring</a>.
