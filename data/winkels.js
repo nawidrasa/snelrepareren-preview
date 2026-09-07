@@ -82,10 +82,10 @@ const WINKELDATA = {
      echt bedrijf zijn die wij niet mogen doen, en een verzonnen afstand hoort al
      helemaal niet bij een echte winkel.
 
-     Alleen Leeuwarden. Dit is de enige plaatspagina in de preview en de lijst
-     wordt niet op plaats gefilterd, dus winkels uit andere plaatsen zouden hier
-     ten onrechte opduiken. De rest van de provincie staat in het
-     onderzoeksbestand en komt bij livegang uit de database.
+     Alleen Leeuwarden, want dat is de enige plaatspagina in de preview. De rest
+     van de provincie staat in het onderzoeksbestand en komt bij livegang uit de
+     database; die mag hier gewoon bij, want de plaatspagina filtert sinds
+     7 september met vermeldingenIn op plaats.
 
      Niet opgenomen: Mobile 4 All (Schrans 68). Dat is het echte adres van de
      verzonnen voorbeeldwinkel "Mobiel Service Schrans" hierboven; twee zaken op
@@ -229,8 +229,17 @@ function plaatsVanPostcode(tekst) {
 }
 
 /* Hulpjes die elke pagina gebruikt, zodat de regels overal hetzelfde zijn. */
-const winkelsIn = plaats =>
-  WINKELS.filter(w => w.plaats.toLowerCase() === String(plaats).trim().toLowerCase());
+const zelfdePlaats = (w, plaats) =>
+  String(w.plaats || '').toLowerCase() === String(plaats).trim().toLowerCase();
+
+const winkelsIn = plaats => WINKELS.filter(w => zelfdePlaats(w, plaats));
+
+/* Vermeldingen horen net zo hard op plaats gefilterd als winkels. Dit stond er
+   niet, en het werkte alleen zolang er toevallig alleen Leeuwarder vermeldingen
+   in de data zaten. Bij de winkels ging het al een keer mis op precies dat
+   punt: de merkpagina nam de hele lijst en zette daardoor Harlinger winkels in
+   Leeuwarden. Een lijst die bij een plaats hoort, filtert op die plaats. */
+const vermeldingenIn = plaats => VERMELDINGEN.filter(v => zelfdePlaats(v, plaats));
 
 /* De volgorde die wij op 'Hoe wij rangschikken' beloven: eerst de poliscontrole, dan
    een controleerbare erkenning, dan of de prijs recent is bevestigd, dan het

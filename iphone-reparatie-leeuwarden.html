@@ -193,7 +193,7 @@ footer{border-top:1px solid var(--lijn);padding:28px 0 60px;color:var(--inkt-3);
 <script src="data/kiezer.js?v=3f3d641f"></script>
 <script src="data/postcodes.js?v=303b3761"></script>
 <script src="data/winkelpunten.js?v=2a05827c"></script>
-<script src="data/winkels.js?v=32324f92"></script>
+<script src="data/winkels.js?v=dd1299de"></script>
 <script>
 const eur=n=>'&euro;&nbsp;'+String(n).replace('.',',');
 const VINK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>';
@@ -238,7 +238,15 @@ const MERK=[
    ooit heeft ingetypt. Toen ik het eerst uit WINKELS zelf afleidde, vergeleek ik
    een lijst met zichzelf en kon het blok nooit verschijnen. */
 const DOET_DIT_MERK = w => MODELLEN.some(([model]) => aanbod(w, model, 'scherm'));
-const ALLE_IN_PLAATS = WINKELS.slice();
+/* Op plaats filteren en niet WINKELS in zijn geheel nemen. Zolang er alleen
+   Leeuwarder proefwinkels in de data stonden gaf dat hetzelfde resultaat, en
+   zodra er echte winkels uit Harlingen en Dokkum bij kwamen zette deze pagina
+   die in Leeuwarden. Het blok hieronder meldde dan "twee winkels staan hier
+   niet bij: Daily Phones, Daily Phones" met een verwijzing naar de Leeuwarder
+   plaatspagina waar ze niet op staan: drie onwaarheden uit een ontbrekend
+   filter. */
+const PLAATS = 'Leeuwarden';
+const ALLE_IN_PLAATS = winkelsIn(PLAATS);
 const WINKELS_MET_MERK = ALLE_IN_PLAATS.filter(DOET_DIT_MERK);
 
 document.getElementById('merkblokken').innerHTML=MERK.map(m=>`

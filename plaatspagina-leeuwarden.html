@@ -351,7 +351,7 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
 <script src="data/kiezer.js?v=3f3d641f"></script>
 <script src="data/postcodes.js?v=303b3761"></script>
 <script src="data/winkelpunten.js?v=2a05827c"></script>
-<script src="data/winkels.js?v=32324f92"></script>
+<script src="data/winkels.js?v=dd1299de"></script>
 <script>
 /* De bandbreedtes komen uit data/kiezer.js, dat uit het prijsonderzoek wordt
    gegenereerd. Ze stonden hier met de hand overgetypt en weken op vijf van de
@@ -361,6 +361,14 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
 /* Deze pagina gaat over een plaats; de naam staat op een plek en niet in
    twintig zinnen. Zodra plaatspagina's worden gegenereerd, komt hij daaruit. */
 const PLAATS='Leeuwarden';
+/* De winkels IN deze plaats. Elke telling, elke balk en elke zin op deze
+   pagina hoort hierover te gaan en niet over alle winkels in de provincie.
+   Dat stond alleen in zichtbaar() goed; de elf tellers eromheen namen nog
+   WINKELS in zijn geheel. Zichtbaar gevolg: er stond "8 winkels in
+   Leeuwarden repareren telefoons" terwijl twee daarvan in Harlingen en
+   Dokkum staan. Uitzondering: WINKELS.indexOf hieronder, want belWinkel(i)
+   in winkels.js zoekt op in de globale lijst. */
+const WINKELS_HIER=winkelsIn(PLAATS);
 const MODELLEN_HIER=['iPhone 13','iPhone 14','iPhone 15'];
 const REPS={scherm:'Scherm vervangen',accu:'Accu vervangen',laadpoort:'Laadpoort vervangen'};
 /* Wat wij voor dit model echt hebben gemeten. Zonder metingen geen keuze. */
@@ -386,7 +394,7 @@ const FILTERS=[
      middagsluiting, dus een uitspraak over dit moment zou een paar keer per jaar
      onwaar zijn. Het filter staat er alleen als minstens een winkel zijn rooster
      heeft doorgegeven. */
-].concat(WINKELS.some(heeftRooster)?[['open','Vandaag open',w=>vandaagOpen(w)]]:[]);
+].concat(WINKELS_HIER.some(heeftRooster)?[['open','Vandaag open',w=>vandaagOpen(w)]]:[]);
 const S={postcode:'',postcodeFout:null,dichtbij:false,model:'iPhone 13',rep:'scherm',kw:'alle',filters:{},uitgVerbergen:false};
 const eur=n=>'&euro; '+n;
 const CHECK='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>';
@@ -409,7 +417,7 @@ const prijs=w=>{const a=aanbodVan(w);return a?a.b:null};
    stond. Zodra er echte winkels bij komen (Daily Phones in Harlingen en Dokkum)
    zou dat een winkel uit een andere plaats op deze pagina zetten. */
 const zichtbaar=()=>{
-  const ws=winkelsIn(PLAATS)
+  const ws=WINKELS_HIER
     .filter(w=>FILTERS.every(([id,,f])=>!S.filters[id]||f(w)))
     .filter(w=>S.kw==='alle'||!!aanbod(w,S.model,S.rep,S.kw));
   /* Standaard de volgorde die op 'Hoe wij rangschikken' staat. Kiest de bezoeker
@@ -467,7 +475,7 @@ function filters(){
    `<button class="fchip${S.uitgVerbergen?' aan':''}" onclick="S.uitgVerbergen=!S.uitgVerbergen;teken()">Uitgelicht verbergen</button>`
    +pcVeld+sorteer+
    (S.postcodeFout?`<p class="pcfout" role="alert">${esc(S.postcodeFout)}</p>`:'')+
-   `<span class="telling num">${n} van de ${WINKELS.length} winkels</span>`;
+   `<span class="telling num">${n} van de ${WINKELS_HIER.length} winkels</span>`;
 }
 
 /* De kaart toont alleen wat wij van deze winkel weten.
@@ -528,18 +536,19 @@ function lijst(){
   const buurten=[...new Set(rest.map(w=>w.buurt))];
   let h='';
   if(uit.length)h+=uit.map(w=>winkelkaart(w,true)).join('');
-  if(!ws.length)h+=WINKELS.length
+  if(!ws.length)h+=WINKELS_HIER.length
     ? `<div class="verm" style="text-align:center"><p style="margin:0">Geen winkel voldoet aan al je filters. Zet er een uit om meer te zien.</p></div>`
     : `<div class="verm leegblok"><h3>Nog geen winkel aangesloten in Leeuwarden</h3>
         <p>Wij zijn net begonnen. Zodra de eerste winkels meedoen, staan hier hun prijzen, doorlooptijd en garantie naast elkaar. Wat een reparatie landelijk kost, zie je hiernaast en op <a href="prijsindex.html">de prijsindex</a>.</p>
         <p>Heb je een reparatiewinkel in Leeuwarden? <a href="voor-winkels.html">Meld je winkel aan</a>. De eerste winkels staan er gratis op.</p></div>`;
   buurten.forEach(b=>{const inB=rest.filter(w=>w.buurt===b);
     h+=`<div class="groep"><h2>${esc(b)}</h2><span>${inB.length} ${inB.length===1?'winkel':'winkels'}</span></div>`+inB.map(w=>winkelkaart(w,false)).join('')});
-  if(VERMELDINGEN.length)h+=`<div class="groep"><h2>Nog niet aangesloten</h2><span>${VERMELDINGEN.length} ${VERMELDINGEN.length===1?'vermelding':'vermeldingen'}</span></div>`+VERMELDINGEN.map(vermelding).join('');
+  const HIER=vermeldingenIn(PLAATS);
+  if(HIER.length)h+=`<div class="groep"><h2>Nog niet aangesloten</h2><span>${HIER.length} ${HIER.length===1?'vermelding':'vermeldingen'}</span></div>`+HIER.map(vermelding).join('');
   document.getElementById('lijst').innerHTML=h;
 }
 function zijkolom(){
-  const ws=zichtbaar().length?zichtbaar():WINKELS,ps=ws.map(prijs).filter(x=>x!=null).sort((a,b)=>a-b);
+  const ws=zichtbaar().length?zichtbaar():WINKELS_HIER,ps=ws.map(prijs).filter(x=>x!=null).sort((a,b)=>a-b);
   const [lo,,hi]=band();
   /* Zonder aangesloten winkels valt er niets van winkels te tonen. Dan laten wij
      alleen zien wat wij zelf landelijk hebben gemeten, en zeggen wij dat erbij. */
@@ -556,18 +565,18 @@ function zijkolom(){
 function kop(){
   /* De onderkop telt zelf. Hij stond met "6 winkels" in de tekst en klopte dus
      alleen bij de zes verzonnen voorbeelden. */
-  const n=WINKELS.length,kan=WINKELS.filter(w=>kanVandaag(w,aanbodVan(w))).length;
+  const n=WINKELS_HIER.length,kan=WINKELS_HIER.filter(w=>kanVandaag(w,aanbodVan(w))).length;
   document.getElementById('onderkop').innerHTML=n
     ? `<b>${n} ${n===1?'winkel':'winkels'}</b> in Leeuwarden ${n===1?'repareert':'repareren'} telefoons${kan?`, ${kan} ${kan===1?'daarvan kan':'daarvan kunnen'} dit vandaag nog`:''}. Vergelijk op prijs, doorlooptijd en garantie. Je regelt de reparatie rechtstreeks met de winkel.`
     : `Er is in Leeuwarden nog <b>geen winkel aangesloten</b>. Wat een reparatie landelijk kost, staat er wel: dat komt uit ons eigen prijsonderzoek.`;
   const [lo,md,hi]=band();
   /* Deze vraag telde ook mee: er stond "Twee winkels in Leeuwarden doen een
      schermreparatie terwijl je wacht". Dat waren de verzonnen voorbeelden. */
-  const wacht=WINKELS.filter(w=>{const a=aanbodVan(w);return a&&a.m<=45}).length;
+  const wacht=WINKELS_HIER.filter(w=>{const a=aanbodVan(w);return a&&a.m<=45}).length;
   document.getElementById('faq2').innerHTML=wacht
     ? `${wacht===1?'Eén winkel':`${wacht} winkels`} in Leeuwarden ${wacht===1?'doet':'doen'} deze reparatie terwijl je wacht. Filter op "vandaag klaar" om te zien welke dat vandaag kunnen. Een accu duurt vaak korter, waterschade altijd langer omdat het toestel eerst open moet.`
     : `Voor deze reparatie heeft nog geen winkel in Leeuwarden opgegeven dat het terwijl je wacht kan. Een accu duurt meestal een half uur, een scherm iets langer, en waterschade altijd langer omdat het toestel eerst open moet.`;
-  document.getElementById('faq1').innerHTML=`Voor een ${S.model} vonden wij landelijk prijzen van ${eur(lo)} tot ${eur(hi)}, met ${eur(md)} als middelste prijs. Het verschil zit vrijwel helemaal in het onderdeel: een kopiescherm zit aan de onderkant, een origineel scherm aan de bovenkant.${WINKELS.length?' De prijzen van de winkels hierboven vergelijk je met die band.':''}`;
+  document.getElementById('faq1').innerHTML=`Voor een ${S.model} vonden wij landelijk prijzen van ${eur(lo)} tot ${eur(hi)}, met ${eur(md)} als middelste prijs. Het verschil zit vrijwel helemaal in het onderdeel: een kopiescherm zit aan de onderkant, een origineel scherm aan de bovenkant.${WINKELS_HIER.length?' De prijzen van de winkels hierboven vergelijk je met die band.':''}`;
 }
 function mob(){
   const aantal=Object.values(S.filters).filter(Boolean).length+(S.uitgVerbergen?1:0);
@@ -576,7 +585,7 @@ function mob(){
       <button class="btn btn-lijn btn-klein" onclick="document.getElementById('opties').showModal()">Wijzig</button></div>
     <div class="mobfilters">
       <button class="btn btn-lijn btn-klein" onclick="document.getElementById('filterdlg').showModal()">Filters${aantal?` <span class="tel num">${aantal}</span>`:''}</button>
-      <span class="btn btn-stil btn-klein num" style="cursor:default">${zichtbaar().length} van de ${WINKELS.length} winkels</span>
+      <span class="btn btn-stil btn-klein num" style="cursor:default">${zichtbaar().length} van de ${WINKELS_HIER.length} winkels</span>
     </div>`;
   const kaart=(groep,opties,huidig,fn)=>`<p class="kl">${groep}</p>`+Object.entries(opties).map(([k,v])=>
     `<button class="kk${k===huidig?' aan':''}" onclick="${fn}('${k}')"><span class="rond">${CHECK}</span>${v}</button>`).join('');
@@ -602,7 +611,7 @@ function mob(){
  * gegevens; iemand die hier zoekt, heeft meer aan een naam en een nummer dan aan
  * een lege pagina. En de pagina gaat op noindex, zoals de ontwerppagina zegt. */
 function onderDrempel(){
-  const n=WINKELS.length;
+  const n=WINKELS_HIER.length;
   document.getElementById('onderkop').innerHTML=n
     ? `<b>In ${PLAATS} zijn nog geen ${DREMPEL_WINKELS} winkels aangesloten</b>, dus valt er hier nog
        niets eerlijk te vergelijken. ${n===1?'De winkel die wij wel kennen, staat':'De winkels die wij wel kennen, staan'}
@@ -635,7 +644,7 @@ function onderDrempel(){
   </div>`};
 
   document.getElementById('lijst').innerHTML=
-    (n?WINKELS.map(kaart).join(''):'')+
+    (n?WINKELS_HIER.map(kaart).join(''):'')+
     `<div class="verm leegblok"><h3>Wij zetten een plaats pas open als er echt iets te vergelijken valt</h3>
       <p>Met minder dan ${DREMPEL_WINKELS} aangesloten winkels zou een vergelijking hier meer suggereren dan wij
       weten. Wat een reparatie landelijk kost, zie je hiernaast en op <a href="prijsindex.html">de prijsindex</a>.</p>
