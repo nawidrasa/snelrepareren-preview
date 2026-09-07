@@ -1154,6 +1154,26 @@ function stap3(){
    * wat deze site een ander verwijt. Een echte winkel heeft echte prijzen, en
    * doet hij een van de gekozen reparaties niet, dan is het antwoord dat wij het
    * niet weten en niet een bedrag dat wij eromheen rekenen. */
+  /* DE DICHTSTBIJZIJNDE WINKELS BUITEN JE EIGEN PLAATS.
+   *
+   * Zonder dit liep iemand uit een plaats zonder winkel tegen een dood eind:
+   * "wij hebben hier nog niets" en verder niets. Wij weten sinds vandaag wel
+   * waar hij is en waar de winkels staan, dus kunnen wij hem gewoon vertellen
+   * welke het dichtst bij is. Alleen als hij een postcode heeft ingevuld; zonder
+   * punt op de kaart weten wij het niet en verzinnen wij niets.
+   *
+   * Drie, niet alles: dit is een uitwijk, geen tweede vergelijking. */
+  const dichtstbijElders=()=>{
+    if(!BEZOEKERPUNT)return [];
+    const hier=S.plaats.trim().toLowerCase();
+    return WINKELS
+      .filter(w=>String(w.plaats).toLowerCase()!==hier)
+      .map(w=>({w,km:afstandTot(w)}))
+      .filter(x=>x.km!=null)
+      .sort((a,b)=>a.km-b.km)
+      .slice(0,3)
+      .map(x=>x.w);
+  };
   const somVan=w=>{let t=0;for(const k of g){const a=aanbod(w,S.model.n,k);if(!a)return null;t+=a.b}return t};
   /* WELK ONDERDEEL DEZE WINKEL GEBRUIKT, BIJ DE PRIJS.
    *
@@ -1256,6 +1276,10 @@ function stap3(){
     ? uit.map(kaart).join('')+rest.map(kaart).join('')
     : (geenInPlaats
       ? `<div class="leeg">Wij zijn begonnen in Friesland en hebben nog geen winkel ${waar()}. Bekijk <a href="plaatsen.html">waar wij wel winkels hebben</a>, of kijk op <a href="plaats-onder-drempel.html">deze pagina</a> wat je kunt doen als jouw plaats er nog niet bij staat.</div>`
+        + (dichtstbijElders().length
+          ? `<div class="groep"><h2>Het dichtst bij jou, buiten ${esc(S.plaats)}</h2><span>hemelsbreed vanaf je postcode</span></div>`
+            + dichtstbijElders().map(kaart).join('')
+          : '')
       : '<div class="leeg">Zet een filter uit om meer winkels te zien.</div>')}</div>
   <p class="rangschik">De lijst is niet te koop. <button onclick="document.getElementById('rang').showModal()">Hoe wij rangschikken</button></p>`;
 }
