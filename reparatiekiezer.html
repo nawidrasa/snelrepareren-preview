@@ -935,7 +935,8 @@ function opsomming(){
   return `<div class="som">
     ${met.length?`<div class="binnen"><p class="kop">Jouw keuze</p>${met.map(rij).join('')}</div>`:''}
     <div class="totvlak"><div class="regel"><span>${met.length?kop:'Jouw keuze'}</span>${
-      met.length?`<b class="num">${eur(tot)}</b>`:'<b class="aanvraag">nog geen prijs</b>'}</div>${bij}</div>
+      met.length?`<b class="num">${eur(tot)}</b>`:'<b class="aanvraag">nog geen prijs</b>'}</div>${bij}${
+      met.length?'<span class="bij">De middelste prijs die wij per onderdeel maten. Geen offerte; wat een winkel vraagt zie je bij de winkel.</span>':''}</div>
     ${zonder.length?`<div class="rest">Nog geen prijs voor dit toestel:<ul>${zonder.map(rest).join('')}</ul></div>`:''}
   </div>`;
 }
@@ -1103,7 +1104,17 @@ function stap3(){
     const pos=(p!=null&&hi>lo)?knijp((p-lo)/(hi-lo)*100):50;
     const med=hi>lo?knijp((som()-lo)/(hi-lo)*100):50;
     const eerste=g.length?aanbod(w,S.model.n,g[0]):null;
-    const tijd=kanVandaag(w,eerste)?doorlooptijd(eerste):(eerste?doorlooptijd(eerste):null);
+    /* Hier stond een voorwaarde die niets deed: allebei de takken gaven hetzelfde
+       terug. De toets op kanVandaag werd dus overgeslagen, en een winkel die
+       vandaag DICHT is kreeg toch de chip "Vandaag klaar". Op diezelfde kaart
+       stond dan ook "Vandaag gesloten". Wie de bovenste chip las, liep voor een
+       dichte deur.
+       Een belofte over VANDAAG mag alleen staan als de winkel vandaag ook echt
+       kan. Een doorlooptijd die niet over vandaag gaat ("morgen", "2 werkdagen")
+       blijft gewoon staan; die spreekt het gesloten-bordje niet tegen. */
+    const tijdruw=eerste?doorlooptijd(eerste):null;
+    const belooftVandaag=Boolean(eerste&&eerste.v);
+    const tijd=(belooftVandaag&&!kanVandaag(w,eerste))?null:tijdruw;
     const dicht=heeftRooster(w)&&!vandaagOpen(w);
     const regel=[esc(w.a),afstandVan(w)].filter(Boolean).join(' &middot; ');
     /* EERST HET ANTWOORD, DE REST OP AANVRAAG.
