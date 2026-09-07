@@ -152,7 +152,15 @@ const WINKELDATA = {
 const WINKELS = VOORBEELDEN
   ? WINKELDATA.echt.concat(WINKELDATA.voorbeelden.map(w => Object.assign({}, w, { verzonnen: true })))
   : WINKELDATA.echt;
-const VERMELDINGEN = VOORBEELDEN ? WINKELDATA.vermeldingen : WINKELDATA.echteVermeldingen;
+/* Elke vermelding draagt het merk `vermelding`, net zoals elk voorbeeld
+   `verzonnen` draagt. Daarmee kan verificatieMerk() uit de winkel zelf aflezen
+   of hij zich heeft aangemeld, in plaats van dat elke pagina een true of een
+   false meegeeft. Dat gaf vier plekken die letterlijk `verificatieMerk(true)`
+   schreven: het merkje dat geverifieerd van niet-geverifieerd scheidt hing aan
+   een hard ingetypte waarde, en zou dus "Geverifieerd" zeggen over elke winkel
+   die per ongeluk in de verkeerde lijst belandt. */
+const VERMELDINGEN = (VOORBEELDEN ? WINKELDATA.vermeldingen : WINKELDATA.echteVermeldingen)
+  .map(v => Object.assign({}, v, { vermelding: true }));
 
 /* Vanaf hoeveel aangesloten winkels een plaats echt opengaat (besluit T4).
    Onder die drempel is een plaatspagina geen vergelijking maar een lijstje, en
@@ -925,10 +933,16 @@ function verzonnenMerk(w) {
   return w && w.verzonnen ? '<span class="chip chip-verzonnen">Verzonnen voorbeeld</span>' : '';
 }
 
-function verificatieMerk(aangesloten) {
-  return aangesloten
-    ? '<span class="chip chip-ver">' + MERKVINK + 'Geverifieerd</span>'
-    : '<span class="chip chip-onver">Niet geverifieerd</span>';
+/* Neemt de WINKEL, niet een ja of nee. Vier pagina's schreven hier letterlijk
+   `verificatieMerk(true)`; dan is het merkje geen uitspraak over de winkel maar
+   over de plek in de code, en zegt het "Geverifieerd" over alles wat daar
+   toevallig terechtkomt. Een vermelding draagt `vermelding: true` en kan zo
+   nooit als geverifieerd op het scherm komen, ook niet als hij in een
+   winkellijst belandt. */
+function verificatieMerk(w) {
+  return w && w.vermelding
+    ? '<span class="chip chip-onver">Niet geverifieerd</span>'
+    : '<span class="chip chip-ver">' + MERKVINK + 'Geverifieerd</span>';
 }
 
 /* Het rooster als losse regels, voor een kolom. weekTekst geeft er een regel van

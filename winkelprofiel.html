@@ -404,7 +404,7 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
 
 <!--WINKELPROFIEL-->
 <script src="data/kiezer.js?v=3f3d641f"></script>
-<script src="data/winkels.js?v=b71c5d8c"></script>
+<script src="data/winkels.js?v=ad8cc7de"></script>
 <script>
 /* Deze pagina gaat over EEN winkel, en dat is precies waarom alles hier uit
    gegevens moet komen en niet uit de opmaak. Het was een ontwerppagina met de
@@ -488,7 +488,7 @@ function kop(){
   const snelste=REPS.map(([rep])=>bij(rep,null)||tredenHier().map(k=>bij(rep,k)).find(Boolean))
     .filter(Boolean).sort((a,b)=>a.m-b.m)[0];
   document.getElementById('wp-labels').innerHTML=[
-    verificatieMerk(true),
+    verificatieMerk(P),
     verzonnenMerk(P),
     P.keur?`<span class="chip chip-keur">${CHECK}Polis gecontroleerd ${esc(P.keurdatum)}</span>`:'',
     snelste&&snelste.m<=45?`<span class="chip chip-snel">${BLIKSEM}Klaar terwijl je wacht</span>`:'',

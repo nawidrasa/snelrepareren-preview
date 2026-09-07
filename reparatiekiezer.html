@@ -480,7 +480,7 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
 <script src="data/kiezer.js?v=3f3d641f"></script>
 <script src="data/postcodes.js?v=303b3761"></script>
 <script src="data/winkelpunten.js?v=2a05827c"></script>
-<script src="data/winkels.js?v=b71c5d8c"></script>
+<script src="data/winkels.js?v=ad8cc7de"></script>
 <script>
 /* ---------- gegevens ---------- */
 /* De toestellijst komt uit bouwvoorbereiding/data/catalogus.json, via data/kiezer.js.
@@ -1258,7 +1258,7 @@ function stap3(){
       <div class="kop"><b>${esc(w.n)}</b>${regel?`<span>${regel}</span>`:''}</div>
       <div class="cijfer">${w.g?`${sterrenBalk(w.g)}<b class="num">${esc(w.g)}</b><span><a href="${link(w.glink||'#')}" rel="nofollow noopener">${esc(w.gb||0)} beoordelingen op Google</a></span>`
         :'<span class="geencijfer">Nog geen cijfer op Google</span>'}</div>
-      <div class="chips">${verificatieMerk(true)}${verzonnenMerk(w)}${w.uit?`<span class="chip chip-uitg">Uitgelicht &middot; ${uitgelichtReden(w)}</span>`:''}${w.keur?`<span class="chip chip-keur">${CHECK}Polis gecontroleerd</span>`:''}${tijd?`<span class="chip chip-snel">${BOLT}${tijd}</span>`:''}${dicht?`<span class="chip">Vandaag gesloten</span>`:''}</div>
+      <div class="chips">${verificatieMerk(w)}${verzonnenMerk(w)}${w.uit?`<span class="chip chip-uitg">Uitgelicht &middot; ${uitgelichtReden(w)}</span>`:''}${w.keur?`<span class="chip chip-keur">${CHECK}Polis gecontroleerd</span>`:''}${tijd?`<span class="chip chip-snel">${BOLT}${tijd}</span>`:''}${dicht?`<span class="chip">Vandaag gesloten</span>`:''}</div>
       <div class="prijsvak"><div class="prijs num">${p!=null?eur(p):'op aanvraag'}<small>${g.map(k=>REP[k].n).join(' + ')}${onderdeelBij(w)}</small></div></div>
       <button class="meer" aria-expanded="${open?'true':'false'}" onclick="toonMeer('${esc(sleutel)}')">${open?'Minder':'Meer over deze winkel'}${MEERPIJL}</button>
       <div class="detail"${open?'':' hidden'}>

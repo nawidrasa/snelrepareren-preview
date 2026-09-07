@@ -351,7 +351,7 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
 <script src="data/kiezer.js?v=3f3d641f"></script>
 <script src="data/postcodes.js?v=303b3761"></script>
 <script src="data/winkelpunten.js?v=2a05827c"></script>
-<script src="data/winkels.js?v=b71c5d8c"></script>
+<script src="data/winkels.js?v=ad8cc7de"></script>
 <script>
 /* De bandbreedtes komen uit data/kiezer.js, dat uit het prijsonderzoek wordt
    gegenereerd. Ze stonden hier met de hand overgetypt en weken op vijf van de
@@ -513,7 +513,7 @@ function winkelkaart(w,uitgelicht){
     </div>
     ${[tijd,gar].filter(Boolean).length?`<p class="regel">${[tijd,gar].filter(Boolean).join(' &middot; ')}</p>`:''}
     <div class="labels">
-      ${verificatieMerk(true)}
+      ${verificatieMerk(w)}
       ${verzonnenMerk(w)}
       ${w.keur?`<span class="chip chip-keur">${CHECK}${keurlabel(w)}</span>`:''}
       ${kanVandaag(w,a)?`<span class="chip chip-snel">${BOLT}Vandaag klaar</span>`:''}
@@ -527,7 +527,7 @@ function winkelkaart(w,uitgelicht){
 }
 function vermelding(v){
   return `<div class="verm"><div class="rij"><div class="pui">${esc(v.i)}</div>
-    <div><div class="naam"><b>${esc(v.n)}</b> ${verificatieMerk(false)}</div><p class="adres">${[esc(v.a),afstandVan(v)].filter(Boolean).join(' &middot; ')}</p>
+    <div><div class="naam"><b>${esc(v.n)}</b> ${verificatieMerk(v)}</div><p class="adres">${[esc(v.a),afstandVan(v)].filter(Boolean).join(' &middot; ')}</p>
     <p>Deze winkel is nog niet aangesloten. Wij hebben geen prijzen, geen doorlooptijd en geen poliscontrole.</p>
     <p class="eig">Ben je de eigenaar? <a href="claim.html">Vul je gegevens aan</a> of <a href="claim.html">laat de vermelding verwijderen</a>.</p></div></div></div>`;
 }

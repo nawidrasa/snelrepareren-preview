@@ -193,7 +193,7 @@ footer{border-top:1px solid var(--lijn);padding:28px 0 60px;color:var(--inkt-3);
 <script src="data/kiezer.js?v=3f3d641f"></script>
 <script src="data/postcodes.js?v=303b3761"></script>
 <script src="data/winkelpunten.js?v=2a05827c"></script>
-<script src="data/winkels.js?v=b71c5d8c"></script>
+<script src="data/winkels.js?v=ad8cc7de"></script>
 <script>
 const eur=n=>'&euro;&nbsp;'+String(n).replace('.',',');
 const VINK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>';
@@ -306,7 +306,7 @@ const winkelrij=w=>{
   <span class="naam">${esc(w.n)}</span>
   <span class="regel">${regel}</span>
   <span class="merken">
-    ${verificatieMerk(true)}
+    ${verificatieMerk(w)}
     ${verzonnenMerk(w)}
     ${w.keur?'<span class="tag keur">'+VINK+keurlabel(w)+'</span>':''}
     ${erkenningsMerken(w)}
