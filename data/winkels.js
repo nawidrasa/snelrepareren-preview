@@ -322,7 +322,18 @@ const googleCijfer = w => (w.g ? esc(w.g) + ' op Google (' + esc(w.gb || 0) + ')
  * vestigingen niet, want daar vragen wij niet naar. Die regels blijven dan weg
  * in plaats van "undefined jaar in Leeuwarden" te tonen, en dat is precies de
  * fout die deze site al drie keer heeft gehad. */
+/* De tweede handelsnaam, als een winkel er een heeft.
+ *
+ * Dit stond wel in de gegevens en nergens op het scherm. Daily Phones in Dokkum
+ * staat daar op de gevel als "Smartphonestore Dokkum", en dat is ook de naam
+ * waarop iemand zoekt. Zonder deze regel vindt die persoon op onze site niets
+ * en herkent hij de winkel die hij kent niet terug. Het is bovendien een van de
+ * winkels waarvoor toestemming is gegeven, dus juist die naam hoort zichtbaar
+ * te zijn. */
+const tweedeNaam = w => (w.handelsnaam2 ? 'ook bekend als ' + esc(w.handelsnaam2) : null);
+
 const feitenVan = w => [
+  tweedeNaam(w),
   /* De erkenning stond hier ook in, en dan las de belangrijkste pagina van de
      site letterlijk "Apple IRP &middot; 7 jaar in Leeuwarden". Dat is een code
      uit onze database, geen zin voor een bezoeker. De erkenning is nu een merkje

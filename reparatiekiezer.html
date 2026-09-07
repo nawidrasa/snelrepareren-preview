@@ -480,7 +480,7 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
 <script src="data/kiezer.js?v=3f3d641f"></script>
 <script src="data/postcodes.js?v=303b3761"></script>
 <script src="data/winkelpunten.js?v=2a05827c"></script>
-<script src="data/winkels.js?v=ad8cc7de"></script>
+<script src="data/winkels.js?v=3974b748"></script>
 <script>
 /* ---------- gegevens ---------- */
 /* De toestellijst komt uit bouwvoorbereiding/data/catalogus.json, via data/kiezer.js.
@@ -1214,7 +1214,10 @@ function stap3(){
     const belooftVandaag=Boolean(eerste&&eerste.v);
     const tijd=(belooftVandaag&&!kanVandaag(w,eerste))?null:tijdruw;
     const dicht=heeftRooster(w)&&!vandaagOpen(w);
-    const regel=[esc(w.a),afstandVan(w)].filter(Boolean).join(' &middot; ');
+    /* tweedeNaam erbij: Daily Phones in Dokkum staat op de gevel als
+       "Smartphonestore Dokkum", en die naam stond wel in de gegevens en nergens
+       op het scherm. */
+    const regel=[esc(w.a),tweedeNaam(w),afstandVan(w)].filter(Boolean).join(' &middot; ');
     /* EERST HET ANTWOORD, DE REST OP AANVRAAG.
        Er stond alles tegelijk in een kaart: naam, adres, afstand, cijfer, aantal
        beoordelingen, erkenningen, jaren, vestigingen, drie labels met datum,
