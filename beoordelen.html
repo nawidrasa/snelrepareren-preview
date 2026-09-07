@@ -1,16 +1,20 @@
 <!doctype html>
 <html lang="nl">
 <meta charset="utf-8">
-<title>Beoordeling achterlaten</title>
+<title>Beoordeling achterlaten | snelrepareren.nl</title>
 <meta name="description" content="Laat weten hoe de reparatie ging. Beoordelen kan alleen als je via ons bij de winkel kwam, en wij geven je er niets voor terug, ook geen korting.">
 <!-- zoekmachinekop: afgeleid uit de pagina zelf, niet met de hand aanpassen -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="snelrepareren.nl">
 <meta property="og:locale" content="nl_NL">
 <meta property="og:url" content="https://snelrepareren.nl/beoordelen.html">
-<meta property="og:title" content="Beoordeling achterlaten">
+<meta property="og:title" content="Beoordeling achterlaten | snelrepareren.nl">
 <meta property="og:description" content="Laat weten hoe de reparatie ging. Beoordelen kan alleen als je via ons bij de winkel kwam, en wij geven je er niets voor terug, ook geen korting.">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://snelrepareren.nl/deelplaatje.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="snelrepareren.nl: zie eerst wat een reparatie hoort te kosten. 198 prijzen zelf gemeten bij 29 Nederlandse winkels.">
+<meta name="twitter:card" content="summary_large_image">
 <!-- /zoekmachinekop -->
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
@@ -92,8 +96,8 @@ textarea:focus,input:focus{outline:none;border-color:var(--groen);box-shadow:0 0
     <p class="sub">Twee dagen nadat je bij ons het nummer van een winkel opvroeg, sturen wij je
     een mail met een link. Alleen via die link weten wij welke reparatie je beoordeelt, en alleen
     zo kan een winkel geen beoordelingen over zichzelf plaatsen.</p>
-    <p class="sub">Heb je die mail niet gekregen, kijk dan ook in je ongewenste post. Kom je er
-    niet uit, dan kun je het ons <a href="melden.html">melden</a>.</p>
+    <p class="sub" id="geenlink-reden">Heb je die mail niet gekregen, kijk dan ook in je ongewenste
+    post. Kom je er niet uit, dan kun je het ons <a href="melden.html">melden</a>.</p>
   </div>
 
 
@@ -103,9 +107,11 @@ textarea:focus,input:focus{outline:none;border-color:var(--groen);box-shadow:0 0
     <h1>Hoe ging het bij deze winkel?</h1>
     <p class="sub">Je ervaring helpt de volgende persoon met een kapot toestel. Het kost een minuut.</p>
 
+    <!-- Deze regel wordt gevuld uit de link in de mail. Wat er nu staat is het
+         ontwerpvoorbeeld en is alleen te zien zonder server. -->
     <div class="winkelregel">
-      <div class="av">T</div>
-      <div><b>Telefoonhulp Leeuwarden</b><span>Scherm vervangen, iPhone 13 &middot; 4 september 2026</span></div>
+      <div class="av" id="w-letter">T</div>
+      <div><b id="w-naam">Telefoonhulp Leeuwarden</b><span id="w-regel">Scherm vervangen, iPhone 13 &middot; 4 september 2026</span></div>
     </div>
 
     <div class="blok">
@@ -208,16 +214,61 @@ snelFormulier.koppel({
     };
   },
   klaar(){
-    document.getElementById('bedanktregel').textContent=
-      `Je gaf Telefoonhulp Leeuwarden een ${S.cijfer}.`;
+    const regel=document.getElementById('bedanktregel');
+    /* De naam komt van de server als die er is; zonder server blijft de naam
+       staan die in het ontwerpvoorbeeld hierboven wordt getoond. */
+    const winkel=regel.dataset.winkel||document.getElementById('w-naam').textContent;
+    regel.textContent=`Je gaf ${winkel} een ${S.cijfer}.`;
   },
 });
 /* Meteen bij het laden kijken, niet pas bij het versturen. */
-(function(){
-  if(!snelFormulier.HEEFT_SERVER) return;          // de ontwerpschets blijft de schets
-  if(new URLSearchParams(location.search).get('bewijs')) return;
+/* WIE BEOORDEEL JE EIGENLIJK.
+ *
+ * De winkelnaam, de reparatie en de datum stonden hierboven met de hand in de
+ * pagina. Voor iedereen dezelfde, ook voor iemand met een geldige link naar een
+ * heel andere winkel. Nu komen ze van de server, uit de sleutel in de link.
+ *
+ * Zonder server blijft het ontwerpvoorbeeld staan; dat is de schets. Met server
+ * en zonder geldige link zie je alleen de uitleg dat beoordelen via de mail
+ * gaat, en niet een ingevuld formulier over een vreemde reparatie. */
+const MAANDEN=['januari','februari','maart','april','mei','juni','juli',
+  'augustus','september','oktober','november','december'];
+function leesbareDatum(iso){
+  const [j,m,d]=iso.split('-').map(Number);
+  return `${d} ${MAANDEN[m-1]} ${j}`;
+}
+function toonGeenLink(uitleg){
   document.getElementById('formulier').classList.add('verborgen');
-  document.getElementById('geenlink').classList.remove('verborgen');
+  const vak=document.getElementById('geenlink');
+  vak.classList.remove('verborgen');
+  if(uitleg) document.getElementById('geenlink-reden').textContent=uitleg;
+}
+(async function(){
+  if(!snelFormulier.HEEFT_SERVER) return;          // de ontwerpschets blijft de schets
+  const bewijs=new URLSearchParams(location.search).get('bewijs');
+  if(!bewijs) return toonGeenLink();
+  let uit, antwoord;
+  try{
+    antwoord=await fetch('/api/beoordelen/'+encodeURIComponent(bewijs));
+    uit=await antwoord.json();
+  }catch(e){
+    /* GEEN JSON TERUG. Dan is er geen backend die deze route kent: dit is de
+       preview, waar de site als losse bestanden staat. Dan blijft het
+       ontwerpvoorbeeld gewoon staan, zoals overal op de preview, en doen wij
+       niet alsof er iets mis is met de link van de bezoeker.
+       Antwoordt de server WEL met json, dan bestaat de route en gaat het echt
+       over deze link; dan zeggen wij wat er aan de hand is. */
+    return;
+  }
+  if(!antwoord.ok) return toonGeenLink(uit.fout);
+  if(uit.al_beoordeeld){
+    return toonGeenLink('Je hebt deze winkel al beoordeeld. Bedankt daarvoor; een tweede keer kan niet.');
+  }
+  document.getElementById('w-naam').textContent=uit.winkel;
+  document.getElementById('w-letter').textContent=uit.winkel.trim().charAt(0).toUpperCase();
+  const delen=[[uit.reparatie,uit.toestel].filter(Boolean).join(', '),leesbareDatum(uit.datum)];
+  document.getElementById('w-regel').textContent=delen.filter(Boolean).join(' \u00b7 ');
+  document.getElementById('bedanktregel').dataset.winkel=uit.winkel;
 })();
 cijfers();reps();
 </script>
