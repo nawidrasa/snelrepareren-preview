@@ -1,7 +1,10 @@
 /* De winkels op snelrepareren.nl.
 
-   ER IS NOG GEEN ENKELE ECHTE WINKEL AANGESLOTEN. De zes hieronder zijn verzonnen
-   voorbeelden, zodat het ontwerp te beoordelen is. Ze stonden tot 7 september los
+   ER ZIJN TWEE SOORTEN WINKELS IN DIT BESTAND. Sinds 7 september staat Daily
+   Phones er als echte, aangesloten winkel in (twee vestigingen, met toestemming).
+   De zes onder `voorbeelden` zijn verzonnen, zodat het ontwerp te beoordelen is;
+   die dragen op het scherm het merkje "Verzonnen voorbeeld" zodat een bezoeker
+   ze niet voor echt aanziet. Ze stonden tot 7 september los
    in vier pagina's, in twee verschillende versies: de kiezer had andere winkels
    dan de plaatspagina, dus wie doorklikte kwam bij een winkel die hij niet had
    gezien. Nu is er een lijst.
@@ -135,7 +138,17 @@ const WINKELDATA = {
    Verplaats deze streep niet en verwijder hem niet. controle.py kijkt of hij er
    staat, want zonder streep weet de generator niet waar de gegevens ophouden. */
 
-const WINKELS = VOORBEELDEN ? WINKELDATA.voorbeelden : WINKELDATA.echt;
+/* De echte winkels doen ALTIJD mee, ook in de preview.
+   Eerst stond hier alleen `voorbeelden` zodra VOORBEELDEN aanstond. Gevolg: wie
+   in de kiezer postcode 8861 invulde kwam in Harlingen en las "nog geen winkel",
+   terwijl Daily Phones daar aangesloten en geverifieerd is. Dat is precies het
+   omgekeerde van wat wij willen zeggen.
+   Het mag nu, omdat een bezoeker de twee soorten uit elkaar kan houden: elke
+   kaart draagt Geverifieerd of Niet geverifieerd, en de gele strook zegt welke
+   winkels verzonnen zijn. Zet VOORBEELDEN op false en alleen de echte blijven. */
+const WINKELS = VOORBEELDEN
+  ? WINKELDATA.echt.concat(WINKELDATA.voorbeelden.map(w => Object.assign({}, w, { verzonnen: true })))
+  : WINKELDATA.echt;
 const VERMELDINGEN = VOORBEELDEN ? WINKELDATA.vermeldingen : WINKELDATA.echteVermeldingen;
 
 /* Vanaf hoeveel aangesloten winkels een plaats echt opengaat (besluit T4).
@@ -175,6 +188,62 @@ const link = u => {
   if (/^(https?:|mailto:|tel:|\/|#)/i.test(w)) return esc(w);
   return '#';
 };
+
+/* ---------- postcode naar plaats ----------
+
+   WAAROM DIT ER MOET ZIJN. Het veld heette al "Plaats of postcode", maar wie een
+   postcode intypte kreeg nul winkels: de tekst werd letterlijk als plaatsnaam
+   gebruikt en "8911" is geen plaats. Het veld beloofde iets dat het niet deed.
+
+   WAT DIT WEL EN NIET IS. Dit vertaalt een postcode naar een PLAATS. Het is geen
+   afstand. Voor "welke winkel is het dichtstbij" heb je coordinaten nodig van de
+   postcode en van elke winkel, en die hebben wij niet. Een afstand verzinnen zou
+   iemand naar de verkeerde winkel sturen, dus doen wij dat niet.
+
+   BRON. De reeksen komen uit de Wikipedia-lijsten van postcodes 8000-8999 en
+   9000-9999, opgehaald 7 september 2026. Drie losse postcodes komen uit een
+   adres dat wij zelf hebben nagetrokken en staan daarom apart gemarkeerd.
+   Een postcode die hier niet in staat, kennen wij niet, en dat zeggen wij dan
+   ook. Nooit gokken: de verkeerde plaats is erger dan geen plaats. */
+const POSTCODEPLAATS = [
+  [8400, 8401, 'Gorredijk'],
+  [8431, 8431, 'Oosterwolde'],        // uit het adres van HM Telefoons (8431 EV)
+  [8440, 8448, 'Heerenveen'],
+  [8470, 8472, 'Wolvega'],
+  [8500, 8503, 'Joure'],
+  [8560, 8561, 'Balk'],
+  [8600, 8608, 'Sneek'],
+  [8700, 8702, 'Bolsward'],
+  [8710, 8711, 'Workum'],
+  [8800, 8802, 'Franeker'],
+  [8860, 8862, 'Harlingen'],
+  [8881, 8881, 'West-Terschelling'],  // uit het adres van Lichthuis (8881 AJ)
+  [8900, 8941, 'Leeuwarden'],
+  [9050, 9051, 'Stiens'],
+  [9076, 9076, 'Sint Annaparochie'],
+  [9100, 9103, 'Dokkum'],
+  [9104, 9104, 'Damwald'],
+  [9164, 9164, 'Buren'],              // uit het adres van De Haan Electronics (9164 KL)
+  [9200, 9207, 'Drachten'],
+  [9230, 9231, 'Surhuisterveen'],
+  [9250, 9251, 'Burgum'],
+  [9285, 9285, 'Buitenpost'],
+  [9290, 9291, 'Kollum'],
+];
+
+/* Ziet dit eruit als een postcode? Dan mag je er geen plaatsnaam van maken. */
+const lijktOpPostcode = t => /^\d{4}\s*[a-zA-Z]{0,2}$/.test(String(t == null ? '' : t).trim());
+
+/* De plaats bij een postcode, of null als wij hem niet kennen. */
+function plaatsVanPostcode(tekst) {
+  const m = String(tekst == null ? '' : tekst).trim().match(/^(\d{4})\s*[a-zA-Z]{0,2}$/);
+  if (!m) return null;
+  const pc = Number(m[1]);
+  for (let i = 0; i < POSTCODEPLAATS.length; i++) {
+    if (pc >= POSTCODEPLAATS[i][0] && pc <= POSTCODEPLAATS[i][1]) return POSTCODEPLAATS[i][2];
+  }
+  return null;
+}
 
 /* Hulpjes die elke pagina gebruikt, zodat de regels overal hetzelfde zijn. */
 const winkelsIn = plaats =>
@@ -738,12 +807,32 @@ function erkenningsMerken(w) {
    zich aangemeld en zijn gegevens bevestigd. Het zegt niets over zijn polis
    (daarvoor is het losse label "Polis gecontroleerd", mét datum) en niets over
    de kwaliteit van zijn werk. Die grens moet in de tekst blijven staan. */
-const VINKJE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" '
+/* MERKVINK en niet de naam die winkelprofiel.html al gebruikt: twee const met
+   dezelfde naam in hetzelfde bereik is een SyntaxError die het HELE script van
+   die pagina stillegt. Dat gebeurde ook echt, en je zag het alleen in de
+   console: de pagina bleef staan met een lege lijst merkjes. */
+const MERKVINK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" '
   + 'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>';
+
+/* VERZONNEN OF ECHT, en waarom dit los staat van geverifieerd.
+
+   Sinds de echte winkels meedoen staan er in dezelfde lijst verzonnen
+   voorbeelden en bestaande bedrijven. Allebei zijn ze "aangesloten", dus
+   allebei dragen ze het merkje Geverifieerd. Zonder dit tweede merkje kan een
+   bezoeker niet meer zien welke winkel verzonnen is, en dan is de gele strook
+   bovenaan de enige waarschuwing: die zegt "de winkels in stap 3 zijn verzonnen"
+   en dat is sinds vandaag niet meer waar voor allemaal.
+
+   Het gaat om twee verschillende vragen. Geverifieerd: heeft deze winkel zich
+   aangemeld? Verzonnen: bestaat deze winkel eigenlijk wel? Die tweede vraag
+   hoort bij de kaart zelf te staan zolang de site een ontwerpschets is. */
+function verzonnenMerk(w) {
+  return w && w.verzonnen ? '<span class="chip chip-verzonnen">Verzonnen voorbeeld</span>' : '';
+}
 
 function verificatieMerk(aangesloten) {
   return aangesloten
-    ? '<span class="chip chip-ver">' + VINKJE + 'Geverifieerd</span>'
+    ? '<span class="chip chip-ver">' + MERKVINK + 'Geverifieerd</span>'
     : '<span class="chip chip-onver">Niet geverifieerd</span>';
 }
 

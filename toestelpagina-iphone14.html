@@ -178,10 +178,16 @@ footer{border-top:1px solid var(--lijn);padding:28px 0 60px;color:var(--inkt-3);
   <div class="zoekband">
     <h2>Wat kost het bij jou in de buurt?</h2>
     <p>Deze bedragen gelden voor heel Nederland. Vul je plaats in om te zien welke winkels een iPhone 14 repareren, wat zij vragen en of het vandaag klaar kan.</p>
-    <div class="zoekrij">
-      <label class="zoekveld"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6-5.3-6-10a6 6 0 0 1 12 0c0 4.7-6 10-6 10z"/><circle cx="12" cy="11" r="2.5"/></svg><input placeholder="Plaats of postcode" aria-label="Plaats of postcode"></label>
-      <a class="btn btn-groen btn-groot" href="reparatiekiezer.html?toestel=iPhone%2014">Zoek winkels</a>
-    </div>
+    <!-- EEN ECHT FORMULIER, geen decor.
+         Dit veld heette "Plaats of postcode" en deed niets: er hing geen enkele
+         handeling aan. Nu gaat het naar de kiezer, die de postcode vertaalt naar
+         een plaats. Een formulier en geen javascript, want deze pagina's laden
+         de winkeldata niet en hoeven dat ook niet te doen. -->
+    <form class="zoekrij" action="reparatiekiezer.html" method="get">
+      <input type="hidden" name="toestel" value="iPhone 14">
+      <label class="zoekveld"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6-5.3-6-10a6 6 0 0 1 12 0c0 4.7-6 10-6 10z"/><circle cx="12" cy="11" r="2.5"/></svg><input name="plaats" autocomplete="postal-code" placeholder="Plaats of postcode" aria-label="Plaats of postcode"></label>
+      <button type="submit" class="btn btn-groen btn-groot">Zoek winkels</button>
+    </form>
     <div class="plaatsen"><a href="plaatspagina-leeuwarden.html">Leeuwarden</a><a href="plaats-onder-drempel.html">Drachten</a><a href="plaats-onder-drempel.html">Sneek</a><a href="plaats-onder-drempel.html">Heerenveen</a><a href="plaats-onder-drempel.html">Harlingen</a><a href="plaatsen.html">Alle plaatsen</a></div>
     <p class="klein">Wij beginnen in Friesland. Staat je plaats er nog niet bij, dan zie je op die pagina hoeveel winkels er zijn en wanneer wij opengaan.</p>
   </div>

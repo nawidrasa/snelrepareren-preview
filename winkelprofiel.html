@@ -61,6 +61,7 @@ h1{font-size:clamp(26px,3.4vw,34px);font-weight:800;letter-spacing:-.025em;margi
 .chip{display:inline-flex;align-items:center;gap:5px;padding:5px 11px;border-radius:999px;font-size:13px;font-weight:600}
 .chip-ver{background:var(--groen-100);color:var(--groen-800)}
 .chip-onver{background:var(--vlak);color:var(--inkt-3);border:1px solid var(--lijn)}
+.chip-verzonnen{background:var(--amber-soft);color:var(--amber)}
 .chip svg{width:13px;height:13px}
 .chip-keur{background:var(--groen-100);color:var(--groen-800)}
 .chip-snel{background:var(--amber-soft);color:var(--amber)}
@@ -403,7 +404,7 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
 
 <!--WINKELPROFIEL-->
 <script src="data/kiezer.js?v=3f3d641f"></script>
-<script src="data/winkels.js?v=ffe2a89f"></script>
+<script src="data/winkels.js?v=c4cbcc15"></script>
 <script>
 /* Deze pagina gaat over EEN winkel, en dat is precies waarom alles hier uit
    gegevens moet komen en niet uit de opmaak. Het was een ontwerppagina met de
@@ -436,7 +437,11 @@ function schetsAanbod(){
   return uit;
 }
 
+/* verzonnen:true, want dit profiel is een ontwerpvoorbeeld en geen bestaand
+   bedrijf. Zonder dat draagt de pagina wel "Geverifieerd" en niets wat zegt dat
+   deze winkel niet bestaat. */
 const SCHETS={
+  verzonnen:true,
   id:null,slug:null,n:'Telefoonhulp Leeuwarden',a:'Nieuwestad 112',postcode:'8911 KX',
   plaats:'Leeuwarden',tel:'058 123 45 67',website:null,
   omschrijving:'Wij repareren sinds 2014 aan de Nieuwestad en doen bijna alles terwijl je wacht. Schermen en accus hebben we voor de gangbare modellen op voorraad, dus je bent meestal binnen een half uur klaar.',
@@ -484,6 +489,7 @@ function kop(){
     .filter(Boolean).sort((a,b)=>a.m-b.m)[0];
   document.getElementById('wp-labels').innerHTML=[
     verificatieMerk(true),
+    verzonnenMerk(P),
     P.keur?`<span class="chip chip-keur">${CHECK}Polis gecontroleerd ${esc(P.keurdatum)}</span>`:'',
     snelste&&snelste.m<=45?`<span class="chip chip-snel">${BLIKSEM}Klaar terwijl je wacht</span>`:'',
     /* Het merkje met het logo en de naam voluit, in plaats van een grijze chip

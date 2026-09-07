@@ -77,6 +77,7 @@ h3{font-size:17.5px;font-weight:700;margin:0 0 4px}
 .chip svg{width:12px;height:12px}
 .chip-ver{background:var(--groen-100);color:var(--groen-800)}
 .chip-onver{background:var(--vlak);color:var(--inkt-3);border:1px solid var(--lijn)}
+.chip-verzonnen{background:var(--amber-soft);color:var(--amber)}
 /* .tag.erk stond hier voor de kale tekst "Apple IRP". Die is vervangen door het
    merkje met logo uit basis.css. */
 .w .merken .merkje{margin:0}
@@ -190,7 +191,7 @@ footer{border-top:1px solid var(--lijn);padding:28px 0 60px;color:var(--inkt-3);
 </div></footer>
 
 <script src="data/kiezer.js?v=3f3d641f"></script>
-<script src="data/winkels.js?v=ffe2a89f"></script>
+<script src="data/winkels.js?v=c4cbcc15"></script>
 <script>
 const eur=n=>'&euro;&nbsp;'+String(n).replace('.',',');
 const VINK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>';
@@ -296,6 +297,7 @@ const winkelrij=w=>{
   <span class="regel">${regel}</span>
   <span class="merken">
     ${verificatieMerk(true)}
+    ${verzonnenMerk(w)}
     ${w.keur?'<span class="tag keur">'+VINK+keurlabel(w)+'</span>':''}
     ${erkenningsMerken(w)}
     ${tijd?`<span class="tag${a.v?' snel':''}">${tijd}</span>`:''}

@@ -253,7 +253,9 @@ button{font:inherit}
 .chip svg{width:12px;height:12px}
 .chip-keur{background:var(--groen-100);color:var(--groen-800)}
 .chip-ver{background:var(--groen-100);color:var(--groen-800)}
+.plaatsfout{width:100%;margin:8px 0 0;font-size:13.5px;color:var(--rood);font-weight:600}
 .chip-onver{background:var(--vlak);color:var(--inkt-3);border:1px solid var(--lijn)}
+.chip-verzonnen{background:var(--amber-soft);color:var(--amber)}
 .chip-snel{background:var(--amber-soft);color:var(--amber)}
 .chip-uitg{background:var(--marine-100);color:var(--marine)}
 
@@ -420,7 +422,7 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
 </style>
 
 <a class="naar-inhoud" href="#hoofdinhoud">Naar de inhoud</a>
-<div class="schets">Ontwerpschets. De winkels in stap 3 zijn verzonnen voorbeelden; de prijzen komen uit ons eigen prijsonderzoek van 3 september 2026.</div>
+<div class="schets">Ontwerpschets. Winkels met het merkje <b>Verzonnen voorbeeld</b> bestaan niet; de andere zijn echte, aangesloten winkels. De prijzen komen uit ons eigen prijsonderzoek van 3 september 2026.</div>
 <header class="top">
   <a class="logo" href="index.html">snel<i>repareren</i>.nl</a>
   <nav><a href="reparaties.html">Reparaties</a><a href="toestellen.html">Toestellen</a><a href="plaatsen.html">Plaatsen</a><a href="gidsen.html">Gidsen</a><a href="hoe-wij-rangschikken.html">Hoe wij rangschikken</a></nav>
@@ -476,7 +478,7 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
 </footer>
 
 <script src="data/kiezer.js?v=3f3d641f"></script>
-<script src="data/winkels.js?v=ffe2a89f"></script>
+<script src="data/winkels.js?v=c4cbcc15"></script>
 <script>
 /* ---------- gegevens ---------- */
 /* De toestellijst komt uit bouwvoorbereiding/data/catalogus.json, via data/kiezer.js.
@@ -542,7 +544,7 @@ const VOLG=['scherm','accu','laadpoort','camera','achterkant','waterschade'];
 const FILTERS=[['vandaag','Vandaag klaar',w=>vandaagKlaar(w)],['keur','Polis gecontroleerd',w=>w.keur],['applepay','Apple Pay',w=>(w.betaal||[]).includes('Apple Pay')],['contant','Contant',w=>(w.betaal||[]).includes('Contant')]];
 const OS={ios:["Open Instellingen op je iPhone.","Tik op Algemeen en daarna op Info.","Bij Modelnummer staat een code die met een A begint, bijvoorbeeld A2633. Typ die in het zoekveld."],
           android:["Open Instellingen op je toestel.","Scrol naar Over de telefoon of Systeem.","Bij Modelnummer staat de code, bijvoorbeeld SM-S911B. Typ die in het zoekveld."]};
-const S={stap:1,sub:'zoek',merk:null,serie:null,model:null,kleur:null,schade:{},plaats:'Leeuwarden',plaatsEdit:false,filters:{},laatst:null,open:{}};
+const S={stap:1,sub:'zoek',merk:null,serie:null,model:null,kleur:null,schade:{},plaats:'Leeuwarden',plaatsEdit:false,plaatsFout:null,filters:{},laatst:null,open:{}};
 const eur=n=>'&euro; '+n;
 const CHECK='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>';
 const BOLT='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 3 14h7l-1 8 10-12h-7z"/></svg>';
@@ -1210,7 +1212,7 @@ function stap3(){
       <div class="kop"><b>${esc(w.n)}</b>${regel?`<span>${regel}</span>`:''}</div>
       <div class="cijfer">${w.g?`${sterrenBalk(w.g)}<b class="num">${esc(w.g)}</b><span><a href="${link(w.glink||'#')}" rel="nofollow noopener">${esc(w.gb||0)} beoordelingen op Google</a></span>`
         :'<span class="geencijfer">Nog geen cijfer op Google</span>'}</div>
-      <div class="chips">${verificatieMerk(true)}${w.uit?`<span class="chip chip-uitg">Uitgelicht &middot; ${uitgelichtReden(w)}</span>`:''}${w.keur?`<span class="chip chip-keur">${CHECK}Polis gecontroleerd</span>`:''}${tijd?`<span class="chip chip-snel">${BOLT}${tijd}</span>`:''}${dicht?`<span class="chip">Vandaag gesloten</span>`:''}</div>
+      <div class="chips">${verificatieMerk(true)}${verzonnenMerk(w)}${w.uit?`<span class="chip chip-uitg">Uitgelicht &middot; ${uitgelichtReden(w)}</span>`:''}${w.keur?`<span class="chip chip-keur">${CHECK}Polis gecontroleerd</span>`:''}${tijd?`<span class="chip chip-snel">${BOLT}${tijd}</span>`:''}${dicht?`<span class="chip">Vandaag gesloten</span>`:''}</div>
       <div class="prijsvak"><div class="prijs num">${p!=null?eur(p):'op aanvraag'}<small>${g.map(k=>REP[k].n).join(' + ')}${onderdeelBij(w)}</small></div></div>
       <button class="meer" aria-expanded="${open?'true':'false'}" onclick="toonMeer('${esc(sleutel)}')">${open?'Minder':'Meer over deze winkel'}${MEERPIJL}</button>
       <div class="detail"${open?'':' hidden'}>
@@ -1221,7 +1223,10 @@ function stap3(){
         w.aan?`<button class="btn btn-lijn" onclick="vraagPrijs(${i})">Vraag een prijs</button>`:''
         }<a class="btn btn-lijn" href="#">Route</a><a class="btn btn-stil" href="${winkelLink(w)}">Profiel</a></div>
     </div>`};
-  const plaats=S.plaatsEdit?`<label class="veld"><input id="pl" value="${S.plaats}" placeholder=" " onkeydown="if(event.key==='Enter')zetPlaats(this.value)"><span>Plaats of postcode</span></label><button class="btn btn-groen" onclick="zetPlaats(document.getElementById('pl').value)">Zoek</button>`:`<button class="pin" onclick="S.plaatsEdit=true;teken();document.getElementById('pl').focus()">${PIN}${S.plaats}<span class="wijzig">wijzigen</span></button>`;
+  /* esc() om de waarde heen. Hier stond value="${S.plaats}" kaal, en dat is
+     tekst die de bezoeker zelf intypt; een aanhalingsteken breekt dan uit het
+     attribuut. */
+  const plaats=S.plaatsEdit?`<label class="veld"><input id="pl" inputmode="text" autocomplete="postal-code" value="${esc(S.plaats)}" placeholder=" " onkeydown="if(event.key==='Enter')zetPlaats(this.value)"><span>Plaats of postcode</span></label><button class="btn btn-groen" onclick="zetPlaats(document.getElementById('pl').value)">Zoek</button>${S.plaatsFout?`<p class="plaatsfout" role="alert">${esc(S.plaatsFout)}</p>`:''}`:`<button class="pin" onclick="S.plaatsEdit=true;teken();document.getElementById('pl').focus()">${PIN}${esc(S.plaats)}<span class="wijzig">wijzigen</span></button>`;
   const filters=`<div class="filters"><span class="lab">Filter</span>${FILTERS.map(([id,n])=>`<button class="fchip${S.filters[id]?' aan':''}" onclick="zetFilter('${id}')">${n}</button>`).join('')}</div>`;
   const uit=ws.filter(w=>w.uit),rest=ws.filter(w=>!w.uit);
   return `<button class="terug" onclick="terug()">&larr; Schade</button><h2 class="vraag">${kop}</h2><p class="sub">Voor ${S.model.n}, ${lijstZin(g.map(k=>REP[k].n.toLowerCase()))}. Bel, loop binnen of vraag een offerte.</p>
@@ -1307,7 +1312,23 @@ function vraagPrijs(i){
 }
 function ga(n){if(n===3&&!gekozen().length)return;S.stap=n;teken();document.querySelector('.kaart').scrollIntoView({behavior:'smooth',block:'start'})}
 function terug(){if(S.stap===3)S.stap=2;else if(S.stap===2)S.stap=1;else if(S.sub==='model'){S.sub='serie'}else if(S.sub==='serie'){S.sub='zoek';S.merk=null}teken()}
-function zetPlaats(v){v=v.trim();if(v)S.plaats=v;S.plaatsEdit=false;teken()}
+/* EEN POSTCODE IS GEEN PLAATSNAAM.
+   Hier stond `if(v)S.plaats=v`, dus wie "8911 KX" intypte kreeg een lijst met
+   winkels in de plaats "8911 KX". Die bestaat niet, dus nul winkels, zonder
+   uitleg. Nu vertalen wij de postcode, en kennen wij hem niet, dan zeggen wij
+   dat in plaats van een lege lijst te tonen. */
+function zetPlaats(v){
+  v=String(v==null?'':v).trim();
+  if(!v){S.plaatsFout=null;S.plaatsEdit=false;teken();return}
+  if(lijktOpPostcode(v)){
+    const p=plaatsVanPostcode(v);
+    if(!p){S.plaatsFout='Postcode '+v+' kennen wij niet. Vul je plaats in, bijvoorbeeld Leeuwarden.';teken();return}
+    S.plaats=p;
+  }else{
+    S.plaats=v;
+  }
+  S.plaatsFout=null;S.plaatsEdit=false;teken();
+}
 function reset(){S.stap=1;S.sub='zoek';S.merk=null;S.serie=null;S.model=null;S.kleur=null;S.schade={};S.filters={};S.laatst=null;S.plaatsEdit=false;S.open={};teken()}
 function opendlg(){zetOS('ios');document.getElementById('hulp').showModal()}
 function zetOS(os){document.querySelectorAll('.tabs button').forEach(b=>b.classList.toggle('aan',b.dataset.os===os));document.getElementById('stappenlijst').innerHTML=OS[os].map(t=>'<li>'+t+'</li>').join('')}
@@ -1330,6 +1351,19 @@ document.addEventListener('click',e=>{if(!e.target.closest('.zoek'))document.get
    blijft een keuze van de bezoeker. */
 function uitAdres(){
   const q=new URLSearchParams(location.search);
+  /* De plaats uit het adres. De prijspagina's sturen hier een formulier heen met
+     "Plaats of postcode"; een postcode moet dan net zo goed werken als daar.
+     Zonder teken(): uitAdres draait voor de eerste tekening. */
+  const pl=(q.get('plaats')||'').trim();
+  if(pl){
+    if(lijktOpPostcode(pl)){
+      const gevonden=plaatsVanPostcode(pl);
+      if(gevonden){S.plaats=gevonden}
+      else{S.plaatsFout='Postcode '+pl+' kennen wij niet. Vul je plaats in, bijvoorbeeld Leeuwarden.';S.plaatsEdit=true}
+    }else{
+      S.plaats=pl;
+    }
+  }
   const p=q.get('toestel');
   if(p){
     const gezocht=p.trim().toLowerCase();
