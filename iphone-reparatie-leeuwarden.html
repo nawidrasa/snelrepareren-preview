@@ -125,16 +125,13 @@ footer{border-top:1px solid var(--lijn);padding:28px 0 60px;color:var(--inkt-3);
     <p class="uitleg">Gesorteerd zoals overal op deze site: eerst de poliscontrole, dan controleerbare erkenningen, dan of de prijs nog actueel is, en pas dan de beoordelingen. De prijs is voor een schermreparatie van een iPhone 13, zodat je appels met appels vergelijkt.</p>
     <p class="cijferbron">De cijfers bij de winkels komen van Google. Wij hebben zelf nog geen beoordelingen: alleen wie via deze site contact opneemt, krijgt van ons de vraag hoe het ging, en dat systeem loopt nog niet. <a href="hoe-wij-rangschikken.html">Hoe wij rangschikken</a>.</p>
     <div class="wlijst" id="winkels"></div>
-    <div class="let">
-      <b>Eén winkel staat hier niet bij</b>
-      <p>Camminghaburen Telecom repareert wel telefoons, maar heeft bij ons geen iPhone-prijzen opgegeven. Die staat daarom wel op de <a href="plaatspagina-leeuwarden.html" style="color:inherit">algemene pagina voor Leeuwarden</a> en niet hier. Wij zetten geen winkel op een merkpagina zonder dat hij dat merk bevestigd heeft.</p>
-    </div>
+    <div class="let" id="ontbreekt" hidden></div>
   </section>
 
   <section>
     <div class="waarom">
       <h3>Waarom deze pagina bestaat</h3>
-      <p>Een aparte pagina per merk en plaats maken wij alleen als er minstens twee winkels in die plaats dat merk doen, en alleen als er ook echt iets merkspecifieks te vertellen valt. Voor iPhone in Leeuwarden geldt allebei: er zijn vijf winkels, en er is een Apple-erkenning die je nergens anders ziet.</p>
+      <p>Een aparte pagina per merk en plaats maken wij alleen als er minstens twee winkels in die plaats dat merk doen, en alleen als er ook echt iets merkspecifieks te vertellen valt. Voor iPhone in Leeuwarden geldt allebei: <span id="hoeveel">er zijn genoeg winkels</span>, en er is een Apple-erkenning die je nergens anders ziet.</p>
       <p>Is dat niet zo, dan maken wij deze pagina niet. Een merkpagina die verder gelijk is aan de plaatspagina is een truc om twee keer in Google te staan, en dat helpt je niet. Zoek je breder, dan is de algemene pagina beter: daar staan ook de winkels die alleen Samsung of andere merken doen.</p>
       <a class="terug" href="plaatspagina-leeuwarden.html">Alle telefoonreparatie in Leeuwarden
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
@@ -168,8 +165,8 @@ footer{border-top:1px solid var(--lijn);padding:28px 0 60px;color:var(--inkt-3);
   Onderdeel van snelrepareren.nl, de onafhankelijke vergelijker voor telefoonreparatie in Nederland.
 </div></footer>
 
-<script src="data/kiezer.js"></script>
-<script src="data/winkels.js"></script>
+<script src="data/kiezer.js?v=3f3d641f"></script>
+<script src="data/winkels.js?v=e0c6e073"></script>
 <script>
 const eur=n=>'&euro;&nbsp;'+String(n).replace('.',',');
 const VINK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>';
@@ -206,6 +203,17 @@ const MERK=[
   wel:['Uitzetten kost een halve minuut in Instellingen bij je naam.','Maak eerst een back-up; dat is sowieso verstandig.'],
   niet:['Geef nooit je Apple-wachtwoord aan de winkel.','Een winkel die daarom vraagt, hoort dat niet te doen.']},
 ];
+
+/* Deze pagina toonde ELKE winkel in Leeuwarden, terwijl er hieronder staat: "Wij
+   zetten geen winkel op een merkpagina zonder dat hij dat merk bevestigd heeft."
+   Dat filter bestond niet. Nu wel, en het blok "staat hier niet bij" wordt
+   gevuld met wie er daadwerkelijk afvalt in plaats van met een naam die iemand
+   ooit heeft ingetypt. Toen ik het eerst uit WINKELS zelf afleidde, vergeleek ik
+   een lijst met zichzelf en kon het blok nooit verschijnen. */
+const DOET_DIT_MERK = w => MODELLEN.some(([model]) => aanbod(w, model, 'scherm'));
+const ALLE_IN_PLAATS = WINKELS.slice();
+const WINKELS_MET_MERK = ALLE_IN_PLAATS.filter(DOET_DIT_MERK);
+
 document.getElementById('merkblokken').innerHTML=MERK.map(m=>`
  <div class="mk">
   <span class="ic"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">${m.ic}</svg></span>
@@ -222,7 +230,7 @@ document.getElementById('merkblokken').innerHTML=MERK.map(m=>`
    bewering die niet klopt, en juist de eerste zin van de pagina is de zin die
    iedereen leest. Hij telt nu zelf. */
 function antwoordzin(){
-  const n=WINKELS.length, erkend=WINKELS.filter(w=>w.erk&&/apple/i.test(w.erk)).length;
+  const n=WINKELS_MET_MERK.length, erkend=WINKELS_MET_MERK.filter(w=>w.erk&&/apple/i.test(w.erk)).length;
   if(!n) return `Er is in Leeuwarden nog geen winkel bij ons aangesloten. Wat een
     iPhone-reparatie landelijk kost, staat hieronder wel: dat komt uit ons eigen
     prijsonderzoek en niet van de winkels op deze pagina.`;
@@ -240,7 +248,7 @@ function antwoordzin(){
   return `${kop}${apple}${rest}`;
 }
 document.getElementById('antwoord').innerHTML=antwoordzin();
-document.getElementById('onder').textContent=WINKELS.length
+document.getElementById('onder').textContent=WINKELS_MET_MERK.length
   ? 'Hieronder de winkels, wat een iPhone-reparatie kost per model, en de drie dingen die bij een iPhone anders gaan dan bij een Android-toestel.'
   : 'Hieronder wat een iPhone-reparatie kost per model, en de drie dingen die bij een iPhone anders gaan dan bij een Android-toestel.';
 
@@ -274,8 +282,33 @@ const winkelrij=w=>{
     <a class="btn btn-groen" href="${winkelLink(w)}">Bekijk winkel</a>
   </span>
  </article>`};
-document.getElementById('winkels').innerHTML=WINKELS.length
-  ? WINKELS.map(winkelrij).join('')
+/* Twee zinnen die naast deze lijst staan, worden hier uit DEZELFDE bron gevuld.
+   Ze stonden er met de hand, en toen de proefdata veranderde bleven ze staan:
+   er stond "een winkel staat hier niet bij" met daarboven de kaart van precies
+   die winkel, mét prijs, en "er zijn vijf winkels" terwijl de intro er zes telde
+   uit de data. Een zin die een lijst beschrijft, hoort uit die lijst te komen. */
+(function(){
+  const TELWOORD=['geen','een','twee','drie','vier','vijf','zes','zeven','acht','negen','tien'];
+  const woord=n=>TELWOORD[n]||String(n);
+  const missend=ALLE_IN_PLAATS.filter(w=>!WINKELS_MET_MERK.includes(w));
+  const n=WINKELS_MET_MERK.length;
+  const h=document.getElementById('hoeveel');
+  if(h)h.textContent=n===1?'er is een winkel':'er zijn '+woord(n)+' winkels';
+  const vak=document.getElementById('ontbreekt');
+  if(vak&&missend.length){
+    vak.hidden=false;
+    vak.innerHTML='<b>'+(missend.length===1?'Eén winkel staat hier niet bij':
+        woord(missend.length).charAt(0).toUpperCase()+woord(missend.length).slice(1)+' winkels staan hier niet bij')+'</b>'
+      +'<p>'+missend.map(w=>esc(w.n)).join(', ')+' '+(missend.length===1?'repareert':'repareren')
+      +' wel telefoons, maar heeft bij ons geen iPhone-prijzen opgegeven. '
+      +(missend.length===1?'Die staat':'Die staan')+' daarom wel op de '
+      +'<a href="plaatspagina-leeuwarden.html" style="color:inherit">algemene pagina voor Leeuwarden</a>'
+      +' en niet hier. Wij zetten geen winkel op een merkpagina zonder dat hij dat merk bevestigd heeft.</p>';
+  }
+})();
+
+document.getElementById('winkels').innerHTML=WINKELS_MET_MERK.length
+  ? WINKELS_MET_MERK.map(winkelrij).join('')
   : `<p class="leegstaat">Er is in Leeuwarden nog geen winkel aangesloten. De landelijke prijzen
      staan wel op de <a href="prijsindex.html">prijsindex</a>, en winkels kunnen zich
      <a href="aanmelden.html">gratis aanmelden</a>.</p>`;
