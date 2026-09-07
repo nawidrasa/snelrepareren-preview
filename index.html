@@ -88,6 +88,20 @@ h2{font-size:clamp(24px,3vw,32px);font-weight:800;letter-spacing:-.02em;margin:0
    een witte kaart. Dat is dezelfde val als eerder vandaag met [hidden]: een
    losse klasse verliest van een samengestelde selector. */
 .start .chipuitleg{font-size:12.5px;color:var(--inkt-3);margin:10px 0 0}
+/* de locatieknop */
+.locrij{margin:14px 0 0}
+.locknop{display:inline-flex;align-items:center;gap:8px;padding:11px 16px;border-radius:999px;border:1.5px solid var(--lijn);background:#fff;font:inherit;font-size:14.5px;font-weight:600;color:var(--inkt);cursor:pointer;transition:border-color .15s,background .12s}
+.locknop:hover{border-color:var(--groen);background:var(--groen-50)}
+.locknop svg{width:17px;height:17px;color:var(--groen);flex:none}
+.locknop[disabled]{opacity:.6;cursor:default}
+.locuit{display:flex;gap:10px;align-items:flex-start;border:1.5px solid var(--groen-200);background:var(--groen-50);border-radius:16px;padding:13px 15px}
+.locuit svg{width:18px;height:18px;color:var(--groen-800);flex:none;margin-top:2px}
+.locuit b{display:block;font-size:15px}
+.locuit p{margin:3px 0 0;font-size:13.5px;color:var(--inkt-2)}
+.locuit .btn{margin-top:10px}
+.locfout{border-color:var(--lijn);background:var(--vlak)}
+.locfout svg{color:var(--inkt-3)}
+.locweer{background:none;border:0;padding:0;margin-top:8px;font:inherit;font-size:13.5px;font-weight:600;color:var(--groen-800);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
 .chip-k:hover{border-color:var(--groen);color:var(--groen);background:var(--groen-50)}
 .gekozen{text-align:center;padding:6px 0 2px}
 .gekozen .bal{width:56px;height:56px;border-radius:50%;background:var(--groen-100);display:grid;place-items:center;margin:0 auto 14px}
@@ -401,7 +415,8 @@ footer .jur{display:flex;flex-wrap:wrap;gap:18px;margin:22px 0 14px;padding-top:
 </div></dialog>
 
 <script src="data/kiezer.js?v=3f3d641f"></script>
-<script src="data/plaatsstatus.js?v=87449afd"></script>
+<script src="data/locatie.js?v=9ca1d462"></script>
+<script src="data/plaatsstatus.js?v=c5d4cc8e"></script>
 <script>
 const KIEZER='reparatiekiezer.html';
 /* De modellen komen uit data/kiezer.js. Hier stond een eigen lijst met Google
@@ -463,6 +478,7 @@ function startkaart(){
       <input id="q" aria-label="Zoek je toestel op naam of modelcode" placeholder="iPhone 13, Galaxy S23, A2633" autocomplete="off" oninput="zoek(this.value)" onfocus="zoek(this.value)">
       <div class="sugg" id="sugg"></div></div>
     <button class="hulp" onclick="opendlg()">Ik weet mijn model niet</button>
+    <div class="locrij" id="locrij"></div>
     <p class="of">De nieuwste toestellen</p>
     <div class="chips">${POPULAIR.map(m=>`<button class="chip-k" onclick="kies('${m.n}')">${m.n}${
       bandVan(m.n,'scherm')?'<i class="gemeten" title="Wij hebben prijzen voor dit toestel gemeten"></i>':''}</button>`).join('')}</div>
@@ -496,11 +512,93 @@ function prijzen(){
 function plaatsen(){
   /* De link ging naar "#", ook voor de plaatsen die live heetten. Nu gaat hij
      naar de pagina die bij die plaats hoort, net als op plaatsen.html en 404. */
-  document.getElementById('plaatslijst').innerHTML=PLAATSSTATUS.map(([n,,open,link])=>open
-    ?`<a class="plaats" href="${link}">${n}</a>`
-    :`<span class="plaats straks">${n} &middot; binnenkort</span>`).join('');
+  document.getElementById('plaatslijst').innerHTML=PLAATSSTATUS.map(p=>p.open
+    ?`<a class="plaats" href="${p.pagina}">${p.n}</a>`
+    :`<span class="plaats straks">${p.n} &middot; binnenkort</span>`).join('');
 }
+/* ---------- waar ben je ----------
+ *
+ * EEN TIK, GEEN GETYP. Dat is wat "automatisch" hier kan betekenen. Vanzelf bij
+ * het laden kan niet: getCurrentPosition opent een toestemmingsvenster, Safari
+ * eist daar een tik voor en Chrome straft vensters af die uit zichzelf opengaan.
+ * Je krijgt per bezoeker een kans, en die verspil je niet voordat iemand weet
+ * waarom je het vraagt.
+ *
+ * WAT DEZE PAGINA WEL EN NIET DOET. Zij zegt in welke van onze plaatsen je zit
+ * en hoeveel winkels daar staan, en stuurt je door naar de kiezer. Zij toont
+ * hier geen winkels: vergelijken gebeurt op de plek die daarvoor gebouwd is, en
+ * een tweede winkellijst op de homepage zou vroeg of laat iets anders zeggen dan
+ * de eerste.
+ *
+ * Er gaat niets het apparaat af. De coordinaten komen van de browser, en welke
+ * plaats erbij hoort zoeken wij op in PLAATSSTATUS, dat al in deze pagina zit. */
+function locatieRij(inhoud){document.getElementById('locrij').innerHTML=inhoud}
+
+function locatieKnop(){
+  locatieRij(`<button class="locknop" id="locknop" onclick="zoekMij()">${SPELDJE}Winkels bij mij in de buurt</button>`);
+}
+
+function zoekMij(){
+  const k=document.getElementById('locknop');
+  if(k){k.disabled=true;k.textContent='Even zoeken...'}
+  vraagLocatie(function(uit){
+    if(!uit.goed){locatieMislukt(uit.tekst);return}
+    /* De dichtstbijzijnde plaats DIE WIJ KENNEN. Ligt die verder dan 25 km, dan
+       geeft dichtstbijzijnde() null terug en zeggen wij dat wij daar nog niet
+       zijn. Iemand in Utrecht "in de buurt van Lemmer" noemen omdat dat ons
+       zuidelijkste punt is, zou onzin zijn. */
+    const met=PLAATSSTATUS.filter(p=>typeof p.lat==='number');
+    const beste=dichtstbijzijnde(uit.punt,met);
+    if(!beste){locatieBuitenGebied();return}
+    bewaarLocatie(uit.punt,beste.rij.n,uit.grof);
+    locatieGevonden(beste,uit);
+  });
+}
+
+function locatieGevonden(beste,uit){
+  const p=beste.rij;
+  /* Bij een grove meting geen precieze afstand. De browser zegt zelf hoe zeker
+     hij is; op een laptop zonder GPS is dat kilometers, en dan zou "3,2 km" een
+     nauwkeurigheid suggereren die er niet is. */
+  const hoever=uit.grof?'bij benadering in de buurt':`ongeveer ${kmTekst(beste.km)} hiervandaan`;
+  const winkelzin=p.winkels===0
+    ? `Daar is nog geen winkel aangesloten. Wat een reparatie landelijk kost, zie je wel.`
+    : `${p.winkels===1?'1 winkel':p.winkels+' winkels'} in ${p.n}${p.open?'':', nog niet genoeg voor een vergelijking'}.`;
+  locatieRij(`<div class="locuit">${SPELDJE}<div>
+    <b>Je zit in de buurt van ${p.n}</b>
+    <p>${hoever}. ${winkelzin}</p>
+    <a class="btn btn-groen btn-klein" href="${KIEZER}${gekozen?'?toestel='+encodeURIComponent(gekozen.n):''}">Bekijk winkels bij jou</a>
+    <button class="locweer" onclick="andereLocatie()">Klopt niet? Vul je postcode in</button>
+  </div></div>`);
+}
+
+function locatieBuitenGebied(){
+  vergeetLocatie();
+  locatieRij(`<div class="locuit locfout">${SPELDJE}<div>
+    <b>Wij zijn nog niet bij jou in de buurt</b>
+    <p>Wij beginnen in Friesland en bouwen provincie voor provincie verder. De prijzen die wij hebben gemeten, gelden wel landelijk.</p>
+    <button class="locweer" onclick="locatieKnop()">Opnieuw proberen</button>
+  </div></div>`);
+}
+
+function locatieMislukt(tekst){
+  vergeetLocatie();
+  locatieRij(`<div class="locuit locfout">${SPELDJE}<div>
+    <b>Wij weten niet waar je bent</b>
+    <p>${tekst}</p>
+    <button class="locweer" onclick="andereLocatie()">Vul je postcode in</button>
+  </div></div>`);
+}
+
+/* De postcode zelf vragen wij hier niet: de kiezer heeft daar al een veld voor,
+   met de foutafhandeling en de plaatsnamen erbij. Twee velden voor hetzelfde
+   zouden uit elkaar gaan lopen. */
+function andereLocatie(){
+  vergeetLocatie();
+  location.href=KIEZER+(gekozen?'?toestel='+encodeURIComponent(gekozen.n):'');
+}
+
 document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>zetOS(b.dataset.os));
 document.addEventListener('click',e=>{if(!e.target.closest('.zoek'))document.getElementById('sugg')?.classList.remove('open')});
-startkaart();prijzen();plaatsen();
+startkaart();prijzen();plaatsen();locatieKnop();
 </script>

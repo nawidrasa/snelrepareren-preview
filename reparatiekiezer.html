@@ -484,7 +484,8 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
 <script src="data/kiezer.js?v=3f3d641f"></script>
 <script src="data/postcodes.js?v=303b3761"></script>
 <script src="data/winkelpunten.js?v=2a05827c"></script>
-<script src="data/winkels.js?v=3974b748"></script>
+<script src="data/locatie.js?v=9ca1d462"></script>
+<script src="data/winkels.js?v=85247692"></script>
 <script>
 /* ---------- gegevens ---------- */
 /* De toestellijst komt uit bouwvoorbereiding/data/catalogus.json, via data/kiezer.js.
@@ -1495,6 +1496,22 @@ function uitAdres(){
       else{S.plaatsFout='Postcode '+pl+' kennen wij niet. Vul je plaats in, bijvoorbeeld Leeuwarden.';S.plaatsEdit=true}
     }else{
       S.plaats=pl;
+    }
+  }
+  /* Kwam je van de homepage met de locatieknop, dan weten wij al waar je bent.
+     Die reist mee in sessionStorage en niet in het webadres: coordinaten zijn
+     persoonsgegevens, en een webadres wordt gedeeld, gekopieerd en gelogd.
+     Een plaats in het adres wint hier wel van, want die heeft de bezoeker of de
+     prijspagina zelf meegegeven en is dus specifieker dan "waar je toevallig
+     staat". */
+  if(!pl){
+    const l=bewaardeLocatie();
+    if(l){
+      BEZOEKERPUNT=[l.lat,l.lon];
+      if(l.plaats)S.plaats=l.plaats;
+      /* Bij een grove meting geen sortering op afstand: dan zou de volgorde
+         nauwkeurigheid suggereren die de meting niet heeft. */
+      S.dichtbij=!l.grof;
     }
   }
   const p=q.get('toestel');

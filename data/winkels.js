@@ -383,17 +383,10 @@ function puntVanWinkel(w) {
   return WINKELPUNT[w.plaats + '|' + w.a] || null;
 }
 
-/* Hemelsbrede afstand in kilometers tussen twee punten [breedte, lengte].
-   Hemelsbreed en niet over de weg: wij hebben geen routegegevens, en doen dus
-   ook niet alsof. Dat staat er op het scherm bij. */
-function afstandKm(a, b) {
-  if (!a || !b) return null;
-  const R = 6371, rad = x => x * Math.PI / 180;
-  const dLat = rad(b[0] - a[0]), dLon = rad(b[1] - a[1]);
-  const h = Math.sin(dLat / 2) * Math.sin(dLat / 2)
-    + Math.cos(rad(a[0])) * Math.cos(rad(b[0])) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
-  return 2 * R * Math.asin(Math.min(1, Math.sqrt(h)));
-}
+/* afstandKm en kmTekst staan in data/locatie.js. Ze zijn daarheen verhuisd toen
+   de homepage ze ook nodig had voor de locatieknop: die pagina laadt winkels.js
+   niet, en dezelfde formule op twee plekken is de fout die in dit project het
+   vaakst is voorgekomen. Elke pagina die winkels.js laadt, laadt locatie.js. */
 
 /* De afstand van de bezoeker tot deze winkel, in kilometers, of null. */
 function afstandTot(w) {
@@ -404,9 +397,8 @@ function afstandTot(w) {
    Onder de tien kilometer een cijfer achter de komma, daarboven niet: "12,3 km"
    suggereert een nauwkeurigheid die een postcodemiddelpunt niet heeft. */
 const afstandVan = w => {
-  const km = afstandTot(w);
-  if (km == null) return null;
-  return esc(km < 10 ? km.toFixed(1).replace('.', ',') : String(Math.round(km))) + ' km';
+  const t = kmTekst(afstandTot(w));
+  return t == null ? null : esc(t);
 };
 
 /* ---------- openingstijden ----------

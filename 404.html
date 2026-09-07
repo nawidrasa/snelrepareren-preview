@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <link rel="stylesheet" href="lettertype/outfit.css">
-<script src="data/plaatsstatus.js?v=87449afd"></script>
+<script src="data/plaatsstatus.js?v=c5d4cc8e"></script>
 <link rel="stylesheet" href="basis.css?v=efb36082">
 <style>
 :root{--groen-50:#F0FDF4;--groen-100:#DCFCE7;--groen-200:#BBF7D0;--groen-300:#86EFAC;--groen-500:#22C55E;--groen:#008934;--groen-800:#007B2E;--marine:#0B1F4E;--marine-100:#E8ECF5;--marine-200:#C5CEE3;--inkt:#111827;--inkt-2:#4A5878;--inkt-3:#616A76;--lijn:#E3E6EE;--vlak:#F6F8FA;--amber:#B45309;--amber-soft:#FEF3C7;color-scheme:light}
@@ -112,7 +112,7 @@ const OVERZICHTEN=[
    dezelfde, want alles komt uit data/plaatsstatus.js. Deze pagina toont geen
    aantallen, dus dat veld slaan wij over. Zij laadde hiervoor heel winkels.js,
    25 kB gzip op een foutpagina, voor twaalf namen en een vlaggetje. */
-const FRIESLAND=PLAATSSTATUS.map(([p,,open,link])=>[p, '', open, link]);
+const FRIESLAND=PLAATSSTATUS.map(p=>[p.n, '', p.open, p.pagina]);
 document.getElementById('overzichten').innerHTML=OVERZICHTEN.map(([t,s,ic,link])=>
  `<a class="v" href="${link}"><span class="ic"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">${ic}</svg></span><b>${t}</b><p>${s}</p></a>`).join('');
 document.getElementById('friesland').innerHTML=FRIESLAND.map(([n,aantal,live,link])=>
