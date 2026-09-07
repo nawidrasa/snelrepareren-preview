@@ -478,7 +478,9 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
 </footer>
 
 <script src="data/kiezer.js?v=3f3d641f"></script>
-<script src="data/winkels.js?v=c4cbcc15"></script>
+<script src="data/postcodes.js?v=ac86e434"></script>
+<script src="data/winkelpunten.js?v=2a05827c"></script>
+<script src="data/winkels.js?v=9c61af22"></script>
 <script>
 /* ---------- gegevens ---------- */
 /* De toestellijst komt uit bouwvoorbereiding/data/catalogus.json, via data/kiezer.js.
@@ -544,7 +546,7 @@ const VOLG=['scherm','accu','laadpoort','camera','achterkant','waterschade'];
 const FILTERS=[['vandaag','Vandaag klaar',w=>vandaagKlaar(w)],['keur','Polis gecontroleerd',w=>w.keur],['applepay','Apple Pay',w=>(w.betaal||[]).includes('Apple Pay')],['contant','Contant',w=>(w.betaal||[]).includes('Contant')]];
 const OS={ios:["Open Instellingen op je iPhone.","Tik op Algemeen en daarna op Info.","Bij Modelnummer staat een code die met een A begint, bijvoorbeeld A2633. Typ die in het zoekveld."],
           android:["Open Instellingen op je toestel.","Scrol naar Over de telefoon of Systeem.","Bij Modelnummer staat de code, bijvoorbeeld SM-S911B. Typ die in het zoekveld."]};
-const S={stap:1,sub:'zoek',merk:null,serie:null,model:null,kleur:null,schade:{},plaats:'Leeuwarden',plaatsEdit:false,plaatsFout:null,filters:{},laatst:null,open:{}};
+const S={stap:1,sub:'zoek',merk:null,serie:null,model:null,kleur:null,schade:{},plaats:'Leeuwarden',plaatsEdit:false,plaatsFout:null,dichtbij:false,filters:{},laatst:null,open:{}};
 const eur=n=>'&euro; '+n;
 const CHECK='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>';
 const BOLT='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 3 14h7l-1 8 10-12h-7z"/></svg>';
@@ -580,7 +582,22 @@ const vandaagKlaar=w=>{const g=gekozen();
   return g.every(k=>kanVandaag(w,aanbod(w,S.model?S.model.n:'',k)));};
 const inPlaats=()=>WINKELS.filter(w=>w.plaats.toLowerCase()===S.plaats.trim().toLowerCase());
 
-const lijst=()=>rangschik(inPlaats().filter(w=>FILTERS.every(([id,,f])=>!S.filters[id]||f(w))));
+/* De volgorde. Standaard is dat de volgorde die op 'Hoe wij rangschikken' staat
+   en die is niet te koop. Kiest de bezoeker zelf voor "dichtstbij eerst", dan
+   sorteren wij op afstand; dat is zijn keuze en verandert de standaard niet.
+   Winkels zonder punt op de kaart zakken naar onderen: wij weten hun afstand
+   niet en doen niet alsof die nul is. */
+const lijst=()=>{
+  const ws=inPlaats().filter(w=>FILTERS.every(([id,,f])=>!S.filters[id]||f(w)));
+  if(!S.dichtbij||!BEZOEKERPUNT)return rangschik(ws);
+  return ws.slice().sort((a,b)=>{
+    const ka=afstandTot(a),kb=afstandTot(b);
+    if(ka==null&&kb==null)return String(a.n).localeCompare(String(b.n),'nl');
+    if(ka==null)return 1;
+    if(kb==null)return -1;
+    return ka-kb;
+  });
+};
 const donker=h=>'#'+[1,3,5].map(i=>Math.round(parseInt(h.slice(i,i+2),16)*.72).toString(16).padStart(2,'0')).join('');
 
 /* Een pictogram per schadesoort voor de lijst.
@@ -1227,7 +1244,11 @@ function stap3(){
      tekst die de bezoeker zelf intypt; een aanhalingsteken breekt dan uit het
      attribuut. */
   const plaats=S.plaatsEdit?`<label class="veld"><input id="pl" inputmode="text" autocomplete="postal-code" value="${esc(S.plaats)}" placeholder=" " onkeydown="if(event.key==='Enter')zetPlaats(this.value)"><span>Plaats of postcode</span></label><button class="btn btn-groen" onclick="zetPlaats(document.getElementById('pl').value)">Zoek</button>${S.plaatsFout?`<p class="plaatsfout" role="alert">${esc(S.plaatsFout)}</p>`:''}`:`<button class="pin" onclick="S.plaatsEdit=true;teken();document.getElementById('pl').focus()">${PIN}${esc(S.plaats)}<span class="wijzig">wijzigen</span></button>`;
-  const filters=`<div class="filters"><span class="lab">Filter</span>${FILTERS.map(([id,n])=>`<button class="fchip${S.filters[id]?' aan':''}" onclick="zetFilter('${id}')">${n}</button>`).join('')}</div>`;
+  /* De keuze "dichtstbij eerst" verschijnt alleen als wij weten waar de bezoeker
+     is. Zonder postcode kunnen wij niet op afstand sorteren en tonen wij de knop
+     dus ook niet, in plaats van een knop die niets doet. */
+  const sorteer=BEZOEKERPUNT?`<button class="fchip${S.dichtbij?' aan':''}" onclick="S.dichtbij=!S.dichtbij;teken()">Dichtstbij eerst</button>`:'';
+  const filters=`<div class="filters"><span class="lab">Filter</span>${FILTERS.map(([id,n])=>`<button class="fchip${S.filters[id]?' aan':''}" onclick="zetFilter('${id}')">${n}</button>`).join('')}${sorteer}</div>`;
   const uit=ws.filter(w=>w.uit),rest=ws.filter(w=>!w.uit);
   return `<button class="terug" onclick="terug()">&larr; Schade</button><h2 class="vraag">${kop}</h2><p class="sub">Voor ${S.model.n}, ${lijstZin(g.map(k=>REP[k].n.toLowerCase()))}. Bel, loop binnen of vraag een offerte.</p>
   <div class="plaats">${plaats}</div>${filters}
@@ -1324,8 +1345,14 @@ function zetPlaats(v){
     const p=plaatsVanPostcode(v);
     if(!p){S.plaatsFout='Postcode '+v+' kennen wij niet. Vul je plaats in, bijvoorbeeld Leeuwarden.';teken();return}
     S.plaats=p;
+    /* Nu weten wij ook WAAR hij is, niet alleen in welke plaats. Daarmee kunnen
+       wij echte afstanden tonen. Bij een plaatsnaam kan dat niet: dan weten wij
+       de plaats wel maar het punt niet, en dan tonen wij geen afstand. */
+    zetBezoekerPunt(v);
   }else{
     S.plaats=v;
+    BEZOEKERPUNT=null;
+    S.dichtbij=false;
   }
   S.plaatsFout=null;S.plaatsEdit=false;teken();
 }
@@ -1358,7 +1385,7 @@ function uitAdres(){
   if(pl){
     if(lijktOpPostcode(pl)){
       const gevonden=plaatsVanPostcode(pl);
-      if(gevonden){S.plaats=gevonden}
+      if(gevonden){S.plaats=gevonden;zetBezoekerPunt(pl)}
       else{S.plaatsFout='Postcode '+pl+' kennen wij niet. Vul je plaats in, bijvoorbeeld Leeuwarden.';S.plaatsEdit=true}
     }else{
       S.plaats=pl;
