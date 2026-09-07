@@ -155,7 +155,7 @@ h1{font-size:clamp(26px,3.4vw,36px);font-weight:800;letter-spacing:-.025em;margi
 
 /* zijkolom */
 .zkaart{border:1.5px solid var(--lijn);border-radius:20px;padding:20px}
-.zkaart h3{margin:0 0 4px;font-size:16px;font-weight:800}
+.zkaart h2,.zkaart h3{margin:0 0 4px;font-size:16px;font-weight:800;letter-spacing:normal}
 .zkaart p{margin:0 0 14px;font-size:13.5px;color:var(--inkt-2)}
 .drie{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
 .drie div{border:1.5px solid var(--lijn);border-radius:12px;padding:10px 6px;text-align:center}
@@ -263,12 +263,12 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
   <aside class="zij">
     <div class="zkaart" id="zprijs"></div>
     <div class="zkaart">
-      <h3>Hoe deze lijst tot stand komt</h3>
+      <h2>Hoe deze lijst tot stand komt</h2>
       <p>De volgorde is niet te koop. Winkels staan gerangschikt op poliscontrole, erkenning, hoe actueel hun prijzen zijn, en pas dan hun beoordelingen op Google. Betaalde plekken staan apart, heten Uitgelicht en wisselen elk uur. Op dit moment betaalt niemand; daar staan alleen winkels die net zijn aangesloten.</p>
       <a class="link" href="#" onclick="document.getElementById('rang').showModal();return false">Lees hoe wij rangschikken <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </div>
     <div class="zkaart">
-      <h3>In de buurt</h3>
+      <h2>In de buurt</h2>
       <div class="zlinks">
         <a href="#">Drachten <small style="color:var(--inkt-3);font-size:12.5px">28 km</small></a>
         <a href="plaats-onder-drempel.html">Sneek</a><a href="plaats-onder-drempel.html">Heerenveen</a><a href="plaats-onder-drempel.html">Harlingen</a>
@@ -299,28 +299,28 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
   <p>Een plaatspagina gaat pas online zodra er drie aangesloten winkels zijn. Winkels zonder prijzen staan onderaan als vermelding, met een knop om de vermelding te laten verwijderen.</p>
 </div></footer>
 
-<dialog id="opties"><div class="dlg">
-  <h3>Waarvoor wil je prijzen zien?</h3>
+<dialog id="opties" aria-labelledby="k-waarvoor-wil-je-prijzen-zien"><div class="dlg">
+  <h3 id="k-waarvoor-wil-je-prijzen-zien">Waarvoor wil je prijzen zien?</h3>
   <div id="optieskaarten"></div>
   <div class="sluit"><button class="btn btn-groen" onclick="document.getElementById('opties').close()">Toon prijzen</button></div>
 </div></dialog>
 
-<dialog id="filterdlg"><div class="dlg">
-  <h3>Filters</h3>
+<dialog id="filterdlg" aria-labelledby="k-filters"><div class="dlg">
+  <h3 id="k-filters">Filters</h3>
   <div id="filterkaarten"></div>
   <div class="sluit"><button class="btn btn-groen" onclick="document.getElementById('filterdlg').close()">Toon winkels</button></div>
 </div></dialog>
 
 <dialog class="match" id="matchdlg"><div class="mdlg" id="matchinhoud"></div></dialog>
-<dialog id="rang"><div class="dlg">
-  <h3>Hoe wij rangschikken</h3>
+<dialog id="rang" aria-labelledby="k-hoe-wij-rangschikken"><div class="dlg">
+  <h3 id="k-hoe-wij-rangschikken">Hoe wij rangschikken</h3>
   <p>De gewone lijst is niet te koop. Wij rangschikken op vier dingen, strikt in deze volgorde: de poliscontrole (wij hebben de verzekering gezien), erkenningen zoals Apple IRP die controleerbaar zijn, of de prijs de afgelopen negentig dagen is bevestigd, en pas dan het cijfer op Google. Een winkel die zijn prijzen niet bijhoudt, staat dus onder een winkel met een lager cijfer die dat wel doet.</p>
   <p>Winkels kunnen straks een plek kopen in het blok Uitgelicht. Dat blok staat apart, is altijd gelabeld en de winkels erin wisselen elk uur. Bij elke winkel staat waarom hij daar staat: <b>Nieuw op de site</b> of <b>Betaalde plek</b>.</p><p>Op dit moment verkopen wij niets, dus is het hele blok voor winkels die net zijn aangesloten. Een winkel die niets betaalt kan altijd bovenaan de gewone lijst staan; die volgorde is niet te koop.</p>
   <div class="sluit"><button class="btn btn-groen" onclick="document.getElementById('rang').close()">Sluiten</button></div>
 </div></dialog>
 
 <script src="data/kiezer.js?v=3f3d641f"></script>
-<script src="data/winkels.js?v=e0c6e073"></script>
+<script src="data/winkels.js?v=3b5f1a72"></script>
 <script>
 /* De bandbreedtes komen uit data/kiezer.js, dat uit het prijsonderzoek wordt
    gegenereerd. Ze stonden hier met de hand overgetypt en weken op vijf van de

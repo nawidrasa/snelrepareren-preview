@@ -293,7 +293,7 @@ button{font:inherit}
    onder elkaar; dan is de winst weg maar blijft het leesbaar, en dat is beter
    dan twee kolommen van veertig pixels breed. */
 .winkel .kolommen{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 26px}
-.winkel .kolom h4{margin:0 0 6px;font-size:11px;font-weight:800;letter-spacing:.08em;
+.winkel .kolom h3{margin:0 0 6px;font-size:11px;font-weight:800;letter-spacing:.08em;
   text-transform:uppercase;color:var(--inkt-3)}
 .winkel .kolom p{margin:0;font-size:13.5px;color:var(--inkt-2);line-height:1.5}
 .winkel .kolom .bijzin{margin-top:6px;font-size:12.5px;color:var(--inkt-3)}
@@ -428,16 +428,16 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
 <div class="onder">Prijzen uit het prijsonderzoek: 198 metingen bij Nederlandse winkels, peildatum 3 september 2026. Voor een iPhone 13-scherm zijn dat er tien, en die liepen van 79 tot 309 euro. Winkels, beoordelingen, afstanden en toestelkleuren zijn illustratief. Volgorde: poliscontrole, erkenning, hoe actueel de prijs is, en pas dan het cijfer op Google; het blok Uitgelicht staat apart en is zo gelabeld (besluit B2). Er wordt nog niets verkocht, dus staan daar alleen nieuwe winkels.</div>
 
 <dialog class="match" id="matchdlg"><div class="mdlg" id="matchinhoud"></div></dialog>
-<dialog id="hulp"><div class="dlg">
-  <h3>Ik weet mijn model niet</h3>
+<dialog id="hulp" aria-labelledby="k-ik-weet-mijn-model-niet"><div class="dlg">
+  <h3 id="k-ik-weet-mijn-model-niet">Ik weet mijn model niet</h3>
   <p>Op je toestel staat een modelcode. Zo vind je hem, en dan typ je hem gewoon in het zoekveld.</p>
   <div class="tabs"><button class="aan" data-os="ios">iPhone</button><button data-os="android">Android</button></div>
   <ol id="stappenlijst"></ol>
   <div class="sluit"><button class="btn btn-groen" onclick="document.getElementById('hulp').close()">Sluiten</button></div>
 </div></dialog>
 
-<dialog id="rang"><div class="dlg">
-  <h3>Hoe wij rangschikken</h3>
+<dialog id="rang" aria-labelledby="k-hoe-wij-rangschikken"><div class="dlg">
+  <h3 id="k-hoe-wij-rangschikken">Hoe wij rangschikken</h3>
   <p>De gewone lijst is niet te koop. Winkels staan op volgorde van vier dingen, strikt in deze volgorde: de poliscontrole (wij hebben de verzekering gezien), controleerbare erkenningen, of de prijs de afgelopen negentig dagen is bevestigd, en pas dan het cijfer op Google. Het blok "Uitgelicht" staat apart en is altijd gelabeld. Bij elke winkel daar staat waarom hij er staat: nieuw op de site, of een betaalde plek. Op dit moment verkopen wij niets, dus zijn het alleen nieuwe winkels.</p>
   <div class="sluit"><button class="btn btn-groen" onclick="document.getElementById('rang').close()">Sluiten</button></div>
 </div></dialog>
@@ -448,7 +448,7 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
 </footer>
 
 <script src="data/kiezer.js?v=3f3d641f"></script>
-<script src="data/winkels.js?v=e0c6e073"></script>
+<script src="data/winkels.js?v=3b5f1a72"></script>
 <script>
 /* ---------- gegevens ---------- */
 /* De toestellijst komt uit bouwvoorbereiding/data/catalogus.json, via data/kiezer.js.
@@ -1155,7 +1155,7 @@ function stap3(){
       <div class="prijsvak"><div class="prijs num">${p!=null?eur(p):'op aanvraag'}<small>${g.map(k=>REP[k].n).join(' + ')}</small></div></div>
       <button class="meer" aria-expanded="${open?'true':'false'}" onclick="toonMeer('${esc(sleutel)}')">${open?'Minder':'Meer over deze winkel'}${MEERPIJL}</button>
       <div class="detail"${open?'':' hidden'}>
-        <div class="kolommen">${kolommen.map(([kop,inhoud])=>`<div class="kolom"><h4>${kop}</h4>${inhoud}</div>`).join('')}</div>
+        <div class="kolommen">${kolommen.map(([kop,inhoud])=>`<div class="kolom"><h3>${kop}</h3>${inhoud}</div>`).join('')}</div>
         ${p!=null&&som()?`<div class="bereik"><div class="lablinks">Wat deze prijs landelijk is</div><div class="track"><div class="fill" style="left:4%;width:92%"></div><div class="tick" style="left:${med}%"></div><div class="jij" style="left:${pos}%"></div></div><div class="lab num"><span>${eur(lo)}</span><span>${eur(hi)}</span></div></div>`:''}
       </div>
       <div class="acties"><button class="btn btn-groen" onclick="belWinkel(${i})">${TEL}Bel de winkel</button>${

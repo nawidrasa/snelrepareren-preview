@@ -347,6 +347,31 @@ let laatsteMatch = null;
 
 /* De knop staat in een tekstsjabloon, en daar past geen winkelobject in. Het
    nummer in de lijst wel. */
+/* Geeft het dialoogvenster de naam die er OP dat moment in staat.
+ *
+ * Dit venster krijgt zijn inhoud pas van het script, en die verschilt per
+ * actie: "Bel <winkel>", "Afgesproken", "Vraag een prijs aan <winkel>". Er
+ * stond dus geen kop in de HTML om naar te verwijzen, en een schermlezer
+ * kondigde het venster aan als alleen "dialoog". De kop is er wel, hij komt
+ * alleen later; dus leggen wij de koppeling ook later.
+ */
+/** Vult het matchvenster en zet de naam meteen goed. De kop verandert met de
+ *  inhoud mee ("Bel X" wordt "Afgesproken"), dus de naam moet dat ook. */
+function vulVenster(html) {
+  const vak = document.getElementById('matchinhoud');
+  if (!vak) return;
+  vak.innerHTML = html;
+  benoemVenster(document.getElementById('matchdlg'));
+}
+
+function benoemVenster(d) {
+  if (!d) return;
+  const kop = d.querySelector('h1,h2,h3,h4');
+  if (!kop) return;
+  if (!kop.id) kop.id = 'venstertitel-' + Math.random().toString(36).slice(2, 8);
+  d.setAttribute('aria-labelledby', kop.id);
+}
+
 const belWinkel = i => belMatch(WINKELS[i]);
 
 async function belMatch(w) {
@@ -375,7 +400,7 @@ async function belMatch(w) {
     }
   }
 
-  document.getElementById('matchinhoud').innerHTML = `
+  vulVenster(`
     <h3>Bel ${esc(w.n)}</h3>
     <p class="waar">Je spreekt de winkel rechtstreeks. Wij zitten er niet tussen en rekenen niets.</p>
     ${nummer
@@ -395,8 +420,8 @@ async function belMatch(w) {
     <p class="vraaguitleg">Dit is de ontwerpschets, dus wij leggen niets vast en sturen niets. Op de echte site kun je hier vragen of wij je over twee dagen herinneren om de winkel te beoordelen.</p>
     <div class="knoppen">
       <button class="btn btn-groen" onclick="document.getElementById('matchdlg').close()">Sluiten</button>
-    </div>`}`;
-  d.showModal();
+    </div>`}`);
+  benoemVenster(d); d.showModal();
 }
 
 async function matchJa() {
@@ -417,13 +442,13 @@ async function matchJa() {
       `<p class="klein" style="color:var(--amber)">Dat lukte niet: ${esc(fout.message)} Je kunt gewoon bellen.</p>`);
     return;
   }
-  document.getElementById('matchinhoud').innerHTML = `
+  vulVenster(`
     <div class="gelukt">
       <div class="bal">${MATCHVINK}</div>
       <h3>Afgesproken</h3>
       <p class="waar" style="margin-bottom:18px">Over twee dagen sturen wij je één e-mail met de vraag hoe het ging. Verder hoor je niets van ons.</p>
       <button class="btn btn-groen" style="width:100%" onclick="document.getElementById('matchdlg').close()">Sluiten</button>
-    </div>`;
+    </div>`);
 }
 
 const MATCHTEL = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>';
@@ -447,7 +472,7 @@ let verzoekGegevens = null;
 
 function verzoekDialoog(w, toestel, regels) {
   verzoekGegevens = { w, toestel, regels };
-  document.getElementById('matchinhoud').innerHTML = `
+  vulVenster(`
     <h3>Vraag een prijs aan ${esc(w.n)}</h3>
     <p class="waar">De winkel antwoordt rechtstreeks aan jou. Wij zitten er niet tussen en rekenen niets.</p>
     <div class="nummer" style="display:block">
@@ -463,7 +488,7 @@ function verzoekDialoog(w, toestel, regels) {
       <button class="btn btn-lijn" onclick="document.getElementById('matchdlg').close()">Annuleren</button>
       <button class="btn btn-groen" onclick="verzoekVerstuur()">Verstuur</button>
     </div>
-    <p class="klein">Je naam, adres en toelichting gaan naar deze winkel en naar niemand anders. Wij bewaren ze 90 dagen en wissen ze daarna.</p>`;
+    <p class="klein">Je naam, adres en toelichting gaan naar deze winkel en naar niemand anders. Wij bewaren ze 90 dagen en wissen ze daarna.</p>`);
   document.getElementById('matchdlg').showModal();
 }
 
@@ -495,13 +520,13 @@ async function verzoekVerstuur() {
       `<p class="klein" style="color:var(--amber)">Dat lukte niet: ${esc(fout.message)} Je kunt de winkel gewoon bellen.</p>`);
     return;
   }
-  document.getElementById('matchinhoud').innerHTML = `
+  vulVenster(`
     <div class="gelukt">
       <div class="bal">${MATCHVINK}</div>
       <h3>Verstuurd</h3>
       <p class="waar" style="margin-bottom:18px">Je vraag staat bij ${esc(w.n)}. Je krijgt een kopie in je mail. De winkel antwoordt rechtstreeks aan jou; wij kunnen geen antwoord beloven.</p>
       <button class="btn btn-groen" style="width:100%" onclick="document.getElementById('matchdlg').close()">Sluiten</button>
-    </div>`;
+    </div>`);
 }
 
 /* ---------- betaalmethoden als merkjes ----------
