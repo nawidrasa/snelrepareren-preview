@@ -73,9 +73,19 @@ footer{border-top:1px solid var(--lijn);margin-top:44px;padding:26px 0 60px;colo
 
 <footer><div class="in">
   <div class="jur"><a href="voorwaarden.html">Voorwaarden</a><a href="privacy.html">Privacy</a><a href="cookies.html">Cookies</a><a href="toegankelijkheid.html">Toegankelijkheid</a><a href="melden.html">Iets melden</a><a href="over-ons.html">Over ons</a></div>
-  Onze toestelcatalogus telt 137 modellen. Onderdeel van snelrepareren.nl.</div></footer>
+  Onze toestelcatalogus telt <span id="hoeveelmodellen">alle bekende</span> modellen. Onderdeel van snelrepareren.nl.</div></footer>
 
 <script src="data/kiezer.js?v=3f3d641f"></script>
+<script>
+/* De voettekst noemde het aantal modellen met de hand, en dat was blijven staan
+   toen de catalogus groeide: 137 terwijl er 266 in de data zitten. Een getal dat
+   een lijst beschrijft, hoort uit die lijst te komen. */
+(function(){
+  const el=document.getElementById('hoeveelmodellen');
+  if(el&&typeof KIEZERDATA==='object'&&Array.isArray(KIEZERDATA.modellen))
+    el.textContent=KIEZERDATA.modellen.length;
+})();
+</script>
 <script>
 /* live = er is een toestelpagina; de rest wacht op prijsmetingen */
 /* Een catalogus voor de hele site, uit bouwvoorbereiding/data/catalogus.json.

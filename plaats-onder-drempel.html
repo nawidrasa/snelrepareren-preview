@@ -105,12 +105,30 @@ footer{border-top:1px solid var(--lijn);margin-top:44px;padding:26px 0 60px;colo
   <div class="jur"><a href="voorwaarden.html">Voorwaarden</a><a href="privacy.html">Privacy</a><a href="cookies.html">Cookies</a><a href="toegankelijkheid.html">Toegankelijkheid</a><a href="melden.html">Iets melden</a><a href="over-ons.html">Over ons</a></div>
   Deze pagina staat op noindex zolang er minder dan drie aangesloten winkels in Drachten zijn.</div></footer>
 
+<script src="data/winkels.js?v=e0c6e073"></script>
 <script>
-const WINKELS=[
- ['T','Telefoonhulp Leeuwarden','Nieuwestad 112, Leeuwarden','28 km','9,1 (48)'],
- ['F','FixPoint Friesland','Wirdumerdijk 22, Leeuwarden','28 km','8,7 (112)'],
- ['S','De Schermwerkplaats','Voorstreek 45, Leeuwarden','29 km','9,4 (26)'],
+/* Deze drie winkels stonden hier met de hand overgeschreven uit winkels.js:
+   naam, adres en Google-cijfer. Toen het Google-cijfer vanmorgen naar de schaal
+   van Google ging (1 tot 5), veranderde het overal mee BEHALVE hier, want deze
+   pagina leest de gedeelde bron niet. Er stond dus 9,1 waar dezelfde winkel
+   elders 4,6 is.
+
+   Nu komt alles uit winkels.js. Alleen de afstand blijft hier staan, want die
+   is echt eigen aan deze pagina: het is de afstand vanaf Drachten, en winkels.js
+   kent alleen de afstand binnen Leeuwarden. Herkent hij een naam niet, dan zegt
+   de pagina dat met zoveel woorden in plaats van een lege regel te tonen. */
+const DICHTSTBIJ=[
+ ['Telefoonhulp Leeuwarden','28 km'],
+ ['FixPoint Friesland','28 km'],
+ ['De Schermwerkplaats','29 km'],
 ];
-document.getElementById('winkels').innerHTML=WINKELS.map(([i,n,a,km,c])=>
- `<a class="winkel" href="winkelprofiel.html"><span class="av">${i}</span><span><b>${n}</b><small>${a}</small></span><span class="rechts"><span class="afst num">${km}</span><br><span class="cijf num">${c}</span></span></a>`).join('');
+document.getElementById('winkels').innerHTML=DICHTSTBIJ.map(([naam,km])=>{
+  const w=WINKELS.find(x=>x.n===naam);
+  if(!w)return `<p class="let">De winkel ${esc(naam)} staat niet meer in onze gegevens.</p>`;
+  const cijfer=w.g?`${esc(w.g)} (${esc(w.gb||0)})`:'nog geen cijfer op Google';
+  return `<a class="winkel" href="${winkelLink(w)}"><span class="av">${esc(w.i)}</span>`
+    +`<span><b>${esc(w.n)}</b><small>${esc(w.a)}, ${esc(w.plaats)}</small></span>`
+    +`<span class="rechts"><span class="afst num">${esc(km)}</span><br>`
+    +`<span class="cijf num">${cijfer}</span></span></a>`;
+}).join('');
 </script>
