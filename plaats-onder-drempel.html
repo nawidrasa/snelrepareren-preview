@@ -121,7 +121,7 @@ footer{border-top:1px solid var(--lijn);margin-top:44px;padding:26px 0 60px;colo
   <div class="jur"><a href="voorwaarden.html">Voorwaarden</a><a href="privacy.html">Privacy</a><a href="cookies.html">Cookies</a><a href="toegankelijkheid.html">Toegankelijkheid</a><a href="melden.html">Iets melden</a><a href="over-ons.html">Over ons</a></div>
   Deze pagina staat op noindex zolang er minder dan drie aangesloten winkels in Drachten zijn.</div></footer>
 
-<script src="data/winkels.js?v=8bd17a3b"></script>
+<script src="data/winkels.js?v=b71c5d8c"></script>
 <script>
 /* Deze drie winkels stonden hier met de hand overgeschreven uit winkels.js:
    naam, adres en Google-cijfer. Toen het Google-cijfer vanmorgen naar de schaal
@@ -142,9 +142,15 @@ document.getElementById('winkels').innerHTML=DICHTSTBIJ.map(([naam,km])=>{
   const w=WINKELS.find(x=>x.n===naam);
   if(!w)return `<p class="let">De winkel ${esc(naam)} staat niet meer in onze gegevens.</p>`;
   const cijfer=w.g?`${esc(w.g)} (${esc(w.gb||0)})`:'nog geen cijfer op Google';
-  return `<a class="winkel" href="${winkelLink(w)}"><span class="av">${esc(w.i)}</span>`
+  /* De hele kaart was een link naar het profiel. Zonder profiel wordt het een
+     gewoon blok en geen dode link; zie winkelLink in winkels.js. */
+  const naarProfiel=winkelLink(w);
+  const [open,dicht]=naarProfiel
+    ? [`<a class="winkel" href="${naarProfiel}">`, '</a>']
+    : ['<div class="winkel">', '</div>'];
+  return open+`<span class="av">${esc(w.i)}</span>`
     +`<span><b>${esc(w.n)}</b><small>${esc(w.a)}, ${esc(w.plaats)}</small></span>`
     +`<span class="rechts"><span class="afst num">${esc(km)}</span><br>`
-    +`<span class="cijf num">${cijfer}</span></span></a>`;
+    +`<span class="cijf num">${cijfer}</span></span>`+dicht;
 }).join('');
 </script>

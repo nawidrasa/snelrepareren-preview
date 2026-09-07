@@ -467,7 +467,21 @@ const garantieVan = a => (a && a.g ? a.g + ' maanden garantie' : null);
 
 /* De link naar het profiel van een winkel. Een echte winkel heeft een nummer en
    krijgt een eigen adres; de verzonnen voorbeelden delen de ontwerppagina. */
-const winkelLink = w => (w.id ? 'winkel-' + w.id + '-' + w.slug : 'winkelprofiel.html');
+/* De link naar het profiel van deze winkel, of null als die er niet is.
+
+   Er stond hier: heeft de winkel geen id, dan winkelprofiel.html. Dat is de
+   ontwerpschets van een VERZONNEN winkel, met verzonnen beoordelingen en
+   verzonnen prijzen. Sinds er echte winkels in de data staan, ging de knop
+   "Profiel" bij Daily Phones in Harlingen dus naar het profiel van een bedrijf
+   dat niet bestaat. Voor een bezoeker lijkt dat het profiel van Daily Phones,
+   en dan hangen wij verzonnen beoordelingen aan een echt bedrijf.
+
+   Nu: een echte winkel krijgt alleen een link als er een echt profiel is (een
+   id uit de database). De verzonnen voorbeelden houden hun schets, zodat het
+   ontwerp te beoordelen blijft. Geen link betekent geen knop; elke pagina
+   hieronder laat hem weg. */
+const winkelLink = w =>
+  w.id ? 'winkel-' + w.id + '-' + w.slug : (w.verzonnen ? 'winkelprofiel.html' : null);
 
 /* Wat deze winkel voor een model en reparatie vraagt.
  *

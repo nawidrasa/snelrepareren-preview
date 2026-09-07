@@ -351,7 +351,7 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
 <script src="data/kiezer.js?v=3f3d641f"></script>
 <script src="data/postcodes.js?v=303b3761"></script>
 <script src="data/winkelpunten.js?v=2a05827c"></script>
-<script src="data/winkels.js?v=8bd17a3b"></script>
+<script src="data/winkels.js?v=b71c5d8c"></script>
 <script>
 /* De bandbreedtes komen uit data/kiezer.js, dat uit het prijsonderzoek wordt
    gegenereerd. Ze stonden hier met de hand overgetypt en weken op vijf van de
@@ -522,7 +522,7 @@ function winkelkaart(w,uitgelicht){
       ${erkenningsMerken(w)}
     </div>
     ${feiten?`<p class="feiten">${feiten}</p>`:''}
-    <div class="acties"><a class="btn btn-stil" href="${winkelLink(w)}">Profiel</a><a class="btn btn-lijn" href="#">Route</a><button class="btn btn-groen" onclick="belWinkel(${i})">${TEL}Bel de winkel</button></div>
+    <div class="acties">${winkelLink(w)?`<a class="btn btn-stil" href="${winkelLink(w)}">Profiel</a>`:''}<a class="btn btn-lijn" href="#">Route</a><button class="btn btn-groen" onclick="belWinkel(${i})">${TEL}Bel de winkel</button></div>
   </div>`;
 }
 function vermelding(v){
@@ -640,7 +640,7 @@ function onderDrempel(){
       ${erkenningsMerken(w)}
     </div>
     ${feiten?`<p class="feiten">${feiten}</p>`:''}
-    <div class="acties"><a class="btn btn-stil" href="${winkelLink(w)}">Profiel</a><a class="btn btn-lijn" href="#">Route</a><button class="btn btn-groen" onclick="belWinkel(${i})">${TEL}Bel de winkel</button></div>
+    <div class="acties">${winkelLink(w)?`<a class="btn btn-stil" href="${winkelLink(w)}">Profiel</a>`:''}<a class="btn btn-lijn" href="#">Route</a><button class="btn btn-groen" onclick="belWinkel(${i})">${TEL}Bel de winkel</button></div>
   </div>`};
 
   document.getElementById('lijst').innerHTML=

@@ -454,7 +454,7 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
 
 <!-- "79 tot 309 euro over 198 metingen" las alsof die 198 metingen bij dat ene
      scherm hoorden. Het zijn er tien; 198 is het hele onderzoek. -->
-<div class="onder">Prijzen uit het prijsonderzoek: 198 metingen bij Nederlandse winkels, peildatum 3 september 2026. Voor een iPhone 13-scherm zijn dat er tien, en die liepen van 79 tot 309 euro. Winkels, beoordelingen, afstanden en toestelkleuren zijn illustratief. Volgorde: poliscontrole, erkenning, hoe actueel de prijs is, en pas dan het cijfer op Google; het blok Uitgelicht staat apart en is zo gelabeld (besluit B2). Er wordt nog niets verkocht, dus staan daar alleen nieuwe winkels.</div>
+<div class="onder">Prijzen uit het prijsonderzoek: 198 metingen bij Nederlandse winkels, peildatum 3 september 2026. Voor een iPhone 13-scherm zijn dat er tien, en die liepen van 79 tot 309 euro. Winkels met het merkje Verzonnen voorbeeld bestaan niet; hun beoordelingen en prijzen zijn illustratief. De andere winkels zijn echt: hun cijfer komt van Google en de afstand is gerekend uit je postcode. Toestelkleuren zijn illustratief. Volgorde: poliscontrole, erkenning, hoe actueel de prijs is, en pas dan het cijfer op Google; het blok Uitgelicht staat apart en is zo gelabeld (besluit B2). Er wordt nog niets verkocht, dus staan daar alleen nieuwe winkels.</div>
 
 <dialog class="match" id="matchdlg"><div class="mdlg" id="matchinhoud"></div></dialog>
 <dialog id="hulp" aria-labelledby="k-ik-weet-mijn-model-niet"><div class="dlg">
@@ -480,7 +480,7 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
 <script src="data/kiezer.js?v=3f3d641f"></script>
 <script src="data/postcodes.js?v=303b3761"></script>
 <script src="data/winkelpunten.js?v=2a05827c"></script>
-<script src="data/winkels.js?v=8bd17a3b"></script>
+<script src="data/winkels.js?v=b71c5d8c"></script>
 <script>
 /* ---------- gegevens ---------- */
 /* De toestellijst komt uit bouwvoorbereiding/data/catalogus.json, via data/kiezer.js.
@@ -1238,10 +1238,19 @@ function stap3(){
       w.vest>1?esc(w.vest)+' vestigingen':null].filter(Boolean).join(' &middot; ');
     const kolommen=[
       erkenningsMerken(w)?['Erkenning',erkenningsMerken(w)+(jaren?`<p class="bijzin">${jaren}</p>`:'')]:null,
-      (w.keur||true)?['Door ons nagetrokken',`<p>${[
-        w.keur?'Polis gecontroleerd op '+esc(w.keurdatum):null,
-        eigenBeoordelingen(w),
-      ].filter(Boolean).join('<br>')}</p>`]:null,
+      /* Hier stond `(w.keur||true)`, en dat is altijd waar. Drie regels hoger
+         staat "een kopje met niets eronder is erger dan geen kopje"; deze
+         voorwaarde zette dat buiten werking. Bij een winkel waarvan wij niets
+         hebben nagetrokken (Daily Phones: geen polis gezien, geen erkenning)
+         stond er zo "DOOR ONS NAGETROKKEN" met daaronder alleen "nog geen
+         beoordelingen via ons". Dat leest als een controle die wij gedaan
+         zouden hebben, terwijl het het tegendeel zegt.
+         Nu staat het kopje er alleen als wij echt iets hebben nagetrokken, en
+         verhuist het aantal eigen beoordelingen naar een eigen kopje: dat gaat
+         over ons systeem, niet over een controle op deze winkel. */
+      w.keur?['Door ons nagetrokken',
+        `<p>Polis gecontroleerd op ${esc(w.keurdatum)}</p>`]:null,
+      ['Beoordelingen bij ons',`<p>${eigenBeoordelingen(w)}</p>`],
       weekRegels(w).length?['Openingstijden',`<p>${weekRegels(w).map(esc).join('<br>')}</p>`]:null,
       (w.betaal||[]).length?['Betalen',`<span class="betaalrij">${w.betaal.map(betaalmerk).join('')}</span>`]:null,
     ].filter(Boolean);
@@ -1258,7 +1267,11 @@ function stap3(){
       </div>
       <div class="acties"><button class="btn btn-groen" onclick="belWinkel(${i})">${TEL}Bel de winkel</button>${
         w.aan?`<button class="btn btn-lijn" onclick="vraagPrijs(${i})">Vraag een prijs</button>`:''
-        }<a class="btn btn-lijn" href="#">Route</a><a class="btn btn-stil" href="${winkelLink(w)}">Profiel</a></div>
+        }<a class="btn btn-lijn" href="#">Route</a>${
+        /* Geen profielknop zonder profiel: winkelLink geeft null voor een echte
+           winkel die er nog geen heeft, en de schets van een verzonnen winkel
+           mag niet doorgaan voor het profiel van een echt bedrijf. */
+        winkelLink(w)?`<a class="btn btn-stil" href="${winkelLink(w)}">Profiel</a>`:''}</div>
     </div>`};
   /* esc() om de waarde heen. Hier stond value="${S.plaats}" kaal, en dat is
      tekst die de bezoeker zelf intypt; een aanhalingsteken breekt dan uit het
