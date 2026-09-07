@@ -112,6 +112,15 @@ button{font:inherit}
 .deel-kop .naam{font-weight:600;flex:1}
 .deel-kop .vanaf{font-weight:700;color:var(--inkt)}
 .deel-kop .vanaf.aanvraag{font-weight:500;color:var(--inkt-3);font-size:13.5px}
+/* Een meting bij minder dan drie winkels ziet er hier hetzelfde uit als een
+   meting bij zes. Op de toestelpagina en in de prijsindex krijgt zo'n rij al
+   jaren een amberen achtergrond; de kiezer deed het niet, en dat is nou net het
+   scherm waar iedereen langskomt. Zelfde kleur, zelfde reden. */
+.deel-kop .bedragkolom{display:flex;flex-direction:column;align-items:flex-end;gap:2px}
+.prijsvak .onderdeel{display:block;font-weight:600;color:var(--inkt-2);text-transform:none;letter-spacing:0}
+.deel-kop .vanaf.dun{color:var(--amber)}
+.deel-kop .dunmerk{font-size:12px;font-weight:600;color:var(--amber);
+  background:var(--amber-soft);border-radius:999px;padding:1px 8px;white-space:nowrap}
 .deel-kop .weg{font-size:13px;font-weight:600;color:var(--inkt-3)}
 .deel-kop:hover .weg{color:var(--rood)}
 /* minmax(0,1fr) en niet 1fr: een lange onderdeelnaam duwde de kolom anders
@@ -1024,6 +1033,15 @@ function stap2(){
       </div>${kwalTegels(k,opties,gk,true)}`;
   };
 
+  /* Onder de drempel van drie winkels weet je niets over de markt. Dat is een
+     regel die de site zelf overal toepast: een bandbreedte krijgt dan geen eigen
+     prijspagina, en op de toestelpagina en in de prijsindex staat de rij amber.
+     Deze twee hulpjes zetten hem ook in de kiezer, en op EEN plek, want hij zat
+     in de ene tak wel en in de andere niet. */
+  const dunmerkje=m=>!m||m.genoeg?'':`<span class="dunmerk">${m.winkels} ${m.winkels===1?'winkel':'winkels'}</span>`;
+  const bedragkolom=(tekst,m)=>`<span class="bedragkolom"><span class="vanaf num${m&&!m.genoeg?' dun':''}">${tekst}</span>${dunmerkje(m)}</span>`;
+  const dunregel=m=>!m||m.genoeg?'':`<div class="uitleg-water">Let op: voor dit model hebben wij ${m.winkels===1?'maar een winkel':'pas '+m.winkels+' winkels'} met een prijs. Te weinig voor een eerlijke vergelijking.</div>`;
+
   /* Per reparatie tonen wij wat wij voor DIT model hebben gemeten:
      - opties: winkels noemen het onderdeel, dus je kunt kiezen
      - band: winkels noemen geen onderdeel, dus alleen een bandbreedte
@@ -1053,7 +1071,7 @@ function stap2(){
          geen zin. */
       const echt=op.filter(o=>o.sleutel!=='onbekend');
       const verschil=echt.length>1?echt[echt.length-1].prijs-echt[0].prijs:0;
-      rechts=`<span class="vanaf num">vanaf ${eur(laag)}</span>`;
+      rechts=bedragkolom(`vanaf ${eur(laag)}`, m);
       if(aan)uitklap=`
         <div class="kwalkop"><b>Welk onderdeel wil je?</b>
           ${verschil>0?`<span>Tussen ${esc(echt[0].naam.toLowerCase())} en ${esc(echt[echt.length-1].naam.toLowerCase())} zit <b class="num">${eur(verschil)}</b>. Dat verschil bepaalt de prijs meer dan de winkel.</span>`
@@ -1061,11 +1079,14 @@ function stap2(){
             :'<span>Geen van de winkels die wij hier maten, zei welk onderdeel zij gebruiken.</span>'}</div>
         ${kwalTegels(k,m.opties,gk,false)}
         ${!gk?'<div class="uitleg-water">Kies er een, dan rekenen wij verder met die prijs.</div>':''}
-        ${!m.genoeg?`<div class="uitleg-water">Let op: voor dit model hebben wij ${m.winkels===1?'maar een winkel':'pas '+m.winkels+' winkels'} met een prijs. Te weinig voor een eerlijke vergelijking.</div>`:''}`;
+        ${dunregel(m)}`;
     } else if(m&&m.band){
       const b=m.band;
-      rechts=`<span class="vanaf num">${b.laagste===b.hoogste?eur(b.laagste):eur(b.laagste)+" tot "+eur(b.hoogste)}</span>`;
-      if(aan)uitklap=`<div class="uitleg-water">De winkels die wij hier maten, zetten er niet bij welk onderdeel zij gebruiken. Wij rekenen met de middelste prijs, ${eur(b.mediaan)}, uit ${b.metingen} ${b.metingen===1?'meting':'metingen'} bij ${m.winkels} ${m.winkels===1?'winkel':'winkels'}. Vraag in de winkel welk onderdeel je krijgt.</div>${landLadder(k,gk)}`;
+      rechts=bedragkolom(b.laagste===b.hoogste?eur(b.laagste):eur(b.laagste)+" tot "+eur(b.hoogste), m);
+      /* De waarschuwing over te weinig winkels stond alleen in de keuze-tak
+         hierboven. Deze tak toonde net zo goed een prijs uit een of twee
+         winkels, en zei er niets over. Dezelfde regel, dus dezelfde zin. */
+      if(aan)uitklap=`<div class="uitleg-water">De winkels die wij hier maten, zetten er niet bij welk onderdeel zij gebruiken. Wij rekenen met de middelste prijs, ${eur(b.mediaan)}, uit ${b.metingen} ${b.metingen===1?'meting':'metingen'} bij ${m.winkels} ${m.winkels===1?'winkel':'winkels'}. Vraag in de winkel welk onderdeel je krijgt.</div>${dunregel(m)}${landLadder(k,gk)}`;
     } else {
       const l=landelijk(k);
       rechts='<span class="vanaf aanvraag num">nog niet gemeten</span>';
@@ -1109,6 +1130,25 @@ function stap3(){
    * doet hij een van de gekozen reparaties niet, dan is het antwoord dat wij het
    * niet weten en niet een bedrag dat wij eromheen rekenen. */
   const somVan=w=>{let t=0;for(const k of g){const a=aanbod(w,S.model.n,k);if(!a)return null;t+=a.b}return t};
+  /* WELK ONDERDEEL DEZE WINKEL GEBRUIKT, BIJ DE PRIJS.
+   *
+   * De kaart zei "99 euro, Scherm" en verder niets. Die 99 euro is bij deze
+   * winkel een kopiescherm en de 259 euro verderop is een origineel; dat is het
+   * hele verschil waar deze site over gaat, en juist op het scherm waar je kiest
+   * stond het er niet bij. Wie boven in het overzicht "origineel" had aangetikt,
+   * zag daaronder een winkel van 99 euro staan alsof dat hetzelfde was.
+   *
+   * De plaatspagina, het winkelprofiel en de merkpagina zetten er alle drie al
+   * kwaliteitsnaam() bij. De kiezer was de enige die het niet deed.
+   *
+   * Bij meer dan een gekozen reparatie kan het onderdeel per reparatie
+   * verschillen. Dan zeggen wij dat, in plaats van er een van te kiezen. */
+  const onderdeelBij=w=>{
+    const soorten=[...new Set(g.map(k=>{const a=aanbod(w,S.model.n,k);return a?a.k:null;}))];
+    if(!soorten.length||soorten.every(k=>!k))return '';
+    if(soorten.length>1)return `<span class="onderdeel">onderdeel verschilt per reparatie</span>`;
+    return `<span class="onderdeel">${esc(kwaliteitsnaam(soorten[0]))}</span>`;
+  };
   const kaart=w=>{const i=WINKELS.indexOf(w),p=somVan(w);
     /* Allebei binnen de balk houden. pos werd al geknepen, med niet, en die kan
        buiten 0 tot 100 vallen zodra de gekozen som lager of hoger is dan de
@@ -1165,7 +1205,7 @@ function stap3(){
       <div class="cijfer">${w.g?`${sterrenBalk(w.g)}<b class="num">${esc(w.g)}</b><span><a href="${link(w.glink||'#')}" rel="nofollow noopener">${esc(w.gb||0)} beoordelingen op Google</a></span>`
         :'<span class="geencijfer">Nog geen cijfer op Google</span>'}</div>
       <div class="chips">${w.uit?`<span class="chip chip-uitg">Uitgelicht &middot; ${uitgelichtReden(w)}</span>`:''}${w.keur?`<span class="chip chip-keur">${CHECK}Polis gecontroleerd</span>`:''}${tijd?`<span class="chip chip-snel">${BOLT}${tijd}</span>`:''}${dicht?`<span class="chip">Vandaag gesloten</span>`:''}</div>
-      <div class="prijsvak"><div class="prijs num">${p!=null?eur(p):'op aanvraag'}<small>${g.map(k=>REP[k].n).join(' + ')}</small></div></div>
+      <div class="prijsvak"><div class="prijs num">${p!=null?eur(p):'op aanvraag'}<small>${g.map(k=>REP[k].n).join(' + ')}${onderdeelBij(w)}</small></div></div>
       <button class="meer" aria-expanded="${open?'true':'false'}" onclick="toonMeer('${esc(sleutel)}')">${open?'Minder':'Meer over deze winkel'}${MEERPIJL}</button>
       <div class="detail"${open?'':' hidden'}>
         <div class="kolommen">${kolommen.map(([kop,inhoud])=>`<div class="kolom"><h3>${kop}</h3>${inhoud}</div>`).join('')}</div>
