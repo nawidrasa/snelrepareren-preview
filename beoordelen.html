@@ -81,6 +81,21 @@ textarea:focus,input:focus{outline:none;border-color:var(--groen);box-shadow:0 0
 <div class="schets">Ontwerpschets. Deze pagina bereik je via de e-mail die wij twee dagen na je bezoek sturen.</div>
 <header class="top"><a class="logo" href="index.html">snel<i>repareren</i>.nl</a></header>
 <main id="inhoud">
+  <!-- ZONDER LINK UIT DE MAIL GEEN INGEVULD FORMULIER.
+       Hieronder staan een winkelnaam, een reparatie en een datum. Die zijn
+       verzonnen voorbeelden. Wie deze pagina zonder de link uit onze mail
+       opende, zag ze staan alsof het zijn eigen reparatie was, vulde het
+       formulier in, en hoorde pas bij het versturen dat beoordelen alleen via
+       de link kan. Nu zegt de pagina dat meteen. -->
+  <div class="kaart verborgen" id="geenlink">
+    <h1>Beoordelen kan alleen via de link uit onze e-mail</h1>
+    <p class="sub">Twee dagen nadat je bij ons het nummer van een winkel opvroeg, sturen wij je
+    een mail met een link. Alleen via die link weten wij welke reparatie je beoordeelt, en alleen
+    zo kan een winkel geen beoordelingen over zichzelf plaatsen.</p>
+    <p class="sub">Heb je die mail niet gekregen, kijk dan ook in je ongewenste post. Kom je er
+    niet uit, dan kun je het ons <a href="melden.html">melden</a>.</p>
+  </div>
+
 
 <div class="wrap">
   <!-- FORMULIER -->
@@ -197,5 +212,12 @@ snelFormulier.koppel({
       `Je gaf Telefoonhulp Leeuwarden een ${S.cijfer}.`;
   },
 });
+/* Meteen bij het laden kijken, niet pas bij het versturen. */
+(function(){
+  if(!snelFormulier.HEEFT_SERVER) return;          // de ontwerpschets blijft de schets
+  if(new URLSearchParams(location.search).get('bewijs')) return;
+  document.getElementById('formulier').classList.add('verborgen');
+  document.getElementById('geenlink').classList.remove('verborgen');
+})();
 cijfers();reps();
 </script>
