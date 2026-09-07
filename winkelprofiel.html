@@ -59,6 +59,8 @@ h1{font-size:clamp(26px,3.4vw,34px);font-weight:800;letter-spacing:-.025em;margi
 .meta a{color:var(--groen);font-weight:600;text-decoration:underline;text-underline-offset:3px;font-size:14px}
 .labels{display:flex;gap:7px;flex-wrap:wrap;margin:14px 0 0}
 .chip{display:inline-flex;align-items:center;gap:5px;padding:5px 11px;border-radius:999px;font-size:13px;font-weight:600}
+.chip-ver{background:var(--groen-100);color:var(--groen-800)}
+.chip-onver{background:var(--vlak);color:var(--inkt-3);border:1px solid var(--lijn)}
 .chip svg{width:13px;height:13px}
 .chip-keur{background:var(--groen-100);color:var(--groen-800)}
 .chip-snel{background:var(--amber-soft);color:var(--amber)}
@@ -401,7 +403,7 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
 
 <!--WINKELPROFIEL-->
 <script src="data/kiezer.js?v=3f3d641f"></script>
-<script src="data/winkels.js?v=3b5f1a72"></script>
+<script src="data/winkels.js?v=ffe2a89f"></script>
 <script>
 /* Deze pagina gaat over EEN winkel, en dat is precies waarom alles hier uit
    gegevens moet komen en niet uit de opmaak. Het was een ontwerppagina met de
@@ -481,6 +483,7 @@ function kop(){
   const snelste=REPS.map(([rep])=>bij(rep,null)||tredenHier().map(k=>bij(rep,k)).find(Boolean))
     .filter(Boolean).sort((a,b)=>a.m-b.m)[0];
   document.getElementById('wp-labels').innerHTML=[
+    verificatieMerk(true),
     P.keur?`<span class="chip chip-keur">${CHECK}Polis gecontroleerd ${esc(P.keurdatum)}</span>`:'',
     snelste&&snelste.m<=45?`<span class="chip chip-snel">${BLIKSEM}Klaar terwijl je wacht</span>`:'',
     /* Het merkje met het logo en de naam voluit, in plaats van een grijze chip

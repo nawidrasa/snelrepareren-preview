@@ -65,17 +65,58 @@ const WINKELDATA = {
   ],
 
   /* Vooringevulde vermeldingen: winkels die wij uit openbare bronnen kennen maar
-     die zich niet hebben aangemeld. Ook deze zijn nu verzonnen. Bij livegang komen
-     hier echte namen te staan, met de knop om de vermelding in een klik te laten
-     verwijderen (besluit B11 en J9). Geen cijfers, geen beoordelingen. */
+     die zich niet hebben aangemeld (besluit B11 en J9). Met de knop om de
+     vermelding in een klik te laten verwijderen.
+
+     ECHTE BEDRIJVEN, sinds 7 september. Hier staan de echte, bestaande
+     reparatiewinkels in Leeuwarden uit het onderzoek in
+     bouwvoorbereiding/WINKELS-FRIESLAND-onderzoek.md. Alleen naam en adres,
+     precies wat de privacyverklaring als openbare bron noemt. GEEN cijfer, GEEN
+     beoordeling, GEEN poliscontrole en GEEN afstand: dat zou een claim over een
+     echt bedrijf zijn die wij niet mogen doen, en een verzonnen afstand hoort al
+     helemaal niet bij een echte winkel.
+
+     Alleen Leeuwarden. Dit is de enige plaatspagina in de preview en de lijst
+     wordt niet op plaats gefilterd, dus winkels uit andere plaatsen zouden hier
+     ten onrechte opduiken. De rest van de provincie staat in het
+     onderzoeksbestand en komt bij livegang uit de database.
+
+     Niet opgenomen: Mobile 4 All (Schrans 68). Dat is het echte adres van de
+     verzonnen voorbeeldwinkel "Mobiel Service Schrans" hierboven; twee zaken op
+     een adres op een pagina is verwarrend. Zodra de voorbeelden weg zijn (echte
+     data), kan Mobile 4 All erbij. */
   vermeldingen: [
-    {n:'Telecomwinkel Zaailand',i:'Z',plaats:'Leeuwarden',a:'Zaailand 106',km:0.5},
-    {n:'GSM Hoek Leeuwarden',i:'G',plaats:'Leeuwarden',a:'Sint Jacobsstraat 14',km:0.7},
+    {n:'MyTelecom',i:'M',plaats:'Leeuwarden',a:'Peperstraat 5'},
+    {n:'Dyna Store',i:'D',plaats:'Leeuwarden',a:'Willem Alexanderplein 12'},
+    {n:'M&S Telecom 4U',i:'M',plaats:'Leeuwarden',a:'Wirdumerdijk 17'},
   ],
 
-  /* Echte, aangesloten winkels. Leeg, en dat blijft zo tot er een winkel is die
-     zich heeft aangemeld en van wie wij het polisblad hebben gezien. */
-  echt: [],
+  /* Echte, aangesloten en geverifieerde winkels.
+     GEVERIFIEERD betekent hier: deze winkel heeft zich aangemeld en toestemming
+     gegeven om vermeld te worden. Het betekent NIET dat wij zijn polisblad
+     hebben gezien; daar is het aparte label "Polis gecontroleerd" voor, met de
+     datum erbij. Daarom staat keur hieronder op 0.
+
+     Daily Phones gaf toestemming (7 september 2026). Het is EEN bedrijf met TWEE
+     winkels; "Smartphonestore Dokkum" is de tweede handelsnaam van de vestiging
+     in Dokkum, met hetzelfde adres, hetzelfde nummer en dezelfde
+     klantenservice-mail. Daarom staat Dokkum hier een keer en niet twee keer.
+
+     Wat hier NIET staat, staat er met opzet niet: prijzen, doorlooptijd,
+     garantie en onderdeelkwaliteit vult een winkel zelf in via het portaal. Die
+     mag ik niet voor hem invullen. Zolang dat niet is gebeurd toont de kaart
+     "op aanvraag", en dat klopt.
+
+     Het Google-cijfer komt van hun eigen site (7 sep 2026), die "4,9 uit ruim
+     500 reviews" zegt. 500 is dus een ondergrens, geen exact getal; lees het
+     opnieuw op de dag dat je het toont. */
+  echt: [
+    {n:'Daily Phones',i:'D',plaats:'Harlingen',buurt:'Centrum',a:'Voorstraat 15',
+     tel:'0519 347503',g:'4,9',gb:500,glink:'#',keur:0,erk:null,eigen:0,bs:[],uit:0},
+    {n:'Daily Phones',i:'D',plaats:'Dokkum',buurt:'Centrum',a:'Waagstraat 14A',
+     tel:'0519 347503',handelsnaam2:'Smartphonestore Dokkum',
+     g:'4,9',gb:500,glink:'#',keur:0,erk:null,eigen:0,bs:[],uit:0},
+  ],
   echteVermeldingen: [],
 };
 
@@ -676,6 +717,34 @@ function erkenningsMerken(w) {
     return '<span class="merkje"><span class="ic">' + (m ? m.logo : MERKSCHILD) + '</span>'
       + '<span class="tk"><b>' + (m ? m.claim : esc(naam)) + '</b></span></span>';
   }).join('');
+}
+
+/* GEVERIFIEERD OF NIET, en waarom dat merkje er moet staan.
+
+   Op een plaatspagina staan twee soorten winkels onder elkaar, en die mag je
+   nooit door elkaar halen. Een AANGESLOTEN winkel heeft zich aangemeld en
+   toestemming gegeven; wij hebben contact met hem en hij kan zijn gegevens
+   veranderen. Een VERMELDING kennen wij alleen uit openbare bronnen; die winkel
+   weet misschien niet eens dat hij hier staat.
+
+   Zonder merkje ziet een bezoeker dat verschil niet, en dan lijkt een winkel die
+   nergens van weet net zo goed gecontroleerd als een die zich heeft aangemeld.
+
+   Aangesloten winkels staan altijd BOVEN de vermeldingen. Dat is geen
+   sorteerregel die je kunt omzetten, maar de opbouw van de pagina zelf: eerst de
+   ranglijst met aangesloten winkels, daaronder het blok "Nog niet aangesloten".
+
+   GEVERIFIEERD IS NIET HETZELFDE ALS GOEDGEKEURD. Het zegt: deze winkel heeft
+   zich aangemeld en zijn gegevens bevestigd. Het zegt niets over zijn polis
+   (daarvoor is het losse label "Polis gecontroleerd", mét datum) en niets over
+   de kwaliteit van zijn werk. Die grens moet in de tekst blijven staan. */
+const VINKJE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" '
+  + 'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>';
+
+function verificatieMerk(aangesloten) {
+  return aangesloten
+    ? '<span class="chip chip-ver">' + VINKJE + 'Geverifieerd</span>'
+    : '<span class="chip chip-onver">Niet geverifieerd</span>';
 }
 
 /* Het rooster als losse regels, voor een kolom. weekTekst geeft er een regel van

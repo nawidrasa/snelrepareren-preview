@@ -156,6 +156,10 @@ h1{font-size:clamp(26px,3.4vw,36px);font-weight:800;letter-spacing:-.025em;margi
 .chip-snel{background:var(--amber-soft);color:var(--amber)}
 .chip-feit{background:var(--vlak);color:var(--inkt-2)}
 .chip-let{background:#FEE2E2;color:var(--rood)}
+/* Geverifieerd is groen omdat het iets bevestigt; niet-geverifieerd is
+   grijs en niet rood: die winkel doet niets fout, wij weten alleen niets. */
+.chip-ver{background:var(--groen-100);color:var(--groen-800)}
+.chip-onver{background:var(--vlak);color:var(--inkt-3);border:1px solid var(--lijn)}
 .feiten{font-size:13px;color:var(--inkt-3);margin:8px 0 0}
 .acties{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;margin-top:12px}
 
@@ -255,7 +259,7 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
 </style>
 
 <a class="naar-inhoud" href="#inhoud">Naar de inhoud</a>
-<div class="schets">Ontwerpschets. De winkels, beoordelingen en prijzen op deze pagina zijn verzonnen voorbeelden, geen echte bedrijven.</div>
+<div class="schets">Ontwerpschets. De winkels met een prijs, cijfer en poliscontrole zijn verzonnen voorbeelden. De winkels onder "Nog niet aangesloten" zijn echte bedrijven uit openbare bronnen, met alleen naam en adres; die staan er niet als aanbeveling.</div>
 
 <header class="top">
   <a class="logo" href="index.html">snel<i>repareren</i>.nl</a>
@@ -280,7 +284,7 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
     <div class="zkaart" id="zprijs"></div>
     <div class="zkaart">
       <h2>Hoe deze lijst tot stand komt</h2>
-      <p>De volgorde is niet te koop. Winkels staan gerangschikt op poliscontrole, erkenning, hoe actueel hun prijzen zijn, en pas dan hun beoordelingen op Google. Betaalde plekken staan apart, heten Uitgelicht en wisselen elk uur. Op dit moment betaalt niemand; daar staan alleen winkels die net zijn aangesloten.</p>
+      <p>Geverifieerde winkels staan altijd boven niet-geverifieerde vermeldingen. De volgorde is niet te koop. Winkels staan gerangschikt op poliscontrole, erkenning, hoe actueel hun prijzen zijn, en pas dan hun beoordelingen op Google. Betaalde plekken staan apart, heten Uitgelicht en wisselen elk uur. Op dit moment betaalt niemand; daar staan alleen winkels die net zijn aangesloten.</p>
       <a class="link" href="#" onclick="document.getElementById('rang').showModal();return false">Lees hoe wij rangschikken <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </div>
     <div class="zkaart">
@@ -331,13 +335,17 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
 <dialog class="match" id="matchdlg"><div class="mdlg" id="matchinhoud"></div></dialog>
 <dialog id="rang" aria-labelledby="k-hoe-wij-rangschikken"><div class="dlg">
   <h3 id="k-hoe-wij-rangschikken">Hoe wij rangschikken</h3>
+  <p>Eerst het grove onderscheid: <b>geverifieerde</b> winkels (aangemeld, gegevens bevestigd) staan altijd
+  boven <b>vermeldingen</b> die wij alleen uit openbare bronnen kennen. Die vermeldingen staan in een apart
+  blok onderaan. Geverifieerd zegt niets over de kwaliteit van het werk en is niet het label Polis
+  gecontroleerd.</p>
   <p>De gewone lijst is niet te koop. Wij rangschikken op vier dingen, strikt in deze volgorde: de poliscontrole (wij hebben de verzekering gezien), erkenningen zoals Apple IRP die controleerbaar zijn, of de prijs de afgelopen negentig dagen is bevestigd, en pas dan het cijfer op Google. Een winkel die zijn prijzen niet bijhoudt, staat dus onder een winkel met een lager cijfer die dat wel doet.</p>
   <p>Winkels kunnen straks een plek kopen in het blok Uitgelicht. Dat blok staat apart, is altijd gelabeld en de winkels erin wisselen elk uur. Bij elke winkel staat waarom hij daar staat: <b>Nieuw op de site</b> of <b>Betaalde plek</b>.</p><p>Op dit moment verkopen wij niets, dus is het hele blok voor winkels die net zijn aangesloten. Een winkel die niets betaalt kan altijd bovenaan de gewone lijst staan; die volgorde is niet te koop.</p>
   <div class="sluit"><button class="btn btn-groen" onclick="document.getElementById('rang').close()">Sluiten</button></div>
 </div></dialog>
 
 <script src="data/kiezer.js?v=3f3d641f"></script>
-<script src="data/winkels.js?v=3b5f1a72"></script>
+<script src="data/winkels.js?v=ffe2a89f"></script>
 <script>
 /* De bandbreedtes komen uit data/kiezer.js, dat uit het prijsonderzoek wordt
    gegenereerd. Ze stonden hier met de hand overgetypt en weken op vijf van de
@@ -390,7 +398,11 @@ const prijs=w=>{const a=aanbodVan(w);return a?a.b:null};
 /* Een winkel valt weg als hij niet aan de filters voldoet, of als hij de
    gekozen kwaliteit niet levert. Dat laatste keek naar w.kw, alsof een winkel
    maar een soort onderdeel gebruikt; het staat per prijs in zijn eigen tabel. */
-const zichtbaar=()=>rangschik(WINKELS
+/* EERST OP PLAATS. Deze pagina gaat over Leeuwarden en toonde tot nu toe
+   gewoon ALLE winkels, wat klopte zolang elke voorbeeldwinkel in Leeuwarden
+   stond. Zodra er echte winkels bij komen (Daily Phones in Harlingen en Dokkum)
+   zou dat een winkel uit een andere plaats op deze pagina zetten. */
+const zichtbaar=()=>rangschik(winkelsIn(PLAATS)
   .filter(w=>FILTERS.every(([id,,f])=>!S.filters[id]||f(w)))
   .filter(w=>S.kw==='alle'||!!aanbod(w,S.model,S.rep,S.kw)));
 
@@ -450,6 +462,7 @@ function winkelkaart(w,uitgelicht){
     </div>
     ${[tijd,gar].filter(Boolean).length?`<p class="regel">${[tijd,gar].filter(Boolean).join(' &middot; ')}</p>`:''}
     <div class="labels">
+      ${verificatieMerk(true)}
       ${w.keur?`<span class="chip chip-keur">${CHECK}${keurlabel(w)}</span>`:''}
       ${kanVandaag(w,a)?`<span class="chip chip-snel">${BOLT}Vandaag klaar</span>`:''}
       ${vandaagTekst(w)?`<span class="chip chip-feit">${esc(vandaagTekst(w))}</span>`:''}
@@ -462,7 +475,7 @@ function winkelkaart(w,uitgelicht){
 }
 function vermelding(v){
   return `<div class="verm"><div class="rij"><div class="pui">${esc(v.i)}</div>
-    <div><div class="naam"><b>${esc(v.n)}</b></div><p class="adres">${[esc(v.a),afstandVan(v)].filter(Boolean).join(' &middot; ')}</p>
+    <div><div class="naam"><b>${esc(v.n)}</b> ${verificatieMerk(false)}</div><p class="adres">${[esc(v.a),afstandVan(v)].filter(Boolean).join(' &middot; ')}</p>
     <p>Deze winkel is nog niet aangesloten. Wij hebben geen prijzen, geen doorlooptijd en geen poliscontrole.</p>
     <p class="eig">Ben je de eigenaar? <a href="claim.html">Vul je gegevens aan</a> of <a href="claim.html">laat de vermelding verwijderen</a>.</p></div></div></div>`;
 }
