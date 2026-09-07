@@ -44,3 +44,45 @@ footer .jur a:hover{color:var(--groen)}
    staat er een leeg kader op het scherm waarvan niemand begrijpt waar het
    vandaan komt. */
 [hidden]{display:none !important}
+
+/* ---------- gedeelde onderdelen van een winkel ----------
+
+   Het erkenningsmerkje, de betaalmerkjes en de sterren. De opmaak stond drie
+   keer los in drie pagina's, en die drie kopieen liepen al uit elkaar: het
+   vakje om het logo was 28 pixels op de plaatspagina en 32 in de kiezer, de
+   tekst 12,5 tegen 13, het Apple-beeldmerk 17 tegen 19. Dezelfde winkel zag er
+   dus per pagina anders uit, en dat is precies wat wij hier aan het rechtzetten
+   waren. De opmaak hoort bij de code die het uitstuurt, en die staat in
+   data/winkels.js, dus staat de opmaak hier: een keer, voor alle pagina's. */
+
+/* Het merkje: het logo links, de tekst rechts (variant M2). Het logo vervangt
+   de merknaam, dus er staat niet twee keer "Apple". */
+.merkje{display:inline-flex;align-items:center;gap:10px;border:1.5px solid var(--lijn);background:#fff;
+  border-radius:14px;padding:7px 13px 7px 8px;margin:0 6px 6px 0}
+.merkje .ic{display:grid;place-items:center;flex:none;width:auto;min-width:32px;height:32px;
+  padding:0 8px;border:1px solid var(--lijn);border-radius:9px;background:#fff}
+.merkje .ic svg{width:16px;height:16px}
+.merkje .tk b{font-size:13px;font-weight:800;color:var(--inkt);line-height:1.2}
+/* Apple is een vierkant beeldmerk, Samsung een woordmerk dat drie keer zo breed
+   is als hoog. Ze delen alleen een hoogte; de breedte volgt uit de verhouding.
+   Een woordmerk in een vierkant vakje wordt onleesbaar klein. */
+.merkje .ic svg.lg{display:block;width:auto;height:auto}
+.merkje .ic svg.lg-appel{height:19px;color:#000}
+.merkje .ic svg.lg-samsung{height:16px}
+
+.betaalrij{display:inline-flex;flex-wrap:wrap;gap:6px;vertical-align:middle}
+.betaalmerk{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--lijn);
+  border-radius:8px;padding:3px 8px;font-size:12px;font-weight:600;color:var(--inkt-2);background:#fff}
+.betaalmerk svg{width:15px;height:15px;flex:none}
+
+/* Het cijfer van Google als sterren. Twee rijen op elkaar: de onderste leeg, de
+   bovenste vol en afgesneden op het percentage. Zo klopt een 8,7 op de pixel in
+   plaats van afgerond naar vier of vijf hele sterren. Allebei flex, want met
+   inline-block hangen ze aan de basislijn en lopen ze bij de kleinste
+   verschuiving uit elkaar. De namen beginnen met "sterren" omdat .leeg op de
+   kiezer al de lege staat van de winkellijst is. */
+.sterren{position:relative;display:inline-flex;line-height:1;vertical-align:-2px}
+.sterren .sterrenleeg,.sterren .sterrenvol{display:flex}
+.sterren .sterrenleeg{color:var(--marine-100)}
+.sterren .sterrenvol{position:absolute;left:0;top:0;overflow:hidden;color:#F5B50A}
+.sterren svg{width:15px;height:15px;display:block;flex:none}

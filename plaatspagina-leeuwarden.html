@@ -2,7 +2,7 @@
 <meta name="robots" content="noindex,nofollow">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="stylesheet" href="lettertype/outfit.css">
-<link rel="stylesheet" href="basis.css?v=7dc2985e">
+<link rel="stylesheet" href="basis.css?v=08b720d9">
 <style>
 :root{
   --gradient:linear-gradient(160deg,#008C34 0%,#22C55E 55%,#86EFAC 100%);
@@ -130,7 +130,7 @@ h1{font-size:clamp(26px,3.4vw,36px);font-weight:800;letter-spacing:-.025em;margi
 .bereik .jij{position:absolute;top:-4px;width:14px;height:14px;border-radius:50%;background:var(--groen);border:2.5px solid #fff;box-shadow:0 0 0 1.5px var(--groen);transform:translateX(-50%)}
 .bereik .lab{display:flex;justify-content:space-between;font-size:10.5px;color:var(--inkt-3);margin-top:6px}
 .regel{font-size:14px;color:var(--inkt-2);margin:10px 0 0}
-.labels{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 0}
+.labels{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:10px 0 0}
 .chip{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:999px;font-size:12.5px;font-weight:600}
 .chip svg{width:12px;height:12px}
 .chip-keur{background:var(--groen-100);color:var(--groen-800)}
@@ -232,15 +232,7 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
 
 .cijferbron{font-size:13px;color:var(--inkt-2);margin:14px 0 0;max-width:70ch}
 .cijferbron a{color:var(--inkt-2)}
-/* Het cijfer van Google als sterren, dezelfde opmaak als in de kiezer. */
-/* Twee rijen sterren op elkaar: de onderste leeg, de bovenste vol en
-   afgesneden op het percentage. Allebei flex, want met inline-block hangen ze
-   aan de basislijn en gaan ze bij de kleinste verschuiving uit elkaar lopen. */
-.sterren{position:relative;display:inline-flex;line-height:1;vertical-align:-2px}
-.sterren .sterrenleeg,.sterren .sterrenvol{display:flex}
-.sterren .sterrenleeg{color:var(--marine-100)}
-.sterren .sterrenvol{position:absolute;left:0;top:0;overflow:hidden;color:#F5B50A}
-.sterren svg{width:15px;height:15px;display:block;flex:none}
+
 </style>
 
 <div class="schets">Ontwerpschets. De winkels, beoordelingen en prijzen op deze pagina zijn verzonnen voorbeelden, geen echte bedrijven.</div>
@@ -440,6 +432,7 @@ function winkelkaart(w,uitgelicht){
       ${kanVandaag(w,a)?`<span class="chip chip-snel">${BOLT}Vandaag klaar</span>`:''}
       ${vandaagTekst(w)?`<span class="chip chip-feit">${esc(vandaagTekst(w))}</span>`:''}
       ${w.oud&&!w.nooitprijs?`<span class="chip chip-let">Prijs 3 maanden niet bevestigd</span>`:''}
+      ${erkenningsMerken(w)}
     </div>
     ${feiten?`<p class="feiten">${feiten}</p>`:''}
     <div class="acties"><a class="btn btn-stil" href="${winkelLink(w)}">Profiel</a><a class="btn btn-lijn" href="#">Route</a><button class="btn btn-groen" onclick="belWinkel(${i})">${TEL}Bel de winkel</button></div>
@@ -544,7 +537,7 @@ function onderDrempel(){
     const el=document.getElementById(id);el.innerHTML='';el.hidden=true;
   }
 
-  const kaart=w=>{const i=WINKELS.indexOf(w);return `<div class="winkel">
+  const kaart=w=>{const i=WINKELS.indexOf(w),feiten=feitenVan(w);return `<div class="winkel">
     <div class="rij">
       <div class="pui">${esc(w.i)}</div>
       <div>
@@ -556,8 +549,9 @@ function onderDrempel(){
     </div>
     <div class="labels">
       ${w.keur?`<span class="chip chip-keur">${CHECK}${keurlabel(w)}</span>`:''}
+      ${erkenningsMerken(w)}
     </div>
-    ${feitenVan(w)?`<p class="feiten">${feitenVan(w)}</p>`:''}
+    ${feiten?`<p class="feiten">${feiten}</p>`:''}
     <div class="acties"><a class="btn btn-stil" href="${winkelLink(w)}">Profiel</a><a class="btn btn-lijn" href="#">Route</a><button class="btn btn-groen" onclick="belWinkel(${i})">${TEL}Bel de winkel</button></div>
   </div>`};
 

@@ -2,7 +2,7 @@
 <meta name="robots" content="noindex,nofollow">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="stylesheet" href="lettertype/outfit.css">
-<link rel="stylesheet" href="basis.css?v=7dc2985e">
+<link rel="stylesheet" href="basis.css?v=08b720d9">
 <style>
 :root{
   --groen-50:#F0FDF4;--groen-100:#DCFCE7;--groen-200:#BBF7D0;--groen-300:#86EFAC;--groen-500:#22C55E;--groen:#008934;--groen-800:#007B2E;--groen-900:#005A22;
@@ -231,6 +231,7 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
 .mdlg .gelukt .bal{width:52px;height:52px;border-radius:16px;background:var(--groen-100);display:grid;place-items:center;margin:0 auto 12px}
 .mdlg .gelukt .bal svg{width:26px;height:26px;color:var(--groen)}
 
+
 </style>
 
 <div class="schets">Ontwerpschets. Deze winkel, de beoordelingen en de prijzen zijn verzonnen voorbeelden, geen echt bedrijf.</div>
@@ -412,7 +413,7 @@ const SCHETS={
   kvk:true,betaal:['Pin','Contant','Apple Pay','iDEAL'],
   ot:'ma 09:30-18:00\ndi 09:30-18:00\nwo 09:30-18:00\ndo 09:30-21:00\nvr 09:30-18:00\nza 10:00-17:00',
   keur:1,keurdatum:'12 aug 2026',polistot:'1 jan 2027',erk:['Apple IRP'],
-  g:'4,6',gb:210,glink:'#',gdatum:'3 sep 2026',bevestigd:'2 sep 2026',
+  g:'9,1',gb:48,glink:'#',gdatum:'3 sep 2026',bevestigd:'2 sep 2026',
   modellen:MODELLEN_SCHETS,p:null,reviews:[],
 };
 
@@ -441,7 +442,7 @@ function kop(){
   pl.textContent=P.plaats;
 
   const meta=[];
-  if(P.g)meta.push(`<span class="cijfer num">${esc(P.g)}</span><span>op Google, ${esc(P.gb)} beoordelingen</span>
+  if(P.g)meta.push(`${sterrenBalk(P.g)}<span class="cijfer num">${esc(P.g)}</span><span>op Google, ${esc(P.gb)} beoordelingen</span>
     <a href="#reviews">wat wij hiermee doen</a><span>&middot;</span>`);
   meta.push(`<span>${esc(P.a)}, ${esc(P.plaats)}</span>`);
   document.getElementById('wp-meta').innerHTML=meta.join('');
@@ -454,7 +455,9 @@ function kop(){
   document.getElementById('wp-labels').innerHTML=[
     P.keur?`<span class="chip chip-keur">${CHECK}Polis gecontroleerd ${esc(P.keurdatum)}</span>`:'',
     snelste&&snelste.m<=45?`<span class="chip chip-snel">${BLIKSEM}Klaar terwijl je wacht</span>`:'',
-    ...P.erk.map(e=>`<span class="chip chip-feit">${esc(e)}</span>`),
+    /* Het merkje met het logo en de naam voluit, in plaats van een grijze chip
+       met "Apple IRP". Zelfde merkje als op de plaatspagina en in de kiezer. */
+    erkenningsMerken(P),
   ].filter(Boolean).join('');
 
   document.getElementById('wp-adres').innerHTML=
@@ -555,7 +558,15 @@ function polis(){
     `<li>${VINKJE}<span>Wij hebben het polisblad gezien. Daarop staat dat schade aan het toestel van de klant is meeverzekerd. Of de verzekeraar in een concreet geval uitkeert, beslist de verzekeraar, niet wij.</span></li>`,
   ];
   if(P.kvk)regels.push(`<li>${VINKJE}<span>Ingeschreven bij de Kamer van Koophandel op dit adres.</span></li>`);
-  for(const e of P.erk)regels.push(`<li>${VINKJE}<span>Erkend als ${esc(e)}. Dat hebben wij nagetrokken bij de fabrikant.</span></li>`);
+  /* "Dat hebben wij nagetrokken bij de fabrikant" stond hier, en dat is een
+     bewering over ONZE werkwijze die nergens is vastgelegd: in de database staat
+     alleen een datum. Nu staat er wat wij hebben (de erkenning en de datum) en,
+     waar wij het zeker weten, wat de erkenning betekent EN wat hij niet betekent. */
+  for(const e of P.erk){
+    const uit=erkenningUitleg(e);
+    regels.push(`<li>${VINKJE}<span>Erkend als <b>${esc(erkenningNaam(e))}</b>.${
+      uit?' '+esc(uit):''} Wij hebben dat nagekeken; de datum staat hieronder.</span></li>`);
+  }
   document.getElementById('wp-polislijst').innerHTML=regels.join('');
   document.getElementById('wp-polisdatum').innerHTML=
     `Laatste controle ${esc(P.keurdatum)}.${P.polistot?` De polis loopt tot ${esc(P.polistot)}; daarna controleren wij opnieuw.`:''} Wij toetsen zelf en zijn geen toezichthouder. <a class="link" href="#" onclick="document.getElementById('criteria').showModal();return false">Onze criteria</a>`;
@@ -567,7 +578,7 @@ function google(){
     vak.innerHTML=`<span class="bronregel">Van deze winkel hebben wij geen cijfer op Google. Dat betekent niets over de winkel; het betekent dat wij er geen hebben opgehaald.</span>`;
     return;
   }
-  vak.innerHTML=`<b class="num">${esc(P.g)}</b><span>op Google, ${esc(P.gb)} beoordelingen</span>
+  vak.innerHTML=`${sterrenBalk(P.g)}<b class="num">${esc(P.g)}</b><span>op Google, ${esc(P.gb)} beoordelingen</span>
     ${P.glink?`<a class="btn btn-lijn btn-klein" href="${link(P.glink)}" rel="nofollow noopener">Lees ze op Google</a>`:''}
     <span class="bronregel">${P.gdatum?`Opgehaald bij Google op ${esc(P.gdatum)}. `:''}Wij nemen de teksten van die beoordelingen niet over en wij rekenen ze niet om naar een eigen cijfer.</span>`;
 }
@@ -604,7 +615,7 @@ function praktisch(){
      waaronder "Repareert Apple, Samsung, Google en OnePlus" en "Zonder afspraak
      binnenlopen kan". Dat vragen wij niet, dus dat weten wij niet. */
   const regels=[];
-  if(P.betaal.length)regels.push(`<div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3 10h18"/></svg><span>${P.betaal.map(esc).join(', ')}</span></div>`);
+  if(P.betaal.length)regels.push(`<div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3 10h18"/></svg><span class="betaalrij">${P.betaal.map(betaalmerk).join('')}</span></div>`);
   const merken=[...new Set((P.modellen||[]).map(m=>m.split(' ')[0]))];
   if(merken.length)regels.push(`<div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M5 8h14"/></svg><span>Prijzen bekend voor ${merken.map(esc).join(', ')}</span></div>`);
   document.getElementById('wp-praktischkaart').hidden=!regels.length;
