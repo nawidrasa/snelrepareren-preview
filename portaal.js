@@ -63,14 +63,14 @@
   const eur = (n) => "€ " + Number(n).toLocaleString("nl-NL");
 
   async function start() {
-    if (!HEEFT_SERVER) return schetsstrook();
+    if (!HEEFT_SERVER) return schetsstrook("geen-server");
 
     let mij;
     try {
       mij = await haal("/api/portaal/mij");
     } catch (fout) {
       if (fout.code === 401) return toonUitgelogd();
-      return schetsstrook();
+      return schetsstrook("mislukt");
     }
 
     const w = mij.winkel;
@@ -211,12 +211,35 @@
     });
   }
 
-  function schetsstrook() {
-    if (document.querySelector(".portaalschets")) return;
+  /* Twee verschillende dingen die op elkaar lijken en het niet zijn.
+   *
+   * "Er draait geen server" is waar als je portaal.html van je schijf opent. Dan
+   * IS het de ontwerpschets en klopt die tekst.
+   *
+   * Maar hij stond hier ook bij een MISLUKTE aanroep, en dat is iets anders: dan
+   * draait de server wel en gaf hij een fout, of hij was even weg. Een winkelier
+   * las dan "er draait geen server" terwijl er van alles aan de hand kon zijn, en
+   * hij zag zijn eigen scherm met 1.240 vertoningen erin staan. Die 1.240 is
+   * verzonnen. Wie snel kijkt, leest dat als zijn maand.
+   *
+   * Dezelfde fout zat in formulier.js en is daar op 7 september rechtgezet. Dit
+   * was de tweede plek; ik had hem toen moeten meenemen. */
+  function schetsstrook(reden) {
+    document.querySelector(".portaalschets")?.remove();
     const d = document.createElement("div");
-    d.className = "portaalschets";
-    d.textContent =
-      "Ontwerpschets: er draait geen server, dus alle cijfers en gegevens hieronder zijn voorbeelden.";
+    d.className = "portaalschets" + (reden === "mislukt" ? " mislukt" : "");
+    if (reden === "mislukt") {
+      d.innerHTML =
+        "<b>Wij konden je gegevens nu niet ophalen.</b> Alles hieronder is een voorbeeld en "
+        + "gaat NIET over jouw winkel. Probeer het zo nog een keer; blijft het misgaan, laat het "
+        + "ons weten via <a href=\"melden.html\">Iets melden</a>. "
+        + "<button type=\"button\" class=\"opnieuw\">Opnieuw proberen</button>";
+      d.querySelector(".opnieuw").addEventListener("click", () => location.reload());
+    } else {
+      d.textContent =
+        "Ontwerpschets: er draait geen server, dus alle cijfers en gegevens hieronder zijn voorbeelden.";
+    }
+    d.setAttribute("role", reden === "mislukt" ? "alert" : "note");
     document.body.prepend(d);
   }
 
@@ -839,6 +862,12 @@
     .portaalmelding.fout{background:var(--rood-soft,#FEE2E2);border-color:var(--rood,#B91C1C)}
     .portaalschets{background:var(--amber-soft,#FEF3C7);color:var(--amber,#B45309);
       padding:10px 16px;font-size:13.5px;text-align:center;font-weight:600}
+    .portaalschets.mislukt{background:var(--rood-soft,#FEE2E2);color:var(--rood,#B91C1C);
+      padding:14px 16px;font-size:14.5px;line-height:1.5}
+    .portaalschets.mislukt a{color:inherit}
+    .portaalschets .opnieuw{margin-left:10px;font:inherit;font-weight:700;cursor:pointer;
+      background:var(--rood,#B91C1C);color:#fff;border:0;border-radius:999px;
+      padding:7px 16px;min-height:24px}
     .uitgelogd{max-width:52ch;margin:15vh auto;padding:0 24px;text-align:center}
     .uitgelogd h1{font-size:26px;margin-bottom:12px}
     .uitgelogd p{color:var(--inkt-2,#4A5878);line-height:1.6}
