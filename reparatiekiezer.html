@@ -419,6 +419,9 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
 }
 .pin .wijzig{text-decoration:underline;margin-left:6px;font-weight:600}
 
+/* Alleen voor schermlezers: uit beeld, maar wel voorgelezen. display:none of
+   visibility:hidden zou het ook voor de schermlezer weghalen. */
+.vislees{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 </style>
 
 <a class="naar-inhoud" href="#hoofdinhoud">Naar de inhoud</a>
@@ -443,6 +446,7 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
     </div>
     <div class="lichaam">
       <div class="inhoud" id="inhoud"></div>
+      <p id="stand" class="vislees" role="status" aria-live="polite"></p>
       <aside class="paneel" id="paneel"></aside>
     </div>
     <div class="balk">
@@ -1279,12 +1283,20 @@ function stap3(){
   /* esc() om de waarde heen. Hier stond value="${S.plaats}" kaal, en dat is
      tekst die de bezoeker zelf intypt; een aanhalingsteken breekt dan uit het
      attribuut. */
-  const plaats=S.plaatsEdit?`<label class="veld"><input id="pl" inputmode="text" autocomplete="postal-code" value="${esc(S.plaats)}" placeholder=" " onkeydown="if(event.key==='Enter')zetPlaats(this.value)"><span>Plaats of postcode</span></label><button class="btn btn-groen" onclick="zetPlaats(document.getElementById('pl').value)">Zoek</button>${S.plaatsFout?`<p class="plaatsfout" role="alert">${esc(S.plaatsFout)}</p>`:''}`:`<button class="pin" onclick="S.plaatsEdit=true;teken();document.getElementById('pl').focus()">${PIN}${esc(S.plaats)}<span class="wijzig">wijzigen</span></button>`;
+  const plaats=S.plaatsEdit?`<label class="veld"><input id="pl" inputmode="text" autocomplete="postal-code" value="${esc(S.plaats)}" placeholder=" " onkeydown="if(event.key==='Enter')zetPlaats(this.value)"><span>Plaats of postcode</span></label><button class="btn btn-groen" onclick="zetPlaats(document.getElementById('pl').value)">Zoek</button>${S.plaatsFout?`<p class="plaatsfout" role="alert">${esc(S.plaatsFout)}</p>`:''}`:`<button id="pl-knop" class="pin" onclick="S.plaatsEdit=true;teken();document.getElementById('pl').focus()">${PIN}${esc(S.plaats)}<span class="wijzig">wijzigen</span></button>`;
   /* De keuze "dichtstbij eerst" verschijnt alleen als wij weten waar de bezoeker
      is. Zonder postcode kunnen wij niet op afstand sorteren en tonen wij de knop
      dus ook niet, in plaats van een knop die niets doet. */
-  const sorteer=BEZOEKERPUNT?`<button class="fchip${S.dichtbij?' aan':''}" onclick="S.dichtbij=!S.dichtbij;teken()">Dichtstbij eerst</button>`:'';
-  const filters=`<div class="filters"><span class="lab">Filter</span>${FILTERS.map(([id,n])=>`<button class="fchip${S.filters[id]?' aan':''}" onclick="zetFilter('${id}')">${n}</button>`).join('')}${sorteer}</div>`;
+  /* Vast id en aria-pressed, om dezelfde twee redenen als op de plaatspagina.
+     Het id, omdat teken() de hele inhoud opnieuw zet en de focus alleen terug
+     kan naar een element dat een naam heeft; zonder dat sprong je bij elke
+     filterklik naar de bovenkant van de pagina. aria-pressed, omdat de stand
+     van deze knoppen alleen in een klasse zat: een schermlezer hoorde
+     "Dichtstbij eerst, knop", of de sortering nu aanstond of niet. */
+  const fknop=(id,aan,klik,tekst)=>
+    `<button id="${id}" class="fchip${aan?' aan':''}" aria-pressed="${aan?'true':'false'}" onclick="${klik}">${tekst}</button>`;
+  const sorteer=BEZOEKERPUNT?fknop('f-dichtbij',S.dichtbij,'S.dichtbij=!S.dichtbij;teken()','Dichtstbij eerst'):'';
+  const filters=`<div class="filters"><span class="lab">Filter</span>${FILTERS.map(([id,n])=>fknop('f-'+id,S.filters[id],`zetFilter('${id}')`,n)).join('')}${sorteer}</div>`;
   const uit=ws.filter(w=>w.uit),rest=ws.filter(w=>!w.uit);
   return `<button class="terug" onclick="terug()">&larr; Schade</button><h2 class="vraag">${kop}</h2><p class="sub">Voor ${S.model.n}, ${lijstZin(g.map(k=>REP[k].n.toLowerCase()))}. Bel, loop binnen of vraag een offerte.</p>
   <div class="plaats">${plaats}</div>${filters}
@@ -1320,7 +1332,61 @@ function balk(){
 /* ---------- renderen en acties ---------- */
 function stappenbalk(){document.querySelectorAll('#stappen .stap').forEach(e=>{const n=+e.dataset.s;e.className='stap'+(n===S.stap?' nu':n<S.stap?' af':'');e.onclick=n<S.stap?()=>ga(n):null});document.getElementById('opnieuw').hidden=!S.model}
 let vorig='';
-function teken(){const inh=document.getElementById('inhoud');inh.innerHTML=[stap1,stap2,stap3][S.stap-1]();const nu=S.stap+S.sub;if(nu!==vorig){inh.style.animation='none';void inh.offsetWidth;inh.style.animation='';vorig=nu}paneel();balk();stappenbalk()}
+/* DE FOCUS OVERLEEFT HET HERTEKENEN, EN DE STAP WORDT HARDOP GEZEGD.
+ *
+ * teken() zet de hele inhoud opnieuw met innerHTML. Dat vernietigt het element
+ * waar je op stond, dus met het toetsenbord werd je bij elke klik en bij elke
+ * ingevulde postcode naar de bovenkant van het document gegooid. Nagemeten op
+ * 7 september op de plaatspagina; hier gebeurde precies hetzelfde.
+ *
+ * Terugzetten kan alleen via een id, daarom hebben de filterknoppen en het
+ * plaatsveld er een. Bij een tekstveld gaat de cursor achteraan, zodat je verder
+ * kunt typen waar je gebleven was.
+ *
+ * En er stond geen enkel levend gebied op deze pagina. Wie de stap ziet
+ * omslaan of de lijst ziet herordenen weet wat er gebeurt; wie dat niet ziet,
+ * hoorde niets. */
+function teken(){
+  const had=document.activeElement, hadId=had&&had.id, isVeld=had&&had.selectionStart!=null;
+  const inh=document.getElementById('inhoud');
+  inh.innerHTML=[stap1,stap2,stap3][S.stap-1]();
+  const nu=S.stap+S.sub;
+  if(nu!==vorig){inh.style.animation='none';void inh.offsetWidth;inh.style.animation='';vorig=nu}
+  paneel();balk();stappenbalk();
+  if(hadId){
+    /* Het plaatsveld en de knop met de plaatsnaam wisselen elkaar af: vul je een
+       postcode in, dan verdwijnt het veld en komt de knop ervoor in de plaats.
+       Terugzoeken op id vindt dan niets en de focus valt op BODY, dus stond je
+       na het invullen van je postcode weer bovenaan de pagina. Ze verwijzen nu
+       naar elkaar. */
+    const OPVOLGER={pl:'pl-knop','pl-knop':'pl'};
+    const terug=document.getElementById(hadId)||document.getElementById(OPVOLGER[hadId]||'');
+    if(terug&&terug!==document.activeElement){
+      terug.focus();
+      if(isVeld&&terug.setSelectionRange){
+        const l=terug.value.length;
+        try{terug.setSelectionRange(l,l)}catch(_){/* niet elk veldtype kan dit */}
+      }
+    }
+  }
+  meldStand();
+}
+
+let VORIGE_STAND='';
+function meldStand(){
+  const vak=document.getElementById('stand');
+  if(!vak)return;
+  const namen=['Kies je toestel','Wat is er kapot','Winkels bij jou in de buurt'];
+  let zin=`Stap ${S.stap} van 3: ${namen[S.stap-1]}`;
+  if(S.stap===3){
+    const n=lijst().length;   // in de kiezer heet die functie lijst(), niet zichtbaar()
+    zin+=`. ${n} ${n===1?'winkel':'winkels'} ${/^\d{4}/.test(S.plaats)?'rond ':'in '}${S.plaats}`
+      +(BEZOEKERPUNT&&S.dichtbij?', dichtstbij eerst':'');
+  }
+  if(zin===VORIGE_STAND)return;
+  VORIGE_STAND=zin;
+  vak.textContent=zin;
+}
 function zoek(v){const box=document.getElementById('sugg');v=v.trim().toLowerCase();if(v.length<2){box.className='sugg';return}
   /* De volgorde zit in data/kiezer.js, want de homepage heeft hetzelfde
      zoekveld en twee kopieen lopen uit elkaar. Daar stond het bewijs van: de

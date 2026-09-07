@@ -87,6 +87,9 @@ h1{font-size:clamp(26px,3.4vw,36px);font-weight:800;letter-spacing:-.025em;margi
 .fchip:hover{border-color:var(--groen)}
 .fchip.aan{background:var(--groen);border-color:var(--groen);color:#fff}
 .telling{margin-left:auto;font-size:13.5px;color:var(--inkt-3)}
+/* Alleen voor schermlezers: uit beeld, maar wel voorgelezen. display:none of
+   visibility:hidden zou het ook voor de schermlezer weghalen. */
+.vislees{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 
 /* mobiele balk: keuze en filters achter een knop */
 .mob{display:none}
@@ -279,6 +282,7 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
   <div class="kies" id="kies"></div>
   <div class="mob" id="mob"></div>
   <div class="filters" id="filters"></div>
+  <p id="stand" class="vislees" role="status" aria-live="polite"></p>
   <p class="cijferbron">De cijfers bij de winkels komen van Google. Wij hebben zelf nog geen beoordelingen: alleen wie via deze site contact opneemt, krijgt van ons de vraag hoe het ging, en dat systeem loopt nog niet. <a href="hoe-wij-rangschikken.html">Hoe wij rangschikken</a>.</p>
 </div>
 
@@ -470,12 +474,47 @@ function filters(){
     <input id="pc" inputmode="numeric" autocomplete="postal-code" maxlength="7" placeholder="8911 KX"
       value="${esc(S.postcode||'')}" onkeydown="if(event.key==='Enter')zetPostcode(this.value)"></label>
     <button class="fchip" onclick="zetPostcode(document.getElementById('pc').value)">Toon afstand</button>`;
-  const sorteer=BEZOEKERPUNT?`<button class="fchip${S.dichtbij?' aan':''}" onclick="S.dichtbij=!S.dichtbij;teken()">Dichtstbij eerst</button>`:'';
-  document.getElementById('filters').innerHTML=FILTERS.map(([id,naam])=>`<button class="fchip${S.filters[id]?' aan':''}" onclick="zetFilter('${id}')">${naam}</button>`).join('')+
-   `<button class="fchip${S.uitgVerbergen?' aan':''}" onclick="S.uitgVerbergen=!S.uitgVerbergen;teken()">Uitgelicht verbergen</button>`
+  /* aria-pressed op elke knop die AAN of UIT staat.
+     Deze knoppen tonen hun stand met een klasse (.aan), en dat is opmaak: een
+     schermlezer leest "Dichtstbij eerst, knop", of de sortering nu aanstaat of
+     niet. Nagemeten op 7 september: geen van de filterknoppen droeg een stand.
+     Met aria-pressed hoort iemand "ingedrukt" of "niet ingedrukt". */
+  /* Elke knop krijgt een vast id. Niet voor de opmaak: teken() geeft de focus
+     terug aan het element met hetzelfde id, en zonder id is dat onmogelijk.
+     Zonder dit sprong je bij elke filterklik met het toetsenbord terug naar de
+     bovenkant van de pagina, precies zoals bij het postcodeveld. */
+  const knop=(id,aan,klik,tekst)=>
+    `<button id="${id}" class="fchip${aan?' aan':''}" aria-pressed="${aan?'true':'false'}" onclick="${klik}">${tekst}</button>`;
+  const sorteer=BEZOEKERPUNT?knop('f-dichtbij',S.dichtbij,'S.dichtbij=!S.dichtbij;teken()','Dichtstbij eerst'):'';
+  document.getElementById('filters').innerHTML=
+   FILTERS.map(([id,naam])=>knop('f-'+id,S.filters[id],`zetFilter('${id}')`,naam)).join('')+
+   knop('f-uitg',S.uitgVerbergen,'S.uitgVerbergen=!S.uitgVerbergen;teken()','Uitgelicht verbergen')
    +pcVeld+sorteer+
    (S.postcodeFout?`<p class="pcfout" role="alert">${esc(S.postcodeFout)}</p>`:'')+
    `<span class="telling num">${n} van de ${WINKELS_HIER.length} winkels</span>`;
+  meldStand(n);
+}
+
+/* WAT ER VERANDERDE, HARDOP.
+ *
+ * Wie een postcode invult ziet de lijst opnieuw ordenen. Wie dat niet ziet,
+ * merkte niets: er stond geen enkel levend gebied op deze pagina, dus een
+ * schermlezer bleef stil terwijl de hele volgorde omging. De foutmelding had wel
+ * een role="alert", maar die staat er alleen als er iets FOUT gaat; het geslaagde
+ * geval was het stille geval.
+ *
+ * Beleefd en niet dringend: het onderbreekt niet, het wordt gemeld zodra de
+ * lezer aan de beurt is. En alleen als de zin echt verandert, anders herhaalt
+ * hij zichzelf bij elke tekenbeurt. */
+let VORIGE_STAND='';
+function meldStand(n){
+  const vak=document.getElementById('stand');
+  if(!vak)return;
+  const zin=`${n} ${n===1?'winkel':'winkels'} in ${PLAATS}`
+    +(BEZOEKERPUNT?(S.dichtbij?', dichtstbij eerst':', met afstand vanaf je postcode'):'');
+  if(zin===VORIGE_STAND)return;
+  VORIGE_STAND=zin;
+  vak.textContent=zin;
 }
 
 /* De kaart toont alleen wat wij van deze winkel weten.
@@ -670,10 +709,33 @@ function onderDrempel(){
   }
 }
 
+/* DE FOCUS OVERLEEFT HET HERTEKENEN.
+ *
+ * teken() zet hele blokken opnieuw met innerHTML, en dat vernietigt het element
+ * waar je op stond. Nagemeten op 7 september: typ een postcode, druk op Enter,
+ * en de focus staat op BODY. Met een muis merk je dat niet. Met het toetsenbord
+ * word je naar de bovenkant van het document gegooid en mag je twintig keer Tab
+ * drukken om terug te komen; met een schermlezer ben je helemaal kwijt waar je
+ * was.
+ *
+ * Daarom: onthouden wie de focus had, en hem daarna teruggeven aan het element
+ * met datzelfde id. De cursor gaat achteraan de tekst staan, zodat je verder
+ * kunt typen waar je gebleven was. */
 function teken(){
+  const had=document.activeElement, hadId=had&&had.id, eind=had&&had.selectionStart!=null;
   if(!genoegIn(PLAATS)){onderDrempel();return}
   for(const id of ['kies','filters','mob'])document.getElementById(id).hidden=false;
   kies();filters();mob();lijst();zijkolom();kop();
+  if(hadId){
+    const terug=document.getElementById(hadId);
+    if(terug&&terug!==document.activeElement){
+      terug.focus();
+      if(eind&&terug.setSelectionRange){
+        const l=terug.value.length;
+        try{terug.setSelectionRange(l,l)}catch(_){/* niet elk veldtype kan dit */}
+      }
+    }
+  }
 }
 document.addEventListener('click',e=>{if(!e.target.closest('.sel'))document.querySelectorAll('.sel').forEach(s=>s.classList.remove('open'))});
 teken();
