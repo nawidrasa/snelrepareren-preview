@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="nl">
 <meta charset="utf-8">
-<title>De zes e-mails die wij versturen</title>
-<meta name="description" content="De zes e-mails die wij versturen, met de aanleiding en de knop van elk. Geen nieuwsbrief en geen aanbiedingen, zodat je weet wat je van ons kunt verwachten.">
+<title>De negen e-mails die wij versturen</title>
+<meta name="description" content="De negen e-mails die wij versturen, met de aanleiding en de knop van elk. Geen nieuwsbrief en geen aanbiedingen, zodat je weet wat je van ons kunt verwachten.">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <link rel="stylesheet" href="lettertype/outfit.css">
@@ -78,8 +78,8 @@ footer{border-top:1px solid var(--lijn);margin-top:20px;padding:26px 0 60px;colo
 
 <div class="in">
   <div class="kruimels"><a href="index.html">Home</a><span>&rsaquo;</span>E-mailsjablonen</div>
-  <h1>De zes e-mails die wij versturen</h1>
-  <p class="intro">Meer dan deze zes sturen wij niet. Er is geen nieuwsbrief, geen aanbieding en geen herinnering die je aan het twijfelen moet brengen. Elke e-mail hieronder heeft één aanleiding, één doel en één knop.</p>
+  <h1>De negen e-mails die wij versturen</h1>
+  <p class="intro">Meer dan deze negen sturen wij niet. Er is geen nieuwsbrief, geen aanbieding en geen herinnering die je aan het twijfelen moet brengen. Elke e-mail hieronder heeft één aanleiding, één doel en één knop.</p>
 
   <div class="regels">
     <h2>De regels waar elke e-mail aan voldoet</h2>
@@ -210,6 +210,48 @@ const MAILS=[
   <p>Wij controleren het binnen twee werkdagen. Stuur je het op tijd, dan merk je van dit alles niets.</p>
   <div class="vak"><p>Is je verzekering al verlengd bij dezelfde verzekeraar? Dan volstaat het nieuwe polisblad. Wij hoeven verder niets van je.</p></div>`,
  voet:`<p>Dit is een bericht over je poliscontrole. Je kunt je hier niet voor afmelden zolang je het label voert.</p>`
+},
+{
+ titel:'Wij hebben je polisblad ontvangen',
+ aan:'winkel', van:'winkels@snelrepareren.nl',
+ naar:'Het adres waarmee de winkel is ingelogd',
+ wanneer:'Direct nadat een winkel in het portaal een polisblad aanbiedt.',
+ doel:'Bevestigen dat het binnen is en zeggen wanneer wij kijken, zodat niemand hoeft na te bellen.',
+ afspraak:'Hoort bij de poliscontrole in het portaal.',
+ onderwerp:['Wij hebben je polisblad ontvangen'],
+ body:`<p class="eerste">Wij hebben je bericht over het polisblad ontvangen en kijken er binnen twee werkdagen naar.</p>
+  <p>Zodra wij het hebben gezien, staat de datum bij je winkel op de site. Je hoeft verder niets te doen.</p>
+  <a class="knop" href="keurmerk.html">Wat wij bij een polisblad nakijken</a>`,
+ voet:`<p>Je krijgt deze mail omdat er vanuit jouw portaal een polisblad is aangeboden.</p>`
+},
+{
+ titel:'Prijsverzoek van een bezoeker',
+ aan:'winkel', van:'winkels@snelrepareren.nl',
+ naar:'Het adres waarmee de winkel is aangesloten',
+ wanneer:'Direct nadat een bezoeker in de reparatiekiezer om een prijs vraagt bij deze winkel.',
+ doel:'De vraag doorgeven met het toestel en de reparatie erbij, zodat de winkel rechtstreeks kan antwoorden.',
+ afspraak:'Gaat alleen naar winkels die zelf zijn aangesloten. Een winkel die wij uit een openbare bron hebben vermeld, krijgt hem niet.',
+ onderwerp:['Prijsverzoek: ',V('{toestel}')],
+ body:`<p class="eerste">Via snelrepareren.nl vraagt iemand jou om een prijs.</p>
+  <p>In de mail staan het toestel, de gekozen reparaties, en de naam en het e-mailadres van de bezoeker. Een telefoonnummer en een toelichting staan erbij als de bezoeker die heeft ingevuld.</p>
+  <p><b>Antwoord rechtstreeks aan de bezoeker.</b> Wij zitten er niet tussen, wij rekenen niets over deze klus, en wat jullie afspreken is tussen jullie.</p>
+  <a class="knop" href="portaal.html">Bekijk het in je portaal</a>
+  <p>Het verzoek staat ook in je portaal, waar je het kunt afvinken als het is afgehandeld.</p>`,
+ voet:`<p>Je krijgt deze mail omdat je winkel is aangesloten bij snelrepareren.nl en een bezoeker via ons om een prijs vroeg.</p>`
+},
+{
+ titel:'Je verzoek staat bij de winkel',
+ aan:'bezoeker', van:'hallo@snelrepareren.nl',
+ naar:'Het adres dat de bezoeker zelf invulde',
+ wanneer:'Direct nadat het verzoek naar de winkel is gestuurd.',
+ doel:'Laten zien wat er precies is doorgestuurd, en eerlijk zeggen dat wij geen antwoord kunnen beloven.',
+ afspraak:'Wij bewaren een verzoek negentig dagen. Daarna verdwijnt het, ook als er niets mee is gebeurd.',
+ onderwerp:['Je verzoek staat bij ',V('{winkelnaam}')],
+ body:`<p class="eerste">Je vraag om een prijs is doorgestuurd naar ${V('{winkelnaam}')}, met het toestel en de reparaties die je koos.</p>
+  <p>De winkel antwoordt rechtstreeks aan jou. Wij zitten er niet tussen en rekenen niets over de reparatie.</p>
+  <p><b>Hoor je niets?</b> Dan kun je de winkel gewoon bellen; het nummer staat op zijn profiel. Wij kunnen een winkel niet dwingen te antwoorden, en wij beloven dus ook geen antwoord.</p>
+  <a class="knop" href="plaatspagina-leeuwarden.html">Bekijk het profiel van de winkel</a>`,
+ voet:`<p>Je krijgt deze mail omdat je via snelrepareren.nl een prijs hebt gevraagd bij deze winkel. Wij gebruiken je adres verder nergens voor.</p>`
 },
 ];
 
