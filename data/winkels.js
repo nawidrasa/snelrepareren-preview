@@ -192,60 +192,40 @@ const link = u => {
   return '#';
 };
 
-/* ---------- postcode naar plaats ----------
+/* ---------- postcode naar plaats en punt ----------
 
-   WAAROM DIT ER MOET ZIJN. Het veld heette al "Plaats of postcode", maar wie een
+   WAAROM DIT ER IS. Het veld heette al "Plaats of postcode", maar wie een
    postcode intypte kreeg nul winkels: de tekst werd letterlijk als plaatsnaam
-   gebruikt en "8911" is geen plaats. Het veld beloofde iets dat het niet deed.
+   gebruikt en "8911" is geen plaats.
 
-   WAT DIT WEL EN NIET IS. Dit vertaalt een postcode naar een PLAATS. Het is geen
-   afstand. Voor "welke winkel is het dichtstbij" heb je coordinaten nodig van de
-   postcode en van elke winkel, en die hebben wij niet. Een afstand verzinnen zou
-   iemand naar de verkeerde winkel sturen, dus doen wij dat niet.
+   WAAR DE GEGEVENS VANDAAN KOMEN. Uit data/postcodes.js, een bestand dat wij
+   zelf maken met de Locatieserver van PDOK, de open kaartdienst van de
+   overheid. Daarin staat per Friese postcode het middelpunt en de plaatsnaam.
 
-   BRON. De reeksen komen uit de Wikipedia-lijsten van postcodes 8000-8999 en
-   9000-9999, opgehaald 7 september 2026. Drie losse postcodes komen uit een
-   adres dat wij zelf hebben nagetrokken en staan daarom apart gemarkeerd.
-   Een postcode die hier niet in staat, kennen wij niet, en dat zeggen wij dan
-   ook. Nooit gokken: de verkeerde plaats is erger dan geen plaats. */
-const POSTCODEPLAATS = [
-  [8400, 8401, 'Gorredijk'],
-  [8431, 8431, 'Oosterwolde'],        // uit het adres van HM Telefoons (8431 EV)
-  [8440, 8448, 'Heerenveen'],
-  [8470, 8472, 'Wolvega'],
-  [8500, 8503, 'Joure'],
-  [8560, 8561, 'Balk'],
-  [8600, 8608, 'Sneek'],
-  [8700, 8702, 'Bolsward'],
-  [8710, 8711, 'Workum'],
-  [8800, 8802, 'Franeker'],
-  [8860, 8862, 'Harlingen'],
-  [8881, 8881, 'West-Terschelling'],  // uit het adres van Lichthuis (8881 AJ)
-  [8900, 8941, 'Leeuwarden'],
-  [9050, 9051, 'Stiens'],
-  [9076, 9076, 'Sint Annaparochie'],
-  [9100, 9103, 'Dokkum'],
-  [9104, 9104, 'Damwald'],
-  [9164, 9164, 'Buren'],              // uit het adres van De Haan Electronics (9164 KL)
-  [9200, 9207, 'Drachten'],
-  [9230, 9231, 'Surhuisterveen'],
-  [9250, 9251, 'Burgum'],
-  [9285, 9285, 'Buitenpost'],
-  [9290, 9291, 'Kollum'],
-];
+   HIER STOND EERST EEN LIJST MET REEKSEN, met de hand overgeschreven: 8900 tot
+   8941 is Leeuwarden, en zo verder. Die is weg. Twee redenen. Zo'n lijst dekt
+   alleen de plaatsen die iemand heeft opgeschreven, dus een Fries dorp dat er
+   niet in stond kreeg "kennen wij niet". En de plaatsnaam stond dan op een
+   andere plek dan het punt, dus die twee konden uit elkaar lopen. Nu komen ze
+   uit dezelfde regel.
+
+   ZONDER DIE TABEL WERKT DIT NIET, en dan zeggen wij ook niets: een postcode
+   waarvan wij de plaats niet kennen, verzinnen wij niet. */
 
 /* Ziet dit eruit als een postcode? Dan mag je er geen plaatsnaam van maken. */
 const lijktOpPostcode = t => /^\d{4}\s*[a-zA-Z]{0,2}$/.test(String(t == null ? '' : t).trim());
 
+/* De rij uit de postcodetabel: [breedte, lengte, plaats], of null. */
+function postcodeRij(tekst) {
+  const m = String(tekst == null ? '' : tekst).trim().match(/^(\d{4})\s*[a-zA-Z]{0,2}$/);
+  if (!m || typeof POSTCODEPUNT === 'undefined') return null;
+  return POSTCODEPUNT[Number(m[1])] || null;
+}
+
 /* De plaats bij een postcode, of null als wij hem niet kennen. */
 function plaatsVanPostcode(tekst) {
-  const m = String(tekst == null ? '' : tekst).trim().match(/^(\d{4})\s*[a-zA-Z]{0,2}$/);
-  if (!m) return null;
-  const pc = Number(m[1]);
-  for (let i = 0; i < POSTCODEPLAATS.length; i++) {
-    if (pc >= POSTCODEPLAATS[i][0] && pc <= POSTCODEPLAATS[i][1]) return POSTCODEPLAATS[i][2];
-  }
-  return null;
+  const rij = postcodeRij(tekst);
+  return rij && rij[2] ? rij[2] : null;
 }
 
 /* Hulpjes die elke pagina gebruikt, zodat de regels overal hetzelfde zijn. */
@@ -336,11 +316,10 @@ function zetBezoekerPunt(tekst) {
   return BEZOEKERPUNT != null;
 }
 
-/* Het middelpunt van een postcode, uit onze eigen tabel. */
+/* Het middelpunt van een postcode, uit dezelfde rij als de plaatsnaam. */
 function puntVanPostcode(tekst) {
-  const m = String(tekst == null ? '' : tekst).trim().match(/^(\d{4})/);
-  if (!m || typeof POSTCODEPUNT === 'undefined') return null;
-  return POSTCODEPUNT[Number(m[1])] || null;
+  const rij = postcodeRij(tekst);
+  return rij ? [rij[0], rij[1]] : null;
 }
 
 /* Het punt van een winkel, op plaats en adres. */
