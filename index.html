@@ -401,7 +401,7 @@ footer .jur{display:flex;flex-wrap:wrap;gap:18px;margin:22px 0 14px;padding-top:
 </div></dialog>
 
 <script src="data/kiezer.js?v=3f3d641f"></script>
-<script src="data/plaatsstatus.js?v=fe48fb50"></script>
+<script src="data/plaatsstatus.js?v=87449afd"></script>
 <script>
 const KIEZER='reparatiekiezer.html';
 /* De modellen komen uit data/kiezer.js. Hier stond een eigen lijst met Google
@@ -496,7 +496,7 @@ function prijzen(){
 function plaatsen(){
   /* De link ging naar "#", ook voor de plaatsen die live heetten. Nu gaat hij
      naar de pagina die bij die plaats hoort, net als op plaatsen.html en 404. */
-  document.getElementById('plaatslijst').innerHTML=PLAATSSTATUS.map(([n,open,link])=>open
+  document.getElementById('plaatslijst').innerHTML=PLAATSSTATUS.map(([n,,open,link])=>open
     ?`<a class="plaats" href="${link}">${n}</a>`
     :`<span class="plaats straks">${n} &middot; binnenkort</span>`).join('');
 }

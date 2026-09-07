@@ -96,18 +96,18 @@ footer{border-top:1px solid var(--lijn);margin-top:46px;padding:26px 0 60px;colo
   <div class="jur"><a href="voorwaarden.html">Voorwaarden</a><a href="privacy.html">Privacy</a><a href="cookies.html">Cookies</a><a href="toegankelijkheid.html">Toegankelijkheid</a><a href="melden.html">Iets melden</a><a href="over-ons.html">Over ons</a></div>
   Onderdeel van snelrepareren.nl, de onafhankelijke vergelijker voor telefoonreparatie in Nederland.</div></footer>
 
-<script src="data/winkels.js?v=3974b748"></script>
+<script src="data/plaatsstatus.js?v=87449afd"></script>
 <script>
-/* PLAATSEN en paginaVoor komen uit data/winkels.js. Het AANTAL winkels staat
-   hier niet meer bij: dat stond met de hand ingetypt ("2 winkels", "1 winkel")
-   en ging over de verzonnen voorbeelden. Het komt nu uit dezelfde lijst als de
-   plaatspagina, dus het kan niet meer afwijken van wat je daar ziet. Een plaats
-   gaat live vanaf DREMPEL_WINKELS aangesloten winkels (besluit T4). */
+/* Alles komt uit data/plaatsstatus.js: de plaatsen, hoeveel winkels er staan,
+   of een plaats open is, en waar de link heen gaat. Het AANTAL stond hier ooit
+   met de hand ingetypt ("2 winkels", "1 winkel") en ging over de verzonnen
+   voorbeelden; daarna kwam het uit winkels.js, maar dan laadde deze pagina 25 kB
+   gzip voor een lijstje van twaalf namen. Nu is het een halve kilobyte, en de
+   getallen komen nog steeds uit dezelfde bron als de plaatspagina. Een plaats
+   gaat open vanaf DREMPEL_WINKELS aangesloten winkels (besluit T4); dat is
+   uitgerekend door genoegIn() in winkels.js zelf. */
 const telZin=n=>(n===0?'nog geen':n===1?'1 winkel':n+' winkels');
-const FRIESLAND=PLAATSEN.map(p=>{
-  const n=aantalPerPlaats(p);
-  return [p, telZin(n), genoegIn(p)?1:0, paginaVoor(p)];
-});
+const FRIESLAND=PLAATSSTATUS.map(([p,aantal,open,link])=>[p, telZin(aantal), open, link]);
 const PROV=['Groningen','Drenthe','Overijssel','Flevoland','Gelderland','Utrecht','Noord-Holland','Zuid-Holland','Zeeland','Noord-Brabant','Limburg'];
 document.getElementById('friesland').innerHTML=FRIESLAND.map(([n,aantal,live,link])=>
  `<a class="pl${live?'':' wacht'}" href="${link}"><span><b>${n}</b><small>${aantal}</small></span><span class="st ${live?'live':'wacht'}">${live?'Live':'Binnenkort'}</span></a>`).join('');
