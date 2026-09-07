@@ -31,9 +31,12 @@ async function verstuur(pad, gegevens) {
     if (antwoord.ok) return uit;
     return { goed: false, fout: uit.fout ?? "Er ging iets mis.", veld: uit.veld };
   } catch (e) {
-    // De server is er niet of ligt eruit. Dat is geen fout van de bezoeker,
-    // dus die krijgt het bedanktscherm met een eerlijke regel eronder.
-    return { goed: true, schets: true };
+    // De server antwoordde niet, of niet met iets bruikbaars. Dat is geen fout
+    // van de bezoeker, maar zijn bericht is wel weg, dus dat zeggen wij. Dit is
+    // NIET hetzelfde als "er draait geen server": dan staat er straks een echte
+    // bezoeker die zijn melding kwijt is, en die heeft niets aan de mededeling
+    // dat hij naar een ontwerpschets kijkt.
+    return { goed: true, mislukt: true };
   }
 }
 
@@ -60,15 +63,20 @@ function toonFout(uit, formulierId) {
 }
 
 /** Wisselt het formulier voor het bedanktscherm. */
-function toonBedankt(formulierId, bedanktId, schets) {
+function toonBedankt(formulierId, bedanktId, voorbehoud) {
   document.getElementById(formulierId)?.classList.add("verborgen");
   const bedankt = document.getElementById(bedanktId);
   bedankt?.classList.remove("verborgen");
-  if (schets && bedankt && !bedankt.querySelector(".schetsregel")) {
+  const tekst = voorbehoud === "schets"
+    ? "Let op: dit is de ontwerpschets. Er draait geen server, dus er is niets verstuurd en niets opgeslagen."
+    : voorbehoud === "mislukt"
+      ? "Let op: wij konden je bericht nu niet ontvangen, dus er is niets opgeslagen. Probeer het straks nog een keer, of mail ons op hallo@snelrepareren.nl."
+      : null;
+  if (tekst && bedankt && !bedankt.querySelector(".schetsregel")) {
     const p = document.createElement("p");
     p.className = "schetsregel";
-    p.textContent =
-      "Let op: dit is de ontwerpschets. Er draait geen server, dus er is niets verstuurd en niets opgeslagen.";
+    p.setAttribute("role", "alert");
+    p.textContent = tekst;
     bedankt.appendChild(p);
   }
   window.scrollTo(0, 0);
@@ -93,7 +101,7 @@ function koppel({ knop, pad, formulier, bedankt, verzamel, klaar }) {
 
     if (!uit.goed) return toonFout(uit, formulier);
     if (klaar) klaar(uit);
-    toonBedankt(formulier, bedankt, uit.schets);
+    toonBedankt(formulier, bedankt, uit.schets ? "schets" : uit.mislukt ? "mislukt" : null);
   });
 }
 

@@ -432,7 +432,7 @@ function startkaart(){
     </div>`;return}
   el.innerHTML=`<h2>Welk toestel heb je?</h2><p class="sub">Typ je model of de code die op je toestel staat.</p>
     <div class="zoek"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-      <input id="q" placeholder="iPhone 13, Galaxy S23, A2633" autocomplete="off" oninput="zoek(this.value)" onfocus="zoek(this.value)">
+      <input id="q" aria-label="Zoek je toestel op naam of modelcode" placeholder="iPhone 13, Galaxy S23, A2633" autocomplete="off" oninput="zoek(this.value)" onfocus="zoek(this.value)">
       <div class="sugg" id="sugg"></div></div>
     <button class="hulp" onclick="opendlg()">Ik weet mijn model niet</button>
     <p class="of">De nieuwste toestellen</p>

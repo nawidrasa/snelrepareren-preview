@@ -89,7 +89,7 @@ textarea:focus,input:focus{outline:none;border-color:var(--groen);box-shadow:0 0
     </div>
 
     <div class="blok">
-      <label>Wat ging er goed of juist niet?<span class="hint">Schrijf gerust kort. Noem geen namen van medewerkers.</span></label>
+      <label for="tekst">Wat ging er goed of juist niet?<span class="hint">Schrijf gerust kort. Noem geen namen van medewerkers.</span></label>
       <textarea id="tekst" rows="4" placeholder="Bijvoorbeeld: scherm binnen een half uur vervangen, vooraf verteld welk type erin ging."></textarea>
     </div>
 
@@ -101,8 +101,8 @@ textarea:focus,input:focus{outline:none;border-color:var(--groen);box-shadow:0 0
     <div class="blok">
       <label>Hoe mogen we je noemen?<span class="hint">Wij tonen alleen je voornaam, de eerste letter van je achternaam en je woonplaats.</span></label>
       <div class="tweekolom">
-        <input type="text" id="naam" placeholder="Voornaam en letter, bijv. Marije D.">
-        <input type="text" id="plaats" placeholder="Woonplaats" value="Leeuwarden">
+        <input type="text" id="naam" aria-label="Je voornaam en de eerste letter van je achternaam" placeholder="Voornaam en letter, bijv. Marije D.">
+        <input type="text" id="plaats" aria-label="Je woonplaats" placeholder="Woonplaats" value="Leeuwarden">
       </div>
     </div>
 
@@ -144,7 +144,7 @@ textarea:focus,input:focus{outline:none;border-color:var(--groen);box-shadow:0 0
   Wij vragen alleen je voornaam en je beoordeling. Wat wij daarmee doen staat in de <a href="privacy.html">privacyverklaring</a>.
 </footer>
 
-<script src="formulier.js?v=6e848490"></script>
+<script src="formulier.js?v=7ca74ced"></script>
 <script>
 const S={cijfer:null,rep:'Scherm vervangen'};
 const UITLEG={1:'Zeer slecht',2:'Slecht',3:'Slecht',4:'Onvoldoende',5:'Onvoldoende',6:'Voldoende',7:'Ruim voldoende',8:'Goed',9:'Zeer goed',10:'Uitstekend'};

@@ -90,23 +90,23 @@ legend{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:upperc
 
       <fieldset>
         <legend>Je winkel</legend>
-        <div class="veld"><label>Bedrijfsnaam</label><input id="naam" placeholder="Zoals hij bij de KvK staat"></div>
+        <div class="veld"><label for="naam">Bedrijfsnaam</label><input id="naam" placeholder="Zoals hij bij de KvK staat"></div>
         <div class="tweekolom">
-          <div class="veld"><label>KvK-nummer</label><input id="kvk" placeholder="12345678" inputmode="numeric"><div class="hint">Wij controleren hiermee je inschrijving.</div></div>
-          <div class="veld"><label>Telefoonnummer winkel</label><input id="tel" placeholder="058 123 45 67"></div>
+          <div class="veld"><label for="kvk">KvK-nummer</label><input id="kvk" placeholder="12345678" inputmode="numeric"><div class="hint">Wij controleren hiermee je inschrijving.</div></div>
+          <div class="veld"><label for="tel">Telefoonnummer winkel</label><input id="tel" placeholder="058 123 45 67"></div>
         </div>
-        <div class="veld"><label>Adres</label><input id="adres" placeholder="Straat en huisnummer"></div>
+        <div class="veld"><label for="adres">Adres</label><input id="adres" placeholder="Straat en huisnummer"></div>
         <div class="tweekolom">
-          <div class="veld"><label>Postcode</label><input id="pc" placeholder="8911 KX"></div>
-          <div class="veld"><label>Plaats</label><input id="plaats" placeholder="Leeuwarden"></div>
+          <div class="veld"><label for="pc">Postcode</label><input id="pc" placeholder="8911 KX"></div>
+          <div class="veld"><label for="plaats">Plaats</label><input id="plaats" placeholder="Leeuwarden"></div>
         </div>
       </fieldset>
 
       <fieldset>
         <legend>Contactpersoon</legend>
         <div class="tweekolom">
-          <div class="veld"><label>Naam</label><input id="cnaam" placeholder="Voor- en achternaam"></div>
-          <div class="veld"><label>E-mailadres</label><input id="mail" type="email" placeholder="naam@uwwinkel.nl"><div class="hint">Hier sturen wij de uitnodiging naartoe.</div></div>
+          <div class="veld"><label for="cnaam">Naam</label><input id="cnaam" placeholder="Voor- en achternaam"></div>
+          <div class="veld"><label for="mail">E-mailadres</label><input id="mail" type="email" placeholder="naam@uwwinkel.nl"><div class="hint">Hier sturen wij de uitnodiging naartoe.</div></div>
         </div>
       </fieldset>
 
@@ -180,7 +180,7 @@ legend{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:upperc
   Wat wij met je aanmelding doen staat in de <a href="privacy.html">privacyverklaring</a>. Onderdeel van snelrepareren.nl.
 </footer>
 
-<script src="formulier.js?v=6e848490"></script>
+<script src="formulier.js?v=7ca74ced"></script>
 <script>
 const MERKEN=['Apple','Samsung','Google','Xiaomi','OnePlus','Huawei','Oppo','Motorola','Fairphone','Overig'];
 const S={merken:new Set(['Apple','Samsung'])};

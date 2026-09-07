@@ -314,14 +314,14 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.02em;margin:0 0 3px}
       <div class="paginakop"><div><h1>Profiel en prijzen</h1><p>Dit ziet de klant op je openbare profiel.</p></div><a class="btn btn-lijn btn-klein" id="alsklant" href="winkelprofiel.html">Bekijk als klant</a></div>
       <div class="kaart"><h2>Winkelgegevens</h2><p class="toel">Naam, adres en hoe een klant kan betalen.</p>
         <div class="tweekolom">
-          <div class="veld"><label>Winkelnaam</label><input id="p-naam" value="Telefoonhulp Leeuwarden"></div>
-          <div class="veld"><label>Telefoon</label><input id="p-telefoon" value="058 123 45 67"></div>
+          <div class="veld"><label for="p-naam">Winkelnaam</label><input id="p-naam" value="Telefoonhulp Leeuwarden"></div>
+          <div class="veld"><label for="p-telefoon">Telefoon</label><input id="p-telefoon" value="058 123 45 67"></div>
         </div>
         <div class="tweekolom">
-          <div class="veld"><label>Adres</label><input id="p-adres" value="Nieuwestad 112"></div>
-          <div class="veld"><label>Postcode en plaats</label><input id="p-postcodeplaats" value="8911 KX Leeuwarden"></div>
+          <div class="veld"><label for="p-adres">Adres</label><input id="p-adres" value="Nieuwestad 112"></div>
+          <div class="veld"><label for="p-postcodeplaats">Postcode en plaats</label><input id="p-postcodeplaats" value="8911 KX Leeuwarden"></div>
         </div>
-        <div class="veld"><label>Korte omschrijving (max 3 zinnen)</label><textarea id="p-omschrijving" rows="2">Wij repareren sinds 2014 aan de Nieuwestad en doen bijna alles terwijl je wacht.</textarea></div>
+        <div class="veld"><label for="p-omschrijving">Korte omschrijving (max 3 zinnen)</label><textarea id="p-omschrijving" rows="2">Wij repareren sinds 2014 aan de Nieuwestad en doen bijna alles terwijl je wacht.</textarea></div>
         <fieldset class="veld betaalveld" id="p-tijden">
           <legend>Openingstijden</legend>
           <p class="toel">Laat een dag leeg als je dan dicht bent. Klanten kunnen filteren op "vandaag open".
@@ -493,7 +493,7 @@ function beoordelingen(){
    <div class="bkop"><span class="cijf num">${b.c}</span><b>${b.n}</b><span style="color:var(--inkt-3);font-size:13.5px">uit ${b.p}</span><span class="dat">${b.d}</span></div>
    <p>${b.t}</p>
    ${b.r?`<div class="reactie"><b>Je reactie</b>${b.r}</div>`
-        :`<div class="reactieveld"><input placeholder="Reageer één keer op deze beoordeling"><button class="btn btn-lijn btn-klein" onclick="reageer(${i},this)">Plaatsen</button></div>`}
+        :`<div class="reactieveld"><input aria-label="Je reactie op deze beoordeling" placeholder="Reageer één keer op deze beoordeling"><button class="btn btn-lijn btn-klein" onclick="reageer(${i},this)">Plaatsen</button></div>`}
  </div>`).join('');
 }
 function reageer(i,knop){
