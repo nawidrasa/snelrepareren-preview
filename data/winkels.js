@@ -95,6 +95,11 @@ const WINKELDATA = {
     {n:'MyTelecom',i:'M',plaats:'Leeuwarden',a:'Peperstraat 5'},
     {n:'Dyna Store',i:'D',plaats:'Leeuwarden',a:'Willem Alexanderplein 12'},
     {n:'M&S Telecom 4U',i:'M',plaats:'Leeuwarden',a:'Wirdumerdijk 17'},
+    {n:'Mobile 4 All',i:'M',plaats:'Leeuwarden',a:'Schrans 68'},
+    // Berlikumermarkt 21 is een en dezelfde zaak onder drie namen: GSM Clinic,
+    // GSMSHOP en Telefoonmaken, alle drie op dit adres met nummer 058 212 1175.
+    // Daarom een keer, onder de naam van het bedrijf dat er staat ingeschreven.
+    {n:'GSM Clinic',i:'G',plaats:'Leeuwarden',a:'Berlikumermarkt 21'},
   ],
 
   /* Echte, aangesloten en geverifieerde winkels.
