@@ -35,17 +35,11 @@ h1{font-size:22px;font-weight:800;letter-spacing:-.02em;margin:0 0 6px}
 .veld input:focus{outline:none;border-color:var(--groen);box-shadow:0 0 0 3px var(--groen-100)}
 .veld .hint{font-size:12.5px;color:var(--inkt-3);margin-top:5px}
 .rij{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:20px}
-.onthoud{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--inkt-2)}
-.onthoud input{width:17px;height:17px;accent-color:var(--groen)}
 .link{color:var(--groen);font-weight:600;font-size:14px;text-decoration:none}
 .link:hover{text-decoration:underline;text-underline-offset:3px}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 22px;border-radius:999px;font-weight:600;font-size:15.5px;border:1.5px solid transparent;cursor:pointer;text-decoration:none;width:100%}
 .btn-marine{background:var(--marine);color:#fff}.btn-marine:hover{background:var(--marine-d)}
 .btn-lijn{background:#fff;color:var(--inkt-2);border-color:var(--lijn)}
-.tweefactor{background:var(--groen-50);border:1px solid var(--groen-200);border-radius:14px;padding:14px 16px;font-size:13.5px;color:var(--inkt-2);margin-top:18px;display:flex;gap:10px}
-.tweefactor svg{width:18px;height:18px;color:var(--groen);flex:none;margin-top:1px}
-.codevelden{display:flex;gap:8px;justify-content:center;margin:6px 0 18px}
-.codevelden input{width:48px;height:56px;text-align:center;font-size:22px;font-weight:700;border:1.5px solid var(--lijn);border-radius:12px;font-family:inherit}
 .onder{text-align:center;font-size:14px;color:var(--inkt-2);margin-top:22px}
 .onder a{color:var(--groen);font-weight:600;text-decoration:none}
 .gelukt{text-align:center}
@@ -70,47 +64,28 @@ h1{font-size:22px;font-weight:800;letter-spacing:-.02em;margin:0 0 6px}
   </div>
 
   <!-- INLOGGEN -->
-  <div class="kaart" id="inloggen">
+  <!-- GEEN WACHTWOORD, WANT ER IS ER GEEN.
+       Hier stond een wachtwoordveld, een vinkje "ingelogd blijven", een link
+       "wachtwoord vergeten" en een belofte over een zescijferige code uit een
+       app. Van dat alles bestaat niets: de database zegt met zoveel woorden
+       "geen wachtwoorden, een link per e-mail", en de aanmeldmail zegt tegen de
+       winkelier "je hoeft geen wachtwoord te bedenken". Wie hier kwam, zocht een
+       wachtwoord dat hij nooit heeft gekregen. -->
+  <form class="kaart" id="inloggen">
     <h1>Inloggen</h1>
-    <p class="sub2">Beheer je prijzen, bekijk je vertoningen en beantwoord beoordelingen.</p>
-    <div class="veld"><label for="v-e-mailadres">E-mailadres</label><input id="v-e-mailadres" type="email" placeholder="naam@uwwinkel.nl" value="jelle@telefoonhulp.nl" autocomplete="email"></div>
-    <div class="veld"><label for="v-wachtwoord">Wachtwoord</label><input id="v-wachtwoord" type="password" placeholder="Je wachtwoord" value="xxxxxxxxxxxx" autocomplete="current-password"></div>
-    <div class="rij">
-      <label class="onthoud"><input type="checkbox" checked> Ingelogd blijven</label>
-      <a class="link" href="#" onclick="ga('vergeten');return false">Wachtwoord vergeten?</a>
-    </div>
-    <button class="btn btn-marine" onclick="ga('tweestaps')">Inloggen</button>
-    <div class="tweefactor"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 3v5.4c0 4.3-3.1 8.3-7.5 9.6-4.4-1.3-7.5-5.3-7.5-9.6V6z"/><path d="M9 12l2 2 4-4"/></svg><span>Extra beveiliging met een code is optioneel. Je zet het aan bij Account in het portaal.</span></div>
+    <p class="sub2">Beheer je prijzen, bekijk je vertoningen en beantwoord beoordelingen.
+    Je hebt geen wachtwoord: wij sturen je een link.</p>
+    <div class="veld"><label for="v-e-mailadres">E-mailadres</label><input id="v-e-mailadres" type="email" placeholder="naam@uwwinkel.nl" autocomplete="email" required><div class="hint">Wij sturen alleen een link als dit adres bij ons bekend is.</div></div>
+    <button type="submit" class="btn btn-marine" id="stuurlink" style="width:100%">Stuur mij een inloglink</button>
     <p class="onder">Nog geen account? <a href="aanmelden.html">Meld je winkel aan</a></p>
-  </div>
-
-  <!-- TWEESTAPS -->
-  <div class="kaart verborgen" id="tweestaps">
-    <h1>Vul de code in</h1>
-    <p class="sub2">Je hebt extra beveiliging aanstaan. Vul de zescijferige code uit je app in.</p>
-    <div class="codevelden">
-      <input maxlength="1" inputmode="numeric" aria-label="Cijfer 1 van 6"><input maxlength="1" inputmode="numeric" aria-label="Cijfer 2 van 6"><input maxlength="1" inputmode="numeric" aria-label="Cijfer 3 van 6">
-      <input maxlength="1" inputmode="numeric" aria-label="Cijfer 4 van 6"><input maxlength="1" inputmode="numeric" aria-label="Cijfer 5 van 6"><input maxlength="1" inputmode="numeric" aria-label="Cijfer 6 van 6">
-    </div>
-    <a class="btn btn-marine" href="portaal.html">Bevestigen</a>
-    <p class="onder"><a href="#" onclick="ga('inloggen');return false">Terug naar inloggen</a></p>
-  </div>
-
-  <!-- WACHTWOORD VERGETEN -->
-  <div class="kaart verborgen" id="vergeten">
-    <h1>Wachtwoord vergeten</h1>
-    <p class="sub2">Vul je e-mailadres in, dan sturen wij een link waarmee je een nieuw wachtwoord instelt.</p>
-    <div class="veld"><label for="v-e-mailadres-2">E-mailadres</label><input id="v-e-mailadres-2" type="email" placeholder="naam@uwwinkel.nl" autocomplete="email"><div class="hint">Wij sturen alleen een link als dit adres bij ons bekend is.</div></div>
-    <button class="btn btn-marine" id="stuurlink">Stuur mij een link</button>
-    <p class="onder"><a href="#" onclick="ga('inloggen');return false">Terug naar inloggen</a></p>
-  </div>
+  </form>
 
   <!-- VERZONDEN -->
   <div class="kaart verborgen" id="verzonden">
     <div class="gelukt">
       <div class="bal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/></svg></div>
       <h1>Kijk in je mailbox</h1>
-      <p>Als dit adres bij ons bekend is, staat er binnen een minuut een e-mail met een link. De link is een uur geldig.</p>
+      <p>Als dit adres bij ons bekend is, staat er binnen een minuut een e-mail met een link. De link is <b>30 minuten</b> geldig en werkt precies een keer.</p>
       <button class="btn btn-lijn" onclick="ga('inloggen')">Terug naar inloggen</button>
     </div>
   </div>
@@ -122,19 +97,26 @@ h1{font-size:22px;font-weight:800;letter-spacing:-.02em;margin:0 0 6px}
   Alleen voor aangesloten winkels. Onderdeel van snelrepareren.nl.
 </footer>
 
-<script src="formulier.js?v=7ca74ced">
+<script src="formulier.js?v=4f04e007"></script>
+<script>
 /* Inloggen zonder wachtwoord: wij sturen een link. Het antwoord is altijd
    hetzelfde, ook als het adres niet bij ons bekend is; anders is dit formulier
    een manier om te achterhalen welke winkels zijn aangesloten. */
-document.getElementById('stuurlink')?.addEventListener('click', async (e) => {
+document.getElementById('inloggen')?.addEventListener('submit', async (e) => {
   e.preventDefault();
-  const veld = document.querySelector('#linkvraag input[type=email], input[type=email]');
-  const uit = await snelFormulier.verstuur('/api/inloggen', { email: veld ? veld.value.trim() : '' });
-  if (!uit.goed) return snelFormulier.toonFout(uit, 'linkvraag');
+  const veld = document.getElementById('v-e-mailadres');
+  const knop = document.getElementById('stuurlink');
+  knop.disabled = true;
+  const uit = await snelFormulier.verstuur('/api/inloggen', { email: veld.value.trim() });
+  knop.disabled = false;
+  /* toonFout wil de id van het formulier, niet van een paneel dat niet meer
+     bestaat. Hier stond 'linkvraag' en dat element is er nooit geweest, dus een
+     foutmelding zonder veld belandde nergens. */
+  if (!uit.goed) return snelFormulier.toonFout(uit, 'inloggen');
   ga('verzonden');
 });
 </script>
 <script>
-const P=['inloggen','tweestaps','vergeten','verzonden'];
+const P=['inloggen','verzonden'];
 function ga(p){P.forEach(x=>document.getElementById(x).classList.toggle('verborgen',x!==p));window.scrollTo(0,0)}
 </script>

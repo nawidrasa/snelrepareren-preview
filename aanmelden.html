@@ -96,7 +96,7 @@ legend{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:upperc
 <div class="wrap">
   <div>
     <!-- FORMULIER -->
-    <div class="kaart" id="formulier">
+    <form class="kaart" id="formulier">
       <h1>Meld je winkel aan</h1>
       <p class="sub">Meedoen is gratis, en dat is het hele product. Je hoeft nu geen wachtwoord te bedenken: na onze controle krijg je een uitnodiging per e-mail.</p>
 
@@ -144,9 +144,9 @@ legend{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:upperc
         <span>Ik ben bevoegd om deze winkel aan te melden en ga akkoord met de <a href="voorwaarden-winkels.html">voorwaarden voor winkels</a> en de <a href="privacy.html">privacyverklaring</a>. Ik begrijp dat mijn plek in de gewone lijst niet te koop is.</span>
       </label>
 
-      <button class="btn btn-marine" id="verstuur" disabled style="width:100%">Aanmelding versturen</button>
+      <button type="submit" class="btn btn-marine" id="verstuur" disabled style="width:100%">Aanmelding versturen</button>
       <p class="voet">Aanmelden verplicht je tot niets. Wij nemen contact op voordat er iets live gaat.</p>
-    </div>
+    </form>
 
     <!-- BEDANKT -->
     <div class="kaart bedankt verborgen" id="bedankt">
@@ -193,7 +193,7 @@ legend{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:upperc
   Wat wij met je aanmelding doen staat in de <a href="privacy.html">privacyverklaring</a>. Onderdeel van snelrepareren.nl.
 </footer>
 
-<script src="formulier.js?v=7ca74ced"></script>
+<script src="formulier.js?v=4f04e007"></script>
 <script>
 const MERKEN=['Apple','Samsung','Google','Xiaomi','OnePlus','Huawei','Oppo','Motorola','Fairphone','Overig'];
 const S={merken:new Set(['Apple','Samsung'])};

@@ -84,7 +84,7 @@ textarea:focus,input:focus{outline:none;border-color:var(--groen);box-shadow:0 0
 
 <div class="wrap">
   <!-- FORMULIER -->
-  <div class="kaart" id="formulier">
+  <form class="kaart" id="formulier">
     <h1>Hoe ging het bij deze winkel?</h1>
     <p class="sub">Je ervaring helpt de volgende persoon met een kapot toestel. Het kost een minuut.</p>
 
@@ -127,9 +127,9 @@ textarea:focus,input:focus{outline:none;border-color:var(--groen);box-shadow:0 0
     </div>
 
     <div style="position:absolute;left:-9999px" aria-hidden="true"><label>Laat dit veld leeg<input id="website_url" name="website_url" tabindex="-1" autocomplete="off"></label></div>
-        <button class="btn btn-groen" id="verstuur" disabled style="width:100%">Beoordeling versturen</button>
+        <button type="submit" class="btn btn-groen" id="verstuur" disabled style="width:100%">Beoordeling versturen</button>
     <p class="voet">Na het versturen verwijderen wij je e-mailadres. Je beoordeling blijft staan zolang de winkel bij ons vermeld is.</p>
-  </div>
+  </form>
 
   <!-- BEDANKT -->
   <div class="kaart bedankt verborgen" id="bedankt">
@@ -156,20 +156,20 @@ textarea:focus,input:focus{outline:none;border-color:var(--groen);box-shadow:0 0
   Wij vragen alleen je voornaam en je beoordeling. Wat wij daarmee doen staat in de <a href="privacy.html">privacyverklaring</a>.
 </footer>
 
-<script src="formulier.js?v=7ca74ced"></script>
+<script src="formulier.js?v=4f04e007"></script>
 <script>
 const S={cijfer:null,rep:'Scherm vervangen'};
 const UITLEG={1:'Zeer slecht',2:'Slecht',3:'Slecht',4:'Onvoldoende',5:'Onvoldoende',6:'Voldoende',7:'Ruim voldoende',8:'Goed',9:'Zeer goed',10:'Uitstekend'};
 const REPS=['Scherm vervangen','Accu vervangen','Iets anders'];
 function cijfers(){
-  document.getElementById('cijfers').innerHTML=[1,2,3,4,5,6,7,8,9,10].map(n=>`<button class="cf${S.cijfer===n?' aan':''}" onclick="kiesCijfer(${n})">${n}</button>`).join('');
+  document.getElementById('cijfers').innerHTML=[1,2,3,4,5,6,7,8,9,10].map(n=>`<button type="button" class="cf${S.cijfer===n?' aan':''}" onclick="kiesCijfer(${n})">${n}</button>`).join('');
   const u=document.getElementById('cijferuitleg');
   u.innerHTML=S.cijfer?`Je gaf een <b>${S.cijfer}</b>: ${UITLEG[S.cijfer].toLowerCase()}.`:'Kies een cijfer van 1 tot 10.';
   document.getElementById('verstuur').disabled=!S.cijfer;
 }
 function kiesCijfer(n){S.cijfer=n;cijfers()}
 function reps(){
-  document.getElementById('reps').innerHTML=REPS.map(r=>`<button class="chip${S.rep===r?' aan':''}" onclick="kiesRep('${r}')">${r}</button>`).join('');
+  document.getElementById('reps').innerHTML=REPS.map(r=>`<button type="button" class="chip${S.rep===r?' aan':''}" onclick="kiesRep('${r}')">${r}</button>`).join('');
 }
 function kiesRep(r){S.rep=r;reps()}
 snelFormulier.koppel({

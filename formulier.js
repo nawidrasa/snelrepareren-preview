@@ -87,7 +87,20 @@ function toonBedankt(formulierId, bedanktId, voorbehoud) {
 function koppel({ knop, pad, formulier, bedankt, verzamel, klaar }) {
   const k = document.getElementById(knop);
   if (!k) return;
-  k.addEventListener("click", async (e) => {
+  /* OP SUBMIT EN NIET OP CLICK.
+   *
+   * Hier hing alleen een click op de knop, en de velden zaten in een div. Dan
+   * doet Enter in een veld helemaal niets: je typt je e-mailadres, drukt op
+   * Enter zoals iedereen doet, en er gebeurt niets. Op een telefoon staat er
+   * bovendien een gewone terugtoets op het toetsenbord in plaats van "ga".
+   *
+   * De wikkel is nu een echt formulier en wij luisteren naar submit. Dan werkt
+   * Enter vanzelf, precies zoals de browser het al twintig jaar doet. De
+   * click-tak blijft staan voor een pagina die nog geen form heeft; die valt
+   * niet stil terwijl de rest omgaat. */
+  const vorm = document.getElementById(formulier);
+  const doel = vorm && vorm.tagName === "FORM" ? vorm : k;
+  doel.addEventListener(doel === k ? "click" : "submit", async (e) => {
     e.preventDefault();
     const gegevens = verzamel();
     if (!gegevens) return;

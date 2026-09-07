@@ -100,7 +100,7 @@ footer{border-top:1px solid var(--lijn);margin-top:44px;padding:26px 0 60px;colo
   </div>
 
   <!-- FORMULIER -->
-  <div id="formulier">
+  <form id="formulier">
     <h2>Waar gaat je melding over?</h2>
     <div class="soorten" id="soorten"></div>
 
@@ -112,9 +112,9 @@ footer{border-top:1px solid var(--lijn);margin-top:44px;padding:26px 0 60px;colo
         <div class="veld"><label for="v-e-mailadres">E-mailadres</label><input id="v-e-mailadres" autocomplete="email" type="email" placeholder="je@email.nl"><div class="hint">Alleen om je antwoord te geven.</div></div>
       </div>
       <div style="position:absolute;left:-9999px" aria-hidden="true"><label>Laat dit veld leeg<input id="website_url" name="website_url" tabindex="-1" autocomplete="off"></label></div>
-        <button class="btn btn-marine" id="verstuur" style="width:100%">Melding versturen</button>
+        <button type="submit" class="btn btn-marine" id="verstuur" style="width:100%">Melding versturen</button>
     </div>
-  </div>
+  </form>
 
   <!-- BEDANKT -->
   <div class="kaart verborgen" id="bedankt">
@@ -168,7 +168,7 @@ footer{border-top:1px solid var(--lijn);margin-top:44px;padding:26px 0 60px;colo
   <div class="jur"><a href="voorwaarden.html">Voorwaarden</a><a href="privacy.html">Privacy</a><a href="cookies.html">Cookies</a><a href="toegankelijkheid.html">Toegankelijkheid</a><a href="melden.html">Iets melden</a><a href="over-ons.html">Over ons</a></div>
   Vragen die geen melding zijn? Mail hallo@snelrepareren.nl. Winkels kunnen terecht op winkels@snelrepareren.nl.</div></footer>
 
-<script src="formulier.js?v=7ca74ced"></script>
+<script src="formulier.js?v=4f04e007"></script>
 <script>
 const SOORTEN=[
  ['winkel','Een winkel','De reparatie ging mis, de afspraak werd niet nagekomen of het gedrag klopte niet.','<path d="M4 21V9l8-6 8 6v12"/><path d="M9 21v-6h6v6"/>'],
@@ -180,7 +180,7 @@ const S={soort:'winkel'};
 const CHECK='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>';
 function soorten(){
   document.getElementById('soorten').innerHTML=SOORTEN.map(([id,n,p,ic])=>
-   `<button class="soort${S.soort===id?' aan':''}" onclick="kies('${id}')">
+   `<button type="button" class="soort${S.soort===id?' aan':''}" onclick="kies('${id}')">
      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">${ic}</svg></span>
      <span><b>${n}</b><p>${p}</p></span>
      <span class="rond">${CHECK}</span></button>`).join('');
