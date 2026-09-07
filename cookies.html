@@ -1,3 +1,6 @@
+<!doctype html>
+<html lang="nl">
+<meta charset="utf-8">
 <title>Cookies en meten</title>
 <meta name="robots" content="noindex,nofollow">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -50,6 +53,8 @@ article b,article strong{color:var(--inkt);font-weight:700}
 footer{border-top:1px solid var(--lijn);margin-top:44px;padding:26px 0 60px;color:var(--inkt-3);font-size:13px}
 
 @media(max-width:760px){.in{padding:0 16px}.top{padding:14px 16px;gap:12px}.top nav{display:none}.inhoud ol{columns:1}}
+.tabelwrap{overflow-x:auto}
+.schuifhint{font-size:13px;color:var(--inkt-3);margin:0 0 8px}
 </style>
 
 <div class="schets">Ontwerpschets. Deze tekst is een concept en heeft nog geen juridische toetsing gehad.</div>
@@ -75,11 +80,11 @@ footer{border-top:1px solid var(--lijn);margin-top:44px;padding:26px 0 60px;colo
     <p>Wij tonen geen cookiebanner, omdat wij niets plaatsen waarvoor toestemming nodig is. Er staan geen volgcookies op deze site, geen advertentiecookies en geen meetcookies van andere bedrijven.</p>
     <p>Dat is een ontwerpkeuze, geen toeval: wij hebben de meting zo gebouwd dat wij zonder cookies genoeg weten.</p>
     <h2 id="a2">2. Wat er wel op je apparaat komt</h2>
-    <table class="tbl">
+    <div class="tabelwrap"><table class="tbl">
       <tr><th>Wat</th><th>Waarvoor</th><th class="num">Hoe lang</th><th>Toestemming nodig</th></tr>
       <tr><td><b>Inlogcookie portaal</b></td><td>Een ingelogde winkel ingelogd houden. Alleen op het winkelportaal, nooit op de gewone site.</td><td class="num">tot uitloggen</td><td>Nee, strikt noodzakelijk</td></tr>
       <tr><td><b>Je keuzes in de reparatiekiezer</b></td><td>Onthouden welk toestel en welke reparatie je koos, zodat je niet opnieuw begint als je terugklikt.</td><td class="num">tot je het tabblad sluit</td><td>Nee, dit blijft in je browser</td></tr>
-    </table>
+    </table></div>
     <p>Het tweede is geen cookie maar opslag in je eigen browser. Die gegevens gaan niet naar ons toe.</p>
     <h2 id="a3">3. Hoe wij dan meten</h2>
     <p>Wij tellen paginabezoeken en kliks op onze eigen server, zonder je te herkennen. Wij weten dus wel dat een pagina duizend keer is bekeken, maar niet of dat duizend mensen waren of vijfhonderd mensen die twee keer keken.</p>
@@ -95,3 +100,25 @@ footer{border-top:1px solid var(--lijn);margin-top:44px;padding:26px 0 60px;colo
   <div class="jur"><a href="voorwaarden.html">Voorwaarden</a><a href="voorwaarden-winkels.html">Voorwaarden voor winkels</a><a href="privacy.html">Privacy</a><a href="cookies.html">Cookies</a><a href="toegankelijkheid.html">Toegankelijkheid</a><a href="melden.html">Iets melden</a><a href="over-ons.html">Over ons</a></div>
   Onderdeel van snelrepareren.nl, de onafhankelijke vergelijker voor telefoonreparatie in Nederland.
 </div></footer>
+<script>
+/* Een tabel die breder is dan het scherm schuift binnen zijn eigen kader.
+   Zonder aanwijzing ziet niemand dat, dus zetten wij er een regel boven.
+   Hetzelfde stukje staat op de gidspagina's; die hadden hun tabellen wel in
+   een kader, deze twee niet. Op een telefoon van 375 pixels liep de
+   cookietabel er 158 pixels naast en de privacytabel 113. */
+function schuifhints(){
+  document.querySelectorAll('.tabelwrap').forEach(w=>{
+    const nodig=w.scrollWidth>w.clientWidth+1;
+    let h=w.previousElementSibling;
+    const heeftHint=h&&h.classList&&h.classList.contains('schuifhint');
+    if(nodig&&!heeftHint){
+      const p=document.createElement('p');
+      p.className='schuifhint';
+      p.textContent='Schuif de tabel opzij om alle kolommen te zien.';
+      w.parentNode.insertBefore(p,w);
+    } else if(!nodig&&heeftHint){ h.remove(); }
+  });
+}
+schuifhints();
+addEventListener('resize',schuifhints);
+</script>

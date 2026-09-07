@@ -1,3 +1,6 @@
+<!doctype html>
+<html lang="nl">
+<meta charset="utf-8">
 <title>iPhone reparatie in Leeuwarden</title>
 <meta name="robots" content="noindex,nofollow">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -52,7 +55,9 @@ h3{font-size:17.5px;font-weight:700;margin:0 0 4px}
 .leegstaat{border:1.5px dashed var(--lijn);border-radius:16px;padding:24px;text-align:center;color:var(--inkt-2);font-size:15px}
 .tag{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px;background:var(--vlak);color:var(--inkt-2)}
 .tag.keur{background:var(--groen-100);color:var(--groen-800)}
-.tag.erk{background:var(--marine-100);color:var(--marine)}
+/* .tag.erk stond hier voor de kale tekst "Apple IRP". Die is vervangen door het
+   merkje met logo uit basis.css. */
+.w .merken .merkje{margin:0}
 .tag.snel{background:var(--amber-soft);color:var(--amber)}
 .tag svg{width:13px;height:13px}
 
@@ -246,7 +251,10 @@ document.getElementById('onder').textContent=WINKELS.length
    kwam hiervandaan. */
 const winkelrij=w=>{
   const a=aanbod(w,'iPhone 13','scherm');
-  const regel=[esc(w.a),afstandVan(w),googleCijfer(w)].filter(Boolean).join(' &middot; ');
+  /* Met sterren, want dezelfde winkel hoort er op elke pagina hetzelfde uit te
+     zien en op de plaatspagina en het profiel staan ze er wel. */
+  const regel=[esc(w.a),afstandVan(w),
+    (w.g?sterrenBalk(w.g):'')+googleCijfer(w)].filter(Boolean).join(' &middot; ');
   const tijd=a?doorlooptijd(a):null;
   return `
  <article class="w">
@@ -255,7 +263,7 @@ const winkelrij=w=>{
   <span class="regel">${regel}</span>
   <span class="merken">
     ${w.keur?'<span class="tag keur">'+VINK+keurlabel(w)+'</span>':''}
-    ${w.erk?'<span class="tag erk">'+esc(w.erk)+'</span>':''}
+    ${erkenningsMerken(w)}
     ${tijd?`<span class="tag${a.v?' snel':''}">${tijd}</span>`:''}
   </span>
   <span class="rechts">
