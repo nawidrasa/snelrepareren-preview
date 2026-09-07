@@ -161,6 +161,33 @@ const VERMELDINGEN = VOORBEELDEN ? WINKELDATA.vermeldingen : WINKELDATA.echteVer
    hem daarvandaan mee. */
 const DREMPEL_WINKELS = typeof DREMPEL_UIT_DE_SERVER === 'number' ? DREMPEL_UIT_DE_SERVER : 3;
 
+/* De plaatsen waar wij aan bouwen, in de volgorde waarin wij ze noemen.
+
+   Deze lijst stond met de hand in DRIE pagina's en alle drie zeiden ze iets
+   anders: plaatsen.html had er twaalf, index.html tien met een eigen vlaggetje
+   erbij, en 404.html acht met erboven het commentaar "dezelfde lijst als op
+   plaatsen.html". Erger dan het verschil was het vlaggetje op index.html: dat
+   zette Drachten, Sneek, Heerenveen en Harlingen als LIVE op de homepage,
+   terwijl daar samen een winkel zit, en Dokkum op "binnenkort" terwijl daar
+   juist een geverifieerde winkel is. Daaronder stond de zin "wij zetten een
+   plaats pas online als er echt wat te vergelijken valt".
+
+   Of een plaats open is, wordt daarom nergens meer opgeschreven: dat is
+   genoegIn(plaats), en dat telt de winkels. Deze lijst zegt alleen WELKE
+   plaatsen wij noemen en in welke volgorde.
+
+   Hij staat onder de streep en niet erboven, want hij komt niet uit de
+   database. Zo neemt de gegenereerde versie hem letterlijk mee en blijft het
+   bij een bron. */
+const PLAATSEN = ['Leeuwarden', 'Drachten', 'Sneek', 'Heerenveen', 'Harlingen',
+  'Franeker', 'Dokkum', 'Joure', 'Bolsward', 'Wolvega', 'Lemmer', 'Burgum'];
+
+/* Waar de link van een plaats heen gaat. Zolang Leeuwarden de enige echte
+   plaatspagina in de preview is, gaat de rest naar de pagina onder de drempel.
+   Bij livegang worden plaatspagina's gegenereerd en wordt dit een naamregel. */
+const paginaVoor = plaats =>
+  plaats === 'Leeuwarden' ? 'plaatspagina-leeuwarden.html' : 'plaats-onder-drempel.html';
+
 /* ---------- eerst: alles wat van buiten komt, ontsnappen ----------
 
    DE REDEN, en die is niet theoretisch. Een winkel vult in het portaal zelf zijn

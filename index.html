@@ -401,6 +401,7 @@ footer .jur{display:flex;flex-wrap:wrap;gap:18px;margin:22px 0 14px;padding-top:
 </div></dialog>
 
 <script src="data/kiezer.js?v=3f3d641f"></script>
+<script src="data/winkels.js?v=8bd17a3b"></script>
 <script>
 const KIEZER='reparatiekiezer.html';
 /* De modellen komen uit data/kiezer.js. Hier stond een eigen lijst met Google
@@ -433,7 +434,13 @@ const PRIJZEN=['iPhone 16','iPhone 15','iPhone 14','iPhone 13','iPhone 12','iPho
   .map(m=>[m].concat(bandVan(m,'scherm')||[]))
   .filter(r=>r.length===4)
   .map(([m,lo,md,hi])=>[m,lo,md,hi,(hi/lo).toFixed(1).replace('.',',')]);
-const PLAATSEN=[['Leeuwarden',1],['Drachten',1],['Sneek',1],['Heerenveen',1],['Harlingen',1],['Dokkum',0],['Joure',0],['Bolsward',0],['Wolvega',0],['Lemmer',0]];
+/* PLAATSEN komt uit data/winkels.js. Hier stond een eigen lijst met per plaats
+   een vlaggetje live of niet, met de hand gezet. Dat vlaggetje zei op de
+   homepage dat Drachten, Sneek, Heerenveen en Harlingen open waren, terwijl
+   daar samen een winkel zit, en dat Dokkum nog moest komen terwijl daar juist
+   een geverifieerde winkel is. Twee alinea's hoger staat "wij zetten een plaats
+   pas online als er echt wat te vergelijken valt". Het vlaggetje is weg; de
+   pagina telt nu met genoegIn(). */
 const OS={ios:["Open Instellingen op je iPhone.","Tik op Algemeen en daarna op Info.","Bij Modelnummer staat een code die met een A begint, bijvoorbeeld A2633."],
           android:["Open Instellingen op je toestel.","Scrol naar Over de telefoon of Systeem.","Bij Modelnummer staat de code, bijvoorbeeld SM-S911B."]};
 let gekozen=null;
@@ -483,8 +490,10 @@ function prijzen(){
      <p class="bron">198 gemeten prijspunten bij Nederlandse winkels, peildatum 3 september 2026. Een lage prijs betekent meestal een compatibel onderdeel, een hoge prijs een origineel scherm.</p>`;
 }
 function plaatsen(){
-  document.getElementById('plaatslijst').innerHTML=PLAATSEN.map(([n,live])=>live
-    ?`<a class="plaats" href="#">${n}</a>`
+  /* De link ging naar "#", ook voor de plaatsen die live heetten. Nu gaat hij
+     naar de pagina die bij die plaats hoort, net als op plaatsen.html en 404. */
+  document.getElementById('plaatslijst').innerHTML=PLAATSEN.map(n=>genoegIn(n)
+    ?`<a class="plaats" href="${paginaVoor(n)}">${n}</a>`
     :`<span class="plaats straks">${n} &middot; binnenkort</span>`).join('');
 }
 document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>zetOS(b.dataset.os));
