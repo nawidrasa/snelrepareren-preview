@@ -175,6 +175,9 @@ const WINKELDATA = {
     // Google als "Russo Electronica", een andere naam dan onze vermelding, dus een
     // zoektocht op "Telefoonmaken.nl" lost niet zuiver op.
     {n:'Telefoonmaken.nl',i:'T',plaats:'Heerenveen',a:'Dracht 57',pc:'8442 BL',tel:'0513 849433',web:'telefoonmaken.nl',geenGoogle:true},
+    // Toegevoegd 8 sep (extra ronde): GSM Heerenveen, telefoonreparatieservice aan
+    // de Dracht 94 (4,6 uit 84). Andere zaak dan Telefoonmaken op Dracht 57.
+    {n:'GSM Heerenveen',i:'G',plaats:'Heerenveen',a:'Dracht 94',pc:'8442 BW',tel:'0513 785494',web:'gsmheerenveen.nl'},
 
     {n:'M&S Telecom 4U',i:'M',plaats:'Franeker',a:'Ockingahiem 10',pc:'8801 KT',tel:'0517 201062',web:'mstelecom4u.nl',tijden:'ma 10:00-18:00\ndi 10:00-18:00\nwo 10:00-18:00\ndo 10:00-18:00\nvr 10:00-19:00\nza 10:00-17:00'},
     {n:'Welcom bij Boorsma',i:'W',plaats:'Franeker',a:'Voorstraat 51A',pc:'8801 LA',tel:'0517 727727',web:'welcombijboorsma.nl'},
@@ -193,6 +196,10 @@ const WINKELDATA = {
     {n:'GPR Joure',i:'G',plaats:'Joure',a:'Midstraat 84',pc:'8501 AS',tel:'0513 785239',web:'gprjoure.nl',tijden:'ma 13:00-18:00\ndi 10:00-18:00\nwo 10:00-18:00\ndo 10:00-18:00\nvr 10:00-18:00\nza 10:00-17:00'},
 
     {n:'Welcom bij Boorsma',i:'W',plaats:'Bolsward',a:'Marktstraat 18',pc:'8701 JV',tel:'0515 781075',web:'welcombijboorsma.nl'},
+
+    // Harlingen: Daily Phones staat in `echt`. Welcom bij Boorsma heeft hier een
+    // derde vestiging (naast Bolsward en Franeker), gevonden bij de extra ronde.
+    {n:'Welcom bij Boorsma',i:'W',plaats:'Harlingen',a:'Voorstraat 50',pc:'8861 BM',tel:'0517 430907',web:'welcombijboorsma.nl',tijden:'di 10:00-17:30\nwo 10:00-17:30\ndo 10:00-17:30\nvr 10:00-17:30\nza 10:00-17:00'},
 
     // XXL Mobile Wolvega verhuisde per 1 feb 2026 van Van Harenstraat 15 naar
     // Heerenveenseweg 80 (8471 BH); op het oude adres zit nu een toko.
