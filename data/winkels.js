@@ -95,10 +95,10 @@ const WINKELDATA = {
        Heerenveen: Bereikbaar.nu = iService (K.R. Poststraat 1G).
      - Op 8 sep is elke Google-link nagelopen (elke link in Maps geopend en
        gekeken of de gevonden zaak klopt). Dat vond echte fouten: aan de Van
-       Harenstraat in Wolvega zit Phone Connect en geen Phone House meer, en een
-       tweede M&S in Dokkum bleek niet te bestaan. Winkels zonder eigen
-       Google-vermelding (GSM-winkeltje, Herstellie, Telefoonmaken.nl Heerenveen)
-       dragen geenGoogle:true, zodat er geen link naar de verkeerde zaak komt.
+       Harenstraat in Wolvega zit Phone Connect en geen Phone House meer. Winkels
+       zonder eigen Google-vermelding (GSM-winkeltje, Herstellie, Telefoonmaken.nl
+       Heerenveen) dragen geenGoogle:true, zodat er geen link naar de verkeerde
+       zaak komt.
      - Ook telefoon en website zijn op 8 sep per winkel nagelopen tegen de bron
        (het Google-profiel of de eigen site). Gecorrigeerd: GSM Clinic website
        (gsmclinicleeuwarden.nl i.p.v. de ketensite), Telefoon Store adres terug
@@ -179,11 +179,13 @@ const WINKELDATA = {
     {n:'M&S Telecom 4U',i:'M',plaats:'Franeker',a:'Ockingahiem 10',pc:'8801 KT',tel:'0517 201062',web:'mstelecom4u.nl',tijden:'ma 10:00-18:00\ndi 10:00-18:00\nwo 10:00-18:00\ndo 10:00-18:00\nvr 10:00-19:00\nza 10:00-17:00'},
     {n:'Welcom bij Boorsma',i:'W',plaats:'Franeker',a:'Voorstraat 51A',pc:'8801 LA',tel:'0517 727727',web:'welcombijboorsma.nl'},
 
-    // Dokkum: Daily Phones/Smartphonestore staat in `echt`. M&S heeft hier een
-    // winkel (Aalsumerpoort 5A). De eerder vermelde tweede M&S op Waagstraat 8 is
-    // op 8 sep geschrapt: Google kent daar geen M&S, en M&S noemt op de eigen site
-    // maar een Dokkum-vestiging. Waarschijnlijk een dubbeling in het onderzoek.
+    // Dokkum: Daily Phones/Smartphonestore staat in `echt`. M&S heeft hier TWEE
+    // adressen: Aalsumerpoort 5A (M&S Telecom 4U) en Waagstraat 8 (Welcom bij M&S).
+    // Die tweede was op 8 sep even geschrapt toen een adreszoektocht hem niet gaf,
+    // maar Google kent hem wel degelijk (welcombijmsdokkum.nl, 4,9 uit 38); bij de
+    // extra zoekronde teruggevonden en hersteld.
     {n:'M&S Telecom 4U',i:'M',plaats:'Dokkum',a:'Aalsumerpoort 5A',pc:'9101 JJ',tel:'0519 700234',web:'mstelecom4u.nl',tijden:'ma 10:00-18:00\ndi 09:00-18:00\nwo 09:00-18:00\ndo 09:00-18:00\nvr 09:00-21:00\nza 09:00-17:00\nzo 13:00-17:00'},
+    {n:'Welcom bij M&S',i:'W',plaats:'Dokkum',a:'Waagstraat 8',pc:'9101 LC',tel:'0519 221976',web:'welcombijmsdokkum.nl'},
     // Toegevoegd 8 sep: Herstel Friesland, een fysieke inloopwinkel op Betterwird 2
     // die telefoons, tablets en laptops repareert (bevestigd op de eigen site).
     {n:'Herstel Friesland',i:'H',plaats:'Dokkum',a:'Betterwird 2',pc:'9101 PB',tel:'0519 760026',web:'herstelfriesland.nl',tijden:'ma 13:00-18:00\ndi 09:00-18:00\nwo 09:00-18:00\ndo 09:00-18:00\nvr 09:00-18:00'},

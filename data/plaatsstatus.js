@@ -22,7 +22,7 @@ const PLAATSSTATUS = [
   {"n":"Heerenveen","winkels":0,"vermeldingen":3,"open":0,"pagina":"plaatspagina-heerenveen.html","lat":52.952,"lon":5.92967},
   {"n":"Harlingen","winkels":1,"vermeldingen":0,"open":0,"pagina":"plaatspagina-harlingen.html","lat":53.17043,"lon":5.43451},
   {"n":"Franeker","winkels":0,"vermeldingen":2,"open":0,"pagina":"plaatspagina-franeker.html","lat":53.18964,"lon":5.54105},
-  {"n":"Dokkum","winkels":1,"vermeldingen":2,"open":0,"pagina":"plaatspagina-dokkum.html","lat":53.32467,"lon":6.00143},
+  {"n":"Dokkum","winkels":1,"vermeldingen":3,"open":0,"pagina":"plaatspagina-dokkum.html","lat":53.32467,"lon":6.00143},
   {"n":"Joure","winkels":0,"vermeldingen":1,"open":0,"pagina":"plaatspagina-joure.html","lat":52.96515,"lon":5.79698},
   {"n":"Bolsward","winkels":0,"vermeldingen":1,"open":0,"pagina":"plaatspagina-bolsward.html","lat":53.06627,"lon":5.53007},
   {"n":"Wolvega","winkels":0,"vermeldingen":2,"open":0,"pagina":"plaatspagina-wolvega.html","lat":52.87739,"lon":6.00407},
