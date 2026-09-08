@@ -117,37 +117,43 @@ const WINKELDATA = {
      - Groep C uit het onderzoek (opstuur- en doorverwijsdiensten zonder eigen
        Fries pand) hoort niet in een lijst van lokale winkels. */
   // Elke vermelding: naam, letter, plaats, adres (a), postcode (pc), telefoon
-  // (tel) en website (web). Alles uit openbare bronnen, verzameld en op 8 sep
-  // nagelopen; de bronnen per winkel staan in
-  // bouwvoorbereiding/WINKELS-FRIESLAND-onderzoek.md. Nog steeds GEEN cijfer,
+  // (tel), website (web) en, waar bekend, de openingstijden (tijden). Alles uit
+  // openbare bronnen, verzameld en op 8 sep nagelopen; de bronnen per winkel staan
+  // in bouwvoorbereiding/WINKELS-FRIESLAND-onderzoek.md. Nog steeds GEEN cijfer,
   // beoordeling of poliscontrole: dat zou een claim over een echt bedrijf zijn.
-  // Telefoon en website zijn openbare contactgegevens en geen claim.
+  // Telefoon, website en openingstijden zijn openbare gegevens en geen claim.
+  //
+  // tijden is een tekst met een regel per open dag ("ma 12:00-18:00"); gesloten
+  // dagen ontbreken. Het is de gepubliceerde week, GEEN "nu open"-uitspraak, want
+  // dat rooster kent geen feestdagen. De pagina zet er dat voorbehoud bij. Niet
+  // elke winkel gaf zijn tijden vrij; die zonder tijden houden hun Google-profiel,
+  // waar de actuele openingstijden live op staan.
   vermeldingen: [
-    {n:'MyTelecom',i:'M',plaats:'Leeuwarden',a:'Peperstraat 5',pc:'8911 HZ',tel:'058 212 7198',web:'my-telecom.nl'},
-    {n:'Dyna Store',i:'D',plaats:'Leeuwarden',a:'Willem Alexanderplein 12',pc:'8931 DW',tel:'058 843 2553',web:'dyna-store.nl'},
-    {n:'M&S Telecom 4U',i:'M',plaats:'Leeuwarden',a:'Wirdumerdijk 17',pc:'8911 CB',tel:'058 203 8445',web:'mstelecom4u.nl'},
+    {n:'MyTelecom',i:'M',plaats:'Leeuwarden',a:'Peperstraat 5',pc:'8911 HZ',tel:'058 212 7198',web:'my-telecom.nl',tijden:'ma 12:00-18:00\ndi 10:00-18:00\nwo 10:00-18:00\ndo 10:00-18:00\nvr 10:00-18:00\nza 10:00-17:00'},
+    {n:'Dyna Store',i:'D',plaats:'Leeuwarden',a:'Willem Alexanderplein 12',pc:'8931 DW',tel:'058 843 2553',web:'dyna-store.nl',tijden:'ma 10:00-18:00\ndi 10:00-18:00\nwo 10:00-18:00\ndo 10:00-18:00\nvr 10:00-18:00'},
+    {n:'M&S Telecom 4U',i:'M',plaats:'Leeuwarden',a:'Wirdumerdijk 17',pc:'8911 CB',tel:'058 203 8445',web:'mstelecom4u.nl',tijden:'ma 09:00-18:00\ndi 09:00-18:00\nwo 09:00-18:00\ndo 09:00-21:00\nvr 09:00-18:00\nza 09:00-17:00\nzo 12:00-17:00'},
     {n:'Mobile 4 All',i:'M',plaats:'Leeuwarden',a:'Schrans 68',pc:'8932 NG',tel:'058 785 0423',web:'mobile-4all.nl'},
     // Berlikumermarkt 21 is een en dezelfde zaak onder drie namen: GSM Clinic,
     // GSMSHOP en Telefoonmaken, alle drie op dit adres met nummer 058 212 1175.
     // Daarom een keer, onder de naam van het bedrijf dat er staat ingeschreven.
-    {n:'GSM Clinic',i:'G',plaats:'Leeuwarden',a:'Berlikumermarkt 21',pc:'8911 LB',tel:'058 212 1175',web:'gsmclinicleeuwarden.nl'},
+    {n:'GSM Clinic',i:'G',plaats:'Leeuwarden',a:'Berlikumermarkt 21',pc:'8911 LB',tel:'058 212 1175',web:'gsmclinicleeuwarden.nl',tijden:'ma 10:00-17:30\ndi 10:00-17:30\nwo 10:00-17:30\ndo 10:00-17:30\nvr 10:00-17:30\nza 10:00-17:30'},
 
     // Adres nageluisterd bij de bron: de eigen site zegt "Noorkade 3-b" (typfout
     // voor Noordkade), de straatnaam is Noordkade (net als MultiPhoneRepair op
     // nr 1). Het huisnummer 3-b staat zowel op de eigen site als in het onderzoek;
     // de Google-vermelding zegt nr 4, maar die is ongeclaimd en hier de uitzondering.
-    {n:'Telefoon Store Drachten',i:'T',plaats:'Drachten',a:'Noordkade 3-b',pc:'9203 CC',tel:'0512 548602',web:'telefoonstore-drachten.nl'},
+    {n:'Telefoon Store Drachten',i:'T',plaats:'Drachten',a:'Noordkade 3-b',pc:'9203 CC',tel:'0512 548602',web:'telefoonstore-drachten.nl',tijden:'ma 13:00-18:00\ndi 10:00-18:00\nwo 10:00-18:00\ndo 10:00-18:00\nvr 10:00-21:00\nza 10:00-17:00'},
     {n:'MultiPhoneRepair',i:'M',plaats:'Drachten',a:'Noordkade 1',pc:'9203 CC',tel:'0512 845099',web:'multiphonerepair.nl'},
     // geenGoogle: geen eigen Google-vermelding (8 sep gecheckt: een zoektocht op
     // naam+adres komt op een andere winkel uit). Wel een eigen website.
     {n:'GSM-winkeltje',i:'G',plaats:'Drachten',a:'Moleneind ZZ 13-A',pc:'9203 ZW',tel:'0512 752136',web:'gsm-winkeltje.nl',geenGoogle:true},
-    {n:'GSM Mobile Drachten',i:'G',plaats:'Drachten',a:'Noorderbuurt 25A',pc:'9203 AL',tel:'0512 356829',web:'mobilereparatie.nl'},
+    {n:'GSM Mobile Drachten',i:'G',plaats:'Drachten',a:'Noorderbuurt 25A',pc:'9203 AL',tel:'0512 356829',web:'mobilereparatie.nl',tijden:'ma 13:00-18:00\ndi 10:00-18:00\nwo 10:00-18:00\ndo 10:00-21:00\nvr 10:00-18:00\nza 10:00-17:00'},
     {n:'Phone House',i:'P',plaats:'Drachten',a:'Noorderbuurt 15',pc:'9203 AK',tel:'0512 545988',web:'phonehouse.nl'},
 
     // Sneek: FlyFix is de zaak achter Mobileinn, Telecombinatie en Optie1 Sneek
     // (alle vier op Oosterdijk 64). Een keer. Herstellie (Bonserdyk 5) staat er
     // ook bij; de site is weer online (8 sep).
-    {n:'FlyFix',i:'F',plaats:'Sneek',a:'Oosterdijk 64',pc:'8601 BV',tel:'0515 433510',web:'flyfix.nl'},
+    {n:'FlyFix',i:'F',plaats:'Sneek',a:'Oosterdijk 64',pc:'8601 BV',tel:'0515 433510',web:'flyfix.nl',tijden:'ma 12:00-18:00\ndi 10:00-18:00\nwo 10:00-18:00\ndo 10:00-18:00\nvr 10:00-18:00\nza 10:00-17:00'},
     // Geen website: xxl-mobile.com is niet bereikbaar en de Google-vermelding
     // noemt geen site. Wel telefoon en Google-profiel.
     {n:'XXL Mobile',i:'X',plaats:'Sneek',a:'Nauwe Burgstraat 3',pc:'8601 CD',tel:'0515 750237'},
@@ -156,23 +162,23 @@ const WINKELDATA = {
     {n:'Herstellie',i:'H',plaats:'Sneek',a:'Bonserdyk 5',pc:'8601 ZE',tel:'06 8204 6935',web:'herstellie.nl',geenGoogle:true},
 
     // Heerenveen: Bereikbaar.nu en iService zijn dezelfde zaak (K.R. Poststraat 1G).
-    {n:'Bereikbaar.nu',i:'B',plaats:'Heerenveen',a:'K.R. Poststraat 1G',pc:'8441 EL',tel:'0513 724646',web:'bereikbaar.nu'},
+    {n:'Bereikbaar.nu',i:'B',plaats:'Heerenveen',a:'K.R. Poststraat 1G',pc:'8441 EL',tel:'0513 724646',web:'bereikbaar.nu',tijden:'ma 09:00-18:00\ndi 09:00-18:00\nwo 09:00-18:00\ndo 09:00-18:00\nvr 09:00-18:00'},
     {n:'TopMobileShop',i:'T',plaats:'Heerenveen',a:'Minckelersstraat 2',pc:'8442 CE',tel:'0513 436386',web:'topmobileshop.nl'},
     // geenGoogle: op Dracht 57 (zelfde telefoon 0513 849433) staat de zaak op
     // Google als "Russo Electronica", een andere naam dan onze vermelding, dus een
     // zoektocht op "Telefoonmaken.nl" lost niet zuiver op.
     {n:'Telefoonmaken.nl',i:'T',plaats:'Heerenveen',a:'Dracht 57',pc:'8442 BL',tel:'0513 849433',web:'telefoonmaken.nl',geenGoogle:true},
 
-    {n:'M&S Telecom 4U',i:'M',plaats:'Franeker',a:'Ockingahiem 10',pc:'8801 KT',tel:'0517 201062',web:'mstelecom4u.nl'},
+    {n:'M&S Telecom 4U',i:'M',plaats:'Franeker',a:'Ockingahiem 10',pc:'8801 KT',tel:'0517 201062',web:'mstelecom4u.nl',tijden:'ma 10:00-18:00\ndi 10:00-18:00\nwo 10:00-18:00\ndo 10:00-18:00\nvr 10:00-19:00\nza 10:00-17:00'},
     {n:'Welcom bij Boorsma',i:'W',plaats:'Franeker',a:'Voorstraat 51A',pc:'8801 LA',tel:'0517 727727',web:'welcombijboorsma.nl'},
 
     // Dokkum: Daily Phones/Smartphonestore staat in `echt`. M&S heeft hier een
     // winkel (Aalsumerpoort 5A). De eerder vermelde tweede M&S op Waagstraat 8 is
     // op 8 sep geschrapt: Google kent daar geen M&S, en M&S noemt op de eigen site
     // maar een Dokkum-vestiging. Waarschijnlijk een dubbeling in het onderzoek.
-    {n:'M&S Telecom 4U',i:'M',plaats:'Dokkum',a:'Aalsumerpoort 5A',pc:'9101 JJ',tel:'0519 700234',web:'mstelecom4u.nl'},
+    {n:'M&S Telecom 4U',i:'M',plaats:'Dokkum',a:'Aalsumerpoort 5A',pc:'9101 JJ',tel:'0519 700234',web:'mstelecom4u.nl',tijden:'ma 10:00-18:00\ndi 09:00-18:00\nwo 09:00-18:00\ndo 09:00-18:00\nvr 09:00-21:00\nza 09:00-17:00\nzo 13:00-17:00'},
 
-    {n:'GPR Joure',i:'G',plaats:'Joure',a:'Midstraat 84',pc:'8501 AS',tel:'0513 785239',web:'gprjoure.nl'},
+    {n:'GPR Joure',i:'G',plaats:'Joure',a:'Midstraat 84',pc:'8501 AS',tel:'0513 785239',web:'gprjoure.nl',tijden:'ma 13:00-18:00\ndi 10:00-18:00\nwo 10:00-18:00\ndo 10:00-18:00\nvr 10:00-18:00\nza 10:00-17:00'},
 
     {n:'Welcom bij Boorsma',i:'W',plaats:'Bolsward',a:'Marktstraat 18',pc:'8701 JV',tel:'0515 781075',web:'welcombijboorsma.nl'},
 
@@ -192,15 +198,15 @@ const WINKELDATA = {
     // optie1.nl (bereikbaar) in plaats van de wisselende Google-domeinen.
     {n:'Optie1',i:'O',plaats:'Lemmer',a:'Nieuwedijk 7',pc:'8531 HK',tel:'088 008 9001',web:'optie1.nl'},
 
-    {n:'M&S Telecom 4U',i:'M',plaats:'Burgum',a:'Schoolstraat 7B',pc:'9251 EA',tel:'0511 700253',web:'mstelecom4u.nl'},
+    {n:'M&S Telecom 4U',i:'M',plaats:'Burgum',a:'Schoolstraat 7B',pc:'9251 EA',tel:'0511 700253',web:'mstelecom4u.nl',tijden:'ma 09:00-18:00\ndi 09:00-18:00\nwo 09:00-18:00\ndo 09:00-18:00\nvr 09:00-21:00\nza 09:00-17:00'},
 
     // Plaatsen buiten de eerste twaalf, met een bevestigde winkel uit het
     // onderzoek. Toegevoegd op verzoek: alle Friese winkels, ook om te testen.
-    {n:'Telefoon Reparaties Gorredijk',i:'T',plaats:'Gorredijk',a:'Stationsweg 24',pc:'8401 DP',tel:'06 2220 2350',web:'telefoonreparatiesgorredijk.nl'},
+    {n:'Telefoon Reparaties Gorredijk',i:'T',plaats:'Gorredijk',a:'Stationsweg 24',pc:'8401 DP',tel:'06 2220 2350',web:'telefoonreparatiesgorredijk.nl',tijden:'di 10:00-17:30\nwo 10:00-17:30\ndo 10:00-17:30\nvr 10:00-17:30\nza 10:00-17:00'},
     {n:'HM Telefoons',i:'H',plaats:'Oosterwolde',a:'Stationsstraat 6',pc:'8431 EV',tel:'0516 514574'},
-    {n:'Call-Me Telecom',i:'C',plaats:'Stiens',a:'Langebuorren 1',pc:'9051 BD',tel:'058 257 5785',web:'callmetelecom.nl'},
+    {n:'Call-Me Telecom',i:'C',plaats:'Stiens',a:'Langebuorren 1',pc:'9051 BD',tel:'058 257 5785',web:'callmetelecom.nl',tijden:'ma 13:00-18:00\ndi 10:00-12:00, 13:00-18:00\nwo 10:00-12:00, 13:00-18:00\ndo 10:00-12:00, 13:00-18:00\nvr 10:00-12:00, 13:00-18:00\nza 10:00-12:00, 13:00-17:00'},
     {n:'Optie1',i:'O',plaats:'Surhuisterveen',a:'De Kolk 10',pc:'9231 CG',tel:'088 008 9006',web:'optie1.nl'},
-    {n:'Lichthuis',i:'L',plaats:'Terschelling',a:'Burg. Mentzstraat 25',pc:'8881 AJ',tel:'06 1122 4488',web:'lichttechniekterschelling.nl'},
+    {n:'Lichthuis',i:'L',plaats:'Terschelling',a:'Burg. Mentzstraat 25',pc:'8881 AJ',tel:'06 1122 4488',web:'lichttechniekterschelling.nl',tijden:'ma 13:30-17:30\ndi 13:30-17:30\nwo 13:30-17:30\ndo 13:30-17:30\nvr 13:30-17:30\nza 13:30-17:30'},
   ],
 
   /* Echte, aangesloten en geverifieerde winkels.
@@ -227,6 +233,7 @@ const WINKELDATA = {
      tel:'0519 347503',web:'dailyphones.nl',g:'4,9',gb:500,glink:'#',keur:0,erk:null,eigen:0,bs:[],uit:0},
     {n:'Daily Phones',i:'D',plaats:'Dokkum',buurt:'Centrum',a:'Waagstraat 14A',pc:'9101 LC',
      tel:'0519 347503',web:'dailyphones.nl',handelsnaam2:'Smartphonestore Dokkum',
+     tijden:'di 09:00-18:00\nwo 09:00-18:00\ndo 09:00-18:00\nvr 09:00-21:00\nza 09:00-17:00',
      g:'4,9',gb:500,glink:'#',keur:0,erk:null,eigen:0,bs:[],uit:0},
   ],
   echteVermeldingen: [],
@@ -375,6 +382,15 @@ const contactRegel = w => {
   const g = googleLink(w) ? `<a href="${link(googleLink(w))}" rel="nofollow noopener" target="_blank">Google-profiel</a>` : '';
   return [t, web, g].filter(Boolean).join(' &middot; ');
 };
+
+/* De openingstijden van een winkel, als wij die kennen. Een regel per open dag,
+   met het voorbehoud dat het de gepubliceerde week is en geen uitspraak over dit
+   moment (het rooster kent geen feestdagen). Ontbreekt tijden, dan geeft dit een
+   lege string; de winkel houdt dan zijn Google-profiel, waar de tijden live staan.
+   esc() ontsnapt de tekst; de regeleindes worden opmaak via white-space:pre-line. */
+const tijdenBlok = w => w.tijden
+  ? `<div class="tijden"><b>Openingstijden</b> <span class="tbron">volgens de winkel, controleer rond feestdagen</span><span class="trooster">${esc(w.tijden)}</span></div>`
+  : '';
 
 /* ---------- postcode naar plaats en punt ----------
 

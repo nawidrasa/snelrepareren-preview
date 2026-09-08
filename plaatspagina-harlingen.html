@@ -134,6 +134,7 @@ h1{font-size:clamp(26px,3.4vw,36px);font-weight:800;letter-spacing:-.025em;margi
 .naam b{font-size:17px;font-weight:700}
 .adres{font-size:13.5px;color:var(--inkt-3);margin:1px 0 0}
 .contact{font-size:13px;margin:3px 0 0}.contact a{color:var(--groen-800);font-weight:600;text-decoration:none}.contact a:hover{text-decoration:underline}
+.tijden{margin:6px 0 0;font-size:12.5px}.tijden b{font-size:12.5px}.tijden .tbron{color:var(--inkt-3);font-weight:400}.tijden .trooster{display:block;white-space:pre-line;color:var(--inkt-2);margin-top:2px;font-variant-numeric:tabular-nums}
 .score{text-align:right;white-space:nowrap}
 .score b{font-size:18px;font-weight:800}
 .score .aant{font-size:13px;color:var(--inkt-2)}
@@ -356,7 +357,7 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
 <script src="data/postcodes.js?v=d47fe545"></script>
 <script src="data/winkelpunten.js?v=2a05827c"></script>
 <script src="data/locatie.js?v=9ca1d462"></script>
-<script src="data/winkels.js?v=4426a011"></script>
+<script src="data/winkels.js?v=5a54ea4e"></script>
 <script>
 /* De bandbreedtes komen uit data/kiezer.js, dat uit het prijsonderzoek wordt
    gegenereerd. Ze stonden hier met de hand overgetypt en weken op vijf van de
@@ -570,6 +571,7 @@ function vermelding(v){
   return `<div class="verm"><div class="rij"><div class="pui">${esc(v.i)}</div>
     <div><div class="naam"><b>${esc(v.n)}</b> ${verificatieMerk(v)}</div><p class="adres">${[adresVol(v),afstandVan(v)].filter(Boolean).join(' &middot; ')}</p>
     ${c?`<p class="contact">${c}</p>`:''}
+    ${tijdenBlok(v)}
     <p>Deze winkel is nog niet aangesloten. Wij hebben geen prijzen, geen doorlooptijd en geen poliscontrole.</p>
     <p class="eig">Ben je de eigenaar? <a href="claim.html">Vul je gegevens aan</a> of <a href="claim.html">laat de vermelding verwijderen</a>.</p></div></div></div>`;
 }
@@ -693,6 +695,7 @@ function onderDrempel(){
       ${erkenningsMerken(w)}
     </div>
     ${feiten?`<p class="feiten">${feiten}</p>`:''}
+    ${tijdenBlok(w)}
     <div class="acties">${winkelLink(w)?`<a class="btn btn-stil" href="${winkelLink(w)}">Profiel</a>`:''}<a class="btn btn-lijn" href="#">Route</a><button class="btn btn-groen" onclick="belWinkel(${i})">${TEL}Bel de winkel</button></div>
   </div>`};
 
