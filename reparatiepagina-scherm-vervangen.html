@@ -317,8 +317,9 @@ function soorten(){
     </div>
   </div>`).join('');
 }
+const prijslinkModel=m=>'prijspagina-'+m.toLowerCase().replace(/ /g,'').replace('galaxy','galaxy-')+'-scherm.html';
 function modellen(){
-  document.getElementById('mtabel').innerHTML=MODELLEN.map(([m,lo,md,hi])=>`<a class="mrij" href="#">
+  document.getElementById('mtabel').innerHTML=MODELLEN.map(([m,lo,md,hi])=>`<a class="mrij" href="${prijslinkModel(m)}">
     <span class="mm">${m} scherm</span>
     <span class="g num" data-l="Laagste">${eur(lo)}</span>
     <span class="g num mid" data-l="Mediaan">${eur(md)}</span>

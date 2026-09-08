@@ -623,12 +623,16 @@ function google(){
 
 function contact(){
   const knop=`<button class="btn btn-groen btn-vol" onclick="belMatch(P)">${TELICOON}Bel de winkel</button>`;
+  /* routeLink verwacht het veld pc; dit profiel gebruikt postcode. Even omzetten,
+     zodat de Route-knop naar het echte adres wijst in plaats van naar href="#". */
+  const rl=routeLink({a:P.a,pc:P.postcode,plaats:P.plaats,verzonnen:P.verzonnen});
+  const routeknop=(kl)=>rl?`<a class="btn ${kl}" href="${link(rl)}" rel="nofollow noopener" target="_blank">Route</a>`:'';
   document.getElementById('wp-contact').innerHTML=
     (P.tel?knop:`<p class="let">Deze winkel gaf geen telefoonnummer door. Loop binnen op ${esc(P.a)}.</p>`)+
-    `<a class="btn btn-lijn btn-vol" href="#">Route</a>`+
+    routeknop('btn-lijn btn-vol')+
     (P.website?`<a class="btn btn-stil btn-vol" href="${link(P.website)}" rel="nofollow noopener">Naar de website</a>`:'');
   document.getElementById('wp-plak').innerHTML=
-    `<a class="btn btn-lijn" href="#">Route</a>`+
+    routeknop('btn-lijn')+
     (P.tel?`<button class="btn btn-groen" onclick="belMatch(P)">${TELICOON}Bel de winkel</button>`:'');
 }
 
