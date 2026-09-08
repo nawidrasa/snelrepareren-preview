@@ -317,16 +317,32 @@ const link = u => {
    wijst. */
 const adresVol = w => [esc(w.a), esc(w.pc)].filter(Boolean).join(', ');
 
-/* De contactregel van een winkel: telefoon en website, allebei openbaar. Een
-   telefoonnummer wordt een belbare link, de website opent in een nieuw tabblad
-   met rel=nofollow, want het is niet onze site. Ontbreekt allebei, dan geeft dit
-   een lege string en laat de pagina de regel weg. De winkel schrijft dit niet
-   zelf, dus esc() is hier niet strikt nodig, maar het staat er voor het geval de
-   bron ooit een winkelnaam of adres in dit veld zet. */
+/* De link naar het Google-profiel van een winkel.
+
+   GEEN OPGESLAGEN URL PER WINKEL, maar een zoek-URL uit naam en adres. Dat is de
+   officiele Maps-vorm (maps/search/?api=1&query=...): Google zoekt de zaak op en
+   opent zijn profiel. Zo kan de link nooit naar de verkeerde vestiging wijzen,
+   en hoeven wij geen 33 losse URL's te beheren die stil kunnen verouderen.
+
+   Niet voor de verzonnen voorbeelden: die bestaan niet, dus een Google-zoektocht
+   erop zou naar iets anders leiden. Zij houden hun eigen glink (#). */
+const googleLink = w => {
+  if (!w || w.verzonnen || !w.a) return null;
+  const vraag = [w.n, w.a, w.pc, w.plaats, 'Nederland'].filter(Boolean).join(' ');
+  return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(vraag);
+};
+
+/* De contactregel van een winkel: telefoon, website en het Google-profiel,
+   allemaal openbaar. Een telefoonnummer wordt een belbare link, de website en het
+   Google-profiel openen in een nieuw tabblad met rel=nofollow, want het is niet
+   onze site. Ontbreekt alles, dan geeft dit een lege string en laat de pagina de
+   regel weg. De winkel schrijft dit niet zelf, dus esc() is hier niet strikt
+   nodig, maar het staat er voor het geval de bron ooit iets in dit veld zet. */
 const contactRegel = w => {
   const t = w.tel ? `<a href="${link('tel:' + String(w.tel).replace(/\s/g, ''))}">${esc(w.tel)}</a>` : '';
   const web = w.web ? `<a href="${link('https://' + w.web)}" rel="nofollow noopener" target="_blank">${esc(w.web)}</a>` : '';
-  return [t, web].filter(Boolean).join(' &middot; ');
+  const g = googleLink(w) ? `<a href="${link(googleLink(w))}" rel="nofollow noopener" target="_blank">Google-profiel</a>` : '';
+  return [t, web, g].filter(Boolean).join(' &middot; ');
 };
 
 /* ---------- postcode naar plaats en punt ----------

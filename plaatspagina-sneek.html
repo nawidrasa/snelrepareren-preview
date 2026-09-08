@@ -356,7 +356,7 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
 <script src="data/postcodes.js?v=d47fe545"></script>
 <script src="data/winkelpunten.js?v=2a05827c"></script>
 <script src="data/locatie.js?v=9ca1d462"></script>
-<script src="data/winkels.js?v=3cb1b3eb"></script>
+<script src="data/winkels.js?v=8159242f"></script>
 <script>
 /* De bandbreedtes komen uit data/kiezer.js, dat uit het prijsonderzoek wordt
    gegenereerd. Ze stonden hier met de hand overgetypt en weken op vijf van de
@@ -542,7 +542,7 @@ function winkelkaart(w,uitgelicht){
         <div class="naam"><b>${esc(w.n)}</b></div>
         <p class="adres">${[adresVol(w),afstandVan(w)].filter(Boolean).join(' &middot; ')}</p>
       </div>
-      ${w.g?`<div class="score">${sterrenBalk(w.g)}<b class="num">${esc(w.g)}</b> <span class="aant num">(${esc(w.gb||0)})</span> <span class="bron"><a href="${link(w.glink||'#')}" rel="nofollow noopener">op Google</a></span>${w.vers?`<span class="vers">${esc(w.vers)}</span>`:''}</div>`
+      ${w.g?`<div class="score">${sterrenBalk(w.g)}<b class="num">${esc(w.g)}</b> <span class="aant num">(${esc(w.gb||0)})</span> <span class="bron"><a href="${link(googleLink(w)||w.glink||'#')}" rel="nofollow noopener" target="_blank">op Google</a></span>${w.vers?`<span class="vers">${esc(w.vers)}</span>`:''}</div>`
         :`<div class="score"><span class="bron">Nog geen cijfer op Google</span></div>`}
     </div>
     <div class="streep"></div>
@@ -684,7 +684,7 @@ function onderDrempel(){
         <p class="adres">${[adresVol(w),afstandVan(w)].filter(Boolean).join(' &middot; ')}</p>
       </div>
       ${w.g?`<div class="score">${sterrenBalk(w.g)}<b class="num">${esc(w.g)}</b> <span class="aant num">(${esc(w.gb||0)})</span>
-        <span class="bron"><a href="${link(w.glink||'#')}" rel="nofollow noopener">op Google</a></span></div>`:''}
+        <span class="bron"><a href="${link(googleLink(w)||w.glink||'#')}" rel="nofollow noopener" target="_blank">op Google</a></span></div>`:''}
     </div>
     <div class="labels">
       ${verificatieMerk(w)}
