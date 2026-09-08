@@ -1304,7 +1304,7 @@ function stap3(){
   <div class="winkels">${ws.length
     ? uit.map(kaart).join('')+rest.map(kaart).join('')
     : (geenInPlaats
-      ? `<div class="leeg">Wij zijn begonnen in Friesland en hebben nog geen winkel ${waar()}. Bekijk <a href="plaatsen.html">waar wij wel winkels hebben</a>, of kijk op <a href="plaats-onder-drempel.html">deze pagina</a> wat je kunt doen als jouw plaats er nog niet bij staat.</div>`
+      ? `<div class="leeg">Wij zijn begonnen in Friesland en hebben nog geen winkel ${waar()}. Bekijk <a href="plaatsen.html">waar wij wel winkels hebben</a> en wanneer wij in jouw plaats opengaan.</div>`
         + (dichtstbijElders().length
           ? `<div class="groep"><h2>Het dichtst bij jou, buiten ${esc(S.plaats)}</h2><span>hemelsbreed vanaf je postcode</span></div>`
             + dichtstbijElders().map(kaart).join('')
