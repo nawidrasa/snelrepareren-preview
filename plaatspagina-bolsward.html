@@ -268,7 +268,7 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
 </style>
 
 <a class="naar-inhoud" href="#inhoud">Naar de inhoud</a>
-<div class="schets">Ontwerpschets. Winkels met het merkje <b>Verzonnen voorbeeld</b> bestaan niet. De winkels onder "Nog niet aangesloten" zijn echte bedrijven uit openbare bronnen, met alleen naam en adres; die staan er niet als aanbeveling.</div>
+<div class="schets">Ontwerpschets. Winkels met het merkje <b>Verzonnen voorbeeld</b> bestaan niet. De winkels onder "Nog niet aangesloten" zijn echte bedrijven, met gegevens uit openbare bronnen; die staan er niet als aanbeveling.</div>
 
 <header class="top">
   <a class="logo" href="index.html">snel<i>repareren</i>.nl</a>
@@ -357,7 +357,7 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
 <script src="data/postcodes.js?v=d47fe545"></script>
 <script src="data/winkelpunten.js?v=447191cb"></script>
 <script src="data/locatie.js?v=9ca1d462"></script>
-<script src="data/winkels.js?v=c75a05c8"></script>
+<script src="data/winkels.js?v=f3404228"></script>
 <script>
 /* De bandbreedtes komen uit data/kiezer.js, dat uit het prijsonderzoek wordt
    gegenereerd. Ze stonden hier met de hand overgetypt en weken op vijf van de
@@ -563,7 +563,7 @@ function winkelkaart(w,uitgelicht){
       ${erkenningsMerken(w)}
     </div>
     ${feiten?`<p class="feiten">${feiten}</p>`:''}
-    <div class="acties">${winkelLink(w)?`<a class="btn btn-stil" href="${winkelLink(w)}">Profiel</a>`:''}<a class="btn btn-lijn" href="#">Route</a><button class="btn btn-groen" onclick="belWinkel(${i})">${TEL}Bel de winkel</button></div>
+    <div class="acties">${winkelLink(w)?`<a class="btn btn-stil" href="${winkelLink(w)}">Profiel</a>`:''}${routeLink(w)?`<a class="btn btn-lijn" href="${link(routeLink(w))}" rel="nofollow noopener" target="_blank">Route</a>`:''}<button class="btn btn-groen" onclick="belWinkel(${i})">${TEL}Bel de winkel</button></div>
   </div>`;
 }
 function vermelding(v){
@@ -572,7 +572,7 @@ function vermelding(v){
     <div><div class="naam"><b>${esc(v.n)}</b> ${verificatieMerk(v)}</div><p class="adres">${[adresVol(v),afstandVan(v)].filter(Boolean).join(' &middot; ')}</p>
     ${c?`<p class="contact">${c}</p>`:''}
     ${tijdenBlok(v)}
-    <p>Deze winkel is nog niet aangesloten. Wij hebben geen prijzen, geen doorlooptijd en geen poliscontrole.</p>
+    <p>Deze winkel is nog niet aangesloten. Deze gegevens komen uit <a href="privacy.html">openbare bronnen</a>; wij hebben geen prijzen, geen doorlooptijd en geen poliscontrole.</p>
     <p class="eig">Ben je de eigenaar? <a href="claim.html">Vul je gegevens aan</a> of <a href="claim.html">laat de vermelding verwijderen</a>.</p></div></div></div>`;
 }
 function lijst(){
@@ -696,7 +696,7 @@ function onderDrempel(){
     </div>
     ${feiten?`<p class="feiten">${feiten}</p>`:''}
     ${tijdenBlok(w)}
-    <div class="acties">${winkelLink(w)?`<a class="btn btn-stil" href="${winkelLink(w)}">Profiel</a>`:''}<a class="btn btn-lijn" href="#">Route</a><button class="btn btn-groen" onclick="belWinkel(${i})">${TEL}Bel de winkel</button></div>
+    <div class="acties">${winkelLink(w)?`<a class="btn btn-stil" href="${winkelLink(w)}">Profiel</a>`:''}${routeLink(w)?`<a class="btn btn-lijn" href="${link(routeLink(w))}" rel="nofollow noopener" target="_blank">Route</a>`:''}<button class="btn btn-groen" onclick="belWinkel(${i})">${TEL}Bel de winkel</button></div>
   </div>`};
 
   document.getElementById('lijst').innerHTML=

@@ -389,6 +389,17 @@ const googleLink = w => {
   return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(vraag);
 };
 
+/* De routelink naar een winkel: de officiele Maps-routevorm met het adres als
+   bestemming. De knop "Route" stond op href="#" en deed dus niets; dat is een
+   knop die belooft wat hij niet doet. Zelfde regel als bij googleLink: niet voor
+   de verzonnen voorbeelden, want daar bestaat het adres niet. Geeft null als er
+   geen route te maken is; de pagina laat de knop dan weg. */
+const routeLink = w => {
+  if (!w || w.verzonnen || !w.a) return null;
+  const waar = [w.a, w.pc, w.plaats, 'Nederland'].filter(Boolean).join(' ');
+  return 'https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(waar);
+};
+
 /* De contactregel van een winkel: telefoon, website en het Google-profiel,
    allemaal openbaar. Een telefoonnummer wordt een belbare link, de website en het
    Google-profiel openen in een nieuw tabblad met rel=nofollow, want het is niet

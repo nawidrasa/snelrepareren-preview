@@ -485,7 +485,7 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
 <script src="data/postcodes.js?v=d47fe545"></script>
 <script src="data/winkelpunten.js?v=447191cb"></script>
 <script src="data/locatie.js?v=9ca1d462"></script>
-<script src="data/winkels.js?v=c75a05c8"></script>
+<script src="data/winkels.js?v=f3404228"></script>
 <script>
 /* ---------- gegevens ---------- */
 /* De toestellijst komt uit bouwvoorbereiding/data/catalogus.json, via data/kiezer.js.
@@ -1275,7 +1275,7 @@ function stap3(){
       </div>
       <div class="acties"><button class="btn btn-groen" onclick="belWinkel(${i})">${TEL}Bel de winkel</button>${
         w.aan?`<button class="btn btn-lijn" onclick="vraagPrijs(${i})">Vraag een prijs</button>`:''
-        }<a class="btn btn-lijn" href="#">Route</a>${
+        }${routeLink(w)?`<a class="btn btn-lijn" href="${link(routeLink(w))}" rel="nofollow noopener" target="_blank">Route</a>`:''}${
         /* Geen profielknop zonder profiel: winkelLink geeft null voor een echte
            winkel die er nog geen heeft, en de schets van een verzonnen winkel
            mag niet doorgaan voor het profiel van een echt bedrijf. */
