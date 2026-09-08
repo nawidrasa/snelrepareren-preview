@@ -75,22 +75,31 @@ const WINKELDATA = {
      vermelding in een klik te laten verwijderen.
 
      ECHTE BEDRIJVEN, sinds 7 september. Hier staan de echte, bestaande
-     reparatiewinkels in Leeuwarden uit het onderzoek in
+     reparatiewinkels uit heel Friesland, uit het onderzoek in
      bouwvoorbereiding/WINKELS-FRIESLAND-onderzoek.md. Alleen naam en adres,
      precies wat de privacyverklaring als openbare bron noemt. GEEN cijfer, GEEN
      beoordeling, GEEN poliscontrole en GEEN afstand: dat zou een claim over een
      echt bedrijf zijn die wij niet mogen doen, en een verzonnen afstand hoort al
      helemaal niet bij een echte winkel.
 
-     Alleen Leeuwarden, want dat is de enige plaatspagina in de preview. De rest
-     van de provincie staat in het onderzoeksbestand en komt bij livegang uit de
-     database; die mag hier gewoon bij, want de plaatspagina filtert sinds
-     7 september met vermeldingenIn op plaats.
+     Sinds 8 september staan hier niet meer alleen Leeuwarden, maar alle plaatsen
+     uit de PLAATSEN-lijst waarvoor het onderzoek een bevestigd adres vond. Dat
+     mag, want elke pagina filtert met vermeldingenIn op plaats. Bij livegang komt
+     deze lijst uit de database (VOORBEELDEN op false leest echteVermeldingen); dit
+     is de hand-geschreven versie voor de preview.
 
-     Niet opgenomen: Mobile 4 All (Schrans 68). Dat is het echte adres van de
-     verzonnen voorbeeldwinkel "Mobiel Service Schrans" hierboven; twee zaken op
-     een adres op een pagina is verwarrend. Zodra de voorbeelden weg zijn (echte
-     data), kan Mobile 4 All erbij. */
+     WAT ER NIET IN STAAT, en waarom:
+     - Dezelfde zaak onder meer namen telt een keer. Sneek: FlyFix = Mobileinn =
+       Telecombinatie = Optie1 Sneek (allen Oosterdijk 64), dus alleen FlyFix.
+       Leeuwarden: GSM Clinic = GSMSHOP = Telefoonmaken (Berlikumermarkt 21).
+       Heerenveen: Bereikbaar.nu = iService (K.R. Poststraat 1G).
+     - Onbevestigde adressen niet: E-Fixers Franeker (geen adres), Phone House
+       Wolvega (huisnummer onbevestigd), Herstellie Sneek (site uit de lucht,
+       status onbekend). Een gok is erger dan een leeg veld.
+     - Daily Phones (Harlingen en Dokkum) staat NIET hier maar in `echt`: die is
+       aangesloten en geverifieerd.
+     - Groep C uit het onderzoek (opstuur- en doorverwijsdiensten zonder eigen
+       Fries pand) hoort niet in een lijst van lokale winkels. */
   vermeldingen: [
     {n:'MyTelecom',i:'M',plaats:'Leeuwarden',a:'Peperstraat 5'},
     {n:'Dyna Store',i:'D',plaats:'Leeuwarden',a:'Willem Alexanderplein 12'},
@@ -100,6 +109,47 @@ const WINKELDATA = {
     // GSMSHOP en Telefoonmaken, alle drie op dit adres met nummer 058 212 1175.
     // Daarom een keer, onder de naam van het bedrijf dat er staat ingeschreven.
     {n:'GSM Clinic',i:'G',plaats:'Leeuwarden',a:'Berlikumermarkt 21'},
+
+    {n:'Telefoon Store Drachten',i:'T',plaats:'Drachten',a:'Noorderkade 3-b'},
+    {n:'MultiPhoneRepair',i:'M',plaats:'Drachten',a:'Noordkade 1'},
+    {n:'GSM-winkeltje',i:'G',plaats:'Drachten',a:'Moleneind ZZ 13-A'},
+    {n:'GSM Mobile Drachten',i:'G',plaats:'Drachten',a:'Noorderbuurt 25A'},
+    {n:'Phone House',i:'P',plaats:'Drachten',a:'Noorderbuurt 15'},
+
+    // Sneek: FlyFix is de zaak achter Mobileinn, Telecombinatie en Optie1 Sneek
+    // (alle vier op Oosterdijk 64). Een keer. Herstellie niet: site uit de lucht.
+    {n:'FlyFix',i:'F',plaats:'Sneek',a:'Oosterdijk 64'},
+    {n:'XXL Mobile',i:'X',plaats:'Sneek',a:'Nauwe Burgstraat 3'},
+
+    // Heerenveen: Bereikbaar.nu en iService zijn dezelfde zaak (K.R. Poststraat 1G).
+    {n:'Bereikbaar.nu',i:'B',plaats:'Heerenveen',a:'K.R. Poststraat 1G'},
+    {n:'TopMobileShop',i:'T',plaats:'Heerenveen',a:'Minckelersstraat 2'},
+    {n:'Telefoonmaken.nl',i:'T',plaats:'Heerenveen',a:'Dracht 57'},
+
+    {n:'M&S Telecom 4U',i:'M',plaats:'Franeker',a:'Ockingahiem 10'},
+    {n:'Welcom bij Boorsma',i:'W',plaats:'Franeker',a:'Voorstraat 51A'},
+
+    // Dokkum: Daily Phones/Smartphonestore staat in `echt`. Dit zijn de andere twee.
+    {n:'M&S Telecom 4U',i:'M',plaats:'Dokkum',a:'Aalsumerpoort 5A'},
+    {n:'M&S Telecom 4U',i:'M',plaats:'Dokkum',a:'Waagstraat 8'},
+
+    {n:'GPR Joure',i:'G',plaats:'Joure',a:'Midstraat 84'},
+
+    {n:'Welcom bij Boorsma',i:'W',plaats:'Bolsward',a:'Marktstraat 18'},
+
+    {n:'XXL Mobile',i:'X',plaats:'Wolvega',a:'Heerenveenseweg 80'},
+
+    {n:'Optie1',i:'O',plaats:'Lemmer',a:'Nieuwedijk 7'},
+
+    {n:'M&S Telecom 4U',i:'M',plaats:'Burgum',a:'Schoolstraat 7B'},
+
+    // Plaatsen buiten de eerste twaalf, met een bevestigde winkel uit het
+    // onderzoek. Toegevoegd op verzoek: alle Friese winkels, ook om te testen.
+    {n:'Telefoon Reparaties Gorredijk',i:'T',plaats:'Gorredijk',a:'Stationsweg 24'},
+    {n:'HM Telefoons',i:'H',plaats:'Oosterwolde',a:'Stationsstraat 6'},
+    {n:'Call-Me Telecom',i:'C',plaats:'Stiens',a:'Langebuorren 1'},
+    {n:'Optie1',i:'O',plaats:'Surhuisterveen',a:'De Kolk 10'},
+    {n:'Lichthuis',i:'L',plaats:'Terschelling',a:'Burg. Mentzstraat 25'},
   ],
 
   /* Echte, aangesloten en geverifieerde winkels.
@@ -193,13 +243,22 @@ const DREMPEL_WINKELS = typeof DREMPEL_UIT_DE_SERVER === 'number' ? DREMPEL_UIT_
    database. Zo neemt de gegenereerde versie hem letterlijk mee en blijft het
    bij een bron. */
 const PLAATSEN = ['Leeuwarden', 'Drachten', 'Sneek', 'Heerenveen', 'Harlingen',
-  'Franeker', 'Dokkum', 'Joure', 'Bolsward', 'Wolvega', 'Lemmer', 'Burgum'];
+  'Franeker', 'Dokkum', 'Joure', 'Bolsward', 'Wolvega', 'Lemmer', 'Burgum',
+  'Gorredijk', 'Oosterwolde', 'Stiens', 'Surhuisterveen', 'Terschelling'];
 
-/* Waar de link van een plaats heen gaat. Zolang Leeuwarden de enige echte
-   plaatspagina in de preview is, gaat de rest naar de pagina onder de drempel.
-   Bij livegang worden plaatspagina's gegenereerd en wordt dit een naamregel. */
-const paginaVoor = plaats =>
-  plaats === 'Leeuwarden' ? 'plaatspagina-leeuwarden.html' : 'plaats-onder-drempel.html';
+/* Waar de link van een plaats heen gaat. Sinds 8 september heeft elke plaats uit
+   PLAATSEN een eigen pagina (plaatspagina-<plaats>.html), gemaakt door
+   maak_plaatspaginas.py uit de Leeuwarden-template. Een plaats onder de drempel
+   toont zichzelf als niet-open en zet zich op noindex; hij bestaat dus wel als
+   pagina en laat de winkels zien die wij kennen. De losse plaats-onder-drempel.html
+   blijft als voorbeeld van die staat bestaan, maar wordt niet meer gelinkt.
+
+   De slug is de plaatsnaam in kleine letters. plaatsSlug staat ook in
+   maak_plaatspaginas.py en maak_plaatsstatus.py; die drie horen gelijk te blijven. */
+const plaatsSlug = plaats => String(plaats).toLowerCase()
+  .normalize('NFD').replace(/[̀-ͯ]/g, '')
+  .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+const paginaVoor = plaats => 'plaatspagina-' + plaatsSlug(plaats) + '.html';
 
 /* ---------- eerst: alles wat van buiten komt, ontsnappen ----------
 
