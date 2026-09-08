@@ -137,6 +137,13 @@ const WINKELDATA = {
     // GSMSHOP en Telefoonmaken, alle drie op dit adres met nummer 058 212 1175.
     // Daarom een keer, onder de naam van het bedrijf dat er staat ingeschreven.
     {n:'GSM Clinic',i:'G',plaats:'Leeuwarden',a:'Berlikumermarkt 21',pc:'8911 LB',tel:'058 212 1175',web:'gsmclinicleeuwarden.nl',tijden:'ma 10:00-17:30\ndi 10:00-17:30\nwo 10:00-17:30\ndo 10:00-17:30\nvr 10:00-17:30\nza 10:00-17:30'},
+    // Toegevoegd 8 sep na een bredere zoekronde. Ultra Telecom (Nieuwe Oosterstraat
+    // 11) is een reparatiewinkel; de eigen site was even niet bereikbaar, maar het
+    // Google-profiel en meerdere gidsen bevestigen adres en nummer.
+    {n:'Ultra Telecom',i:'U',plaats:'Leeuwarden',a:'Nieuwe Oosterstraat 11',pc:'8911 KM',tel:'06 30023800',web:'ultratelecomleeuwarden.nl'},
+    // Tellie Doctor (De Jokse 87) is een telefoonreparatieservice met een vast
+    // adres en veel goede beoordelingen; mogelijk op afspraak, geen etalagewinkel.
+    {n:'Tellie Doctor',i:'T',plaats:'Leeuwarden',a:'De Jokse 87',pc:'8918 GP',tel:'06 42838972',web:'telliedoctor.com'},
 
     // Adres nageluisterd bij de bron: de eigen site zegt "Noorkade 3-b" (typfout
     // voor Noordkade), de straatnaam is Noordkade (net als MultiPhoneRepair op
@@ -177,6 +184,9 @@ const WINKELDATA = {
     // op 8 sep geschrapt: Google kent daar geen M&S, en M&S noemt op de eigen site
     // maar een Dokkum-vestiging. Waarschijnlijk een dubbeling in het onderzoek.
     {n:'M&S Telecom 4U',i:'M',plaats:'Dokkum',a:'Aalsumerpoort 5A',pc:'9101 JJ',tel:'0519 700234',web:'mstelecom4u.nl',tijden:'ma 10:00-18:00\ndi 09:00-18:00\nwo 09:00-18:00\ndo 09:00-18:00\nvr 09:00-21:00\nza 09:00-17:00\nzo 13:00-17:00'},
+    // Toegevoegd 8 sep: Herstel Friesland, een fysieke inloopwinkel op Betterwird 2
+    // die telefoons, tablets en laptops repareert (bevestigd op de eigen site).
+    {n:'Herstel Friesland',i:'H',plaats:'Dokkum',a:'Betterwird 2',pc:'9101 PB',tel:'0519 760026',web:'herstelfriesland.nl',tijden:'ma 13:00-18:00\ndi 09:00-18:00\nwo 09:00-18:00\ndo 09:00-18:00\nvr 09:00-18:00'},
 
     {n:'GPR Joure',i:'G',plaats:'Joure',a:'Midstraat 84',pc:'8501 AS',tel:'0513 785239',web:'gprjoure.nl',tijden:'ma 13:00-18:00\ndi 10:00-18:00\nwo 10:00-18:00\ndo 10:00-18:00\nvr 10:00-18:00\nza 10:00-17:00'},
 
