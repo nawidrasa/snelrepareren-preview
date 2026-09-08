@@ -94,12 +94,19 @@ const WINKELDATA = {
        Leeuwarden: GSM Clinic = GSMSHOP = Telefoonmaken (Berlikumermarkt 21).
        Heerenveen: Bereikbaar.nu = iService (K.R. Poststraat 1G).
      - Op 8 sep is elke Google-link nagelopen (elke link in Maps geopend en
-       gekeken of de gevonden zaak klopt). Dat vond echte fouten: Telefoon Store
-       Drachten stond op het verkeerde adres (nu Noordkade 4), aan de Van
+       gekeken of de gevonden zaak klopt). Dat vond echte fouten: aan de Van
        Harenstraat in Wolvega zit Phone Connect en geen Phone House meer, en een
        tweede M&S in Dokkum bleek niet te bestaan. Winkels zonder eigen
        Google-vermelding (GSM-winkeltje, Herstellie, Telefoonmaken.nl Heerenveen)
        dragen geenGoogle:true, zodat er geen link naar de verkeerde zaak komt.
+     - Ook telefoon en website zijn op 8 sep per winkel nagelopen tegen de bron
+       (het Google-profiel of de eigen site). Gecorrigeerd: GSM Clinic website
+       (gsmclinicleeuwarden.nl i.p.v. de ketensite), Telefoon Store adres terug
+       naar Noordkade 3-b (zo staat het op de eigen site; de Google-vermelding
+       zei nr 4 maar is ongeclaimd), Optie1 Lemmer en Surhuisterveen naar hun
+       088-nummers, en de website weg bij XXL Mobile (xxl-mobile.com is niet
+       bereikbaar). HM Telefoons 0516 514574 is juist gebleken tegenover een
+       afwijkend 06-nummer op Google.
      - Nog steeds NIET erin: E-Fixers Franeker. Hun eigen Franeker-pagina noemt
        geen adres en geen nummer en Franeker staat niet in hun winkelzoeker; het
        lijkt eerder een landingspagina dan een pand. Zonder adres kan hij niet op
@@ -123,11 +130,13 @@ const WINKELDATA = {
     // Berlikumermarkt 21 is een en dezelfde zaak onder drie namen: GSM Clinic,
     // GSMSHOP en Telefoonmaken, alle drie op dit adres met nummer 058 212 1175.
     // Daarom een keer, onder de naam van het bedrijf dat er staat ingeschreven.
-    {n:'GSM Clinic',i:'G',plaats:'Leeuwarden',a:'Berlikumermarkt 21',pc:'8911 LB',tel:'058 212 1175',web:'telefoonmaken.nl'},
+    {n:'GSM Clinic',i:'G',plaats:'Leeuwarden',a:'Berlikumermarkt 21',pc:'8911 LB',tel:'058 212 1175',web:'gsmclinicleeuwarden.nl'},
 
-    // Adres op 8 sep gecorrigeerd: Google Business (zelfde telefoon 0512 548602)
-    // zet Telefoon Store op Noordkade 4, niet Noorderkade 3-b.
-    {n:'Telefoon Store Drachten',i:'T',plaats:'Drachten',a:'Noordkade 4',pc:'9203 CC',tel:'0512 548602',web:'telefoonstore-drachten.nl'},
+    // Adres nageluisterd bij de bron: de eigen site zegt "Noorkade 3-b" (typfout
+    // voor Noordkade), de straatnaam is Noordkade (net als MultiPhoneRepair op
+    // nr 1). Het huisnummer 3-b staat zowel op de eigen site als in het onderzoek;
+    // de Google-vermelding zegt nr 4, maar die is ongeclaimd en hier de uitzondering.
+    {n:'Telefoon Store Drachten',i:'T',plaats:'Drachten',a:'Noordkade 3-b',pc:'9203 CC',tel:'0512 548602',web:'telefoonstore-drachten.nl'},
     {n:'MultiPhoneRepair',i:'M',plaats:'Drachten',a:'Noordkade 1',pc:'9203 CC',tel:'0512 845099',web:'multiphonerepair.nl'},
     // geenGoogle: geen eigen Google-vermelding (8 sep gecheckt: een zoektocht op
     // naam+adres komt op een andere winkel uit). Wel een eigen website.
@@ -139,7 +148,9 @@ const WINKELDATA = {
     // (alle vier op Oosterdijk 64). Een keer. Herstellie (Bonserdyk 5) staat er
     // ook bij; de site is weer online (8 sep).
     {n:'FlyFix',i:'F',plaats:'Sneek',a:'Oosterdijk 64',pc:'8601 BV',tel:'0515 433510',web:'flyfix.nl'},
-    {n:'XXL Mobile',i:'X',plaats:'Sneek',a:'Nauwe Burgstraat 3',pc:'8601 CD',tel:'0515 750237',web:'xxl-mobile.com'},
+    // Geen website: xxl-mobile.com is niet bereikbaar en de Google-vermelding
+    // noemt geen site. Wel telefoon en Google-profiel.
+    {n:'XXL Mobile',i:'X',plaats:'Sneek',a:'Nauwe Burgstraat 3',pc:'8601 CD',tel:'0515 750237'},
     // geenGoogle: Herstellie heeft geen eigen Google-vermelding (8 sep: de zoektocht
     // gaf andere Sneker zaken). Bestaat wel: Ondernemend Sneek en de eigen site.
     {n:'Herstellie',i:'H',plaats:'Sneek',a:'Bonserdyk 5',pc:'8601 ZE',tel:'06 8204 6935',web:'herstellie.nl',geenGoogle:true},
@@ -167,7 +178,7 @@ const WINKELDATA = {
 
     // XXL Mobile Wolvega verhuisde per 1 feb 2026 van Van Harenstraat 15 naar
     // Heerenveenseweg 80 (8471 BH); op het oude adres zit nu een toko.
-    {n:'XXL Mobile',i:'X',plaats:'Wolvega',a:'Heerenveenseweg 80',pc:'8471 BH',tel:'0561 853393',web:'xxl-mobile.com'},
+    {n:'XXL Mobile',i:'X',plaats:'Wolvega',a:'Heerenveenseweg 80',pc:'8471 BH',tel:'0561 853393'},
     // Aan de Van Harenstraat in Wolvega zit nu Phone Connect (nr 13), niet meer
     // Phone House (nr 49). Bij de Google-verificatie op 8 sep bleek Phone House er
     // niet meer als actieve zaak te staan; het pand aan de Van Harenstraat is op
@@ -175,7 +186,11 @@ const WINKELDATA = {
     // Phone House-inschrijving op 49 is achterhaald. Dus de winkel die er echt zit.
     {n:'Phone Connect',i:'P',plaats:'Wolvega',a:'Van Harenstraat 13',pc:'8471 JA',tel:'0561 615166',web:'phoneconnect.nl'},
 
-    {n:'Optie1',i:'O',plaats:'Lemmer',a:'Nieuwedijk 7',pc:'8531 HK',tel:'0514 533358',web:'optie1.nl'},
+    // Optie1 is een franchise; Google toont per winkel het centrale 088-nummer
+    // (Lemmer 9001, Surhuisterveen 9006). Het lokale nummer uit het onderzoek was
+    // niet meer te bevestigen, dus het 088-nummer aangehouden. Website: de eigen
+    // optie1.nl (bereikbaar) in plaats van de wisselende Google-domeinen.
+    {n:'Optie1',i:'O',plaats:'Lemmer',a:'Nieuwedijk 7',pc:'8531 HK',tel:'088 008 9001',web:'optie1.nl'},
 
     {n:'M&S Telecom 4U',i:'M',plaats:'Burgum',a:'Schoolstraat 7B',pc:'9251 EA',tel:'0511 700253',web:'mstelecom4u.nl'},
 
@@ -184,7 +199,7 @@ const WINKELDATA = {
     {n:'Telefoon Reparaties Gorredijk',i:'T',plaats:'Gorredijk',a:'Stationsweg 24',pc:'8401 DP',tel:'06 2220 2350',web:'telefoonreparatiesgorredijk.nl'},
     {n:'HM Telefoons',i:'H',plaats:'Oosterwolde',a:'Stationsstraat 6',pc:'8431 EV',tel:'0516 514574'},
     {n:'Call-Me Telecom',i:'C',plaats:'Stiens',a:'Langebuorren 1',pc:'9051 BD',tel:'058 257 5785',web:'callmetelecom.nl'},
-    {n:'Optie1',i:'O',plaats:'Surhuisterveen',a:'De Kolk 10',pc:'9231 CG',tel:'0512 778499',web:'optie1.nl'},
+    {n:'Optie1',i:'O',plaats:'Surhuisterveen',a:'De Kolk 10',pc:'9231 CG',tel:'088 008 9006',web:'optie1.nl'},
     {n:'Lichthuis',i:'L',plaats:'Terschelling',a:'Burg. Mentzstraat 25',pc:'8881 AJ',tel:'06 1122 4488',web:'lichttechniekterschelling.nl'},
   ],
 
