@@ -93,9 +93,14 @@ const WINKELDATA = {
        Telecombinatie = Optie1 Sneek (allen Oosterdijk 64), dus alleen FlyFix.
        Leeuwarden: GSM Clinic = GSMSHOP = Telefoonmaken (Berlikumermarkt 21).
        Heerenveen: Bereikbaar.nu = iService (K.R. Poststraat 1G).
-     - Onbevestigde adressen niet: E-Fixers Franeker (geen adres), Phone House
-       Wolvega (huisnummer onbevestigd), Herstellie Sneek (site uit de lucht,
-       status onbekend). Een gok is erger dan een leeg veld.
+     - Phone House Wolvega staat er met alleen de straat bij (Van Harenstraat),
+       want het huisnummer is onbevestigd. Herstellie Sneek staat er ook bij, met
+       zijn adres; de site was uit de lucht maar het bedrijf is nog vermeld.
+     - Nog steeds NIET erin: E-Fixers Franeker. Hun eigen Franeker-pagina noemt
+       geen adres en geen nummer en Franeker staat niet in hun winkelzoeker; het
+       lijkt eerder een landingspagina dan een pand. Zonder adres kan hij niet op
+       een kaart, en een adres verzinnen doen wij niet. Zodra er een adres is,
+       staat hij er in een regel bij.
      - Daily Phones (Harlingen en Dokkum) staat NIET hier maar in `echt`: die is
        aangesloten en geverifieerd.
      - Groep C uit het onderzoek (opstuur- en doorverwijsdiensten zonder eigen
@@ -117,9 +122,13 @@ const WINKELDATA = {
     {n:'Phone House',i:'P',plaats:'Drachten',a:'Noorderbuurt 15'},
 
     // Sneek: FlyFix is de zaak achter Mobileinn, Telecombinatie en Optie1 Sneek
-    // (alle vier op Oosterdijk 64). Een keer. Herstellie niet: site uit de lucht.
+    // (alle vier op Oosterdijk 64). Een keer. Herstellie staat er nu wel bij: de
+    // site was op 7 sep uit de lucht, maar het bedrijf is nog vermeld en het
+    // adres (Bonserdyk 5) komt uit een bron. Klopt hij niet meer, dan haalt de
+    // verwijderknop hem weg; dat is beter dan hem negeren.
     {n:'FlyFix',i:'F',plaats:'Sneek',a:'Oosterdijk 64'},
     {n:'XXL Mobile',i:'X',plaats:'Sneek',a:'Nauwe Burgstraat 3'},
+    {n:'Herstellie',i:'H',plaats:'Sneek',a:'Bonserdyk 5'},
 
     // Heerenveen: Bereikbaar.nu en iService zijn dezelfde zaak (K.R. Poststraat 1G).
     {n:'Bereikbaar.nu',i:'B',plaats:'Heerenveen',a:'K.R. Poststraat 1G'},
@@ -138,6 +147,10 @@ const WINKELDATA = {
     {n:'Welcom bij Boorsma',i:'W',plaats:'Bolsward',a:'Marktstraat 18'},
 
     {n:'XXL Mobile',i:'X',plaats:'Wolvega',a:'Heerenveenseweg 80'},
+    // Phone House Wolvega: het huisnummer aan de Van Harenstraat is onbevestigd
+    // (13, 28 en 49 circuleren in de gidsen), dus alleen de straat, geen gegokt
+    // nummer. Ter plekke vast te stellen.
+    {n:'Phone House',i:'P',plaats:'Wolvega',a:'Van Harenstraat'},
 
     {n:'Optie1',i:'O',plaats:'Lemmer',a:'Nieuwedijk 7'},
 
