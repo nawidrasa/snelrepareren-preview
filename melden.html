@@ -39,6 +39,8 @@ h1{font-size:clamp(27px,3.5vw,36px);font-weight:800;letter-spacing:-.025em;margi
 h2{font-size:20px;font-weight:800;letter-spacing:-.02em;margin:32px 0 12px}
 .kaart{border:1.5px solid var(--lijn);border-radius:20px;padding:26px;margin-bottom:16px}
 .soorten{display:grid;gap:12px;margin-bottom:8px}
+.vinkje{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;cursor:pointer}
+.vinkje input{margin-top:3px;flex:none}
 .soort{display:grid;grid-template-columns:42px minmax(0,1fr) 22px;gap:14px;align-items:center;border:1.5px solid var(--lijn);border-radius:16px;padding:16px 18px;background:#fff;cursor:pointer;text-align:left;width:100%}
 .soort:hover{border-color:var(--groen);background:var(--groen-50)}
 .soort.aan{border-color:var(--groen);background:var(--groen-50)}
@@ -111,6 +113,11 @@ footer{border-top:1px solid var(--lijn);margin-top:44px;padding:26px 0 60px;colo
     <div class="kaart">
       <div class="veld" id="winkelveld"><label for="v-om-welke-winkel-gaat-het">Om welke winkel gaat het?</label><input id="v-om-welke-winkel-gaat-het" placeholder="Naam van de winkel of de plaats"></div>
       <div class="veld"><label for="tekst">Wat is er aan de hand?</label><textarea rows="5" id="tekst" placeholder="Beschrijf zo concreet mogelijk wat er speelt. Datum, bedrag en wat er is afgesproken helpen ons."></textarea></div>
+      <div class="veld" id="urlveld"><label for="url">Waar staat het precies?</label><input id="url" placeholder="Plak het webadres van de pagina, bijvoorbeeld snelrepareren.nl/..."><div class="hint" id="urlhint">Handig, zodat wij het meteen kunnen vinden.</div></div>
+      <div class="veld" id="trouwveld" style="display:none">
+        <label class="vinkje"><input type="checkbox" id="goede_trouw"> <span>Ik verklaar naar eer en geweten dat wat ik hier meld juist en volledig is.</span></label>
+        <div class="hint">Dit vragen wij omdat een melding dat iets onrechtmatig is, gevolgen heeft voor de winkel of de persoon om wie het gaat.</div>
+      </div>
       <div class="tweekolom">
         <div class="veld"><label for="v-je-naam">Je naam</label><input id="v-je-naam" autocomplete="name" placeholder="Voor- en achternaam"></div>
         <div class="veld"><label for="v-e-mailadres">E-mailadres</label><input id="v-e-mailadres" autocomplete="email" type="email" placeholder="je@email.nl"><div class="hint">Alleen om je antwoord te geven.</div></div>
@@ -179,6 +186,7 @@ const SOORTEN=[
  ['gegevens','Onjuiste gegevens','Een prijs, openingstijd, adres of garantietekst op onze site klopt niet.','<path d="M4 7h16M4 12h10M4 17h7"/>'],
  ['beoordeling','Een beoordeling','Een beoordeling is onwaar, beledigend of gaat niet over een echte reparatie.','<path d="M12 3l2.6 5.6 6.1.8-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6L3.3 9.4l6.1-.8z"/>'],
  ['platform','Onze site zelf','Iets over onze rangschikking, onze poliscontrole of hoe wij met je gegevens omgaan.','<path d="M3 3h18v13H3z"/><path d="M8 21h8M12 16v5"/>'],
+ ['onrechtmatig','Iets is onrechtmatig','Inhoud op onze site is volgens jou in strijd met de wet. Hiervoor vragen wij een paar dingen extra.','<path d="M12 3 3 20h18z"/><path d="M12 9v5M12 17h.01"/>'],
 ];
 const S={soort:'winkel'};
 const CHECK='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>';
@@ -189,6 +197,19 @@ function soorten(){
      <span><b>${n}</b><p>${p}</p></span>
      <span class="rond">${CHECK}</span></button>`).join('');
   document.getElementById('winkelveld').style.display=(S.soort==='platform')?'none':'';
+  /* Bij een melding dat iets onrechtmatig is, vraagt de Digital Services Act om
+     meer: waar het staat, wie het meldt, en een verklaring te goeder trouw. Bij
+     een gewone melding vragen wij dat niet, want dan werpen wij een drempel op
+     voor iemand die ons juist helpt een fout te herstellen. */
+  const streng=S.soort==='onrechtmatig';
+  document.getElementById('trouwveld').style.display=streng?'':'none';
+  document.getElementById('urlhint').textContent=streng
+    ? 'Verplicht bij deze soort: wij moeten precies weten waar het staat.'
+    : 'Handig, zodat wij het meteen kunnen vinden.';
+  for(const [id,tekst] of [['v-je-naam','Je naam'],['v-e-mailadres','E-mailadres']]){
+    const label=document.querySelector('label[for="'+id+'"]');
+    if(label)label.textContent=streng?tekst+' (verplicht)':tekst;
+  }
 }
 function kies(id){S.soort=id;soorten()}
 snelFormulier.koppel({
@@ -200,6 +221,9 @@ snelFormulier.koppel({
       bericht: document.getElementById('tekst').value.trim(),
       email: mail ? mail.value.trim() : '',
       winkel_id: null,
+      url: document.getElementById('url').value.trim(),
+      naam: (document.getElementById('v-je-naam')||{value:''}).value.trim(),
+      goede_trouw: document.getElementById('goede_trouw').checked,
       website_url: (document.getElementById('website_url')||{}).value || '',
     };
   },
