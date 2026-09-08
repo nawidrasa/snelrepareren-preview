@@ -106,64 +106,70 @@ const WINKELDATA = {
        aangesloten en geverifieerd.
      - Groep C uit het onderzoek (opstuur- en doorverwijsdiensten zonder eigen
        Fries pand) hoort niet in een lijst van lokale winkels. */
+  // Elke vermelding: naam, letter, plaats, adres (a), postcode (pc), telefoon
+  // (tel) en website (web). Alles uit openbare bronnen, verzameld en op 8 sep
+  // nagelopen; de bronnen per winkel staan in
+  // bouwvoorbereiding/WINKELS-FRIESLAND-onderzoek.md. Nog steeds GEEN cijfer,
+  // beoordeling of poliscontrole: dat zou een claim over een echt bedrijf zijn.
+  // Telefoon en website zijn openbare contactgegevens en geen claim.
   vermeldingen: [
-    {n:'MyTelecom',i:'M',plaats:'Leeuwarden',a:'Peperstraat 5'},
-    {n:'Dyna Store',i:'D',plaats:'Leeuwarden',a:'Willem Alexanderplein 12'},
-    {n:'M&S Telecom 4U',i:'M',plaats:'Leeuwarden',a:'Wirdumerdijk 17'},
-    {n:'Mobile 4 All',i:'M',plaats:'Leeuwarden',a:'Schrans 68'},
+    {n:'MyTelecom',i:'M',plaats:'Leeuwarden',a:'Peperstraat 5',pc:'8911 HZ',tel:'058 212 7198',web:'my-telecom.nl'},
+    {n:'Dyna Store',i:'D',plaats:'Leeuwarden',a:'Willem Alexanderplein 12',pc:'8931 DW',tel:'058 843 2553',web:'dyna-store.nl'},
+    {n:'M&S Telecom 4U',i:'M',plaats:'Leeuwarden',a:'Wirdumerdijk 17',pc:'8911 CB',tel:'058 203 8445',web:'mstelecom4u.nl'},
+    {n:'Mobile 4 All',i:'M',plaats:'Leeuwarden',a:'Schrans 68',pc:'8932 NG',tel:'058 785 0423',web:'mobile-4all.nl'},
     // Berlikumermarkt 21 is een en dezelfde zaak onder drie namen: GSM Clinic,
     // GSMSHOP en Telefoonmaken, alle drie op dit adres met nummer 058 212 1175.
     // Daarom een keer, onder de naam van het bedrijf dat er staat ingeschreven.
-    {n:'GSM Clinic',i:'G',plaats:'Leeuwarden',a:'Berlikumermarkt 21'},
+    {n:'GSM Clinic',i:'G',plaats:'Leeuwarden',a:'Berlikumermarkt 21',pc:'8911 LB',tel:'058 212 1175',web:'telefoonmaken.nl'},
 
-    {n:'Telefoon Store Drachten',i:'T',plaats:'Drachten',a:'Noorderkade 3-b'},
-    {n:'MultiPhoneRepair',i:'M',plaats:'Drachten',a:'Noordkade 1'},
-    {n:'GSM-winkeltje',i:'G',plaats:'Drachten',a:'Moleneind ZZ 13-A'},
-    {n:'GSM Mobile Drachten',i:'G',plaats:'Drachten',a:'Noorderbuurt 25A'},
-    {n:'Phone House',i:'P',plaats:'Drachten',a:'Noorderbuurt 15'},
+    {n:'Telefoon Store Drachten',i:'T',plaats:'Drachten',a:'Noorderkade 3-b',pc:'9203 CC',tel:'0512 548602',web:'telefoonstore-drachten.nl'},
+    {n:'MultiPhoneRepair',i:'M',plaats:'Drachten',a:'Noordkade 1',pc:'9203 CC',tel:'0512 845099',web:'multiphonerepair.nl'},
+    {n:'GSM-winkeltje',i:'G',plaats:'Drachten',a:'Moleneind ZZ 13-A',pc:'9203 ZW',tel:'0512 752136',web:'gsm-winkeltje.nl'},
+    {n:'GSM Mobile Drachten',i:'G',plaats:'Drachten',a:'Noorderbuurt 25A',pc:'9203 AL',tel:'0512 356829',web:'mobilereparatie.nl'},
+    {n:'Phone House',i:'P',plaats:'Drachten',a:'Noorderbuurt 15',pc:'9203 AK',tel:'0512 545988',web:'phonehouse.nl'},
 
     // Sneek: FlyFix is de zaak achter Mobileinn, Telecombinatie en Optie1 Sneek
-    // (alle vier op Oosterdijk 64). Een keer. Herstellie staat er nu wel bij: de
-    // site was op 7 sep uit de lucht, maar het bedrijf is nog vermeld en het
-    // adres (Bonserdyk 5) komt uit een bron. Klopt hij niet meer, dan haalt de
-    // verwijderknop hem weg; dat is beter dan hem negeren.
-    {n:'FlyFix',i:'F',plaats:'Sneek',a:'Oosterdijk 64'},
-    {n:'XXL Mobile',i:'X',plaats:'Sneek',a:'Nauwe Burgstraat 3'},
-    {n:'Herstellie',i:'H',plaats:'Sneek',a:'Bonserdyk 5'},
+    // (alle vier op Oosterdijk 64). Een keer. Herstellie (Bonserdyk 5) staat er
+    // ook bij; de site is weer online (8 sep).
+    {n:'FlyFix',i:'F',plaats:'Sneek',a:'Oosterdijk 64',pc:'8601 BV',tel:'0515 433510',web:'flyfix.nl'},
+    {n:'XXL Mobile',i:'X',plaats:'Sneek',a:'Nauwe Burgstraat 3',pc:'8601 CD',tel:'0515 750237',web:'xxl-mobile.com'},
+    {n:'Herstellie',i:'H',plaats:'Sneek',a:'Bonserdyk 5',pc:'8601 ZE',tel:'06 8204 6935',web:'herstellie.nl'},
 
     // Heerenveen: Bereikbaar.nu en iService zijn dezelfde zaak (K.R. Poststraat 1G).
-    {n:'Bereikbaar.nu',i:'B',plaats:'Heerenveen',a:'K.R. Poststraat 1G'},
-    {n:'TopMobileShop',i:'T',plaats:'Heerenveen',a:'Minckelersstraat 2'},
-    {n:'Telefoonmaken.nl',i:'T',plaats:'Heerenveen',a:'Dracht 57'},
+    {n:'Bereikbaar.nu',i:'B',plaats:'Heerenveen',a:'K.R. Poststraat 1G',pc:'8441 EL',tel:'0513 724646',web:'bereikbaar.nu'},
+    {n:'TopMobileShop',i:'T',plaats:'Heerenveen',a:'Minckelersstraat 2',pc:'8442 CE',tel:'0513 436386',web:'topmobileshop.nl'},
+    {n:'Telefoonmaken.nl',i:'T',plaats:'Heerenveen',a:'Dracht 57',pc:'8442 BL',tel:'0513 849433',web:'telefoonmaken.nl'},
 
-    {n:'M&S Telecom 4U',i:'M',plaats:'Franeker',a:'Ockingahiem 10'},
-    {n:'Welcom bij Boorsma',i:'W',plaats:'Franeker',a:'Voorstraat 51A'},
+    {n:'M&S Telecom 4U',i:'M',plaats:'Franeker',a:'Ockingahiem 10',pc:'8801 KT',tel:'0517 201062',web:'mstelecom4u.nl'},
+    {n:'Welcom bij Boorsma',i:'W',plaats:'Franeker',a:'Voorstraat 51A',pc:'8801 LA',tel:'0517 727727',web:'welcombijboorsma.nl'},
 
     // Dokkum: Daily Phones/Smartphonestore staat in `echt`. Dit zijn de andere twee.
-    {n:'M&S Telecom 4U',i:'M',plaats:'Dokkum',a:'Aalsumerpoort 5A'},
-    {n:'M&S Telecom 4U',i:'M',plaats:'Dokkum',a:'Waagstraat 8'},
+    {n:'M&S Telecom 4U',i:'M',plaats:'Dokkum',a:'Aalsumerpoort 5A',pc:'9101 JJ',tel:'0519 700234',web:'mstelecom4u.nl'},
+    {n:'M&S Telecom 4U',i:'M',plaats:'Dokkum',a:'Waagstraat 8',pc:'9101 LC',tel:'0519 221976',web:'mstelecom4u.nl'},
 
-    {n:'GPR Joure',i:'G',plaats:'Joure',a:'Midstraat 84'},
+    {n:'GPR Joure',i:'G',plaats:'Joure',a:'Midstraat 84',pc:'8501 AS',tel:'0513 785239',web:'gprjoure.nl'},
 
-    {n:'Welcom bij Boorsma',i:'W',plaats:'Bolsward',a:'Marktstraat 18'},
+    {n:'Welcom bij Boorsma',i:'W',plaats:'Bolsward',a:'Marktstraat 18',pc:'8701 JV',tel:'0515 781075',web:'welcombijboorsma.nl'},
 
-    {n:'XXL Mobile',i:'X',plaats:'Wolvega',a:'Heerenveenseweg 80'},
+    // XXL Mobile Wolvega verhuisde per 1 feb 2026 van Van Harenstraat 15 naar
+    // Heerenveenseweg 80 (8471 BH); op het oude adres zit nu een toko.
+    {n:'XXL Mobile',i:'X',plaats:'Wolvega',a:'Heerenveenseweg 80',pc:'8471 BH',tel:'0561 853393',web:'xxl-mobile.com'},
     // Phone House Wolvega: huisnummer 49 bevestigd (8 sep) via de
     // bedrijfsinschrijving (Van Harenstraat 49, 8471 JC) en vier gidsen. In de
     // gidsen circuleerden ook 13 en 28; die zijn achterhaald.
-    {n:'Phone House',i:'P',plaats:'Wolvega',a:'Van Harenstraat 49'},
+    {n:'Phone House',i:'P',plaats:'Wolvega',a:'Van Harenstraat 49',pc:'8471 JC',tel:'0561 613175',web:'phonehouse.nl'},
 
-    {n:'Optie1',i:'O',plaats:'Lemmer',a:'Nieuwedijk 7'},
+    {n:'Optie1',i:'O',plaats:'Lemmer',a:'Nieuwedijk 7',pc:'8531 HK',tel:'0514 533358',web:'optie1.nl'},
 
-    {n:'M&S Telecom 4U',i:'M',plaats:'Burgum',a:'Schoolstraat 7B'},
+    {n:'M&S Telecom 4U',i:'M',plaats:'Burgum',a:'Schoolstraat 7B',pc:'9251 EA',tel:'0511 700253',web:'mstelecom4u.nl'},
 
     // Plaatsen buiten de eerste twaalf, met een bevestigde winkel uit het
     // onderzoek. Toegevoegd op verzoek: alle Friese winkels, ook om te testen.
-    {n:'Telefoon Reparaties Gorredijk',i:'T',plaats:'Gorredijk',a:'Stationsweg 24'},
-    {n:'HM Telefoons',i:'H',plaats:'Oosterwolde',a:'Stationsstraat 6'},
-    {n:'Call-Me Telecom',i:'C',plaats:'Stiens',a:'Langebuorren 1'},
-    {n:'Optie1',i:'O',plaats:'Surhuisterveen',a:'De Kolk 10'},
-    {n:'Lichthuis',i:'L',plaats:'Terschelling',a:'Burg. Mentzstraat 25'},
+    {n:'Telefoon Reparaties Gorredijk',i:'T',plaats:'Gorredijk',a:'Stationsweg 24',pc:'8401 DP',tel:'06 2220 2350',web:'telefoonreparatiesgorredijk.nl'},
+    {n:'HM Telefoons',i:'H',plaats:'Oosterwolde',a:'Stationsstraat 6',pc:'8431 EV',tel:'0516 514574'},
+    {n:'Call-Me Telecom',i:'C',plaats:'Stiens',a:'Langebuorren 1',pc:'9051 BD',tel:'058 257 5785',web:'callmetelecom.nl'},
+    {n:'Optie1',i:'O',plaats:'Surhuisterveen',a:'De Kolk 10',pc:'9231 CW',tel:'0512 778499',web:'optie1.nl'},
+    {n:'Lichthuis',i:'L',plaats:'Terschelling',a:'Burg. Mentzstraat 25',pc:'8881 AJ',tel:'06 1122 4488',web:'lichttechniekterschelling.nl'},
   ],
 
   /* Echte, aangesloten en geverifieerde winkels.
@@ -186,10 +192,10 @@ const WINKELDATA = {
      500 reviews" zegt. 500 is dus een ondergrens, geen exact getal; lees het
      opnieuw op de dag dat je het toont. */
   echt: [
-    {n:'Daily Phones',i:'D',plaats:'Harlingen',buurt:'Centrum',a:'Voorstraat 15',
-     tel:'0519 347503',g:'4,9',gb:500,glink:'#',keur:0,erk:null,eigen:0,bs:[],uit:0},
-    {n:'Daily Phones',i:'D',plaats:'Dokkum',buurt:'Centrum',a:'Waagstraat 14A',
-     tel:'0519 347503',handelsnaam2:'Smartphonestore Dokkum',
+    {n:'Daily Phones',i:'D',plaats:'Harlingen',buurt:'Centrum',a:'Voorstraat 15',pc:'8861 BC',
+     tel:'0519 347503',web:'dailyphones.nl',g:'4,9',gb:500,glink:'#',keur:0,erk:null,eigen:0,bs:[],uit:0},
+    {n:'Daily Phones',i:'D',plaats:'Dokkum',buurt:'Centrum',a:'Waagstraat 14A',pc:'9101 LC',
+     tel:'0519 347503',web:'dailyphones.nl',handelsnaam2:'Smartphonestore Dokkum',
      g:'4,9',gb:500,glink:'#',keur:0,erk:null,eigen:0,bs:[],uit:0},
   ],
   echteVermeldingen: [],
@@ -303,6 +309,24 @@ const link = u => {
   const w = String(u == null ? '' : u).trim();
   if (/^(https?:|mailto:|tel:|\/|#)/i.test(w)) return esc(w);
   return '#';
+};
+
+/* Het volledige adres: straat met huisnummer, en de postcode als wij die weten.
+   Staat hier zodat elke pagina hetzelfde adres toont. Ontbreekt de postcode (bij
+   de verzonnen voorbeelden), dan alleen de straat, geen komma die nergens heen
+   wijst. */
+const adresVol = w => [esc(w.a), esc(w.pc)].filter(Boolean).join(', ');
+
+/* De contactregel van een winkel: telefoon en website, allebei openbaar. Een
+   telefoonnummer wordt een belbare link, de website opent in een nieuw tabblad
+   met rel=nofollow, want het is niet onze site. Ontbreekt allebei, dan geeft dit
+   een lege string en laat de pagina de regel weg. De winkel schrijft dit niet
+   zelf, dus esc() is hier niet strikt nodig, maar het staat er voor het geval de
+   bron ooit een winkelnaam of adres in dit veld zet. */
+const contactRegel = w => {
+  const t = w.tel ? `<a href="${link('tel:' + String(w.tel).replace(/\s/g, ''))}">${esc(w.tel)}</a>` : '';
+  const web = w.web ? `<a href="${link('https://' + w.web)}" rel="nofollow noopener" target="_blank">${esc(w.web)}</a>` : '';
+  return [t, web].filter(Boolean).join(' &middot; ');
 };
 
 /* ---------- postcode naar plaats en punt ----------
