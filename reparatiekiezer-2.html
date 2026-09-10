@@ -1,23 +1,22 @@
 <!doctype html>
 <html lang="nl">
 <meta charset="utf-8">
-<title>Reparatiekiezer | snelrepareren.nl</title>
-<meta name="robots" content="noindex,nofollow">
-<meta name="description" content="Kies je toestel, tik aan wat er kapot is, en zie binnen een minuut welke winkels bij jou in de buurt het vandaag kunnen. Gratis en zonder account.">
+<title>Reparatiekiezer variant 2 | snelrepareren.nl</title>
+<meta name="description" content="Tweede versie van de reparatiekiezer: dezelfde drie stappen, maar naast de keuze staat het bakje met de onderdelen die je reparatie nodig heeft.">
 <!-- zoekmachinekop: afgeleid uit de pagina zelf, niet met de hand aanpassen -->
-<link rel="canonical" href="https://snelrepareren.nl/reparatiekiezer.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="snelrepareren.nl">
 <meta property="og:locale" content="nl_NL">
-<meta property="og:url" content="https://snelrepareren.nl/reparatiekiezer.html">
-<meta property="og:title" content="Reparatiekiezer | snelrepareren.nl">
-<meta property="og:description" content="Kies je toestel, tik aan wat er kapot is, en zie binnen een minuut welke winkels bij jou in de buurt het vandaag kunnen. Gratis en zonder account.">
+<meta property="og:url" content="https://snelrepareren.nl/reparatiekiezer-2.html">
+<meta property="og:title" content="Reparatiekiezer variant 2 | snelrepareren.nl">
+<meta property="og:description" content="Tweede versie van de reparatiekiezer: dezelfde drie stappen, maar naast de keuze staat het bakje met de onderdelen die je reparatie nodig heeft.">
 <meta property="og:image" content="https://snelrepareren.nl/deelplaatje.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="snelrepareren.nl: zie eerst wat een reparatie hoort te kosten. 198 prijzen zelf gemeten bij 29 Nederlandse winkels.">
 <meta name="twitter:card" content="summary_large_image">
 <!-- /zoekmachinekop -->
+<meta name="robots" content="noindex,nofollow">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="stylesheet" href="lettertype/outfit.css">
 <link rel="stylesheet" href="basis.css?v=efb36082">
@@ -172,83 +171,83 @@ button{font:inherit}
 .kw .tip{position:absolute;top:-9px;left:50%;transform:translateX(-50%);background:var(--groen);color:#fff;font-size:9.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border-radius:999px;white-space:nowrap}
 .uitleg-water{padding:0 14px 14px;font-size:13.5px;color:var(--inkt-2)}
 
-/* telefoonpaneel */
-.paneel{display:flex;flex-direction:column;align-items:center;gap:16px;padding-top:6px}
-.tel{width:224px;height:auto;filter:drop-shadow(0 24px 40px rgba(11,31,78,.28))}
-.tel .hot{cursor:pointer}
-.tel .hot .dot{transition:r .15s}
-.tel .hot:hover .dot{r:7px}
-.tel .hot .puls{animation:puls 1.8s ease-out infinite}
-@keyframes puls{0%{r:6px;opacity:.7}100%{r:17px;opacity:0}}
-.tel .ring{animation:ring .7s ease-out forwards}
-@keyframes ring{from{r:10px;opacity:.7}to{r:28px;opacity:0}}
-/* De barst BLIJFT staan. Hij vervaagde eerst naar nul, en dan is een vinkje het
-   enige wat er van je keuze overblijft. */
-.tel .barst.trekt path{stroke-dasharray:900;stroke-dashoffset:900;animation:trek .7s ease forwards}
-@keyframes trek{to{stroke-dashoffset:0}}
-.tel .accu.loopt .vul{animation:leegloop 1.1s ease forwards}
-.tel .poort.schokt{animation:schok .5s ease}
-@keyframes schok{0%,100%{transform:translateX(0)}20%{transform:translateX(-3px)}40%{transform:translateX(3px)}60%{transform:translateX(-2px)}80%{transform:translateX(2px)}}
-.tel .lens.breekt{animation:pop .5s cubic-bezier(.2,1.5,.4,1);transform-box:fill-box;transform-origin:center}
-.tel .water.stijgt .lijn{animation:stijg .9s ease forwards;transform-box:fill-box;transform-origin:bottom}
-@keyframes stijg{from{transform:scaleY(.15)}to{transform:scaleY(1)}}
-.tel .weg{cursor:pointer}
-.tel .weg circle{transition:r .15s}
-.tel .weg:hover circle{r:13px}
-.kanten{display:flex;gap:6px;justify-content:center;margin:14px 0 0}
-.kanten button{padding:6px 14px;border-radius:999px;border:1.5px solid var(--lijn);background:#fff;font:inherit;font-size:13px;font-weight:600;color:var(--inkt-2);cursor:pointer;display:inline-flex;align-items:center;gap:6px}
-.kanten button.aan{border-color:var(--groen);color:var(--groen-800);background:var(--groen-50)}
-.kanten .bol{width:6px;height:6px;border-radius:50%;background:var(--amber)}
-.tel-klein{font-size:11.5px;color:var(--inkt-3);text-align:center;margin:10px 0 0}
-/* De maten hier horen bij de batterij in schadeVoor: vol is de binnenmaat
-   (38 breed min twee keer 2,6 marge), leeg is de rustbreedte van .vul. */
-@keyframes leegloop{0%{width:32.8px;fill:#22C55E}70%{width:4.4px;fill:#B45309}100%{width:4.4px;fill:#B45309}}
-.tel .mk .pop{animation:pop .45s cubic-bezier(.2,1.5,.4,1);transform-box:fill-box;transform-origin:center}
-@keyframes pop{from{transform:scale(0)}to{transform:scale(1)}}
-/* Zonder beweging BLIJFT de barst staan. Hij stond hier eerst op opacity 0: de
-   streepjeslijn die hem laat groeien, laat hem zonder animatie leeg, en toen was
-   de oplossing hem te verbergen. Dan zag wie geen beweging wil, geen schade. */
+/* de onderdelenbak
+   Variant 2. Waar in variant 1 een getekende telefoon staat, staat hier het
+   bakje van de reparateur: de onderdelen die jouw reparatie nodig heeft. */
+.paneel{display:flex;flex-direction:column;align-items:center;gap:14px;padding-top:6px}
+.bak{width:100%;max-width:340px;border:1.5px solid var(--lijn);border-radius:18px;background:#fff;overflow:hidden}
+/* De naam van het toestel is de kop van het paneel en mag gezien worden: dit is
+   waar je aan werkt. In variant 1 stond hij op 17 pixels midden op de tekening. */
+.bak-kop{padding:16px 18px 14px;border-bottom:1px solid var(--lijn)}
+.bak-kop b{display:block;font-size:22px;font-weight:800;letter-spacing:-.02em;line-height:1.15;text-wrap:balance}
+.bak-kop .modelregel{display:flex;align-items:center;gap:7px;margin-top:5px;font-size:13px;color:var(--inkt-2)}
+/* De kleur die je koos, als stip naast de naam. Hij zit ook in de achterkant
+   hieronder; dat is de kant die de kleur echt heeft. */
+.bak-kop .kleurstip{width:15px;height:15px;border-radius:50%;background:var(--c);
+  box-shadow:0 0 0 1.5px var(--lijn);flex:none}
+.bak-kop .code{color:var(--inkt-3)}
+.bak-vak{margin:14px 14px 0;min-height:168px;border:1.5px dashed var(--marine-200);border-radius:16px;
+  background:var(--vlak);padding:10px;display:flex;flex-wrap:wrap;gap:8px;align-content:flex-start;position:relative}
+.bak-vak .leegtekst{margin:auto;padding:20px 10px;text-align:center;font-size:13.5px;color:var(--inkt-2);max-width:26ch}
+.bak-vak .leegtekst b{display:block;color:var(--inkt);font-size:15px;margin-bottom:3px}
+.deel{width:calc(50% - 4px);background:#fff;border:1.5px solid var(--lijn);border-radius:12px;
+  padding:10px 8px 9px;display:grid;justify-items:center;gap:1px;text-align:center;position:relative;transform-origin:50% 0}
+.deel.landt{animation:landen .5s cubic-bezier(.2,1.3,.4,1) both}
+@keyframes landen{0%{opacity:0;transform:translateY(-26px) scale(.9)}65%{opacity:1;transform:translateY(3px) scale(1.01)}100%{opacity:1;transform:none}}
+.deel .tek{width:54px;height:54px;color:var(--marine);margin-bottom:2px}
+.deel .tek svg{width:100%;height:100%;display:block}
+.deel .dn{font-size:13px;font-weight:700}
+/* De stempel: welk onderdeel je koos. Dat is de keuze die bij een iPhone 13
+   honderdvijftig euro scheelt, dus die staat op het onderdeel zelf. */
+.deel .dk{font-size:11px;font-weight:700;color:var(--groen-800);background:var(--groen-100);
+  border-radius:9px;padding:2px 8px;max-width:100%;line-height:1.3}
+.deel .dk.grijs{color:var(--inkt-3);background:var(--vlak);font-weight:600}
+.deel .dk.stempelt{animation:stempel .35s cubic-bezier(.2,1.4,.4,1) both}
+@keyframes stempel{from{opacity:0;transform:scale(1.6) rotate(-6deg)}to{opacity:1;transform:none}}
+.deel .dp{font-size:14px;font-weight:800;margin-top:2px}
+.deel .dp.zacht{font-weight:500;color:var(--inkt-3);font-size:11.5px;line-height:1.3}
+.deel .x{position:absolute;top:3px;right:4px;width:26px;height:26px;border-radius:50%;border:0;background:none;
+  color:var(--lijn);font-size:16px;line-height:1;cursor:pointer;padding:0}
+.deel:hover .x,.deel:focus-within .x{color:var(--inkt-3)}
+.deel .x:hover{color:var(--rood)}
+.bak-tot{display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:14px 18px 4px}
+.bak-tot span{font-size:13px;font-weight:700;color:var(--groen-800)}
+.bak-tot b{font-size:26px;font-weight:800;color:var(--groen-800);letter-spacing:-.01em}
+.bak-tot b.zacht{font-size:14px;font-weight:600;color:var(--inkt-2)}
+.bak-tot.stil span{color:var(--inkt-2)}
+.bak-uit{padding:0 18px 14px;margin:0;font-size:12px;color:var(--inkt-3);line-height:1.45}
+.bak-uit b{color:var(--inkt-2)}
+/* De winkels onderaan, uit variant A: hoeveel er zijn, wie jouw onderdeel heeft
+   en wie het vandaag kan. Cijfers, geen zin die zichzelf tegenspreekt. */
+.bak-winkels{background:var(--vlak);border-top:1px solid var(--lijn);padding:14px 18px 15px}
+.bak-winkels .regel{font-size:14px;color:var(--inkt-2)}
+.bak-winkels .regel b{font-size:22px;font-weight:800;color:var(--inkt);margin-right:3px}
+.bollen{display:flex;gap:6px;margin:10px 0;flex-wrap:wrap;min-height:30px}
+.bol{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:800;
+  border:1.5px solid var(--marine-200);background:#fff;color:var(--inkt-3);position:relative;
+  transition:background .25s,color .25s,border-color .25s,box-shadow .25s}
+.bol.aan{background:var(--groen);border-color:var(--groen);color:#fff}
+.bol.ander{border-style:dashed;color:var(--inkt-2)}
+.bol.vandaag{box-shadow:0 0 0 2px #fff,0 0 0 4px var(--amber)}
+.bol .naam{position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:var(--marine);
+  color:#fff;font-size:11px;font-weight:600;padding:3px 8px;border-radius:8px;white-space:nowrap;opacity:0;
+  pointer-events:none;transition:opacity .15s;z-index:2}
+.bol:hover .naam,.bol:focus-visible .naam{opacity:1}
+.bak-winkels .vandaagregel{font-size:13.5px;font-weight:600;color:var(--amber);display:flex;align-items:center;gap:6px}
+.bak-winkels .vandaagregel svg{width:14px;height:14px;flex:none}
+.bak-winkels .vandaagregel.stil{color:var(--inkt-3);font-weight:400}
+.bak-winkels .legenda{font-size:11.5px;color:var(--inkt-3);margin:9px 0 0;line-height:1.7}
+.bak-winkels .legenda i{display:inline-block;width:10px;height:10px;border-radius:50%;vertical-align:-1px;
+  margin:0 3px 0 8px;border:1.5px solid var(--marine-200);background:#fff}
+.bak-winkels .legenda i:first-child{margin-left:0}
+.bak-winkels .legenda i.aan{background:var(--groen);border-color:var(--groen)}
+.bak-winkels .legenda i.ander{border-style:dashed}
+.bak-winkels .legenda i.vandaag{box-shadow:0 0 0 1.5px var(--amber)}
 @media (prefers-reduced-motion:reduce){
-  .tel .hot .puls,.tel .ring,.tel .accu.loopt .vul,.tel .mk .pop,.tel .poort.schokt,
-  .tel .lens.breekt,.tel .water.stijgt .lijn{animation:none}
-  .tel .barst.trekt path{stroke-dasharray:none;stroke-dashoffset:0;animation:none}
+  .deel.landt,.deel .dk.stempelt{animation:none}
+  .bol{transition:none}
   .inhoud{animation:none}.tegel{transition:none}
 }
-.tel-tekst{text-align:center;font-size:13.5px;color:var(--inkt-2);max-width:26ch;margin:0}
-.tel-tekst b{color:var(--inkt);display:block;font-size:15px;margin-bottom:2px}
-/* Variant B2, het bonnetje. Boven staat alleen wat een bedrag heeft, met het
-   totaal in een groen vlak eronder, en wat geen bedrag heeft in een grijze
-   strook daaronder. Daarvoor stonden alle reparaties als even zware regels,
-   ook de vier waar wij geen prijs van hebben, en dan is het vak naast de
-   tekening langer dan de tekening zelf. */
-.som{border:1.5px solid var(--lijn);border-radius:16px;background:#fff;overflow:hidden;
-  width:100%;max-width:320px}
-.som .binnen{padding:14px 16px}
-.som .kop{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
-  color:var(--inkt-3);margin:0 0 10px}
-.som .rij{display:grid;grid-template-columns:minmax(0,1fr) auto auto;column-gap:10px;
-  align-items:baseline;padding:6px 0;font-size:13.5px}
-.som .rij+.rij{border-top:1px solid var(--lijn)}
-.som .wat{min-width:0;font-weight:700;line-height:1.25}
-.som small{display:block;font-weight:400;color:var(--inkt-3);font-size:12px;
-  overflow:hidden;text-overflow:ellipsis}
-.som b{font-weight:700;white-space:nowrap}
-.som .x{background:none;border:0;color:var(--lijn);font-size:17px;line-height:1;
-  cursor:pointer;padding:0;transition:color .15s}
-.som .rij:hover .x{color:var(--inkt-3)}
-.som .x:hover{color:var(--rood)}
-.som .totvlak{background:var(--groen-50);border-top:1.5px solid var(--groen-200);padding:13px 16px}
-.som .totvlak .regel{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
-.som .totvlak span{font-size:13px;font-weight:700;color:var(--groen-800)}
-.som .totvlak b{font-size:21px;font-weight:800;color:var(--groen-800)}
-.som .totvlak b.aanvraag{font-size:14px;font-weight:600}
-.som .totvlak .bij{display:block;font-size:11.5px;font-weight:400;color:var(--groen-800);
-  opacity:.85;margin-top:4px;line-height:1.4}
-.som .rest{background:var(--vlak);padding:11px 16px;font-size:12.5px;color:var(--inkt-2)}
-.som .rest ul{margin:6px 0 0;padding:0;list-style:none;display:grid;gap:5px}
-.som .rest li{display:grid;grid-template-columns:minmax(0,1fr) auto auto;column-gap:10px;align-items:baseline}
-.som .rest li span{font-weight:700;color:var(--inkt)}
-.som .rest li em{font-style:normal;color:var(--inkt-3)}
 .chip{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:999px;font-size:12.5px;font-weight:600}
 .chip svg{width:12px;height:12px}
 .chip-keur{background:var(--groen-100);color:var(--groen-800)}
@@ -358,7 +357,6 @@ dialog::backdrop{background:rgba(11,31,78,.45)}
 @media (max-width:900px){
   .lichaam{grid-template-columns:1fr;gap:24px}
   .paneel{order:-1}
-  .tel{width:150px}
   .t4{grid-template-columns:repeat(2,minmax(0,1fr))}
   .kwal{grid-template-columns:1fr}
   .swatches{margin-left:0}
@@ -412,8 +410,8 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
      viel buiten beeld. Hij mag nu naar een eigen regel zakken. */
   .stappen{flex-wrap:wrap}
   .opnieuw{margin:0 0 10px auto}
-  /* Op een telefoon hoort de keuze bovenaan, niet de tekening. De tekening en de
-     prijsopsomming blijven eronder staan, waar ze het antwoord bevestigen. */
+  /* Op een telefoon hoort de keuze bovenaan. De bak staat eronder, waar hij
+     het antwoord bevestigt. */
   .paneel{order:0}
   .top nav{display:none}
 }
@@ -425,7 +423,7 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
 </style>
 
 <a class="naar-inhoud" href="#hoofdinhoud">Naar de inhoud</a>
-<div class="schets">Ontwerpschets, <b>variant 1</b>: het beeld naast de keuze is de getekende telefoon. <a href="reparatiekiezer-2.html">Bekijk variant 2, met de onderdelenbak</a>. Winkels met het merkje Verzonnen voorbeeld bestaan niet; de prijzen komen uit ons eigen prijsonderzoek van 3 september 2026.</div>
+<div class="schets">Ontwerpschets, <b>variant 2</b>: het beeld naast de keuze is de onderdelenbak. <a href="reparatiekiezer.html">Bekijk variant 1, met de getekende telefoon</a>. Winkels met het merkje Verzonnen voorbeeld bestaan niet; de prijzen komen uit ons eigen prijsonderzoek van 3 september 2026.</div>
 <header class="top">
   <a class="logo" href="index.html">snel<i>repareren</i>.nl</a>
   <nav><a href="reparaties.html">Reparaties</a><a href="toestellen.html">Toestellen</a><a href="plaatsen.html">Plaatsen</a><a href="gidsen.html">Gidsen</a><a href="hoe-wij-rangschikken.html">Hoe wij rangschikken</a></nav>
@@ -551,7 +549,7 @@ const VOLG=['scherm','accu','laadpoort','camera','achterkant','waterschade'];
 const FILTERS=[['vandaag','Vandaag klaar',w=>vandaagKlaar(w)],['keur','Polis gecontroleerd',w=>w.keur],['applepay','Apple Pay',w=>(w.betaal||[]).includes('Apple Pay')],['contant','Contant',w=>(w.betaal||[]).includes('Contant')]];
 const OS={ios:["Open Instellingen op je iPhone.","Tik op Algemeen en daarna op Info.","Bij Modelnummer staat een code die met een A begint, bijvoorbeeld A2633. Typ die in het zoekveld."],
           android:["Open Instellingen op je toestel.","Scrol naar Over de telefoon of Systeem.","Bij Modelnummer staat de code, bijvoorbeeld SM-S911B. Typ die in het zoekveld."]};
-const S={stap:1,sub:'zoek',merk:null,serie:null,model:null,kleur:null,schade:{},plaats:'Leeuwarden',plaatsEdit:false,plaatsFout:null,dichtbij:false,filters:{},laatst:null,open:{}};
+const S={stap:1,sub:'zoek',merk:null,serie:null,model:null,kleur:null,schade:{},plaats:'Leeuwarden',plaatsEdit:false,plaatsFout:null,dichtbij:false,filters:{},laatst:null,gestempeld:null,open:{}};
 const eur=n=>'&euro; '+n;
 const CHECK='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>';
 const BOLT='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 3 14h7l-1 8 10-12h-7z"/></svg>';
@@ -628,377 +626,210 @@ const ICOON={
 const icoontje=k=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"
   stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICOON[k]||''}</svg>`;
 
-/* ---------- de telefoon ----------
+/* ---------- de onderdelenbak ----------
 
-   Wat hier stond en waarom het weg is:
+   VARIANT 2, gekozen op 10 september 2026. Waar variant 1 een getekende telefoon
+   toont met de schade erop, staat hier het bakje van de reparateur: elk
+   onderdeel dat je aantikt landt erin, met de prijs die wij ervoor maten en een
+   stempel met het onderdeel dat je koos.
 
-   1. EEN silhouet voor alle 266 toestellen: een pil bovenin die op een Dynamic
-      Island lijkt. Koos je een Galaxy S23 of een iPhone SE, dan stond er nog
-      steeds een iPhone van na 2022.
-   2. Vinkjes als bevestiging. Een groen rondje zegt "aangevinkt" en niet "je
-      accu is leeg". De barst die zich tekende, VERVAAGDE bovendien naar nul, dus
-      wat er overbleef was ook daar een vinkje.
-   3. "Achterkant" stond als pilletje op het scherm van de VOORKANT.
+   Waarom dit beeld: deze site gaat over ONDERDELEN. Welk scherm je krijgt
+   scheelt bij een iPhone 13 honderdvijftig euro, en dat verschil is de kern. De
+   telefoontekening laat de schade zien; de bak laat de oplossing zien. Hij werkt
+   bovendien voor alle toestellen in de catalogus zonder dat wij een silhouet
+   moeten tekenen dat toch nooit precies klopt, en op een telefoonscherm is hij
+   niet iets om op te tikken maar iets om te lezen.
 
-   Nu: vier silhouetten op merk en jaar, een voor- en een achterkant, en per
-   schadesoort een eigen tekening die blijft staan. De show zit in de animatie,
-   de rusttoestand blijft rustig; dat is dezelfde regel als bij de vorige ronde.
+   Wat hier NIET gebeurt: doen alsof dit een afbeelding is van het onderdeel dat
+   jij krijgt. Het is een schets; wat je werkelijk krijgt, staat als stempel
+   erop en vraag je in de winkel na. */
 
-   Wat wij hier NIET doen: doen alsof dit een afbeelding van jouw model is. Het
-   is een schets die klopt op vorm, niet op detail. Dat staat er ook onder. */
-
-/* Vier silhouetten. Meer varianten is schijnnauwkeurigheid; minder klopt niet.
-   Apple met Dynamic Island vanaf de 15: de 14 Pro had hem al, maar de 14 zelf
-   niet, en wij tekenen per serie en niet per uitvoering. */
-function silhouet(m){
-  if(!m)return 'eiland';
-  if(m.merk!=='Apple')return 'gaatje';
-  if(m.serie==='iPhone SE'||m.serie==='Ouder')return 'thuisknop';
-  return (m.j||0)>=2023?'eiland':'inkeping';
-}
-
-/* Welke schade op welke kant zit. Een camera repareer je aan de achterkant en
-   een scherm aan de voorkant; dat hoort de tekening te laten zien. */
-const KANTVAN={scherm:'voor',accu:'voor',laadpoort:'voor',camera:'achter',achterkant:'achter'};
-const HOT={
-  voor:{scherm:[112,232],accu:[166,42],laadpoort:[112,430]},
-  achter:{camera:[62,62],achterkant:[150,300]},
-};
-/* Waar het kruisje komt te staan als je die schade weer wilt weghalen. Nooit op
-   de tekening zelf, want dan dekt het af wat het moet aanwijzen: bij de camera
-   de gebarsten lens, bij de accu de "3%", bij het scherm het inslagpunt. Aan de
-   voorkant staan ze daarom onder elkaar langs de rechterrand, in dezelfde
-   volgorde als de lijst ernaast. */
-const WEG={
-  voor:{scherm:[186,198],accu:[166,86],laadpoort:[166,404]},
-  achter:{camera:[124,52],achterkant:[178,382]},
+/* De onderdelen als lijntekening: 1,75 dik, geen vulling, ronde uiteinden
+   (besluit H4). Groter dan de pictogrammen in de lijst ernaast, want hier is het
+   onderdeel het beeld en niet een merkje. */
+const DEELTEKENING={
+  scherm:'<rect x="13" y="5" width="22" height="34" rx="3"/><path d="M20 39v4h8v-4"/>'
+    +'<path d="M19 9h10"/><path d="M17 15l-2 2"/>',
+  accu:'<rect x="8" y="16" width="28" height="16" rx="4"/><path d="M39 21v6"/>'
+    +'<path d="M23 19l-3 5h4l-3 5"/>',
+  laadpoort:'<rect x="17" y="6" width="14" height="9" rx="4.5"/><rect x="12" y="15" width="24" height="22" rx="5"/>'
+    +'<path d="M24 37v6"/><path d="M20 21h8"/>',
+  camera:'<rect x="9" y="9" width="30" height="30" rx="9"/><circle cx="19" cy="19" r="5"/>'
+    +'<circle cx="29" cy="29" r="5"/><circle cx="30" cy="17" r="1.5"/>',
+  waterschade:'<path d="M24 6s10 11 10 18a10 10 0 0 1-20 0c0-7 10-18 10-18z"/>'
+    +'<path d="M21 22.5a3 3 0 1 1 3 3v2"/><path d="M24 31.5v.01"/>',
 };
 
-const zijde=()=>S.kant||'voor';
-function draai(k){S.kant=k;teken()}
-
-/* De romp: de zijkanten en de knoppen. Op beide kanten hetzelfde, zodat het
-   omdraaien niet als een sprong voelt. */
-const romp=(body,rand)=>`
-  <rect x="6" y="6" width="212" height="436" rx="40" fill="${body}"/>
-  <rect x="0" y="120" width="5" height="30" rx="2" fill="${rand}"/>
-  <rect x="0" y="160" width="5" height="52" rx="2" fill="${rand}"/>
-  <rect x="219" y="140" width="5" height="70" rx="2" fill="${rand}"/>`;
-
-/* ---------- de schadetekeningen ----------
-   Elk een eigen beeld, en elk beeld blijft staan. Geen vinkjes. */
-
-/* Gebroken glas is een spinnenweb: een inslagpunt, stralen naar buiten, en
-   ringen die de stralen kruisen. Er stond eerst een vertakte lijn over het hele
-   scherm; dat las als een boompje en niet als een barst. De ringen liggen op de
-   stralen, want in echt glas komen ze daar samen.
-   Het web zit links van het midden, want de naam van het toestel staat boven in
-   beeld en het kruisje om de schade weg te halen rechtsonder. */
-const BARST_SCHERM=`<circle cx="82" cy="300" r="3" fill="#0B1F4E" stroke="none" opacity=".55"/>
-  <path stroke-width="1.7" d="M82 300 L116 246 M82 300 L130 286 M82 300 L128 320 M82 300 L102 352
-    M82 300 L66 344 M82 300 L40 314 M82 300 L36 278 M82 300 L62 238 M82 300 L88 236"/>
-  <path stroke-width="1.15" opacity=".8" d="M116 246 L138 196 M130 286 L168 272 M128 320 L206 372
-    M102 352 L116 430 M66 344 L44 430 M40 314 L16 320 M36 278 L16 270 M62 238 L52 190 M88 236 L80 170"/>
-  <path stroke-width="1.1" d="M84 274 L95 278 L106 291 M91 324 L73 324 L58 309 M58 289 L71 276"/>
-  <path stroke-width=".9" opacity=".85" d="M133 282 L131 323 L100 351 M33 277 L59 251 L87 246 M64 351 L31 318"/>
-  <path stroke-width=".8" opacity=".65" d="M95 278 L104 264 M73 324 L68 338 M106 291 L118 296"/>`;
-
-/* Zelfde web op de achterkant, in de onderste helft: daarboven staan de camera
-   en de naam van het toestel. */
-const BARST_ACHTER=`<circle cx="120" cy="300" r="3" fill="#E7ECF5" stroke="none" opacity=".6"/>
-  <path stroke-width="1.7" d="M120 300 L154 246 M120 300 L168 286 M120 300 L166 320 M120 300 L140 352
-    M120 300 L104 344 M120 300 L78 314 M120 300 L74 278 M120 300 L100 238 M120 300 L126 236"/>
-  <path stroke-width="1.15" opacity=".8" d="M154 246 L176 196 M168 286 L206 274 M166 320 L206 348
-    M140 352 L154 440 M104 344 L82 440 M78 314 L8 326 M74 278 L20 264 M100 238 L90 190 M126 236 L118 186"/>
-  <path stroke-width="1.1" d="M122 274 L133 278 L144 291 M129 324 L111 324 L96 309 M96 289 L109 276"/>
-  <path stroke-width=".9" opacity=".85" d="M171 282 L169 323 L138 351 M71 277 L97 251 L125 246 M102 351 L69 318"/>
-  <path stroke-width=".8" opacity=".65" d="M133 278 L142 264 M111 324 L106 338 M144 291 L156 296"/>`;
-
-/* Een gebarsten lens hoort bij de lens die er staat, en die zit per merk ergens
-   anders en is niet even groot. Eerst stond hier een vaste cirkel op 52,52; bij
-   Samsung viel die naast de lens en eromheen. Nu tekent hij zich op maat. */
-function lensBarst(cx,cy,r){
-  const p=(x,y)=>`${(cx+x*r).toFixed(1)} ${(cy+y*r).toFixed(1)}`;
-  /* Een lens is klein: op een Samsung elf eenheden op een tekening van 224. Alles
-     wat daar met meer dan twee lijnen in wordt gezet, wordt een figuurtje in
-     plaats van glas. Dus: de rand van de lens uitgelicht, EEN barst die er van
-     rand tot rand doorheen loopt, en een aftakking. De lijnen schalen niet mee,
-     anders vallen ze bij de kleinste lens weg. */
-  return `<circle cx="${cx}" cy="${cy}" r="${(r+4).toFixed(1)}" fill="#F5B50A" stroke="none" opacity=".22"/>
-    <circle cx="${cx}" cy="${cy}" r="${(r+2).toFixed(1)}" stroke-width="1.6" opacity=".95"/>
-    <path stroke-width="1.6" d="M${p(-.98,-.18)} L${p(-.35,-.42)} L${p(.10,.05)}
-      L${p(-.05,.52)} L${p(.42,.92)}"/>
-    <path stroke-width="1.2" opacity=".85" d="M${p(.10,.05)} L${p(.85,-.25)}"/>`;
+/* De achterkant is de enige kant die de kleur van je toestel heeft, dus die
+   tekenen wij in die kleur. Daarmee doet de kleurkeuze eindelijk iets zichtbaars.
+   De rand is een donkerder versie van dezelfde kleur, zodat een lichte kleur
+   (sterrenlicht, wit) niet in het witte vlak verdwijnt. */
+function achterkantTekening(){
+  const kleur=S.kleur?S.kleur[1]:null;
+  const rand=kleur?donker(kleur):'currentColor';
+  return `<svg viewBox="0 0 48 48" fill="none" stroke="${rand}" stroke-width="1.75"
+      stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <rect x="13" y="4" width="22" height="40" rx="5" fill="${kleur||'#fff'}"/>
+    <rect x="17" y="8" width="10" height="10" rx="3" fill="${rand}" fill-opacity=".22"/>
+    <circle cx="20.5" cy="11.5" r="1.4" fill="${rand}"/>
+    <circle cx="23.5" cy="14.5" r="1.4" fill="${rand}"/></svg>`;
 }
 
-/* Hoeveel de batterij naar beneden moet. Op een toestel met een thuisknop begint
-   het scherm pas op 70 en niet op 24; zonder dit verzet stond de batterij op het
-   metaal boven het scherm. Dit getal geldt ook voor de stip en het kruisje van
-   de accu, en die staan in HOT en WEG. */
-const ACCU_VERZET=v=>v==='thuisknop'?54:0;
+const deeltekening=k=>k==='achterkant'?achterkantTekening()
+  :`<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.75"
+      stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${DEELTEKENING[k]||''}</svg>`;
 
-function schadeVoor(vorm){
-  const av=ACCU_VERZET(vorm);
-  let g='';
-  if(S.schade.scherm){
-    /* Bijgesneden op het scherm. Bij een iPhone SE loopt het scherm van 70 tot
-       358 en niet van 24 tot 424; zonder bijsnijden liep de barst over de rand
-       het metaal op. */
-    g+=`<g clip-path="url(#schermvlak)"><g class="barst${S.laatst==='scherm'?' trekt':''}"
-      stroke="#0B1F4E" stroke-width="2" fill="none" stroke-linecap="round"
-      pointer-events="none" opacity=".85">${BARST_SCHERM}</g></g>`;
+/* Welk onderdeel deze winkel voor jouw keuze zou leveren. Een landelijke trede
+   telt hier niet: die zegt niets over DIT toestel, dus ook niets over wat deze
+   winkel ervoor rekent. 'band' is geen kwaliteit maar het ontbreken ervan. */
+const kwaliteitKeuze=k=>{
+  const g=S.schade[k];
+  const s=g&&!g.land?g.sleutel:null;
+  return (s&&s!=='band')?s:null;
+};
+
+/* Heeft deze winkel een prijs voor precies wat jij koos?
+   aan    = voor elke gekozen reparatie een prijs met jouw onderdeel
+   ander  = doet de reparatie wel, maar met een ander onderdeel
+   niet   = doet minstens een van de gekozen reparaties niet
+   Waterschade blijft erbuiten: daar is geen prijs vooraf. */
+function winkelStand(w){
+  const g=gekozen().filter(k=>k!=='waterschade');
+  if(!g.length)return 'rust';
+  let alles=true,ander=false;
+  for(const k of g){
+    const kw=kwaliteitKeuze(k);
+    if(kw?aanbod(w,S.model.n,k,kw):aanbod(w,S.model.n,k))continue;
+    alles=false;
+    if(aanbod(w,S.model.n,k))ander=true;
   }
-  if(S.schade.accu){
-    /* De batterij loopt een keer leeg en blijft dan op drie procent staan. Dat is
-       het beeld dat iemand herkent van zijn eigen toestel; een vinkje is dat niet.
-       Hij stond eerst op de maat van een echte statusbalk en was daardoor te
-       klein om te lezen op een tekening van 224 breed. */
-    g+=`<g class="accu${S.laatst==='accu'?' loopt':''}" pointer-events="none" transform="translate(148,${30+av})">
-      <rect width="38" height="19" rx="5" fill="none" stroke="#B45309" stroke-width="1.8"/>
-      <rect x="40" y="6" width="3.5" height="7" rx="1.6" fill="#B45309"/>
-      <rect class="vul" x="2.6" y="2.6" width="4.4" height="13.8" rx="1.6" fill="#B45309"/>
-      <text x="19" y="38" text-anchor="middle" font-family="Outfit" font-weight="800"
-        font-size="13" fill="#B45309">3%</text></g>`;
-  }
-  if(S.schade.laadpoort){
-    /* De poort zelf is de schade: de opening uitgelicht, met verbogen contacten
-       erin. Er zweefde eerst een stekker boven de poort. Dat kon niet blijven:
-       op een toestel met een thuisknop landde die stekker midden in de knop. En
-       de eerste versie had een schuine streep over de stekker, wat leest als
-       uitgeschakeld in plaats van kapot. */
-    g+=`<g class="poort${S.laatst==='laadpoort'?' schokt':''}" pointer-events="none"
-        stroke="#B45309" fill="none" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M80 430 h64" stroke-width="22" opacity=".16"/>
-      <rect x="78" y="419" width="68" height="19" rx="9.5" stroke-width="2.1" fill="#FEF4E4"/>
-      <path d="M89 430 l6 -6 l7 7 l7 -8 l7 8 l7 -7 l6 6" stroke-width="1.9"/></g>`;
-  }
-  return g;
+  return alles?'aan':(ander?'ander':'niet');
 }
-
-/* Waar de bovenste lens zit en hoe groot hij is, per vorm. Dit moet gelijk lopen
-   met de lenzen in achterkantTekening; staat er een lens bij, dan hoort deze
-   tabel mee te veranderen. */
-const HOOFDLENS={gaatje:[50,48,11],thuisknop:[52,52,13],inkeping:[52,52,14],eiland:[52,52,13]};
-
-function schadeAchter(vorm){
-  let g='';
-  if(S.schade.achterkant){
-    g+=`<g clip-path="url(#achtervlak)"><g class="barst${S.laatst==='achterkant'?' trekt':''}"
-      stroke="#E7ECF5" stroke-width="2" fill="none" stroke-linecap="round"
-      pointer-events="none" opacity=".9">${BARST_ACHTER}</g></g>`;
-  }
-  if(S.schade.camera){
-    const [lx,ly,lr]=HOOFDLENS[vorm]||HOOFDLENS.eiland;
-    g+=`<g class="lens${S.laatst==='camera'?' breekt':''}" pointer-events="none"
-        stroke="#F5B50A" fill="none" stroke-linecap="round" stroke-linejoin="round">
-      ${lensBarst(lx,ly,lr)}</g>`;
-  }
-  return g;
-}
-
-/* Waterschade raakt het hele toestel, dus die staat op beide kanten. Op de
-   achterkant ligt het water op donkerblauw in plaats van op wit, en dan is
-   dezelfde doorzichtigheid bijna niet te zien. Daar mag het steviger, met een
-   lichte waterlijn erop zodat het oppervlak een oppervlak blijft. */
-function schadeWater(kant){
-  if(!S.schade.waterschade)return '';
-  const achter=kant==='achter';
-  /* Van 6 tot 226 en niet van 14 tot 190: de golf liep tot twintig eenheden voor
-     de rechterrand en op de achterkant zag je het water daar ophouden. Wat
-     erbuiten valt, snijdt het masker eraf. */
-  const golf='M6 300 q22 -10 44 0 t44 0 t44 0 t44 0 t44 0';
-  return `<g clip-path="url(#achtervlak)" class="water${S.laatst==='waterschade'?' stijgt':''}" pointer-events="none">
-    <g class="lijn">
-      <path d="${golf} v148 h-220 z" fill="#38BDF8" opacity="${achter?'.42':'.22'}"/>
-      <path d="${golf}" fill="none" stroke="${achter?'#BAE6FD':'#38BDF8'}"
-        stroke-width="2" opacity="${achter?'.85':'.5'}"/>
-    </g>
-    <circle cx="70" cy="150" r="5" fill="#38BDF8" opacity="${achter?'.75':'.45'}"/>
-    <circle cx="150" cy="196" r="7" fill="#38BDF8" opacity="${achter?'.65':'.35'}"/>
-    <circle cx="104" cy="112" r="4" fill="#38BDF8" opacity="${achter?'.8':'.5'}"/>
-    <circle cx="168" cy="128" r="3.5" fill="#38BDF8" opacity="${achter?'.7':'.4'}"/></g>`;
-}
-
-/* ---------- de twee kanten ---------- */
-
-function voorkant(vorm,on){
-  const scherm=vorm==='thuisknop'
-    ? `<rect x="28" y="70" width="168" height="288" rx="6" fill="#F6F8FA" stroke="#E3E6EE" stroke-width="2"${on('scherm')}><title>Scherm</title></rect>
-       <rect x="92" y="50" width="40" height="6" rx="3" fill="#2A3242"/>
-       <circle cx="112" cy="398" r="20" fill="none" stroke="#2A3242" stroke-width="3"/>`
-    : `<rect x="24" y="24" width="176" height="400" rx="${vorm==='gaatje'?22:28}" fill="#F6F8FA"
-         stroke="#E3E6EE" stroke-width="2"${on('scherm')}><title>Scherm</title></rect>`;
-  const boven=vorm==='eiland'
-    ? `<rect x="78" y="36" width="68" height="18" rx="9" fill="#111827"/>
-       <circle cx="135" cy="45" r="3.5" fill="#3A4560"/>`
-    : vorm==='inkeping'
-      ? `<path d="M76 24 h72 v10 a10 10 0 0 1 -10 10 h-52 a10 10 0 0 1 -10 -10 z" fill="#111827"/>
-         <circle cx="126" cy="36" r="3.5" fill="#3A4560"/>`
-      : vorm==='gaatje'
-        ? `<circle cx="112" cy="42" r="6" fill="#111827"/>`
-        : '';
-  return `
-    <rect x="14" y="14" width="196" height="420" rx="34" fill="#111827"/>
-    ${scherm}${boven}
-    <rect x="88" y="426" width="48" height="10" rx="5" fill="#4A5878"${on('laadpoort')}><title>Laadpoort</title></rect>
-    ${schadeVoor(vorm)}`;
-}
-
-function achterkantTekening(vorm,body,on){
-  /* Het camera-eiland verschilt per merk: Apple heeft een vierkant blok
-     linksboven, Samsung drie losse lenzen onder elkaar. Dat is het verschil dat
-     iedereen herkent zonder erbij na te denken. */
-  const lens=(x,y,r)=>`<circle cx="${x}" cy="${y}" r="${r}" fill="#0B1220" opacity=".55"/>
-    <circle cx="${x}" cy="${y}" r="${r-4}" fill="#1B2740"/>
-    <circle cx="${x-3}" cy="${y-3}" r="2" fill="#5C6C90" opacity=".8"/>`;
-  const cams=vorm==='gaatje'
-    ? `${lens(50,48,11)}${lens(50,80,11)}${lens(50,112,11)}`
-    : vorm==='thuisknop'
-      ? `<rect x="30" y="30" width="44" height="44" rx="14" fill="#0B1220" opacity=".2"/>${lens(52,52,13)}`
-      : vorm==='inkeping'
-        ? `<rect x="28" y="28" width="76" height="76" rx="24" fill="#0B1220" opacity=".2"/>${lens(52,52,14)}${lens(80,80,14)}`
-        : `<rect x="28" y="28" width="76" height="76" rx="24" fill="#0B1220" opacity=".2"/>${lens(52,52,13)}${lens(80,52,13)}${lens(52,80,13)}`;
-  return `
-    <rect x="14" y="14" width="196" height="420" rx="34" fill="${body}"${on('achterkant')}><title>Achterkant</title></rect>
-    <rect x="14" y="14" width="196" height="420" rx="34" fill="url(#glans)" pointer-events="none"/>
-    <g${on('camera')}><title>Camera</title>${cams}</g>
-    ${schadeAchter(vorm)}`;
-}
-
-function telefoon(){
-  const st2=S.stap===2,geen=!gekozen().length;
-  const body=S.kleur?S.kleur[1]:'#0B1F4E',rand=S.kleur?donker(S.kleur[1]):'#061238';
-  const vorm=silhouet(S.model),kant=zijde();
-  const on=k=>st2?` onclick="tik('${k}')" style="cursor:pointer"`:'';
-
-  /* Een stip waar nog niets is gekozen, een kruisje op wat je weer kunt
-     weghalen. Geen vinkje: de tekening zelf is de bevestiging. */
-  const punt=k=>{
-    const plek=HOT[kant][k];
-    if(!plek||!st2)return '';
-    let [x,y]=S.schade[k]?(WEG[kant][k]||plek):plek;
-    if(kant==='voor'&&k==='accu')y+=ACCU_VERZET(vorm);
-    /* Wit met een dunne rand, niet massief donkerblauw. Massief trok alle
-       aandacht naar het kruisje en dan is het knopje om iets weg te halen het
-       opvallendste aan de tekening, in plaats van de schade zelf. */
-    if(S.schade[k])return `<g class="weg" transform="translate(${x},${y})" onclick="tik('${k}')">
-      <title>${REP[k].n} weghalen</title>
-      <circle r="10.5" fill="#fff" stroke="#0B1F4E" stroke-width="1.4" opacity=".94"/>
-      <path d="M-3.6 -3.6 L3.6 3.6 M3.6 -3.6 L-3.6 3.6" stroke="#0B1F4E" stroke-width="1.8" stroke-linecap="round"/></g>`;
-    return `<g class="hot" transform="translate(${x},${y})" onclick="tik('${k}')"><title>${REP[k].n}</title>
-      ${geen?'<circle class="puls" r="6" fill="none" stroke="#008934" stroke-width="1.5"/>':''}
-      <circle r="14" fill="#fff" fill-opacity=".01"/>
-      <circle class="dot" r="5" fill="#008934" stroke="#fff" stroke-width="2"/></g>`;
-  };
-
-  /* Bij een thuisknop begint het scherm pas op 70 en is het korter. De naam stond
-     op 150 en botste daar met het kruisje onder de batterij; op 190 staat hij
-     ongeveer in het midden van dat kleinere scherm en is het eronder vrij. */
-  const hoog=kant==='voor'&&vorm==='thuisknop'?190:kant==='voor'?120:150;
-  /* Een randje in de kleur van de ondergrond, zodat de naam leesbaar blijft waar
-     een barst er dwars doorheen loopt. */
-  const halo=`paint-order="stroke" stroke="${kant==='voor'?'#F6F8FA':body}" stroke-width="4"
-    stroke-linejoin="round"`;
-  const naam=S.model
-    ? `<text x="112" y="${hoog}" text-anchor="middle" font-family="Outfit" font-weight="800"
-         font-size="17" fill="${kant==='voor'?'#0B1F4E':'#E7ECF5'}" pointer-events="none" ${halo}>${esc(S.model.n)}</text>
-       <text x="112" y="${hoog+20}" text-anchor="middle" font-family="Outfit" font-size="11"
-         fill="${kant==='voor'?'#616A76':'#A7B4CE'}" pointer-events="none" ${halo}>${
-         S.kleur?esc(S.kleur[0])+' &middot; ':''}${esc(codeLabel(S.model))}</text>`
-    : `<text x="112" y="230" text-anchor="middle" font-family="Outfit" font-weight="600"
-         font-size="14" fill="#C5CEE3" pointer-events="none">jouw toestel</text>`;
-
-  return `<svg class="tel" viewBox="0 0 224 448" aria-label="Tekening van je toestel">
-    <defs><linearGradient id="glans" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#fff" stop-opacity=".16"/>
-      <stop offset=".5" stop-color="#fff" stop-opacity="0"/>
-      <stop offset="1" stop-color="#000" stop-opacity=".12"/></linearGradient>
-      <clipPath id="schermvlak">${vorm==='thuisknop'
-        ? '<rect x="28" y="70" width="168" height="288" rx="6"/>'
-        : `<rect x="24" y="24" width="176" height="400" rx="${vorm==='gaatje'?22:28}"/>`}</clipPath>
-      <clipPath id="achtervlak"><rect x="14" y="14" width="196" height="420" rx="34"/></clipPath></defs>
-    ${romp(body,rand)}
-    ${kant==='voor'?voorkant(vorm,on):achterkantTekening(vorm,body,on)}
-    ${schadeWater(kant)}
-    ${naam}
-    ${Object.keys(HOT[kant]).map(punt).join('')}
-  </svg>`;
-}
-
-/* Een knopje om zelf te draaien. Alleen in stap 2, want daarvoor valt er niets
-   te kiezen op de achterkant. Het bolletje zegt of aan die kant iets is
-   aangetikt, zodat je niet hoeft te draaien om dat te zien. */
-function kantknop(){
-  if(S.stap!==2)return '';
-  const k=zijde();
-  const iets=z=>Object.keys(S.schade).some(x=>KANTVAN[x]===z);
-  const knop=(z,tekst)=>`<button class="${k===z?'aan':''}" onclick="draai('${z}')">${tekst}${
-    iets(z)?'<i class="bol"></i>':''}</button>`;
-  return `<div class="kanten">${knop('voor','Voorkant')}${knop('achter','Achterkant')}</div>`;
-}
+const initiaal=w=>String(w.n).trim().charAt(0).toUpperCase();
 
 /* "Accu, laadpoort, camera en achterkant" en niet "accu en laadpoort en camera
    en achterkant". Dat laatste stond er, want join(' en ') plakt overal en
    tussen. Komma's tot de laatste, dan een en. */
 const lijstZin=d=>d.length<2?(d[0]||''):d.slice(0,-1).join(', ')+' en '+d[d.length-1];
 
-function opsomming(){
-  const g=gekozen();if(!g.length)return '';
-  /* Valt er iets te kiezen? Voor een reparatie die wij voor dit model niet
-     gemeten hebben, staat er geen enkele knop, en dan is "kies nog een
-     onderdeel" een opdracht die je niet kunt uitvoeren. */
-  const teKiezen=k=>{const m=meting(k);return !!(m&&m.opties&&m.opties.length)};
-  /* Het bedrag dat bij deze regel hoort, en of het voor DIT toestel geldt. */
+/* Wat er in de bak ligt, en wat het samen kost.
+ *
+ * De regels zijn dezelfde als in variant 1: een landelijk bedrag telt NIET mee
+ * in je totaal (het is niet voor dit toestel gemeten), en zonder gekozen
+ * onderdeel is er geen prijs. Alleen de vorm verschilt: daar stond een bonnetje
+ * met regels, hier ligt elk onderdeel apart met zijn eigen bedrag en stempel.
+ */
+function bak(){
+  const g=gekozen();
+  /* Het bedrag dat bij dit onderdeel hoort, en of het voor DIT toestel geldt. */
   const bedragVan=k=>{const gk=S.schade[k],p=prijsVan(k);
     return p!=null?{n:p,land:false}:(gk&&gk.land?{n:gk.land.prijs,land:true}:null)};
+  const teKiezen=k=>{const m=meting(k);return !!(m&&m.opties&&m.opties.length)};
 
-  const kruis=k=>`<button class="x" onclick="tik('${k}')" aria-label="${REP[k].n} weghalen" title="Weghalen">&times;</button>`;
-  const rij=k=>{const gk=S.schade[k],b=bedragVan(k);
-    const onder=gk&&gk.naam&&gk.land?`<small>${esc(gk.naam)}, landelijk</small>`
-      :gk&&gk.naam?`<small>${esc(gk.naam)}</small>`:'';
-    return `<div class="rij"><span class="wat">${REP[k].n}${onder}</span><b class="num">${eur(b.n)}</b>${kruis(k)}</div>`;
+  /* De stempel op het onderdeel: wat je krijgt. Staat er niets, dan zegt hij
+     waarom niet, in dezelfde woorden als variant 1. */
+  const stempel=k=>{
+    const gk=S.schade[k];
+    if(k==='waterschade')return{t:'na diagnose',grijs:true};
+    if(gk&&gk.naam)return{t:gk.naam+(gk.land?', landelijk':''),grijs:!!gk.land};
+    if(teKiezen(k))return{t:'kies een onderdeel',grijs:true};
+    const m=meting(k);
+    if(m&&m.band)return{t:'winkel noemt geen onderdeel',grijs:true};
+    return{t:'vraag de winkel',grijs:true};
   };
-  /* Wat er in het bonnetje staat en wat eronder. Een regel zonder bedrag krijgt
-     een halve regel in de grijze strook; hij hoorde niet net zo zwaar te wegen
-     als een regel met een prijs. */
-  const rest=k=>{const gk=S.schade[k];
-    const wat=k==='waterschade'?'na diagnose'
-      :teKiezen(k)?'kies nog een onderdeel'
-      :(meting(k)&&meting(k).band)?'winkel noemt geen onderdeel'
-      :'vraag de winkel';
-    return `<li><span>${REP[k].n}</span><em>${wat}</em>${kruis(k)}</li>`;
+
+  const stuk=k=>{
+    const b=bedragVan(k),st=stempel(k);
+    const l=landelijk(k);
+    /* Zonder bedrag: bij een ongemeten toestel wel het landelijke bereik, want
+       dat is het enige wat wij eerlijk kunnen zeggen. */
+    const bedrag=b!=null
+      ? `<b class="dp num">${eur(b.n)}</b>`
+      : (k!=='waterschade'&&!meting(k)&&l
+        ? `<span class="dp zacht num">landelijk ${eur(l.laagste)} tot ${eur(l.hoogste)}</span>`
+        : '<span class="dp zacht">nog geen prijs</span>');
+    const landt=S.laatst===k?' landt':'';
+    const stempelt=S.gestempeld===k?' stempelt':'';
+    return `<div class="deel${landt}">
+      <button class="x" onclick="tik('${k}')" aria-label="${REP[k].n} weghalen" title="Weghalen">&times;</button>
+      <span class="tek">${deeltekening(k)}</span>
+      <span class="dn">${REP[k].n}</span>
+      <span class="dk${st.grijs?' grijs':''}${stempelt}">${esc(st.t)}</span>
+      ${bedrag}</div>`;
   };
 
   const met=g.filter(k=>bedragVan(k)), zonder=g.filter(k=>!bedragVan(k));
   const tot=met.reduce((a,k)=>a+bedragVan(k).n,0);
-  const landelijk=met.filter(k=>bedragVan(k).land);
-  const TELWOORD=['nul','een','twee','drie','vier','vijf','zes'];
-  const alles=landelijk.length===met.length&&met.length>0;
-  /* Zit er een landelijk bedrag in de som, dan staat dat erbij, en heet het geen
-     "totaal" meer als het er alleen maar zijn. Anders leest een optelsom van een
-     gemeten schermprijs en een landelijk accubedrag als de prijs van dit
-     toestel, en dat is het niet. */
-  const woord=alles?'Landelijk':'Totaal';
-  const kop=met.length===1?woord:`${woord} voor deze ${TELWOORD[met.length]||met.length}`;
-  const bij=!landelijk.length?''
-    :alles?'<span class="bij">Landelijke bedragen over alle modellen heen, niet voor dit toestel gemeten.</span>'
-    :`<span class="bij">Waarvan ${eur(landelijk.reduce((a,k)=>a+bedragVan(k).n,0))} landelijk, niet voor dit toestel gemeten.</span>`;
+  const landRegels=met.filter(k=>bedragVan(k).land);
+  const allesLandelijk=landRegels.length===met.length&&met.length>0;
+  /* Zit er een landelijk bedrag in de som, dan heet het geen "totaal" meer als
+     ze het allemaal zijn. Anders leest een optelsom van een gemeten schermprijs
+     en een landelijk accubedrag als de prijs van dit toestel, en dat is het niet. */
+  const woord=allesLandelijk?'Landelijk':(met.length>1?'Samen':'Prijs');
+  const totaal=met.length
+    ? `<div class="bak-tot"><span>${woord}</span><b class="num">${eur(tot)}</b></div>`
+    : `<div class="bak-tot stil"><span>${g.length?'Nog geen prijs':'Jouw keuze'}</span><b class="zacht">${
+        g.length?(zonder.some(k=>teKiezen(k))?'kies een onderdeel':'op aanvraag'):'nog niets gekozen'}</b></div>`;
+  const uitleg=!met.length?''
+    : allesLandelijk
+      ? 'Landelijke bedragen over alle modellen heen, <b>niet voor dit toestel gemeten</b>.'
+      : (landRegels.length
+        ? `Waarvan ${eur(landRegels.reduce((a,k)=>a+bedragVan(k).n,0))} landelijk, niet voor dit toestel gemeten. `
+        : '')+'De middelste prijs die wij per onderdeel maten. Geen offerte; wat een winkel vraagt zie je bij de winkel.';
 
-  return `<div class="som">
-    ${met.length?`<div class="binnen"><p class="kop">Jouw keuze</p>${met.map(rij).join('')}</div>`:''}
-    <div class="totvlak"><div class="regel"><span>${met.length?kop:'Jouw keuze'}</span>${
-      met.length?`<b class="num">${eur(tot)}</b>`:'<b class="aanvraag">nog geen prijs</b>'}</div>${bij}${
-      met.length?'<span class="bij">De middelste prijs die wij per onderdeel maten. Geen offerte; wat een winkel vraagt zie je bij de winkel.</span>':''}</div>
-    ${zonder.length?`<div class="rest">Nog geen prijs voor dit toestel:<ul>${zonder.map(rest).join('')}</ul></div>`:''}
+  const kop=S.model
+    ? `<b>${esc(S.model.n)}</b><div class="modelregel">${S.kleur
+        ? `<i class="kleurstip" style="--c:${S.kleur[1]}"></i>${esc(S.kleur[0])}<span class="code">&middot; ${esc(codeLabel(S.model))}</span>`
+        : `<span class="code">${esc(codeLabel(S.model))}</span>`}</div>`
+    : '<b>Jouw toestel</b><div class="modelregel"><span class="code">nog niet gekozen</span></div>';
+
+  const leeg=!S.model
+    ? '<p class="leegtekst"><b>Kies eerst je toestel</b>Typ het model of de code, of kies je merk.</p>'
+    : '<p class="leegtekst"><b>Tik aan wat kapot is</b>Elk onderdeel komt hier in de bak, met de prijs die wij ervoor maten.</p>';
+
+  return `<div class="bak">
+    <div class="bak-kop">${kop}</div>
+    <div class="bak-vak">${g.length?VOLG.filter(k=>S.schade[k]).map(stuk).join(''):leeg}</div>
+    ${totaal}
+    ${uitleg?`<p class="bak-uit">${uitleg}</p>`:'<p class="bak-uit">Wat het kost zie je zodra je hebt aangetikt wat kapot is.</p>'}
+    ${winkelblok()}
   </div>`;
 }
+
+/* De winkels onderaan de bak (uit variant A).
+ *
+ * Hoeveel winkels er in deze plaats zijn, wie er een prijs heeft voor precies
+ * jouw onderdeel, en wie het vandaag kan. Het aantal "vandaag" komt uit
+ * vandaagKlaar(), dezelfde regel die het filter en de balk gebruiken; een tweede
+ * rekenweg zou hier iets anders kunnen zeggen dan drie regels verderop. */
+function winkelblok(){
+  const ws=inPlaats(),g=gekozen();
+  if(!ws.length){
+    return `<div class="bak-winkels"><div class="regel">Nog geen winkel <span class="num">${esc(waar())}</span></div>
+      <p class="legenda" style="margin-top:6px">De landelijke prijzen hierboven gelden wel. Bij de volgende stap staat wat er in de buurt is.</p></div>`;
+  }
+  const kan=ws.filter(vandaagKlaar).length;
+  const bollen=ws.map(w=>{
+    const st=winkelStand(w),vandaag=g.length&&vandaagKlaar(w);
+    const kl=['bol',st==='aan'?'aan':st==='ander'?'ander':'',vandaag?'vandaag':''].filter(Boolean).join(' ');
+    const bij=st==='aan'?'heeft jouw onderdeel':st==='ander'?'ander onderdeel':st==='niet'?'doet dit niet':'';
+    return `<span class="${kl}" tabindex="0"><span class="naam">${esc(w.n)}${bij?' &middot; '+bij:''}</span>${initiaal(w)}</span>`;
+  }).join('');
+  const regel=!g.length
+    ? '<div class="vandaagregel stil">Tik aan wat kapot is; dan zie je wie het vandaag kan.</div>'
+    : kan
+      ? `<div class="vandaagregel">${BOLT} ${kan} ${kan===1?'kan':'kunnen'} het vandaag</div>`
+      : '<div class="vandaagregel stil">Vandaag klaar: van geen van deze winkels bekend.</div>';
+  return `<div class="bak-winkels">
+    <div class="regel"><b class="num">${ws.length}</b>${ws.length===1?'winkel':'winkels'} ${esc(waar())}</div>
+    <div class="bollen">${bollen}</div>
+    ${regel}
+    ${g.length?'<p class="legenda"><i class="aan"></i>prijs voor jouw onderdeel<i class="ander"></i>ander onderdeel<i class="vandaag"></i>vandaag klaar</p>':''}
+  </div>`;
+}
+
 function paneel(){
-  const g=gekozen();let tekst='';
-  if(S.stap===1)tekst=S.model?`<b>${S.model.n}</b>Goed. Nu: wat is er kapot?`:`<b>Welk toestel?</b>Typ het model of de code, of kies je merk.`;
-  else if(S.stap===2&&!g.length)tekst=`<b>Tik op wat kapot is</b>Het scherm, de camera, de accu, de laadpoort of de achterkant.`;
-  document.getElementById('paneel').innerHTML=telefoon()+kantknop()
-    +(tekst?`<p class="tel-tekst">${tekst}</p>`:'')+opsomming()
-    +(S.stap===2?'<p class="tel-klein">Een schets van de vorm, niet van jouw exemplaar.</p>':'');
+  document.getElementById('paneel').innerHTML=bak();
 }
 
 /* ---------- stappen ---------- */
@@ -1019,7 +850,7 @@ function stap1(){
 }
 function stap2(){
   const kl=KLEUREN[S.model.serie]||[];
-  const kleur=kl.length?`<div class="kleur"><span class="lab">Kleur van je toestel<small>voor de juiste onderdelen</small></span><div class="swatches">${kl.map(([n,h],i)=>`<button class="sw${S.kleur&&S.kleur[0]===n?' aan':''}" style="--c:${h}" onclick="kiesKleur(${i})" aria-label="${n}" title="${n}"></button>`).join('')}</div><span class="kn">${S.kleur?S.kleur[0]:'Kies je kleur'}</span></div>`:'';
+  const kleur=kl.length?`<div class="kleur"><span class="lab">Kleur van je toestel<small>zo staat je achterkant hiernaast in beeld</small></span><div class="swatches">${kl.map(([n,h],i)=>`<button class="sw${S.kleur&&S.kleur[0]===n?' aan':''}" style="--c:${h}" onclick="kiesKleur(${i})" aria-label="${n}" title="${n}"></button>`).join('')}</div><span class="kn">${S.kleur?S.kleur[0]:'Kies je kleur'}</span></div>`:'';
 
   /* De tegels van de onderdeelkeuze. Een keer opgeschreven, want de ladder van
      dit model en de landelijke ladder tekenen hetzelfde; alleen het bijschrift
@@ -1130,7 +961,7 @@ function stap2(){
     return `<div class="deel-rij${aan?' aan':''}"><button class="deel-kop" aria-pressed="${aan?'true':'false'}" onclick="tik('${k}')"><span class="ic">${icoontje(k)}</span><span class="naam">${r.n}</span>${aan?'<span class="weg">weghalen &times;</span>':rechts}</button>${uitklap}</div>`;
   };
 
-  return `<button class="terug" onclick="terug()">&larr; ${S.model.n}</button><h2 class="vraag">Wat is er kapot?</h2><p class="sub">Kies wat er kapot is, hier of op de tekening van je toestel. Meer dan een mag; tik nog eens om het weg te halen.</p>${kleur}
+  return `<button class="terug" onclick="terug()">&larr; ${S.model.n}</button><h2 class="vraag">Wat is er kapot?</h2><p class="sub">Kies wat er kapot is; meer dan een mag. Tik nog eens om het weg te halen. Wat je kiest, komt hiernaast in de bak te liggen.</p>${kleur}
   <div class="schade">${VOLG.map(regel).join('')}</div>`;
 }
 /* "1 van de 3 winkels kunnen dit vandaag" klopt niet: bij een is het "kan". En
@@ -1410,16 +1241,25 @@ function tik(k){if(S.stap<2)return;
       :{sleutel:null,naam:null,prijs:null};
     /* Draai mee naar de kant waar die schade zit. Anders tik je op "camera" in
        de lijst en gebeurt er op het scherm zichtbaar niets. */
-    if(KANTVAN[k])S.kant=KANTVAN[k];
     S.laatst=k;clearTimeout(tik.t);tik.t=setTimeout(()=>{S.laatst=null;teken()},1400)}
   teken()}
 function kiesKw(k,i){const o=meting(k).opties[i];
-  S.schade[k]={sleutel:o.sleutel,naam:o.naam,prijs:o.prijs,metingen:o.metingen};teken()}
+  S.schade[k]={sleutel:o.sleutel,naam:o.naam,prijs:o.prijs,metingen:o.metingen};
+  stempelEven(k);teken()}
 /* Een landelijke trede heeft GEEN prijs voor jouw toestel, dus prijs blijft null
    en het bedrag komt niet in het totaal. Wat je hier kiest, is je voorkeur: het
    staat in de opsomming en het is wat je in de winkel vraagt. */
 function kiesKwLand(k,i){const l=landelijk(k),o=l.opties[i];
-  S.schade[k]={sleutel:o.sleutel,naam:o.naam,prijs:null,land:{laagste:o.laagste,hoogste:o.hoogste,prijs:o.prijs},metingen:o.metingen};teken()}
+  S.schade[k]={sleutel:o.sleutel,naam:o.naam,prijs:null,land:{laagste:o.laagste,hoogste:o.hoogste,prijs:o.prijs},metingen:o.metingen};
+  stempelEven(k);teken()}
+
+/* De stempel op het onderdeel in de bak, kort. Net als S.laatst: teken() zet de
+   hele inhoud opnieuw, dus een animatie moet in de toestand staan en er daarna
+   weer uit, anders speelt hij bij elke hertekening opnieuw af. */
+function stempelEven(k){
+  S.gestempeld=k;clearTimeout(stempelEven.t);
+  stempelEven.t=setTimeout(()=>{S.gestempeld=null;teken()},900);
+}
 function zetFilter(id){S.filters[id]=!S.filters[id];teken()}
 /* Welke winkelkaarten opengeklapt staan. In S en niet in de DOM, want teken()
    tekent de hele lijst opnieuw en dan zou het uitklappen bij elke filterklik
@@ -1463,7 +1303,7 @@ function zetPlaats(v){
   }
   S.plaatsFout=null;S.plaatsEdit=false;teken();
 }
-function reset(){S.stap=1;S.sub='zoek';S.merk=null;S.serie=null;S.model=null;S.kleur=null;S.schade={};S.filters={};S.laatst=null;S.plaatsEdit=false;S.open={};teken()}
+function reset(){S.stap=1;S.sub='zoek';S.merk=null;S.serie=null;S.model=null;S.kleur=null;S.schade={};S.filters={};S.laatst=null;S.gestempeld=null;S.plaatsEdit=false;S.open={};teken()}
 function opendlg(){zetOS('ios');document.getElementById('hulp').showModal()}
 function zetOS(os){document.querySelectorAll('.tabs button').forEach(b=>b.classList.toggle('aan',b.dataset.os===os));document.getElementById('stappenlijst').innerHTML=OS[os].map(t=>'<li>'+t+'</li>').join('')}
 document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>zetOS(b.dataset.os));
