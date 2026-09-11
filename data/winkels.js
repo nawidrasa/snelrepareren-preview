@@ -22,7 +22,7 @@ const VOORBEELDEN = true;
 
 const WINKELDATA = {
   /* Verzonnen. Elk veld dat een claim doet (cijfer, aantal beoordelingen,
-     poliscontrole, erkenning) is verzonnen en mag nooit als echt worden gepresenteerd.
+     garantiecontrole, erkenning) is verzonnen en mag nooit als echt worden gepresenteerd.
      De gele strook bovenaan elke pagina zegt dat ook.
 
      g en gb zijn het cijfer en het aantal beoordelingen OP GOOGLE, niet van ons.
@@ -41,23 +41,23 @@ const WINKELDATA = {
      wordt nu gerekend uit het adres en de postcode van de bezoeker. */
   voorbeelden: [
     {n:'Telefoonhulp Leeuwarden',i:'T',plaats:'Leeuwarden',buurt:'Centrum',a:'Nieuwestad 112',
-     g:'4,6',gb:48,vers:'nieuwste Google-beoordeling 3 dagen geleden',keur:1,keurdatum:'12 aug 2026',
-     polistot:'1 jan 2027',glink:'#',eigen:3,bs:[{c:9,t:'Scherm binnen een uur vervangen, prijs klopte met wat er stond.',n:'Marijke'},{c:8,t:'Netjes uitgelegd welk scherm ik kreeg en waarom dat scheelt.',n:'Bouke'}],erk:'Apple IRP',jaren:12,vest:1,
+     g:'4,6',gb:48,vers:'nieuwste Google-beoordeling 3 dagen geleden',keur:1,keurdatum:'12 aug 2026',keurmaanden:12,
+     keurtot:'1 jan 2027',glink:'#',eigen:3,bs:[{c:9,t:'Scherm binnen een uur vervangen, prijs klopte met wat er stond.',n:'Marijke'},{c:8,t:'Netjes uitgelegd welk scherm ik kreeg en waarom dat scheelt.',n:'Bouke'}],erk:'Apple IRP',jaren:12,vest:1,
      tijd:'Klaar terwijl je wacht',min:35,vandaag:1,gar:'12 maanden garantie',kw:'oem',niv:.33,
      ot:'ma 09:30-18:00\ndi 09:30-18:00\nwo 09:30-18:00\ndo 09:30-21:00\nvr 09:30-18:00\nza 10:00-17:00',betaal:['Pin','Contant','Apple Pay','iDEAL'],f:1.0,uit:0},
     {n:'FixPoint Friesland',i:'F',plaats:'Leeuwarden',buurt:'Centrum',a:'Wirdumerdijk 22',
-     g:'4,4',gb:112,vers:'nieuwste Google-beoordeling 1 week geleden',keur:1,keurdatum:'28 jul 2026',
-     polistot:'1 apr 2027',glink:'#',eigen:5,bs:[{c:9,t:'Duidelijke prijs vooraf, geen verrassingen achteraf.',n:'Jeroen'},{c:7,t:'Reparatie prima, maar het duurde een dag langer dan gezegd.',n:'Sanne'}],erk:'Samsung erkend',jaren:8,vest:3,
+     g:'4,4',gb:112,vers:'nieuwste Google-beoordeling 1 week geleden',keur:1,keurdatum:'28 jul 2026',keurmaanden:12,
+     keurtot:'1 apr 2027',glink:'#',eigen:5,bs:[{c:9,t:'Duidelijke prijs vooraf, geen verrassingen achteraf.',n:'Jeroen'},{c:7,t:'Reparatie prima, maar het duurde een dag langer dan gezegd.',n:'Sanne'}],erk:'Samsung erkend',jaren:8,vest:3,
      tijd:'Vandaag klaar',min:120,vandaag:1,gar:'12 maanden garantie',kw:'oem',niv:.44,
      ot:'ma 10:00-17:30\ndi 10:00-17:30\nwo 10:00-17:30\ndo 10:00-17:30\nvr 10:00-17:30\nza 10:00-16:00',betaal:['Pin','Apple Pay','iDEAL'],f:1.05,uit:'nieuw'},
     {n:'De Schermwerkplaats',i:'S',plaats:'Leeuwarden',buurt:'Centrum',a:'Voorstreek 45',
      g:'4,7',gb:26,vers:'nieuwste Google-beoordeling 5 dagen geleden',keur:1,
-     keurdatum:'3 sep 2026',polistot:'1 sep 2027',glink:'#',eigen:2,bs:[{c:10,t:'Accu vervangen terwijl ik koffie dronk. Niks op aan te merken.',n:'Anouk'}],erk:null,jaren:6,vest:1,
+     keurdatum:'3 sep 2026',keurmaanden:24,keurtot:'1 sep 2027',glink:'#',eigen:2,bs:[{c:10,t:'Accu vervangen terwijl ik koffie dronk. Niks op aan te merken.',n:'Anouk'}],erk:null,jaren:6,vest:1,
      tijd:'Morgen klaar',min:1440,vandaag:0,gar:'24 maanden garantie',kw:'origineel',niv:.78,
      ot:'di 09:00-17:00\nwo 09:00-17:00\ndo 09:00-17:00\nvr 09:00-17:00\nza 09:00-16:00',betaal:['Pin','Contant'],f:1.2,uit:0},
     {n:'Studio Repair Huizum',i:'R',plaats:'Leeuwarden',buurt:'Schrans en Huizum',a:'Huizumerlaan 8',
      g:'4,5',gb:19,vers:'nieuwste Google-beoordeling 2 weken geleden',keur:1,
-     keurdatum:'19 jun 2026',polistot:'1 jul 2027',glink:'#',eigen:1,bs:[{c:8,t:'Kleine zaak, snel geholpen, eerlijk advies over de kosten.',n:'Wietse'}],erk:null,jaren:4,vest:1,
+     keurdatum:'19 jun 2026',keurmaanden:12,keurtot:'1 jul 2027',glink:'#',eigen:1,bs:[{c:8,t:'Kleine zaak, snel geholpen, eerlijk advies over de kosten.',n:'Wietse'}],erk:null,jaren:4,vest:1,
      tijd:'Vandaag klaar',min:180,vandaag:1,gar:'12 maanden garantie',kw:'oem',niv:.5,
      ot:'ma 09:00-18:00\ndi 09:00-18:00\nwo 09:00-18:00\ndo 09:00-18:00\nvr 09:00-18:00',betaal:['Pin','Apple Pay'],f:1.08,uit:0},
     {n:'Mobiel Service Schrans',i:'M',plaats:'Leeuwarden',buurt:'Schrans en Huizum',a:'Schrans 68',
@@ -78,7 +78,7 @@ const WINKELDATA = {
      reparatiewinkels uit heel Friesland, uit het onderzoek in
      bouwvoorbereiding/WINKELS-FRIESLAND-onderzoek.md. Alleen naam en adres,
      precies wat de privacyverklaring als openbare bron noemt. GEEN cijfer, GEEN
-     beoordeling, GEEN poliscontrole en GEEN afstand: dat zou een claim over een
+     beoordeling, GEEN garantiecontrole en GEEN afstand: dat zou een claim over een
      echt bedrijf zijn die wij niet mogen doen, en een verzonnen afstand hoort al
      helemaal niet bij een echte winkel.
 
@@ -120,7 +120,7 @@ const WINKELDATA = {
   // (tel), website (web) en, waar bekend, de openingstijden (tijden). Alles uit
   // openbare bronnen, verzameld en op 8 sep nagelopen; de bronnen per winkel staan
   // in bouwvoorbereiding/WINKELS-FRIESLAND-onderzoek.md. Nog steeds GEEN cijfer,
-  // beoordeling of poliscontrole: dat zou een claim over een echt bedrijf zijn.
+  // beoordeling of garantiecontrole: dat zou een claim over een echt bedrijf zijn.
   // Telefoon, website en openingstijden zijn openbare gegevens en geen claim.
   //
   // tijden is een tekst met een regel per open dag ("ma 12:00-18:00"); gesloten
@@ -230,9 +230,9 @@ const WINKELDATA = {
 
   /* Echte, aangesloten en geverifieerde winkels.
      GEVERIFIEERD betekent hier: deze winkel heeft zich aangemeld en toestemming
-     gegeven om vermeld te worden. Het betekent NIET dat wij zijn polisblad
-     hebben gezien; daar is het aparte label "Polis gecontroleerd" voor, met de
-     datum erbij. Daarom staat keur hieronder op 0.
+     gegeven om vermeld te worden. Het betekent NIET dat wij zijn garantie-
+     voorwaarden hebben gezien; daar is het aparte label "Garantie gecontroleerd"
+     voor, met het aantal maanden en de datum erbij. Daarom staat keur op 0.
 
      Daily Phones gaf toestemming (7 september 2026). Het is EEN bedrijf met TWEE
      winkels; "Smartphonestore Dokkum" is de tweede handelsnaam van de vestiging
@@ -471,7 +471,7 @@ const winkelsIn = plaats => WINKELS.filter(w => zelfdePlaats(w, plaats));
    Leeuwarden. Een lijst die bij een plaats hoort, filtert op die plaats. */
 const vermeldingenIn = plaats => VERMELDINGEN.filter(v => zelfdePlaats(v, plaats));
 
-/* De volgorde die wij op 'Hoe wij rangschikken' beloven: eerst de poliscontrole, dan
+/* De volgorde die wij op 'Hoe wij rangschikken' beloven: eerst de garantiecontrole, dan
    een controleerbare erkenning, dan of de prijs recent is bevestigd, dan het
    Google-cijfer en het aantal Google-beoordelingen. Betalen verandert hier niets aan.
    Zodra een winkel genoeg eigen beoordelingen heeft, wegen die mee; die drempel
@@ -487,14 +487,21 @@ const rangschik = ws => ws.slice().sort((a, b) =>
      te blijven; een toets vergelijkt ze. */
   String(a.n).localeCompare(String(b.n), 'nl'));
 
-/* Het label bij een winkel, met de datum van de controle erbij. Dat is de kern:
-   wij zeggen niet dat de winkel goedgekeurd is, wij zeggen dat wij op die dag het
-   polisblad hebben gezien. Zonder datum wordt het vanzelf een keurmerk in de
-   beleving van de bezoeker, en dat mogen wij niet zijn (analyse 03 A5, 05 V3).
+/* Het label bij een winkel, met het aantal maanden en de datum erbij. Dat is de
+   kern: wij zeggen niet dat de winkel goedgekeurd is, wij zeggen dat wij op die
+   dag zijn garantievoorwaarden hebben gezien en hoeveel hij geeft. Zonder die
+   twee wordt het vanzelf een keurmerk in de beleving van de bezoeker, en dat
+   mogen wij niet zijn (analyse 03 A5, 05 V3).
    Staat hier zodat het op alle vier de pagina's letterlijk hetzelfde is. */
-const keurlabel = w => 'Polis gecontroleerd ' + esc(w.keurdatum);
+const keurlabel = w => 'Garantie gecontroleerd ' + esc(w.keurdatum);
 
-const waarom = w => [w.keur ? 'polis gecontroleerd ' + esc(w.keurdatum) : null, esc(w.erk) || null,
+/* De garantie zoals hij bij de winkel staat: het aantal maanden dat hij geeft op
+   het vervangen onderdeel. Dat is wat de bezoeker wil weten; de controledatum
+   zegt alleen hoe actueel onze controle is. */
+const garantielabel = w => w.keurmaanden
+  ? esc(w.keurmaanden) + ' maanden garantie op het onderdeel' : null;
+
+const waarom = w => [w.keur ? 'garantie gecontroleerd ' + esc(w.keurdatum) : null, esc(w.erk) || null,
   w.g ? 'cijfer ' + esc(w.g) + ' op Google' : null,
   w.oud ? 'prijs niet recent bevestigd' : null].filter(Boolean).join(' &middot; ');
 
@@ -1105,8 +1112,8 @@ function erkenningsMerken(w) {
    ranglijst met aangesloten winkels, daaronder het blok "Nog niet aangesloten".
 
    GEVERIFIEERD IS NIET HETZELFDE ALS GOEDGEKEURD. Het zegt: deze winkel heeft
-   zich aangemeld en zijn gegevens bevestigd. Het zegt niets over zijn polis
-   (daarvoor is het losse label "Polis gecontroleerd", mét datum) en niets over
+   zich aangemeld en zijn gegevens bevestigd. Het zegt niets over zijn garantie
+   (daarvoor is het losse label "Garantie gecontroleerd", mét datum) en niets over
    de kwaliteit van zijn werk. Die grens moet in de tekst blijven staan. */
 /* MERKVINK en niet de naam die winkelprofiel.html al gebruikt: twee const met
    dezelfde naam in hetzelfde bereik is een SyntaxError die het HELE script van

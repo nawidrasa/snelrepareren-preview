@@ -101,7 +101,7 @@ footer{border-top:1px solid var(--lijn);margin-top:20px;padding:26px 0 60px;colo
     <ul>
       <li><b>Eén doel, één knop.</b> Wie de mail scant, ziet meteen wat er van hem wordt gevraagd.</li>
       <li><b>De aanleiding staat in de eerste zin.</b> Waarom krijg je dit, en wanneer deed je iets.</li>
-      <li><b>Geen marketing in een bericht dat over je account gaat.</b> Een mail over je polis gaat over je polis, en verder over niets.</li>
+      <li><b>Geen marketing in een bericht dat over je account gaat.</b> Een mail over je garantiecontrole gaat over je garantiecontrole, en verder over niets.</li>
       <li><b>Alles ook in platte tekst.</b> Een mail die zonder plaatjes onleesbaar is, is een slechte mail.</li>
       <li><b>Wat wij niet weten, verzinnen wij niet.</b> Is de reden van de bank onduidelijk, dan schrijven wij dat.</li>
       <li><b>De klantmail heeft afmelden met één klik</b>, in de mail zelf en in de kopregels.</li>
@@ -139,7 +139,7 @@ const MAILS=[
   <p>Wat wij de komende dagen doen:</p>
   <ol>
     <li>Wij controleren je inschrijving bij de Kamer van Koophandel en of het adres klopt.</li>
-    <li>Wil je de poliscontrole, dan kijken wij naar het polisblad dat je hebt meegestuurd.</li>
+    <li>Wil je de garantiecontrole, dan kijken wij naar de garantievoorwaarden die je hebt meegestuurd.</li>
     <li>Binnen twee werkdagen krijg je bericht. Gaat het door, dan zit daar meteen de link in waarmee je je gegevens invult. Je hoeft geen wachtwoord te bedenken.</li>
   </ol>
   <p>Klopt er iets niet aan je aanmelding, dan mailen wij je wat er ontbreekt. Wij wijzen niemand af zonder de reden erbij te zetten.</p>
@@ -212,33 +212,33 @@ const MAILS=[
   <p><a href="#">Afmelden met één klik</a> &middot; Wij verwijderen je e-mailadres sowieso 30 dagen na deze mail.</p>`
 },
 {
- titel:'Je polis verloopt',
+ titel:'Je garantiecontrole verloopt',
  aan:'winkel', van:'winkels@snelrepareren.nl',
  naar:'De contactpersoon van het account',
- wanneer:'Dertig dagen voor de einddatum op het polisblad. Precies een keer per polis; leg je een nieuw polisblad over, dan telt de volgende weer mee.',
- doel:'Een nieuw polisblad binnenkrijgen voordat de poliscontrole automatisch vervalt.',
- afspraak:'Zonder geldig polisblad vervalt het label op de einddatum. Dat gaat vanzelf, wij beslissen daar niets over.',
- onderwerp:['Je polis verloopt op ',V('{datum}'),', en daarmee Polis gecontroleerd'],
- body:`<p class="eerste">Volgens het polisblad dat wij van je hebben, loopt je aansprakelijkheidsverzekering af op ${V('{datum}')}.</p>
-  <p>Het label <b>Polis gecontroleerd</b> vervalt op die datum automatisch als wij geen nieuw polisblad hebben. Dat is geen straf, het is de betekenis van het label: wij zeggen alleen wat wij hebben gezien.</p>
-  <p>Wat er dan verandert: het label verdwijnt van je profiel en je zakt in de volgorde op de plaatspagina, omdat de poliscontrole daarin het zwaarst weegt.</p>
-  <a class="knop" href="portaal.html">Nieuw polisblad uploaden</a>
-  <p>Wij controleren het binnen twee werkdagen. Stuur je het op tijd, dan merk je van dit alles niets.</p>
-  <div class="vak"><p>Is je verzekering al verlengd bij dezelfde verzekeraar? Dan volstaat het nieuwe polisblad. Wij hoeven verder niets van je.</p></div>`,
- voet:`<p>Dit is een bericht over je poliscontrole. Je kunt je hier niet voor afmelden zolang je het label voert.</p>`
+ wanneer:'Dertig dagen voordat onze controle verloopt. Precies een keer per controle; kijken wij opnieuw, dan telt de volgende weer mee.',
+ doel:'Opnieuw naar de garantievoorwaarden kunnen kijken voordat de controle automatisch vervalt.',
+ afspraak:'Zonder verse controle vervalt het label op de einddatum. Dat gaat vanzelf, wij beslissen daar niets over.',
+ onderwerp:['Je garantiecontrole verloopt op ',V('{datum}')],
+ body:`<p class="eerste">Wij hebben je garantievoorwaarden voor het laatst gecontroleerd, en die controle verloopt op ${V('{datum}')}.</p>
+  <p>Het label <b>Garantie gecontroleerd</b> vervalt dan automatisch, tenzij wij opnieuw hebben gekeken. Dat is geen straf, het is de betekenis van het label: wij zeggen alleen wat wij hebben gezien, en wanneer.</p>
+  <p>Wat er dan verandert: het label verdwijnt van je profiel en je zakt in de volgorde op de plaatspagina, omdat de garantiecontrole daarin het zwaarst weegt.</p>
+  <a class="knop" href="portaal.html">Garantievoorwaarden aanleveren</a>
+  <p>Wij kijken er binnen twee werkdagen naar. Meld je het op tijd, dan merk je van dit alles niets.</p>
+  <div class="vak"><p>Zijn je voorwaarden niet veranderd? Meld dat, dan is dat genoeg. Wij hoeven verder niets van je.</p></div>`,
+ voet:`<p>Dit is een bericht over je garantiecontrole. Je kunt je hier niet voor afmelden zolang je het label voert.</p>`
 },
 {
- titel:'Wij hebben je polisblad ontvangen',
+ titel:'Wij hebben je garantievoorwaarden ontvangen',
  aan:'winkel', van:'winkels@snelrepareren.nl',
  naar:'Het adres waarmee de winkel is ingelogd',
- wanneer:'Direct nadat een winkel in het portaal een polisblad aanbiedt.',
+ wanneer:'Direct nadat een winkel in het portaal zijn garantievoorwaarden aanbiedt.',
  doel:'Bevestigen dat het binnen is en zeggen wanneer wij kijken, zodat niemand hoeft na te bellen.',
- afspraak:'Hoort bij de poliscontrole in het portaal.',
- onderwerp:['Wij hebben je polisblad ontvangen'],
- body:`<p class="eerste">Wij hebben je bericht over het polisblad ontvangen en kijken er binnen twee werkdagen naar.</p>
-  <p>Zodra wij het hebben gezien, staat de datum bij je winkel op de site. Je hoeft verder niets te doen.</p>
-  <a class="knop" href="keurmerk.html">Wat wij bij een polisblad nakijken</a>`,
- voet:`<p>Je krijgt deze mail omdat er vanuit jouw portaal een polisblad is aangeboden.</p>`
+ afspraak:'Hoort bij de garantiecontrole in het portaal.',
+ onderwerp:['Wij hebben je garantievoorwaarden ontvangen'],
+ body:`<p class="eerste">Wij hebben je bericht over je garantievoorwaarden ontvangen en kijken er binnen twee werkdagen naar.</p>
+  <p>Zodra wij ze hebben gezien, staat het aantal maanden en de datum bij je winkel op de site. Je hoeft verder niets te doen.</p>
+  <a class="knop" href="keurmerk.html">Wat wij bij garantievoorwaarden nakijken</a>`,
+ voet:`<p>Je krijgt deze mail omdat er vanuit jouw portaal garantievoorwaarden zijn aangeboden.</p>`
 },
 {
  titel:'Prijsverzoek van een bezoeker',

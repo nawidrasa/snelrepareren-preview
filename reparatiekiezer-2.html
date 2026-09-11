@@ -456,7 +456,7 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
 
 <!-- "79 tot 309 euro over 198 metingen" las alsof die 198 metingen bij dat ene
      scherm hoorden. Het zijn er tien; 198 is het hele onderzoek. -->
-<div class="onder">Prijzen uit het prijsonderzoek: 198 metingen bij Nederlandse winkels, peildatum 3 september 2026. Voor een iPhone 13-scherm zijn dat er tien, en die liepen van 79 tot 309 euro. Winkels met het merkje Verzonnen voorbeeld bestaan niet; hun beoordelingen en prijzen zijn illustratief. De andere winkels zijn echt: hun cijfer komt van Google en de afstand is gerekend uit je postcode. Toestelkleuren zijn illustratief. Volgorde: poliscontrole, erkenning, hoe actueel de prijs is, en pas dan het cijfer op Google; het blok Uitgelicht staat apart en is zo gelabeld (besluit B2). Er wordt nog niets verkocht, dus staan daar alleen nieuwe winkels.</div>
+<div class="onder">Prijzen uit het prijsonderzoek: 198 metingen bij Nederlandse winkels, peildatum 3 september 2026. Voor een iPhone 13-scherm zijn dat er tien, en die liepen van 79 tot 309 euro. Winkels met het merkje Verzonnen voorbeeld bestaan niet; hun beoordelingen en prijzen zijn illustratief. De andere winkels zijn echt: hun cijfer komt van Google en de afstand is gerekend uit je postcode. Toestelkleuren zijn illustratief. Volgorde: garantiecontrole, erkenning, hoe actueel de prijs is, en pas dan het cijfer op Google; het blok Uitgelicht staat apart en is zo gelabeld (besluit B2). Er wordt nog niets verkocht, dus staan daar alleen nieuwe winkels.</div>
 
 <dialog class="match" id="matchdlg"><div class="mdlg" id="matchinhoud"></div></dialog>
 <dialog id="hulp" aria-labelledby="k-ik-weet-mijn-model-niet"><div class="dlg">
@@ -469,7 +469,7 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
 
 <dialog id="rang" aria-labelledby="k-hoe-wij-rangschikken"><div class="dlg">
   <h3 id="k-hoe-wij-rangschikken">Hoe wij rangschikken</h3>
-  <p>De gewone lijst is niet te koop. Winkels staan op volgorde van vier dingen, strikt in deze volgorde: de poliscontrole (wij hebben de verzekering gezien), controleerbare erkenningen, of de prijs de afgelopen negentig dagen is bevestigd, en pas dan het cijfer op Google. Het blok "Uitgelicht" staat apart en is altijd gelabeld. Bij elke winkel daar staat waarom hij er staat: nieuw op de site, of een betaalde plek. Op dit moment verkopen wij niets, dus zijn het alleen nieuwe winkels.</p>
+  <p>De gewone lijst is niet te koop. Winkels staan op volgorde van vier dingen, strikt in deze volgorde: de garantiecontrole (wij hebben de garantievoorwaarden gezien), controleerbare erkenningen, of de prijs de afgelopen negentig dagen is bevestigd, en pas dan het cijfer op Google. Het blok "Uitgelicht" staat apart en is altijd gelabeld. Bij elke winkel daar staat waarom hij er staat: nieuw op de site, of een betaalde plek. Op dit moment verkopen wij niets, dus zijn het alleen nieuwe winkels.</p>
   <div class="sluit"><button class="btn btn-groen" onclick="document.getElementById('rang').close()">Sluiten</button></div>
 </div></dialog>
 
@@ -483,7 +483,7 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
 <script src="data/postcodes.js?v=d47fe545"></script>
 <script src="data/winkelpunten.js?v=447191cb"></script>
 <script src="data/locatie.js?v=9ca1d462"></script>
-<script src="data/winkels.js?v=f3404228"></script>
+<script src="data/winkels.js?v=d51cfd1c"></script>
 <script>
 /* ---------- gegevens ---------- */
 /* De toestellijst komt uit bouwvoorbereiding/data/catalogus.json, via data/kiezer.js.
@@ -546,7 +546,7 @@ const VOLG=['scherm','accu','laadpoort','camera','achterkant','waterschade'];
    deze winkel voor de GEKOZEN schade heeft opgegeven.
    De betaalfilters stonden op w.betaal.includes(...) en vielen daarmee om zodra
    een winkel dat niet had ingevuld. */
-const FILTERS=[['vandaag','Vandaag klaar',w=>vandaagKlaar(w)],['keur','Polis gecontroleerd',w=>w.keur],['applepay','Apple Pay',w=>(w.betaal||[]).includes('Apple Pay')],['contant','Contant',w=>(w.betaal||[]).includes('Contant')]];
+const FILTERS=[['vandaag','Vandaag klaar',w=>vandaagKlaar(w)],['keur','Garantie gecontroleerd',w=>w.keur],['applepay','Apple Pay',w=>(w.betaal||[]).includes('Apple Pay')],['contant','Contant',w=>(w.betaal||[]).includes('Contant')]];
 const OS={ios:["Open Instellingen op je iPhone.","Tik op Algemeen en daarna op Info.","Bij Modelnummer staat een code die met een A begint, bijvoorbeeld A2633. Typ die in het zoekveld."],
           android:["Open Instellingen op je toestel.","Scrol naar Over de telefoon of Systeem.","Bij Modelnummer staat de code, bijvoorbeeld SM-S911B. Typ die in het zoekveld."]};
 const S={stap:1,sub:'zoek',merk:null,serie:null,model:null,kleur:null,schade:{},plaats:'Leeuwarden',plaatsEdit:false,plaatsFout:null,dichtbij:false,filters:{},laatst:null,gestempeld:null,open:{}};
@@ -578,7 +578,7 @@ const hoogste=()=>gekozen().reduce((a,k)=>{const m=meting(k);if(!m)return a;
 /* 1.4 De plaats filtert nu echt. Eerder was het een tekstje bovenaan: koos je
    Drachten, dan kreeg je gewoon de Leeuwarder winkels te zien.
    1.5 De volgorde is de volgorde die wij op 'Hoe wij rangschikken' beloven:
-   eerst de poliscontrole, dan een controleerbare erkenning, dan het cijfer. Betalen
+   eerst de garantiecontrole, dan een controleerbare erkenning, dan het cijfer. Betalen
    verandert hier niets aan; het blok Uitgelicht staat apart en is als zodanig gelabeld. */
 const vandaagKlaar=w=>{const g=gekozen();
   if(!g.length)return kanVandaag(w,{v:1});
@@ -1061,7 +1061,7 @@ function stap3(){
        geen kaart meer maar een dossier, en je moet er dertien dingen in lezen om
        er twee uit te halen.
        Boven blijft staan wat de keuze bepaalt: wie, hoe ver, wat het kost, welk
-       cijfer, of het vandaag kan, en of wij zijn polis hebben gezien. Uitgelicht
+       cijfer, of het vandaag kan, en of wij zijn garantie hebben gezien. Uitgelicht
        blijft ook boven, want een betaalde plek moet je zien zonder te klikken
        (besluit B2). De rest zit achter een knop.
        Klikken en niet zweven: zweven bestaat niet op een telefoon, en daar komt
@@ -1080,7 +1080,7 @@ function stap3(){
       /* Hier stond `(w.keur||true)`, en dat is altijd waar. Drie regels hoger
          staat "een kopje met niets eronder is erger dan geen kopje"; deze
          voorwaarde zette dat buiten werking. Bij een winkel waarvan wij niets
-         hebben nagetrokken (Daily Phones: geen polis gezien, geen erkenning)
+         hebben nagetrokken (Daily Phones: geen garantie gezien, geen erkenning)
          stond er zo "DOOR ONS NAGETROKKEN" met daaronder alleen "nog geen
          beoordelingen via ons". Dat leest als een controle die wij gedaan
          zouden hebben, terwijl het het tegendeel zegt.
@@ -1088,7 +1088,7 @@ function stap3(){
          verhuist het aantal eigen beoordelingen naar een eigen kopje: dat gaat
          over ons systeem, niet over een controle op deze winkel. */
       w.keur?['Door ons nagetrokken',
-        `<p>Polis gecontroleerd op ${esc(w.keurdatum)}</p>`]:null,
+        `<p>${w.keurmaanden ? esc(w.keurmaanden) + ' maanden garantie op het onderdeel, gecontroleerd' : 'Garantie gecontroleerd'} op ${esc(w.keurdatum)}</p>`]:null,
       ['Beoordelingen bij ons',`<p>${eigenBeoordelingen(w)}</p>`],
       weekRegels(w).length?['Openingstijden',`<p>${weekRegels(w).map(esc).join('<br>')}</p>`]:null,
       (w.betaal||[]).length?['Betalen',`<span class="betaalrij">${w.betaal.map(betaalmerk).join('')}</span>`]:null,
@@ -1097,7 +1097,7 @@ function stap3(){
       <div class="kop"><b>${esc(w.n)}</b>${regel?`<span>${regel}</span>`:''}</div>
       <div class="cijfer">${w.g?`${sterrenBalk(w.g)}<b class="num">${esc(w.g)}</b><span><a href="${link(w.glink||'#')}" rel="nofollow noopener">${esc(w.gb||0)} beoordelingen op Google</a></span>`
         :'<span class="geencijfer">Nog geen cijfer op Google</span>'}</div>
-      <div class="chips">${verificatieMerk(w)}${verzonnenMerk(w)}${w.uit?`<span class="chip chip-uitg">Uitgelicht &middot; ${uitgelichtReden(w)}</span>`:''}${w.keur?`<span class="chip chip-keur">${CHECK}Polis gecontroleerd</span>`:''}${tijd?`<span class="chip chip-snel">${BOLT}${tijd}</span>`:''}${dicht?`<span class="chip">Vandaag gesloten</span>`:''}</div>
+      <div class="chips">${verificatieMerk(w)}${verzonnenMerk(w)}${w.uit?`<span class="chip chip-uitg">Uitgelicht &middot; ${uitgelichtReden(w)}</span>`:''}${w.keur?`<span class="chip chip-keur">${CHECK}Garantie gecontroleerd</span>`:''}${tijd?`<span class="chip chip-snel">${BOLT}${tijd}</span>`:''}${dicht?`<span class="chip">Vandaag gesloten</span>`:''}</div>
       <div class="prijsvak"><div class="prijs num">${p!=null?eur(p):'op aanvraag'}<small>${g.map(k=>REP[k].n).join(' + ')}${onderdeelBij(w)}</small></div></div>
       <button class="meer" aria-expanded="${open?'true':'false'}" onclick="toonMeer('${esc(sleutel)}')">${open?'Minder':'Meer over deze winkel'}${MEERPIJL}</button>
       <div class="detail"${open?'':' hidden'}>

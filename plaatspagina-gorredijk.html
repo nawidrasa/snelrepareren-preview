@@ -294,7 +294,7 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
     <div class="zkaart" id="zprijs"></div>
     <div class="zkaart">
       <h2>Hoe deze lijst tot stand komt</h2>
-      <p>Geverifieerde winkels staan altijd boven niet-geverifieerde vermeldingen. De volgorde is niet te koop. Winkels staan gerangschikt op poliscontrole, erkenning, hoe actueel hun prijzen zijn, en pas dan hun beoordelingen op Google. Betaalde plekken staan apart, heten Uitgelicht en wisselen elk uur. Op dit moment betaalt niemand; daar staan alleen winkels die net zijn aangesloten.</p>
+      <p>Geverifieerde winkels staan altijd boven niet-geverifieerde vermeldingen. De volgorde is niet te koop. Winkels staan gerangschikt op de garantiecontrole, erkenning, hoe actueel hun prijzen zijn, en pas dan hun beoordelingen op Google. Betaalde plekken staan apart, heten Uitgelicht en wisselen elk uur. Op dit moment betaalt niemand; daar staan alleen winkels die net zijn aangesloten.</p>
       <a class="link" href="#" onclick="document.getElementById('rang').showModal();return false">Lees hoe wij rangschikken <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </div>
     <div class="zkaart">
@@ -311,7 +311,7 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
   <div class="vraag"><b>Wat kost een schermreparatie in Gorredijk?</b><p id="faq1"></p></div>
   <div class="vraag"><b>Kan ik mijn telefoon laten repareren terwijl ik wacht?</b><p id="faq2"></p></div>
   <div class="vraag"><b>Origineel, service pack of compatibel scherm?</b><p>Een origineel scherm komt van de fabrikant en kost het meest. Een service pack is een origineel onderdeel dat de reparateur los inkoopt. Een compatibel scherm is namaak en is goedkoper, maar verschilt in kleur, helderheid en soms in aanraakgevoeligheid. Wij zetten bij elke prijs welk type het is, want zonder dat label vergelijk je appels met peren.</p></div>
-  <div class="vraag"><b>Wat betekent het label Polis gecontroleerd?</b><p>De meeste aansprakelijkheidsverzekeringen van bedrijven sluiten schade uit aan het voorwerp waaraan gewerkt wordt, en dat is bij een reparatie precies je toestel. Wij vragen de polis op en controleren of die dekking er wel is. Wij toetsen zelf en zijn geen toezichthouder.</p></div>
+  <div class="vraag"><b>Wat betekent het label Garantie gecontroleerd?</b><p>Wij hebben de garantievoorwaarden van deze winkel gezien en vastgelegd hoeveel maanden garantie hij geeft op het vervangen onderdeel. Die garantie is een afspraak tussen jou en de winkel; wij zijn daar geen partij in en keren nooit iets uit. Wij toetsen zelf en zijn geen toezichthouder.</p></div>
 
   <div class="tegels">
     <a href="prijspagina-iphone13-scherm.html">iPhone 13 scherm<small>prijzen en uitleg</small></a>
@@ -346,9 +346,9 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
   <h3 id="k-hoe-wij-rangschikken">Hoe wij rangschikken</h3>
   <p>Eerst het grove onderscheid: <b>geverifieerde</b> winkels (aangemeld, gegevens bevestigd) staan altijd
   boven <b>vermeldingen</b> die wij alleen uit openbare bronnen kennen. Die vermeldingen staan in een apart
-  blok onderaan. Geverifieerd zegt niets over de kwaliteit van het werk en is niet het label Polis
+  blok onderaan. Geverifieerd zegt niets over de kwaliteit van het werk en is niet het label Garantie
   gecontroleerd.</p>
-  <p>De gewone lijst is niet te koop. Wij rangschikken op vier dingen, strikt in deze volgorde: de poliscontrole (wij hebben de verzekering gezien), erkenningen zoals Apple IRP die controleerbaar zijn, of de prijs de afgelopen negentig dagen is bevestigd, en pas dan het cijfer op Google. Een winkel die zijn prijzen niet bijhoudt, staat dus onder een winkel met een lager cijfer die dat wel doet.</p>
+  <p>De gewone lijst is niet te koop. Wij rangschikken op vier dingen, strikt in deze volgorde: de garantiecontrole (wij hebben de garantievoorwaarden gezien), erkenningen zoals Apple IRP die controleerbaar zijn, of de prijs de afgelopen negentig dagen is bevestigd, en pas dan het cijfer op Google. Een winkel die zijn prijzen niet bijhoudt, staat dus onder een winkel met een lager cijfer die dat wel doet.</p>
   <p>Winkels kunnen straks een plek kopen in het blok Uitgelicht. Dat blok staat apart, is altijd gelabeld en de winkels erin wisselen elk uur. Bij elke winkel staat waarom hij daar staat: <b>Nieuw op de site</b> of <b>Betaalde plek</b>.</p><p>Op dit moment verkopen wij niets, dus is het hele blok voor winkels die net zijn aangesloten. Een winkel die niets betaalt kan altijd bovenaan de gewone lijst staan; die volgorde is niet te koop.</p>
   <div class="sluit"><button class="btn btn-groen" onclick="document.getElementById('rang').close()">Sluiten</button></div>
 </div></dialog>
@@ -357,7 +357,7 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
 <script src="data/postcodes.js?v=d47fe545"></script>
 <script src="data/winkelpunten.js?v=447191cb"></script>
 <script src="data/locatie.js?v=9ca1d462"></script>
-<script src="data/winkels.js?v=f3404228"></script>
+<script src="data/winkels.js?v=d51cfd1c"></script>
 <script>
 /* De bandbreedtes komen uit data/kiezer.js, dat uit het prijsonderzoek wordt
    gegenereerd. Ze stonden hier met de hand overgetypt en weken op vijf van de
@@ -394,7 +394,7 @@ const KWAL={alle:'Alle kwaliteiten',kopie:'Kopie of compatibel',incell:'Incell',
    nog niet, dus in de praktijk staat hij er niet. */
 const FILTERS=[
   ['vandaag','Vandaag klaar',w=>kanVandaag(w,aanbodVan(w))],
-  ['keur','Polis gecontroleerd',w=>w.keur],
+  ['keur','Garantie gecontroleerd',w=>w.keur],
   ['origineel','Origineel onderdeel',w=>!!aanbod(w,S.model,S.rep,'origineel')],
   /* "Vandaag open" en niet "Nu open". Het rooster kent geen feestdagen en geen
      middagsluiting, dus een uitspraak over dit moment zou een paar keer per jaar
@@ -572,7 +572,7 @@ function vermelding(v){
     <div><div class="naam"><b>${esc(v.n)}</b> ${verificatieMerk(v)}</div><p class="adres">${[adresVol(v),afstandVan(v)].filter(Boolean).join(' &middot; ')}</p>
     ${c?`<p class="contact">${c}</p>`:''}
     ${tijdenBlok(v)}
-    <p>Deze winkel is nog niet aangesloten. Deze gegevens komen uit <a href="privacy.html">openbare bronnen</a>; wij hebben geen prijzen, geen doorlooptijd en geen poliscontrole.</p>
+    <p>Deze winkel is nog niet aangesloten. Deze gegevens komen uit <a href="privacy.html">openbare bronnen</a>; wij hebben geen prijzen, geen doorlooptijd en geen garantiecontrole.</p>
     <p class="eig">Ben je de eigenaar? <a href="claim.html">Vul je gegevens aan</a> of <a href="claim.html">laat de vermelding verwijderen</a>.</p></div></div></div>`;
 }
 function lijst(){
@@ -667,7 +667,7 @@ function onderDrempel(){
     : verm.length
     ? `<b>In ${PLAATS} is nog geen winkel bij ons aangesloten.</b> De winkels die wij uit openbare bronnen
        kennen, staan hieronder, met wat een reparatie landelijk kost. Bij een vermelding hebben wij
-       geen prijs en geen poliscontrole.`
+       geen prijs en geen garantiecontrole.`
     : `<b>Er is in ${PLAATS} nog geen winkel aangesloten.</b> Wat een reparatie landelijk kost, staat er wel:
        dat komt uit ons eigen prijsonderzoek.`;
 

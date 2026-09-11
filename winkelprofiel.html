@@ -3,7 +3,7 @@
 <meta charset="utf-8">
 <title>Winkelprofiel Telefoonhulp | snelrepareren.nl</title>
 <meta name="robots" content="noindex,nofollow">
-<meta name="description" content="Het profiel van een aangesloten reparatiewinkel: prijzen per model inclusief btw en montage, openingstijden, garantie en de poliscontrole.">
+<meta name="description" content="Het profiel van een aangesloten reparatiewinkel: prijzen per model inclusief btw en montage, openingstijden, garantie en de garantiecontrole.">
 <!-- zoekmachinekop: afgeleid uit de pagina zelf, niet met de hand aanpassen -->
 <link rel="canonical" href="https://snelrepareren.nl/winkelprofiel.html">
 <meta property="og:type" content="website">
@@ -11,7 +11,7 @@
 <meta property="og:locale" content="nl_NL">
 <meta property="og:url" content="https://snelrepareren.nl/winkelprofiel.html">
 <meta property="og:title" content="Winkelprofiel Telefoonhulp | snelrepareren.nl">
-<meta property="og:description" content="Het profiel van een aangesloten reparatiewinkel: prijzen per model inclusief btw en montage, openingstijden, garantie en de poliscontrole.">
+<meta property="og:description" content="Het profiel van een aangesloten reparatiewinkel: prijzen per model inclusief btw en montage, openingstijden, garantie en de garantiecontrole.">
 <meta property="og:image" content="https://snelrepareren.nl/deelplaatje.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -330,12 +330,12 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
       <p class="uitleg" id="wp-omschrijving"></p>
     </div>
 
-    <div class="blok" id="wp-polisblok" hidden>
-      <h2>Onze poliscontrole bij deze winkel</h2>
+    <div class="blok" id="wp-garantieblok" hidden>
+      <h2>Onze garantiecontrole bij deze winkel</h2>
       <div class="keurblok">
-        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 3v5.4c0 4.3-3.1 8.3-7.5 9.6-4.4-1.3-7.5-5.3-7.5-9.6V6z"/><path d="M9 12l2 2 4-4"/></svg><span id="wp-polistitel"></span></h3>
-        <ul class="lijstje" id="wp-polislijst"></ul>
-        <p class="datum" id="wp-polisdatum"></p>
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 3v5.4c0 4.3-3.1 8.3-7.5 9.6-4.4-1.3-7.5-5.3-7.5-9.6V6z"/><path d="M9 12l2 2 4-4"/></svg><span id="wp-garantietitel"></span></h3>
+        <ul class="lijstje" id="wp-garantielijst"></ul>
+        <p class="datum" id="wp-garantiedatum"></p>
       </div>
     </div>
 
@@ -395,17 +395,17 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
 
 
 <dialog class="match" id="matchdlg"><div class="mdlg" id="matchinhoud"></div></dialog>
-<dialog id="criteria" aria-labelledby="k-wanneer-staat-er-polis-gecon"><div class="dlg">
-  <h3 id="k-wanneer-staat-er-polis-gecon">Wanneer staat er Polis gecontroleerd bij een winkel?</h3>
-  <p>Wij vragen drie dingen op en controleren ze zelf: een geldige aansprakelijkheidsverzekering waarin schade aan het toestel van de klant is meeverzekerd, een inschrijving bij de Kamer van Koophandel op het opgegeven adres, en eventuele erkenningen zoals Apple IRP, die wij nakijken en met de datum bij de winkel zetten.</p>
-  <p>Wij publiceren bij elke winkel de datum van de laatste controle en de einddatum van de polis. Wij houden geen toezicht op het werk zelf en geven geen garantie op de reparatie. Dat is een afspraak tussen jou en de winkel.</p>
+<dialog id="criteria" aria-labelledby="k-wanneer-staat-er-garantie-gecon"><div class="dlg">
+  <h3 id="k-wanneer-staat-er-garantie-gecon">Wanneer staat er Garantie gecontroleerd bij een winkel?</h3>
+  <p>Wij vragen drie dingen op en controleren ze zelf: de garantievoorwaarden van de winkel, waaruit blijkt hoeveel maanden garantie hij geeft op het vervangen onderdeel, een inschrijving bij de Kamer van Koophandel op het opgegeven adres, en eventuele erkenningen zoals Apple IRP, die wij nakijken en met de datum bij de winkel zetten.</p>
+  <p>Wij publiceren bij elke winkel het aantal maanden garantie, de datum van de laatste controle en tot wanneer die controle geldt. Wij houden geen toezicht op het werk zelf en geven zelf geen garantie op de reparatie: die garantie geeft de winkel, en het is een afspraak tussen jou en hem.</p>
   <div class="sluit"><button class="btn btn-groen" onclick="document.getElementById('criteria').close()">Sluiten</button></div>
 </div></dialog>
 
 <!--WINKELPROFIEL-->
 <script src="data/kiezer.js?v=3f3d641f"></script>
 <script src="data/locatie.js?v=9ca1d462"></script>
-<script src="data/winkels.js?v=f3404228"></script>
+<script src="data/winkels.js?v=d51cfd1c"></script>
 <script>
 /* Deze pagina gaat over EEN winkel, en dat is precies waarom alles hier uit
    gegevens moet komen en niet uit de opmaak. Het was een ontwerppagina met de
@@ -448,7 +448,7 @@ const SCHETS={
   omschrijving:'Wij repareren sinds 2014 aan de Nieuwestad en doen bijna alles terwijl je wacht. Schermen en accus hebben we voor de gangbare modellen op voorraad, dus je bent meestal binnen een half uur klaar.',
   kvk:true,betaal:['Pin','Contant','Apple Pay','iDEAL'],
   ot:'ma 09:30-18:00\ndi 09:30-18:00\nwo 09:30-18:00\ndo 09:30-21:00\nvr 09:30-18:00\nza 10:00-17:00',
-  keur:1,keurdatum:'12 aug 2026',polistot:'1 jan 2027',erk:['Apple IRP'],
+  keur:1,keurdatum:'12 aug 2026',keurmaanden:12,keurtot:'1 jan 2027',erk:['Apple IRP'],
   g:'4,6',gb:48,glink:'#',gdatum:'3 sep 2026',bevestigd:'2 sep 2026',
   modellen:MODELLEN_SCHETS,p:null,reviews:[],
 };
@@ -491,7 +491,7 @@ function kop(){
   document.getElementById('wp-labels').innerHTML=[
     verificatieMerk(P),
     verzonnenMerk(P),
-    P.keur?`<span class="chip chip-keur">${CHECK}Polis gecontroleerd ${esc(P.keurdatum)}</span>`:'',
+    P.keur?`<span class="chip chip-keur">${CHECK}Garantie gecontroleerd ${esc(P.keurdatum)}</span>`:'',
     snelste&&snelste.m<=45?`<span class="chip chip-snel">${BLIKSEM}Klaar terwijl je wacht</span>`:'',
     /* Het merkje met het logo en de naam voluit, in plaats van een grijze chip
        met "Apple IRP". Zelfde merkje als op de plaatspagina en in de kiezer. */
@@ -587,13 +587,13 @@ function over(){
   document.getElementById('wp-omschrijving').textContent=P.omschrijving;
 }
 
-function polis(){
-  const blok=document.getElementById('wp-polisblok');
+function garantie(){
+  const blok=document.getElementById('wp-garantieblok');
   if(!P.keur){blok.hidden=true;return}
   blok.hidden=false;
-  document.getElementById('wp-polistitel').textContent='Polis gecontroleerd '+P.keurdatum;
+  document.getElementById('wp-garantietitel').textContent='Garantie gecontroleerd '+P.keurdatum;
   const regels=[
-    `<li>${VINKJE}<span>Wij hebben het polisblad gezien. Daarop staat dat schade aan het toestel van de klant is meeverzekerd. Of de verzekeraar in een concreet geval uitkeert, beslist de verzekeraar, niet wij.</span></li>`,
+    `<li>${VINKJE}<span>Wij hebben de garantievoorwaarden van deze winkel gezien en vastgelegd hoeveel maanden hij geeft op het vervangen onderdeel. Of er in een concreet geval garantie geldt, beslist de winkel op grond van die voorwaarden, niet wij.</span></li>`,
   ];
   if(P.kvk)regels.push(`<li>${VINKJE}<span>Ingeschreven bij de Kamer van Koophandel op dit adres.</span></li>`);
   /* "Dat hebben wij nagetrokken bij de fabrikant" stond hier, en dat is een
@@ -605,9 +605,9 @@ function polis(){
     regels.push(`<li>${VINKJE}<span>Erkend als <b>${esc(erkenningNaam(e))}</b>.${
       uit?' '+esc(uit):''} Wij hebben dat nagekeken; de datum staat hieronder.</span></li>`);
   }
-  document.getElementById('wp-polislijst').innerHTML=regels.join('');
-  document.getElementById('wp-polisdatum').innerHTML=
-    `Laatste controle ${esc(P.keurdatum)}.${P.polistot?` De polis loopt tot ${esc(P.polistot)}; daarna controleren wij opnieuw.`:''} Wij toetsen zelf en zijn geen toezichthouder. <a class="link" href="#" onclick="document.getElementById('criteria').showModal();return false">Onze criteria</a>`;
+  document.getElementById('wp-garantielijst').innerHTML=regels.join('');
+  document.getElementById('wp-garantiedatum').innerHTML=
+    `Laatste controle ${esc(P.keurdatum)}.${P.keurmaanden?` ${esc(P.keurmaanden)} maanden garantie op het vervangen onderdeel.`:''}${P.keurtot?` Onze controle geldt tot ${esc(P.keurtot)}; daarna kijken wij opnieuw.`:''} Wij toetsen zelf en zijn geen toezichthouder. <a class="link" href="#" onclick="document.getElementById('criteria').showModal();return false">Onze criteria</a>`;
 }
 
 function google(){
@@ -692,5 +692,5 @@ function reviews(){
 }
 
 function teken(){toestelkies();tabel();vergelijk();garantie()}
-kop();teken();over();polis();google();contact();praktisch();tijden();bevestigd();reviews();
+kop();teken();over();garantie();google();contact();praktisch();tijden();bevestigd();reviews();
 </script>

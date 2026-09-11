@@ -120,7 +120,7 @@
     vulTekst(document.getElementById("p-bevestigd"), w.prijzen_bevestigd_op
       ? `Laatst bevestigd op ${datum(w.prijzen_bevestigd_op)}. Bevestig elke 90 dagen om goed vindbaar te blijven.`
       : "Je hebt nog geen prijzen bevestigd. Vul ze hieronder in; daarmee zijn ze meteen bevestigd.");
-    vulPolis(w);
+    vulGarantie(w);
     await vulMatches();
     await vulBeoordelingen();
     /* Het staafje op het overzicht. In de pagina stond een vaste reeks die
@@ -521,14 +521,15 @@
       `Je prijzen zijn ${dagen} dagen niet bevestigd. Na 90 dagen wegen ze lichter mee in de volgorde.`;
   }
 
-  function vulPolis(w) {
+  function vulGarantie(w) {
     const p = paneel("keurmerk");
     if (!p) return;
     const kop = p.querySelector("b");
     if (!kop) return;
-    kop.textContent = w.polis_gezien_op
-      ? `Polis gecontroleerd — gezien op ${datum(w.polis_gezien_op)}`
-      : "Nog geen polis gecontroleerd";
+    kop.textContent = w.garantie_gezien_op
+      ? `Garantie gecontroleerd — gezien op ${datum(w.garantie_gezien_op)}`
+        + (w.garantie_maanden ? `, ${w.garantie_maanden} maanden` : "")
+      : "Nog geen garantie gecontroleerd";
   }
 
   const datum = (d) =>
