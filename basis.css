@@ -165,17 +165,27 @@ main:focus{outline:none}
   transition:top .15s,font-size .15s;pointer-events:none}
 .mdlg .veld input:focus+span,
 .mdlg .veld input:not(:placeholder-shown)+span{top:7px;font-size:11px;color:var(--groen);font-weight:600}
-/* Iets meer lucht tussen de blokken en boven de knoppenrij, zodat het op een
-   smal scherm niet op elkaar geplakt staat. */
-.mdlg .vzblok{margin-top:16px}
-.mdlg .knoppen{margin-top:18px}
+/* De keuzeblokken, chips en vinkjes van het aanvraagvenster. Deze stonden alleen
+   inline in de reparatiekiezer; hier compleet in basis.css, zodat het venster ook
+   klopt op pagina's die het pas later gebruiken (de plaatspagina). Anders toont de
+   fieldset zijn standaardrand en blijven de radioknoppen zichtbaar.
 
-/* De keuzechips (wanneer / hoe wil je antwoord) exact even breed en even hoog,
-   ook als een label langer is en over twee regels valt. flex:1 1 0 verdeelt de
-   ruimte gelijk; min-width:0 laat de tekst binnen de chip afbreken in plaats van
-   uit te lopen; de span vult de hele chip en centreert de tekst. Hogere
-   specificiteit dan de inline .mdlg .vzkeus, dus dit wint ongeacht de volgorde. */
-.mdlg .vzblok .vzrij{flex-wrap:nowrap}
+   De chips (wanneer / hoe wil je antwoord) zijn exact even breed en even hoog:
+   flex:1 1 0 verdeelt de ruimte gelijk, min-width:0 laat een langer label binnen
+   de chip afbreken, en de span vult de chip en centreert de tekst. */
+.mdlg .vzblok{border:0;padding:0;margin:16px 0 0}
+.mdlg .vzblok legend{padding:0;font-size:12.5px;font-weight:700;color:var(--inkt-2);margin-bottom:7px}
+.mdlg .vzblok .vzrij{display:flex;gap:6px;flex-wrap:nowrap}
 .mdlg .vzblok .vzkeus{flex:1 1 0;min-width:0;display:flex}
+.mdlg .vzblok .vzkeus input{position:absolute;opacity:0;width:0;height:0}
 .mdlg .vzblok .vzkeus span{flex:1;display:flex;align-items:center;justify-content:center;
-  text-align:center;padding:10px 6px;min-height:46px;line-height:1.2}
+  text-align:center;padding:10px 6px;min-height:46px;line-height:1.2;
+  border:1.5px solid var(--lijn);border-radius:12px;background:#fff;
+  font-size:13.5px;color:var(--inkt);cursor:pointer}
+.mdlg .vzblok .vzkeus input:checked+span{border-color:var(--groen);
+  background:var(--groen-100,#DCFCE7);color:var(--groen-800);font-weight:600}
+.mdlg .vzblok .vzkeus input:focus-visible+span{outline:2px solid var(--groen);outline-offset:2px}
+.mdlg .vzblok .vzvink{display:flex;align-items:center;gap:9px;padding:11px;
+  border:1.5px solid var(--lijn);border-radius:12px;margin-bottom:6px;font-size:14px;cursor:pointer}
+.mdlg .vzblok .vzvink input{width:17px;height:17px;padding:0;margin:0;border:0;accent-color:var(--groen);flex:none}
+.mdlg .knoppen{margin-top:18px}

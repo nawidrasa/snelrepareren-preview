@@ -814,6 +814,14 @@ function benoemVenster(d) {
 
 const belWinkel = i => belMatch(WINKELS[i]);
 
+/* Vraag een prijs aan winkel `i` (index in de globale WINKELS, net als belWinkel).
+   De pagina levert de gestructureerde gegevens aan (toestel, reparatieregels, de
+   reparatie-ids en de andere aangesloten winkels van diezelfde pagina). Deze
+   helper staat hier zodat een plaatspagina niet zelf de globale WINKELS hoeft aan
+   te spreken: die hoort met winkelsIn() bij zijn eigen plaats te blijven. */
+const vraagPrijsMet = (i, toestel, regels, reparaties, anderen) =>
+  verzoekDialoog(WINKELS[i], toestel, regels, anderen, reparaties);
+
 async function belMatch(w) {
   const d = document.getElementById('matchdlg');
   laatsteMatch = null;

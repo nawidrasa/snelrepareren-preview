@@ -21,7 +21,7 @@
 <!-- /zoekmachinekop -->
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="stylesheet" href="lettertype/outfit.css">
-<link rel="stylesheet" href="basis.css?v=fa715b30">
+<link rel="stylesheet" href="basis.css?v=5957ff12">
 <style>
 :root{
   --gradient:linear-gradient(160deg,#008C34 0%,#22C55E 55%,#86EFAC 100%);
@@ -357,7 +357,7 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
 <script src="data/postcodes.js?v=d47fe545"></script>
 <script src="data/winkelpunten.js?v=447191cb"></script>
 <script src="data/locatie.js?v=9ca1d462"></script>
-<script src="data/winkels.js?v=85672e60"></script>
+<script src="data/winkels.js?v=f81ffa7d"></script>
 <script>
 /* De bandbreedtes komen uit data/kiezer.js, dat uit het prijsonderzoek wordt
    gegenereerd. Ze stonden hier met de hand overgetypt en weken op vijf van de
@@ -564,8 +564,21 @@ function winkelkaart(w,uitgelicht){
       ${erkenningsMerken(w)}
     </div>
     ${feiten?`<p class="feiten">${feiten}</p>`:''}
-    <div class="acties">${winkelLink(w)?`<a class="btn btn-stil" href="${winkelLink(w)}">Profiel</a>`:''}${routeLink(w)?`<a class="btn btn-lijn" href="${link(routeLink(w))}" rel="nofollow noopener" target="_blank">Route</a>`:''}<button class="btn btn-groen" onclick="belWinkel(${i})">${TEL}Bel de winkel</button></div>
+    <div class="acties">${w.aan?`<button class="btn btn-groen" onclick="vraagPrijs(${i})">Vraag een prijs</button>`:''}${winkelLink(w)?`<a class="btn btn-stil" href="${winkelLink(w)}">Profiel</a>`:''}${routeLink(w)?`<a class="btn btn-lijn" href="${link(routeLink(w))}" rel="nofollow noopener" target="_blank">Route</a>`:''}<button class="btn ${w.aan?'btn-lijn':'btn-groen'}" onclick="belWinkel(${i})">${TEL}Bel de winkel</button></div>
   </div>`;
+}
+/* Vraag een prijs aan een aangesloten winkel (T11). De ids komen uit de huidige
+   keuze op deze pagina: het toestel (naam), de reparatie S.rep, en als er een
+   kwaliteit is gekozen (niet 'alle') die kwaliteit. Zo krijgt de aanvraag dezelfde
+   gestructureerde gegevens mee als vanuit de reparatiekiezer. verzoekDialoog en
+   verzoekVerstuur komen uit data/winkels.js. */
+function vraagPrijs(i){
+  const kwId=(S.kw!=='alle'&&heeftKwaliteit(S.rep))?S.kw:null;
+  const regels=REPS[S.rep]+(kwId?': '+kwaliteitsnaam(kwId):'');
+  // De andere aangesloten winkels van DEZE plaats (via WINKELS_HIER/zichtbaar).
+  // verzoekDialoog laat de winkel zelf eruit op id en pakt er hoogstens twee.
+  const anderen=(zichtbaar().length?zichtbaar():WINKELS_HIER).filter(x=>x&&x.aan&&x.id);
+  vraagPrijsMet(i,S.model,regels,[{reparatietype_id:S.rep,onderdeelkwaliteit_id:kwId}],anderen);
 }
 function vermelding(v){
   const c=contactRegel(v);
@@ -697,7 +710,7 @@ function onderDrempel(){
     </div>
     ${feiten?`<p class="feiten">${feiten}</p>`:''}
     ${tijdenBlok(w)}
-    <div class="acties">${winkelLink(w)?`<a class="btn btn-stil" href="${winkelLink(w)}">Profiel</a>`:''}${routeLink(w)?`<a class="btn btn-lijn" href="${link(routeLink(w))}" rel="nofollow noopener" target="_blank">Route</a>`:''}<button class="btn btn-groen" onclick="belWinkel(${i})">${TEL}Bel de winkel</button></div>
+    <div class="acties">${w.aan?`<button class="btn btn-groen" onclick="vraagPrijs(${i})">Vraag een prijs</button>`:''}${winkelLink(w)?`<a class="btn btn-stil" href="${winkelLink(w)}">Profiel</a>`:''}${routeLink(w)?`<a class="btn btn-lijn" href="${link(routeLink(w))}" rel="nofollow noopener" target="_blank">Route</a>`:''}<button class="btn ${w.aan?'btn-lijn':'btn-groen'}" onclick="belWinkel(${i})">${TEL}Bel de winkel</button></div>
   </div>`};
 
   document.getElementById('lijst').innerHTML=
