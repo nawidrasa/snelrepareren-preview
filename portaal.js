@@ -95,7 +95,11 @@
     // hoe vorige maand was zolang er nog geen vorige maand is.
     const c = mij.cijfers;
     const stats = paneel("overzicht")?.querySelectorAll(".stat") ?? [];
-    const waarden = [c.vertoningen, c.profiel, c.gebeld];
+    /* Het kerngetal is contact via ons: bel + route + whatsapp, precies wat de
+       maandgrafiek telt. Hier stond alleen c.gebeld, dus de tegel liet route (en
+       nu ook whatsapp) weg terwijl het label "Gebeld of route" beloofde. */
+    const kerngetal = (c.gebeld || 0) + (c.route || 0) + (c.whatsapp || 0) + (c.aanvraag || 0);
+    const waarden = [c.vertoningen, c.profiel, kerngetal];
     stats.forEach((el, i) => {
       if (waarden[i] === undefined) return;
       vulTekst(el.querySelector(".num"), waarden[i].toLocaleString("nl-NL"));
@@ -122,6 +126,8 @@
       : "Je hebt nog geen prijzen bevestigd. Vul ze hieronder in; daarmee zijn ze meteen bevestigd.");
     vulGarantie(w);
     await vulMatches();
+    await vulVerzoeken();
+    vulReactie(mij);
     await vulBeoordelingen();
     /* Het staafje op het overzicht. In de pagina stond een vaste reeks die
        altijd netjes opliep, bij elke winkel. Nu de eigen maanden, en als er nog
@@ -141,6 +147,20 @@
 
     /* Stoppen. De naam moet precies worden overgetypt; dat controleert de server
        ook nog een keer, want een controle in de browser is geen controle. */
+    /* W7: de meldingskeuze opslaan. */
+    document.getElementById("a-meldingen-opslaan")?.addEventListener("click", async (e) => {
+      e.preventDefault();
+      try {
+        const keuze = document.getElementById("a-meldingen")?.value;
+        await haal("/api/portaal/meldingen", { method: "POST", lichaam: { meldingen: keuze } });
+        melding(keuze === "dagelijks"
+          ? "Genoteerd. Je krijgt voortaan één samenvatting per dag."
+          : "Genoteerd. Je krijgt weer een mail per aanvraag.");
+      } catch (fout) {
+        melding(fout.message, "fout");
+      }
+    });
+
     document.getElementById("a-verwijder")?.addEventListener("click", async (e) => {
       e.preventDefault();
       try {
@@ -192,7 +212,11 @@
     const p = paneel("beoordelingen");
     if (!p) return;
     const stats = p.querySelectorAll(".stat");
-    const klanten = mij.cijfers.gebeld + mij.cijfers.route;
+    /* Gelijk aan de maandgrafiek (bel + route + whatsapp), anders noemt dit
+       portaal op twee plekken een ander aantal klanten. Een aanvraag telt hier
+       (nog) niet mee; of dat moet, is een keuze die bij Nawid ligt. */
+    const klanten = mij.cijfers.gebeld + mij.cijfers.route
+      + (mij.cijfers.whatsapp || 0) + (mij.cijfers.aanvraag || 0);
     const b = mij.beoordelingen;
     const waarden = [
       klanten.toLocaleString("nl-NL"),
@@ -200,7 +224,7 @@
       b.gemiddelde === null ? "-" : String(b.gemiddelde).replace(".", ","),
     ];
     const onder = [
-      "gebeld of route opgevraagd",
+      "bel, route, WhatsApp of aanvraag",
       klanten ? `${Math.round((b.aantal / klanten) * 100)}% van de klanten` : "nog geen klanten via ons",
       b.aantal ? `over ${b.aantal} ${b.aantal === 1 ? "beoordeling" : "beoordelingen"}` : "nog geen beoordelingen",
     ];
@@ -259,6 +283,17 @@
     const zet = (el, waarde) => { if (el) el.value = waarde ?? ""; };
     zet(document.getElementById("p-naam"), w.naam);
     zet(document.getElementById("p-telefoon"), w.telefoon);
+    /* Het nummer staat genormaliseerd in de database (31612345678). Terugzetten
+       als 06-nummer, want dat is hoe een winkel zijn eigen nummer kent; wat hij
+       intypt wordt bij het opslaan weer omgezet. */
+    zet(document.getElementById("p-whatsapp"),
+      w.whatsapp ? "0" + String(w.whatsapp).slice(2) : "");
+    /* De vakantiedatum als jjjj-mm-dd voor het date-veld. Alleen als hij vandaag
+       of later is; een oude vakantie hoort niet terug te komen in het veld. */
+    const gt = w.gesloten_tot ? new Date(w.gesloten_tot) : null;
+    const vandaagIso = new Date().toISOString().slice(0, 10);
+    const gtIso = gt && !isNaN(gt) ? gt.toISOString().slice(0, 10) : "";
+    zet(document.getElementById("p-gesloten-tot"), gtIso >= vandaagIso ? gtIso : "");
     zet(document.getElementById("p-adres"), w.adres);
     zet(document.getElementById("p-postcodeplaats"), [w.postcode, w.plaats].filter(Boolean).join(" "));
     zet(document.getElementById("p-omschrijving"), w.omschrijving);
@@ -348,6 +383,97 @@
     ).join("");
     kiezer.onchange = async () => { HUIDIG_TOESTEL = Number(kiezer.value); await tekenPrijzen(); };
     await tekenPrijzen();
+    vulKopieKiezers();
+    await vulModellenZonderPrijs();
+    await vulBand();
+  }
+
+  /* De twee keuzelijsten van het overnameformulier (W2), gevuld uit dezelfde
+     TOESTELLEN als de prijzenkiezer, per merk gegroepeerd. */
+  function vulKopieKiezers() {
+    const van = document.getElementById("kopie-van");
+    const naar = document.getElementById("kopie-naar");
+    if (!van || !naar || !TOESTELLEN.length) return;
+    const perMerk = new Map();
+    for (const t of TOESTELLEN) {
+      if (!perMerk.has(t.merk)) perMerk.set(t.merk, []);
+      perMerk.get(t.merk).push(t);
+    }
+    const opties = [...perMerk].map(([merk, lijst]) =>
+      `<optgroup label="${veilig(merk)}">` + lijst.map((t) =>
+        `<option value="${t.id}">${veilig(t.naam)}</option>`).join("") + `</optgroup>`).join("");
+    van.innerHTML = opties;
+    naar.innerHTML = opties;
+    // Standaard het huidige model als bron, zodat "neem dit over" logisch aansluit.
+    if (HUIDIG_TOESTEL) van.value = String(HUIDIG_TOESTEL);
+  }
+
+  /* De nudge (W4): modellen die anderen in je plaats wel prijzen en jij niet.
+     Elk model is een knop die je in de prijzenkiezer op dat model zet. Is de
+     lijst leeg, dan verdwijnt de kaart: er is dan geen gemeten gat. */
+  async function vulModellenZonderPrijs() {
+    const kaart = document.getElementById("zonder-prijs-kaart");
+    const vak = document.getElementById("zonder-prijs");
+    if (!kaart || !vak) return;
+    let modellen = [];
+    try { modellen = (await haal("/api/portaal/modellen-zonder-prijs")).modellen ?? []; }
+    catch { kaart.hidden = true; return; }
+    if (!modellen.length) { kaart.hidden = true; return; }
+    kaart.hidden = false;
+    vak.innerHTML = modellen.map((m) => {
+      const n = Number(m.concurrenten);
+      const bij = n === 1 ? "1 winkel bij jou" : `${n} winkels bij jou`;
+      return `<button class="btn btn-lijn btn-klein zonder-model" data-toestel="${m.id}"
+                style="margin:0 8px 8px 0">${veilig(m.merk)} ${veilig(m.naam)}
+                <span style="color:var(--inkt-3);font-weight:400">&middot; ${bij}</span></button>`;
+    }).join("");
+  }
+
+  /* De prijsband (W5): per reparatie die je zelf prijst, waar jij staat tussen
+     de laagste, middelste en hoogste prijs bij jou in de plaats. Geen namen;
+     dit zijn dezelfde getallen die een bezoeker op de plaatspagina al ziet. Is er
+     nergens een band (te weinig winkels met dezelfde prijs), dan verdwijnt de
+     kaart, net als bij "modellen zonder prijs". */
+  async function vulBand() {
+    const kaart = document.getElementById("band-kaart");
+    const vak = document.getElementById("band");
+    if (!kaart || !vak) return;
+    let band = [];
+    try { band = (await haal("/api/portaal/band")).band ?? []; }
+    catch { kaart.hidden = true; return; }
+    if (!band.length) { kaart.hidden = true; return; }
+    kaart.hidden = false;
+    vak.innerHTML = band.map((b) => {
+      const span = b.hoog - b.laag;
+      const pct = (n) => span > 0 ? Math.max(0, Math.min(100, ((n - b.laag) / span) * 100)) : 50;
+      const stand =
+        b.mijn <= b.laag ? "de laagste" :
+        b.mijn >= b.hoog ? "de hoogste" :
+        b.mijn < b.midden ? "onder het midden" :
+        b.mijn > b.midden ? "boven het midden" : "rond het midden";
+      const kw = b.kwaliteit ? ` &middot; ${veilig(b.kwaliteit)}` : "";
+      const n = b.aantal === 1 ? "1 winkel" : `${b.aantal} winkels`;
+      const uitleg = `Jouw prijs ${eur(b.mijn)}. Laagste ${eur(b.laag)}, `
+        + `middelste ${eur(b.midden)}, hoogste ${eur(b.hoog)}. Jij bent ${stand}.`;
+      return `<div class="bandrij">
+        <div class="bandkop"><div>${veilig(b.merk)} ${veilig(b.toestel)} &middot; ${veilig(b.reparatie)}${kw}</div><span>${n}</span></div>
+        <div class="bandbalk" role="img" aria-label="${uitleg}">
+          <div class="bandmid" style="left:${pct(b.midden)}%"></div>
+          <div class="bandjij" style="left:${pct(b.mijn)}%"></div>
+        </div>
+        <div class="bandcijfers"><span>${eur(b.laag)}</span><span>${eur(b.midden)}</span><span>${eur(b.hoog)}</span></div>
+        <div class="bandstand">Jij staat op <b>${eur(b.mijn)}</b>, ${stand}.</div>
+      </div>`;
+    }).join("");
+  }
+
+  /* Naar een model springen in de prijzenkiezer. */
+  async function naarModel(id) {
+    HUIDIG_TOESTEL = Number(id);
+    const kiezer = document.getElementById("prijstoestel");
+    if (kiezer) kiezer.value = String(id);
+    await tekenPrijzen();
+    document.getElementById("prijstoestel")?.scrollIntoView({ behavior: "smooth", block: "center" });
   }
 
   async function tekenPrijzen() {
@@ -504,6 +630,12 @@
       lichaam: { toestel_id: HUIDIG_TOESTEL, prijzen: rijen },
     });
     await tekenPrijzen();
+    // Wat van de prijzen afhangt, meteen mee verversen: de prijsband (W5) en de
+    // nudge "modellen zonder prijs" (W4). Anders klopt de grid wel maar tonen die
+    // twee de oude stand tot een herlaad. Allebei vangen hun eigen fouten, dus een
+    // geslaagde opslag krijgt hierdoor nooit een valse foutmelding.
+    await vulBand();
+    await vulModellenZonderPrijs();
   }
 
   /* Het aandachtspunt op het overzicht.
@@ -556,6 +688,137 @@
              <button class="btn btn-lijn btn-klein" data-klaar="${m.id}" data-staat="niet_gekomen">Niet gekomen</button></span>`
           : "<span></span>"}
       </div>`).join("");
+  }
+
+  /* De eigen cijfers over reageren.
+   *
+   * Dit is dezelfde som die ook de kaart bepaalt; die staat in
+   * app/src/reactiesnelheid.ts en wordt hier alleen getoond. Zou het portaal
+   * zelf gaan rekenen, dan kan een winkel iets anders zien dan de bezoeker, en
+   * dan is er over dat verschil geen gesprek meer te voeren. */
+  function vulReactie(mij) {
+    const r = mij.reactie;
+    if (!r) return;
+    vulTekst(document.getElementById("r-bevestigd"), r.meegeteld);
+    vulTekst(document.getElementById("r-venster"), `in de laatste ${r.dagen} dagen`);
+    vulTekst(document.getElementById("r-ja"), r.ja);
+    vulTekst(document.getElementById("r-deel"), r.meegeteld
+      ? `${Math.round((r.ja / r.meegeteld) * 100)}% kreeg antwoord`
+      : "nog niets gemeten");
+    vulTekst(document.getElementById("r-label"), r.label ?? "Nog geen");
+    vulTekst(document.getElementById("r-drempel"), r.label
+      ? "staat nu op je kaart"
+      : `vanaf ${r.minimum} antwoorden, nu ${r.meegeteld}`);
+  }
+
+  /* ---------- aanvragen ----------
+   *
+   * WAT HIER WEL EN NIET STAAT. De winkel ziet wat hij nodig heeft om te
+   * antwoorden: het toestel, de reparatie, wanneer het de klant uitkomt, hoe
+   * hij bereikt wil worden, en zijn gegevens. Hij ziet ook DAT de vraag bij
+   * anderen ligt, maar niet bij wie; dat gaat hem niet aan en het zou van onze
+   * kant verklikken zijn.
+   *
+   * En hij ziet wat de klant ons later terugmeldde. Dat staat los van zijn
+   * eigen afvinken, want dat zijn twee verschillende dingen: afvinken zegt dat
+   * hij de aanvraag heeft gezien, het antwoord van de klant zegt dat er ook
+   * echt iets bij hem is aangekomen. */
+  const WANNEER_TEKST = {
+    vandaag: "wil het vandaag", deze_week: "deze week", geen_haast: "geen haast",
+  };
+
+  const opgaveBewerkt = new Set();
+
+  async function vulVerzoeken() {
+    const el = document.getElementById("verzoeken");
+    if (!el) return;
+    const { verzoeken } = await haal("/api/portaal/verzoeken");
+    if (!verzoeken.length) {
+      el.innerHTML = `<p class="leegregel">Nog geen aanvragen. Bezoekers die in de reparatiekiezer
+        bij jou uitkomen, kunnen daar een prijs opvragen; die aanvraag staat dan hier en gaat
+        tegelijk naar je e-mail.</p>`;
+      return;
+    }
+    const naam = { open: "Nieuw", beantwoord: "Beantwoord", afgewezen: "Afgewezen" };
+    el.innerHTML = verzoeken.map((v) => `
+      <div class="vzkaart">
+        <div class="vzkop"><b>${veilig(v.toestel)}</b>
+          <span class="st ${v.staat === "open" ? "open" : "gemeld"}">${naam[v.staat] ?? v.staat}</span>
+          <span class="dat">${datum(v.aangemaakt_op)}</span></div>
+        <div class="vzfeit">
+          <span class="${v.wanneer === "vandaag" ? "nu" : ""}">${WANNEER_TEKST[v.wanneer] ?? "wanneer onbekend"}</span>
+          <span>${v.kanaal === "bel" ? "wil gebeld worden" : "wil antwoord per mail"}</span>
+          ${Number(v.anderen) > 0
+            ? `<span>ligt ook bij ${v.anderen} andere ${Number(v.anderen) === 1 ? "winkel" : "winkels"}</span>`
+            : ""}
+          ${v.klant_antwoord
+            ? `<span class="${v.klant_antwoord === "ja" ? "ja" : ""}">klant: ${v.klant_antwoord === "ja" ? "kreeg antwoord" : "kreeg geen antwoord"}</span>`
+            : ""}
+        </div>
+        <p class="vzregels">${veilig(v.regels)}${v.toelichting ? "\n\n" + veilig(v.toelichting) : ""}</p>
+        <p class="vzcontact">${veilig(v.naam)} &middot;
+          <a href="mailto:${encodeURIComponent(v.email)}">${veilig(v.email)}</a>
+          ${v.telefoon ? `&middot; <a href="tel:${encodeURIComponent(v.telefoon)}">${veilig(v.telefoon)}</a>` : ""}</p>
+        ${verzoekOnderkant(v)}
+      </div>`).join("");
+  }
+
+  /* De onderdeelladder voor het opgaveformulier. Vaste ids, gelijk aan de
+     database; de namen zijn wat de winkel op het scherm leest. */
+  const OP_KWALITEIT = [["", "Onderdeel (mag leeg)"], ["kopie", "Kopie of compatibel"],
+    ["incell", "Incell"], ["softoled", "Soft OLED"], ["oem", "OEM of hard OLED"],
+    ["refurb", "Refurbished origineel"], ["origineel", "Origineel"]];
+  const OP_KLAAR = [["zelfde_dag", "Zelfde dag"], ["paar_dagen", "Binnen een paar dagen"], ["langer", "Langer"]];
+  const KLAAR_TEKST = { zelfde_dag: "zelfde dag klaar", paar_dagen: "in een paar dagen klaar", langer: "langer" };
+
+  /* Wat er onder een aanvraag staat: een geplaatste opgave (samenvatting, met
+     aanpassen), of het formulier om er een te plaatsen. Afgewezen aanvragen
+     krijgen niets. */
+  function verzoekOnderkant(v) {
+    if (v.staat === "afgewezen") return "";
+    if (v.opgave_op && !opgaveBewerkt.has(v.id)) {
+      const kwNaam = (OP_KWALITEIT.find(([w]) => w === v.opgave_kwaliteit) || [null, ""])[1];
+      const kw = v.opgave_kwaliteit ? ` &middot; ${veilig(kwNaam)}` : "";
+      const gar = v.opgave_garantie ? ` &middot; ${v.opgave_garantie} mnd garantie` : "";
+      /* W3: "zet in je prijzen". Alleen als wij het toestel kennen en het om
+         precies één reparatie ging (v.vast_te_zetten). De kwaliteit voor de prijs
+         is die van je opgave; is die er niet, dan wat de klant vroeg. De knop
+         springt naar je prijzen met dit bedrag ingevuld; de doorlooptijd vul je
+         daar aan, want die staat niet in een opgave. */
+      const rep = (v.reparaties || [])[0];
+      const kwPrijs = v.opgave_kwaliteit || (rep && rep.onderdeelkwaliteit_id) || "";
+      const vast = (v.vast_te_zetten && rep)
+        ? `<button class="btn btn-lijn btn-klein" data-vast-toestel="${v.toestel_id}"
+             data-vast-rep="${veilig(rep.reparatietype_id)}" data-vast-kw="${veilig(kwPrijs)}"
+             data-vast-bedrag="${Number(v.opgave_bedrag)}">Zet in je prijzen</button>`
+        : "";
+      const meer = (!v.vast_te_zetten && (v.reparaties || []).length > 1)
+        ? `<p class="klein" style="margin:6px 0 0;color:var(--inkt-3)">Deze aanvraag ging over meerdere reparaties; een totaalbedrag kunnen wij niet per reparatie als vaste prijs zetten.</p>`
+        : "";
+      return `<div class="opgave-klaar">
+        <b>Jouw prijs: &euro; ${veilig(v.opgave_bedrag)}</b><span>${KLAAR_TEKST[v.opgave_klaar] ?? ""}${kw}${gar}</span>
+        ${vast}
+        <button class="btn btn-lijn btn-klein" data-bewerk="${v.id}">Aanpassen</button>
+      </div>${meer}`;
+    }
+    const id = v.id;
+    return `<div class="opgaveform" data-form="${id}">
+      <p class="toel" style="margin:0 0 8px">Geef je prijs door. De klant ziet hem naast die van de andere winkels. Bellen mag ook, dat telt ook als antwoord.</p>
+      <div class="tweekolom">
+        <div class="veld"><label for="op-bedrag-${id}">Jouw prijs (euro)</label><input id="op-bedrag-${id}" inputmode="decimal" placeholder="bijv. 189" value="${v.opgave_bedrag ?? ""}"></div>
+        <div class="veld"><label for="op-kw-${id}">Onderdeel</label><select id="op-kw-${id}">${OP_KWALITEIT.map(([w, t]) => `<option value="${w}"${w === (v.opgave_kwaliteit ?? "") ? " selected" : ""}>${t}</option>`).join("")}</select></div>
+      </div>
+      <div class="tweekolom">
+        <div class="veld"><label for="op-gar-${id}">Garantie in maanden (mag leeg)</label><input id="op-gar-${id}" inputmode="numeric" placeholder="bijv. 12" value="${v.opgave_garantie ?? ""}"></div>
+        <div class="veld"><label for="op-klaar-${id}">Wanneer klaar</label><select id="op-klaar-${id}">${OP_KLAAR.map(([w, t]) => `<option value="${w}"${w === v.opgave_klaar ? " selected" : ""}>${t}</option>`).join("")}</select></div>
+      </div>
+      <div class="veld"><label for="op-toel-${id}">Korte toelichting (mag leeg)</label><input id="op-toel-${id}" placeholder="bijv. origineel scherm, terwijl je wacht" value="${veilig(v.opgave_toelichting ?? "")}"></div>
+      <div class="vzknoppen">
+        <button class="btn btn-groen btn-klein" data-opgave="${id}">Plaats je prijs</button>
+        <button class="btn btn-lijn btn-klein" data-verzoek="${id}" data-staat="beantwoord">Ik heb gebeld</button>
+        <button class="btn btn-stil btn-klein" data-verzoek="${id}" data-staat="afgewezen">Kan ik niet doen</button>
+      </div>
+    </div>`;
   }
 
   /* ---------- beoordelingen ---------- */
@@ -649,6 +912,9 @@
       [w.adres, [w.postcode, w.plaats].filter(Boolean).join(" ")].filter(Boolean).join(", "));
     const veld = document.getElementById("a-bevestig");
     if (veld) veld.placeholder = w.naam ?? "de naam van je winkel";
+    // W7: de huidige meldingskeuze tonen, zodat de winkel ziet wat er nu staat.
+    const meld = document.getElementById("a-meldingen");
+    if (meld) meld.value = w.meldingen ?? "direct";
   }
 
   /* ---------- reparatieformulier ----------
@@ -751,11 +1017,66 @@
 
   function knoppen() {
     document.body.addEventListener("click", async (e) => {
-      const t = e.target.closest("[data-klaar], [data-reageer]");
+      const t = e.target.closest("[data-klaar], [data-reageer], [data-verzoek], [data-opgave], [data-bewerk], [data-vast-toestel]");
       if (!t) return;
       e.preventDefault();
       try {
-        if (t.dataset.klaar) {
+        if (t.dataset.vastToestel) {
+          /* W3: neem dit opgavebedrag over in je prijzen. Wij springen naar het
+             tabblad Prijzen, kiezen het toestel en vullen het bedrag voor bij de
+             juiste reparatie. De doorlooptijd is verplicht (besluit W2) en staat
+             niet in een opgave, dus die vul je hier aan; dat is de eerlijke helft
+             die een opgave niet kan geven. */
+          HUIDIG_TOESTEL = Number(t.dataset.vastToestel);
+          if (typeof ga === "function") ga("profiel");
+          await vulPrijzen();
+          const kw = t.dataset.vastKw || "";
+          const inp = document.querySelector(`#ptabel input[data-rep="${t.dataset.vastRep}"][data-kw="${kw}"]`);
+          if (inp) {
+            inp.value = t.dataset.vastBedrag;
+            inp.scrollIntoView({ behavior: "smooth", block: "center" });
+            const tijd = document.querySelector(`#ptabel input[data-tijd="${t.dataset.vastRep}"]`);
+            (tijd && !tijd.value ? tijd : inp).focus();
+            melding("Bedrag overgenomen. Vul de doorlooptijd aan en sla op met “Opslaan en bevestigen”.");
+          } else {
+            melding("Ga naar je prijzen en vul dit bedrag in bij de juiste reparatie.", "fout");
+          }
+          return;
+        }
+        if (t.dataset.bewerk) {
+          opgaveBewerkt.add(Number(t.dataset.bewerk));
+          await vulVerzoeken();
+          return;
+        }
+        if (t.dataset.opgave) {
+          const id = t.dataset.opgave;
+          const val = (q) => (document.getElementById(q + id)?.value || "").trim();
+          await haal("/api/portaal/opgave", {
+            method: "POST",
+            lichaam: {
+              verzoek_id: Number(id), bedrag: val("op-bedrag-"),
+              kwaliteit: val("op-kw-") || null, garantie: val("op-gar-"),
+              klaar: val("op-klaar-"), toelichting: val("op-toel-"),
+            },
+          });
+          opgaveBewerkt.delete(Number(id));
+          melding("Je prijs staat bij de klant. Hij ziet hem naast die van de andere winkels.");
+          await vulVerzoeken();
+          return;
+        }
+        if (t.dataset.verzoek) {
+          await haal("/api/portaal/verzoek", {
+            method: "POST",
+            lichaam: { verzoek_id: Number(t.dataset.verzoek), staat: t.dataset.staat },
+          });
+          /* Geen woord over snelheid of over een label. Dit afvinken is voor de
+             winkel zelf een administratie; wat de klant ervan vond, vragen wij
+             hem. */
+          melding(t.dataset.staat === "beantwoord"
+            ? "Genoteerd. De klant laat ons over twee dagen weten of je antwoord bij hem aankwam."
+            : "Genoteerd. De klant ziet niet dat je hem hebt afgewezen.");
+          await vulVerzoeken();
+        } else if (t.dataset.klaar) {
           await haal("/api/portaal/klaarmelden", {
             method: "POST",
             lichaam: { match_id: Number(t.dataset.klaar), staat: t.dataset.staat },
@@ -802,6 +1123,38 @@
       }
     });
 
+    // W2: prijzen overnemen van een ander model.
+    document.getElementById("kopie-knop")?.addEventListener("click", async (e) => {
+      e.preventDefault();
+      const van = Number(document.getElementById("kopie-van")?.value);
+      const naar = Number(document.getElementById("kopie-naar")?.value);
+      const aanpassing = (document.getElementById("kopie-aanpassing")?.value || "").trim();
+      try {
+        const uit = await haal("/api/portaal/prijzen-kopieren", {
+          method: "POST", lichaam: { van_toestel: van, naar_toestel: naar, aanpassing },
+        });
+        const over = uit.overgeslagen
+          ? ` ${uit.overgeslagen} regel${uit.overgeslagen === 1 ? "" : "s"} overgeslagen (zou op nul of lager uitkomen).`
+          : "";
+        melding(`${uit.overgenomen} ${uit.overgenomen === 1 ? "prijs" : "prijzen"} overgenomen.${over}`);
+        // Toon meteen het doelmodel met de nieuwe prijzen, en ververs de nudge
+        // en de prijsband (beide hangen aan de prijzen die net veranderden).
+        await naarModel(naar);
+        await vulModellenZonderPrijs();
+        await vulBand();
+      } catch (fout) {
+        melding(fout.message, "fout");
+      }
+    });
+
+    // W4: klik op een model in de nudge zet de prijzenkiezer erop.
+    document.body.addEventListener("click", (e) => {
+      const knop = e.target.closest(".zonder-model");
+      if (!knop) return;
+      e.preventDefault();
+      void naarModel(knop.dataset.toestel);
+    });
+
     document.getElementById("codeversturen")?.addEventListener("click", (e) => {
       e.preventDefault();
       void codeVersturen();
@@ -828,6 +1181,8 @@
           lichaam: {
             naam: lees(document.getElementById("p-naam")),
             telefoon: lees(document.getElementById("p-telefoon")),
+            whatsapp: lees(document.getElementById("p-whatsapp")),
+            gesloten_tot: document.getElementById("p-gesloten-tot")?.value ?? "",
             adres: lees(document.getElementById("p-adres")),
             postcode, plaats,
             omschrijving: lees(document.getElementById("p-omschrijving")),

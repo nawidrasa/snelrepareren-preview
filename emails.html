@@ -1,15 +1,15 @@
 <!doctype html>
 <html lang="nl">
 <meta charset="utf-8">
-<title>De negen e-mails die wij versturen | snelrepareren.nl</title>
-<meta name="description" content="De negen e-mails die wij versturen, met de aanleiding en de knop van elk. Geen nieuwsbrief en geen aanbiedingen, zodat je weet wat je van ons kunt verwachten.">
+<title>De twaalf e-mails die wij versturen | snelrepareren.nl</title>
+<meta name="description" content="De twaalf e-mails die wij versturen, met de aanleiding en de knop van elk. Geen nieuwsbrief en geen aanbiedingen, zodat je weet wat je van ons kunt verwachten.">
 <!-- zoekmachinekop: afgeleid uit de pagina zelf, niet met de hand aanpassen -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="snelrepareren.nl">
 <meta property="og:locale" content="nl_NL">
 <meta property="og:url" content="https://snelrepareren.nl/emails.html">
-<meta property="og:title" content="De negen e-mails die wij versturen | snelrepareren.nl">
-<meta property="og:description" content="De negen e-mails die wij versturen, met de aanleiding en de knop van elk. Geen nieuwsbrief en geen aanbiedingen, zodat je weet wat je van ons kunt verwachten.">
+<meta property="og:title" content="De twaalf e-mails die wij versturen | snelrepareren.nl">
+<meta property="og:description" content="De twaalf e-mails die wij versturen, met de aanleiding en de knop van elk. Geen nieuwsbrief en geen aanbiedingen, zodat je weet wat je van ons kunt verwachten.">
 <meta property="og:image" content="https://snelrepareren.nl/deelplaatje.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -93,8 +93,8 @@ footer{border-top:1px solid var(--lijn);margin-top:20px;padding:26px 0 60px;colo
 
 <div class="in">
   <nav class="kruimels" aria-label="Kruimelpad"><a href="index.html">Home</a><span>&rsaquo;</span>E-mailsjablonen</nav>
-  <h1>De negen e-mails die wij versturen</h1>
-  <p class="intro">Meer dan deze negen sturen wij niet. Er is geen nieuwsbrief, geen aanbieding en geen herinnering die je aan het twijfelen moet brengen. Elke e-mail hieronder heeft één aanleiding, één doel en één knop.</p>
+  <h1>De twaalf e-mails die wij versturen</h1>
+  <p class="intro">Meer dan deze twaalf sturen wij niet. Er is geen nieuwsbrief, geen aanbieding en geen herinnering die je aan het twijfelen moet brengen. Elke e-mail hieronder heeft één aanleiding, één doel en één knop.</p>
 
   <div class="regels">
     <h2>De regels waar elke e-mail aan voldoet</h2>
@@ -148,10 +148,25 @@ const MAILS=[
  voet:`<p>Je krijgt deze mail omdat er een aanmelding is gedaan voor ${V('{winkelnaam}')} op snelrepareren.nl.</p><p>Was je dat niet? Laat het ons weten, dan verwijderen wij de aanmelding.</p>`
 },
 {
+ titel:'Je winkel is goedgekeurd',
+ aan:'winkel', van:'winkels@snelrepareren.nl',
+ naar:'Het adres van de contactpersoon',
+ wanneer:'Zodra wij de aanmelding goedkeuren.',
+ doel:'Laten weten dat de winkel erop staat, en meteen de link geven om de gegevens en prijzen in te vullen.',
+ afspraak:'De link is een gewone inloglink en werkt 30 minuten. Is hij verlopen, dan vraagt de winkel er een nieuwe aan op de inlogpagina.',
+ onderwerp:['Je winkel staat op snelrepareren.nl'],
+ body:`<p class="eerste">Goed nieuws: je aanmelding is goedgekeurd en ${V('{winkelnaam}')} staat vanaf nu op snelrepareren.nl. Meedoen is gratis.</p>
+  <p>Met de knop hieronder stel je je gegevens in: je openingstijden, je betaalmethoden en je prijzen per reparatie. Hoe vollediger dat is, hoe beter een klant je vindt.</p>
+  <a class="knop" href="portaal.html">Vul je gegevens in</a>
+  <p>De link werkt 30 minuten. Ben je te laat, vraag dan gewoon een nieuwe aan op de inlogpagina; je hoeft geen wachtwoord te bedenken.</p>
+  <p>Zolang je nog geen prijzen hebt ingevuld, toont je kaart "op aanvraag". Klanten kunnen je dan al wel bellen en een prijs opvragen.</p>`,
+ voet:`<p>Je krijgt deze mail omdat de aanmelding van ${V('{winkelnaam}')} is goedgekeurd.</p>`
+},
+{
  titel:'Je link om in te loggen',
  aan:'winkel', van:'winkels@snelrepareren.nl',
  naar:'Het adres van de contactpersoon',
- wanneer:'Zodra wij de aanmelding goedkeuren, en daarna elke keer dat de winkel op de inlogpagina om een link vraagt.',
+ wanneer:'Elke keer dat de winkel op de inlogpagina om een link vraagt.',
  doel:'Binnenlaten, zonder wachtwoord.',
  afspraak:'De link werkt 30 minuten en daarna niet meer. In onze database staat alleen een onomkeerbare afdruk van de link, dus wie de database leest, komt er niet mee binnen.',
  onderwerp:['Je link om in te loggen'],
@@ -245,15 +260,28 @@ const MAILS=[
  aan:'winkel', van:'winkels@snelrepareren.nl',
  naar:'Het adres waarmee de winkel is aangesloten',
  wanneer:'Direct nadat een bezoeker in de reparatiekiezer om een prijs vraagt bij deze winkel.',
- doel:'De vraag doorgeven met het toestel en de reparatie erbij, zodat de winkel rechtstreeks kan antwoorden.',
+ doel:'De vraag doorgeven met het toestel en de reparatie erbij, zodat de winkel zijn prijs op het platform kan plaatsen.',
  afspraak:'Gaat alleen naar winkels die zelf zijn aangesloten. Een winkel die wij uit een openbare bron hebben vermeld, krijgt hem niet.',
  onderwerp:['Prijsverzoek: ',V('{toestel}')],
  body:`<p class="eerste">Via snelrepareren.nl vraagt iemand jou om een prijs.</p>
   <p>In de mail staan het toestel, de gekozen reparaties, en de naam en het e-mailadres van de bezoeker. Een telefoonnummer en een toelichting staan erbij als de bezoeker die heeft ingevuld.</p>
-  <p><b>Antwoord rechtstreeks aan de bezoeker.</b> Wij zitten er niet tussen, wij rekenen niets over deze klus, en wat jullie afspreken is tussen jullie.</p>
-  <a class="knop" href="portaal.html">Bekijk het in je portaal</a>
-  <p>Het verzoek staat ook in je portaal, waar je het kunt afvinken als het is afgehandeld.</p>`,
+  <p>Er staat ook bij <b>wanneer het de bezoeker uitkomt</b> (vandaag, deze week, geen haast) en <b>hoe hij antwoord wil</b> (bellen of mailen). Vroeg hij het ook bij andere winkels, dan zeggen wij hoeveel dat er zijn, en niet welke.</p>
+  <p><b>Plaats je prijs in je portaal.</b> De klant ziet hem daar naast die van de andere winkels: het bedrag, welk onderdeel, hoeveel garantie en wanneer klaar. Bellen of appen mag ook, en telt net zo goed als antwoord. Wij tonen je prijs, wij onderhandelen niet en zijn geen partij bij de reparatie.</p>
+  <a class="knop" href="portaal.html">Plaats je prijs in je portaal</a>`,
  voet:`<p>Je krijgt deze mail omdat je winkel is aangesloten bij snelrepareren.nl en een bezoeker via ons om een prijs vroeg.</p>`
+},
+{
+ titel:'Je aanvragen van vandaag',
+ aan:'winkel', van:'winkels@snelrepareren.nl',
+ naar:'Het adres waarmee de winkel is aangesloten',
+ wanneer:'Eén keer per dag, in de ochtend, als de winkel bij Account heeft gekozen voor een samenvatting in plaats van een mail per aanvraag.',
+ doel:'Alle prijsaanvragen van de afgelopen dag bundelen in één mail, zodat een drukke winkel niet twintig losse mails krijgt.',
+ afspraak:'Een winkel kiest dit zelf en kan het altijd terugzetten naar een mail per aanvraag. Staat het uit, dan gaat deze mail niet. De aanvraag zelf staat sowieso in het portaal onder Aanvragen.',
+ onderwerp:[V('{aantal}'),' nieuwe prijsaanvragen'],
+ body:`<p class="eerste">Sinds de vorige samenvatting zijn er nieuwe prijsaanvragen binnengekomen. Ze staan er op een rij: per aanvraag het toestel, de gekozen reparaties, wanneer het de klant uitkomt en of hij het liefst gebeld of gemaild wordt.</p>
+  <p>De naam, het e-mailadres en een eventueel telefoonnummer staan bewust <b>niet</b> in deze mail maar in je portaal, onder Aanvragen. Daar plaats je ook je prijs; de klant ziet hem dan naast die van de andere winkels. Bellen of appen mag ook, en telt net zo goed als antwoord.</p>
+  <a class="knop" href="portaal.html">Open je aanvragen</a>`,
+ voet:`<p>Je krijgt deze mail omdat je bij Account hebt gekozen voor een dagelijkse samenvatting. Terugzetten naar een mail per aanvraag kan daar ook.</p>`
 },
 {
  titel:'Je verzoek staat bij de winkel',
@@ -262,12 +290,28 @@ const MAILS=[
  wanneer:'Direct nadat het verzoek naar de winkel is gestuurd.',
  doel:'Laten zien wat er precies is doorgestuurd, en eerlijk zeggen dat wij geen antwoord kunnen beloven.',
  afspraak:'Wij bewaren een verzoek negentig dagen. Daarna verdwijnt het, ook als er niets mee is gebeurd.',
- onderwerp:['Je verzoek staat bij ',V('{winkelnaam}')],
+ onderwerp:['Je verzoek staat bij ',V('{winkelnaam}'),' (of: bij 3 winkels)'],
  body:`<p class="eerste">Je vraag om een prijs is doorgestuurd naar ${V('{winkelnaam}')}, met het toestel en de reparaties die je koos.</p>
-  <p>De winkel antwoordt rechtstreeks aan jou. Wij zitten er niet tussen en rekenen niets over de reparatie.</p>
+  <p>De winkel plaatst zijn prijs bij ons. Wij tonen die prijs, wij onderhandelen niet en rekenen niets over de reparatie.</p>
+  <p>Vroeg je het aan meer dan een winkel, dan staan ze er allemaal in, en het blijft bij deze ene bevestiging. Over twee dagen sturen wij je een link waarmee je de prijzen naast elkaar ziet.</p>
   <p><b>Hoor je niets?</b> Dan kun je de winkel gewoon bellen; het nummer staat op zijn profiel. Wij kunnen een winkel niet dwingen te antwoorden, en wij beloven dus ook geen antwoord.</p>
   <a class="knop" href="plaatspagina-leeuwarden.html">Bekijk het profiel van de winkel</a>`,
  voet:`<p>Je krijgt deze mail omdat je via snelrepareren.nl een prijs hebt gevraagd bij deze winkel. Wij gebruiken je adres verder nergens voor.</p>`
+},
+{
+ titel:'Heb je antwoord gekregen?',
+ aan:'bezoeker', van:'hallo@snelrepareren.nl',
+ naar:'Het adres dat de bezoeker zelf invulde',
+ wanneer:'Twee dagen na een prijsaanvraag. Een keer, ook als er drie winkels in stonden.',
+ doel:'Vragen of de winkel antwoordde. Dat is het enige wat wij over reactiesnelheid kunnen weten; wat een winkel in zijn portaal afvinkt, zegt alleen dat hij de vraag heeft gezien.',
+ afspraak:'Een aanvraag is een mail, ook bij drie winkels. Wij vragen hier nooit om een cijfer: wie een prijs aanvroeg, is nog niet in de winkel geweest. Pas wie ja zegt, kan die winkel daarna beoordelen.',
+ onderwerp:['Heb je antwoord gekregen van ',V('{winkelnaam}'),'?'],
+ body:`<p class="eerste">Twee dagen geleden vroeg je via ons een prijs aan. Kreeg je antwoord?</p>
+  <p>Per winkel staat er een ja en een nee. Zei je ja, dan vragen wij er nog bij hoe snel het antwoord kwam: binnen een uur, dezelfde dag, of later. Twee tikken is het hoogstens, en je antwoord verandert niets aan wat je betaalt.</p>
+  <a class="knop" href="antwoord.html">Ja of nee, per winkel</a>
+  <p>Wij kunnen zelf niet zien of een winkel je heeft teruggebeld of gemaild. Zonder jouw antwoord zetten wij dus nooit een label over reactiesnelheid op een winkel.</p>
+  <p>Dit is de enige mail die je hierover krijgt. Je adres verdwijnt daarna vanzelf.</p>`,
+ voet:`<p>Je krijgt deze mail omdat je via snelrepareren.nl een prijs hebt aangevraagd. Wij gebruiken je adres verder nergens voor.</p>`
 },
 ];
 

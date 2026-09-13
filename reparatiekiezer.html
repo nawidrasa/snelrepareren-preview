@@ -257,6 +257,10 @@ button{font:inherit}
 .chip-onver{background:var(--vlak);color:var(--inkt-3);border:1px solid var(--lijn)}
 .chip-verzonnen{background:var(--amber-soft);color:var(--amber)}
 .chip-snel{background:var(--amber-soft);color:var(--amber)}
+/* Het label over reageren. Rustig grijs en geen groen: het is een waarneming
+   van klanten, geen controle die wij hebben gedaan. Groen is voorbehouden aan
+   wat wij zelf hebben nagekeken. */
+.chip-feit{background:var(--vlak);color:var(--inkt-2)}
 .chip-uitg{background:var(--marine-100);color:var(--marine)}
 
 /* balk onder: live samenvatting */
@@ -335,6 +339,9 @@ button{font:inherit}
 .bereik .jij{position:absolute;top:-4px;width:14px;height:14px;border-radius:50%;background:var(--groen);border:2.5px solid #fff;box-shadow:0 0 0 1.5px var(--groen);transform:translateX(-50%)}
 .bereik .lab{display:flex;justify-content:space-between;font-size:10.5px;color:var(--inkt-3);margin-top:6px}
 .winkel .acties{grid-column:1/-1;display:flex;gap:8px;flex-wrap:wrap;padding-top:12px;border-top:1px solid var(--lijn);margin-top:4px}
+  /* Het merkgroen van WhatsApp (#25D366) gebruiken wij niet: dat is hun merk en
+     het vloekt met ons groen. Het pictogram maakt de knop herkenbaar genoeg. */
+  .winkel .acties .btn-wa svg{width:17px;height:17px}
 .leeg{padding:22px;border:1.5px dashed var(--lijn);border-radius:14px;color:var(--inkt-2);font-size:14.5px;text-align:center}
 .rangschik{font-size:13px;color:var(--inkt-3);margin:14px 0 0}
 .rangschik button{background:none;border:0;padding:0;font:inherit;color:var(--groen);font-weight:600;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
@@ -399,6 +406,18 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
 .mdlg .knoppen{display:flex;gap:8px}
 .mdlg .knoppen .btn{flex:1}
 .mdlg .klein{font-size:12px;color:var(--inkt-3);margin:12px 0 0}
+  /* De twee keuzes en de vinkjes in het aanvraagvenster. Geen eigen kleuren:
+     dezelfde groene omlijning die de rest van dit venster ook gebruikt. */
+  .mdlg .vzblok{border:0;padding:0;margin:14px 0 0}
+  .mdlg .vzblok legend{padding:0;font-size:12.5px;font-weight:700;color:var(--inkt-2);margin-bottom:7px}
+  .mdlg .vzrij{display:flex;gap:6px;flex-wrap:wrap}
+  .mdlg .vzkeus{flex:1 1 auto}
+  .mdlg .vzkeus input{position:absolute;opacity:0;width:0;height:0}
+  .mdlg .vzkeus span{display:block;text-align:center;padding:9px 12px;border:1.5px solid var(--lijn);border-radius:var(--ri);font-size:13.5px;background:#fff;cursor:pointer}
+  .mdlg .vzkeus input:checked+span{border-color:var(--groen);background:var(--groen-100);color:var(--groen-900);font-weight:600}
+  .mdlg .vzkeus input:focus-visible+span{outline:2px solid var(--groen);outline-offset:2px}
+  .mdlg .vzvink{display:flex;align-items:center;gap:9px;padding:9px 11px;border:1.5px solid var(--lijn);border-radius:var(--ri);margin-bottom:6px;font-size:14px;cursor:pointer}
+  .mdlg .vzvink input{width:17px;height:17px;padding:0;margin:0;border:0;accent-color:var(--groen);flex:none}
 .mdlg .gelukt{text-align:center;padding:8px 0 0}
 .mdlg .gelukt .bal{width:52px;height:52px;border-radius:16px;background:var(--groen-100);display:grid;place-items:center;margin:0 auto 12px}
 .mdlg .gelukt .bal svg{width:26px;height:26px;color:var(--groen)}
@@ -485,7 +504,7 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
 <script src="data/postcodes.js?v=d47fe545"></script>
 <script src="data/winkelpunten.js?v=447191cb"></script>
 <script src="data/locatie.js?v=9ca1d462"></script>
-<script src="data/winkels.js?v=d51cfd1c"></script>
+<script src="data/winkels.js?v=e3b0a9bd"></script>
 <script>
 /* ---------- gegevens ---------- */
 /* De toestellijst komt uit bouwvoorbereiding/data/catalogus.json, via data/kiezer.js.
@@ -548,10 +567,10 @@ const VOLG=['scherm','accu','laadpoort','camera','achterkant','waterschade'];
    deze winkel voor de GEKOZEN schade heeft opgegeven.
    De betaalfilters stonden op w.betaal.includes(...) en vielen daarmee om zodra
    een winkel dat niet had ingevuld. */
-const FILTERS=[['vandaag','Vandaag klaar',w=>vandaagKlaar(w)],['keur','Garantie gecontroleerd',w=>w.keur],['applepay','Apple Pay',w=>(w.betaal||[]).includes('Apple Pay')],['contant','Contant',w=>(w.betaal||[]).includes('Contant')]];
+const FILTERS=[['vandaag','Vandaag klaar',w=>vandaagKlaar(w)],['keur','Garantie gecontroleerd',w=>w.keur],['origineel','Origineel of gelijkwaardig',w=>gekozen().every(k=>{const t=biedtHoog(w,k);return t===0||t>=4;})],['applepay','Apple Pay',w=>(w.betaal||[]).includes('Apple Pay')],['contant','Contant',w=>(w.betaal||[]).includes('Contant')]];
 const OS={ios:["Open Instellingen op je iPhone.","Tik op Algemeen en daarna op Info.","Bij Modelnummer staat een code die met een A begint, bijvoorbeeld A2633. Typ die in het zoekveld."],
           android:["Open Instellingen op je toestel.","Scrol naar Over de telefoon of Systeem.","Bij Modelnummer staat de code, bijvoorbeeld SM-S911B. Typ die in het zoekveld."]};
-const S={stap:1,sub:'zoek',merk:null,serie:null,model:null,kleur:null,schade:{},plaats:'Leeuwarden',plaatsEdit:false,plaatsFout:null,dichtbij:false,filters:{},laatst:null,open:{}};
+const S={stap:1,sub:'zoek',merk:null,serie:null,model:null,kleur:null,schade:{},plaats:'Leeuwarden',plaatsEdit:false,plaatsFout:null,dichtbij:false,opprijs:false,filters:{},laatst:null,open:{}};
 const eur=n=>'&euro; '+n;
 const CHECK='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>';
 const BOLT='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 3 14h7l-1 8 10-12h-7z"/></svg>';
@@ -572,6 +591,19 @@ const KAART='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-w
 const waar=()=>(/^\d{4}/.test(S.plaats)?'rond ':'in ')+S.plaats;
 const gekozen=()=>VOLG.filter(k=>S.schade[k]);
 const som=()=>gekozen().reduce((a,k)=>a+(prijsVan(k)||0),0);
+/* De som van de gekozen reparaties bij EEN winkel, of null als hij er een niet
+   doet. Staat hier zodat de sorteerknop (goedkoopste eerst) en de kaart dezelfde
+   som gebruiken; anders is het een regel op twee plekken die uiteen kan lopen. */
+const somVoor=w=>{let t=0;for(const k of gekozen()){const a=aanbod(w,S.model?S.model.n:'',k);if(!a)return null;t+=a.b}return t};
+/* De kwaliteitsladder als getal, voor het filter "origineel of gelijkwaardig".
+   biedtHoog geeft de HOOGSTE trede die een winkel voor die reparatie levert (niet
+   de goedkoopste, want juist het filter zoekt de betere optie). 0 = geen
+   kwaliteit bekend voor deze reparatie, en dan blokkeert het filter niet. */
+const TREDE={kopie:1,incell:2,softoled:3,oem:4,refurb:5,origineel:6};
+const biedtHoog=(w,rep)=>{
+  if(w.p){let mx=0;for(const sleutel of Object.keys(w.p)){const [m,r,k]=sleutel.split('|');
+    if(m===(S.model?S.model.n:'')&&r===rep&&TREDE[k])mx=Math.max(mx,TREDE[k]);}return mx;}
+  return TREDE[w.kw]||0;};
 /* De onder- en bovenkant van wat dit model kan kosten, uit de eigen metingen. */
 const laagste=()=>gekozen().reduce((a,k)=>{const m=meting(k);if(!m)return a;
   return a+(m.opties.length?Math.min(...m.opties.map(o=>o.prijs)):(m.band?m.band.laagste:0));},0);
@@ -594,6 +626,11 @@ const inPlaats=()=>WINKELS.filter(w=>w.plaats.toLowerCase()===S.plaats.trim().to
    niet en doen niet alsof die nul is. */
 const lijst=()=>{
   const ws=inPlaats().filter(w=>FILTERS.every(([id,,f])=>!S.filters[id]||f(w)));
+  if(S.opprijs)return ws.slice().sort((a,b)=>{
+    const pa=somVoor(a),pb=somVoor(b);
+    if(pa==null&&pb==null)return String(a.n).localeCompare(String(b.n),'nl');
+    if(pa==null)return 1; if(pb==null)return -1; return pa-pb;
+  });
   if(!S.dichtbij||!BEZOEKERPUNT)return rangschik(ws);
   return ws.slice().sort((a,b)=>{
     const ka=afstandTot(a),kb=afstandTot(b);
@@ -1085,7 +1122,7 @@ function stap2(){
     } else if(m&&m.opties.length){
       /* DE KEUZE DIE DE PRIJS BEPAALT, STAAT NU METEEN OPEN.
          Hij zat achter een tweede klik in een uitklap, en dan bestaat hij in de
-         praktijk niet: Nawid vond hem niet en die weet waar hij staat. Voor een
+         praktijk niet: zelfs wie weet waar hij staat, vond hem niet. Voor een
          iPhone 13 zit er 149 euro tussen een kopiescherm en een origineel; dat
          verschil is de kern van deze site en hoort niet verstopt te zijn. */
       const laag=Math.min(...m.opties.map(o=>o.laagste));
@@ -1179,7 +1216,7 @@ function stap3(){
       .slice(0,3)
       .map(x=>x.w);
   };
-  const somVan=w=>{let t=0;for(const k of g){const a=aanbod(w,S.model.n,k);if(!a)return null;t+=a.b}return t};
+
   /* WELK ONDERDEEL DEZE WINKEL GEBRUIKT, BIJ DE PRIJS.
    *
    * De kaart zei "99 euro, Scherm" en verder niets. Die 99 euro is bij deze
@@ -1199,7 +1236,7 @@ function stap3(){
     if(soorten.length>1)return `<span class="onderdeel">onderdeel verschilt per reparatie</span>`;
     return `<span class="onderdeel">${esc(kwaliteitsnaam(soorten[0]))}</span>`;
   };
-  const kaart=w=>{const i=WINKELS.indexOf(w),p=somVan(w);
+  const kaart=w=>{const i=WINKELS.indexOf(w),p=somVoor(w);
     /* Allebei binnen de balk houden. pos werd al geknepen, med niet, en die kan
        buiten 0 tot 100 vallen zodra de gekozen som lager of hoger is dan de
        landelijke uitersten. Dan stond er een streepje naast de kaart. */
@@ -1218,7 +1255,7 @@ function stap3(){
     const tijdruw=eerste?doorlooptijd(eerste):null;
     const belooftVandaag=Boolean(eerste&&eerste.v);
     const tijd=(belooftVandaag&&!kanVandaag(w,eerste))?null:tijdruw;
-    const dicht=heeftRooster(w)&&!vandaagOpen(w);
+    const dicht=!!w.dichttot||(heeftRooster(w)&&!vandaagOpen(w));
     /* tweedeNaam erbij: Daily Phones in Dokkum staat op de gevel als
        "Smartphonestore Dokkum", en die naam stond wel in de gegevens en nergens
        op het scherm. */
@@ -1266,15 +1303,33 @@ function stap3(){
       <div class="kop"><b>${esc(w.n)}</b>${regel?`<span>${regel}</span>`:''}</div>
       <div class="cijfer">${w.g?`${sterrenBalk(w.g)}<b class="num">${esc(w.g)}</b><span><a href="${link(w.glink||'#')}" rel="nofollow noopener">${esc(w.gb||0)} beoordelingen op Google</a></span>`
         :'<span class="geencijfer">Nog geen cijfer op Google</span>'}</div>
-      <div class="chips">${verificatieMerk(w)}${verzonnenMerk(w)}${w.uit?`<span class="chip chip-uitg">Uitgelicht &middot; ${uitgelichtReden(w)}</span>`:''}${w.keur?`<span class="chip chip-keur">${CHECK}Garantie gecontroleerd</span>`:''}${tijd?`<span class="chip chip-snel">${BOLT}${tijd}</span>`:''}${dicht?`<span class="chip">Vandaag gesloten</span>`:''}</div>
+      <div class="chips">${verificatieMerk(w)}${verzonnenMerk(w)}${w.uit?`<span class="chip chip-uitg">Uitgelicht &middot; ${uitgelichtReden(w)}</span>`:''}${w.keur?`<span class="chip chip-keur">${CHECK}Garantie gecontroleerd</span>`:''}${reactielabel(w)?`<span class="chip chip-feit">${reactielabel(w)}</span>`:''}${tijd?`<span class="chip chip-snel">${BOLT}${tijd}</span>`:''}${w.dichttot?`<span class="chip">Tijdelijk gesloten tot ${esc(w.dichttot)}</span>`:(dicht?`<span class="chip">Vandaag gesloten</span>`:'')}</div>
       <div class="prijsvak"><div class="prijs num">${p!=null?eur(p):'op aanvraag'}<small>${g.map(k=>REP[k].n).join(' + ')}${onderdeelBij(w)}</small></div></div>
       <button class="meer" aria-expanded="${open?'true':'false'}" onclick="toonMeer('${esc(sleutel)}')">${open?'Minder':'Meer over deze winkel'}${MEERPIJL}</button>
       <div class="detail"${open?'':' hidden'}>
         <div class="kolommen">${kolommen.map(([kop,inhoud])=>`<div class="kolom"><h3>${kop}</h3>${inhoud}</div>`).join('')}</div>
         ${p!=null&&som()?`<div class="bereik"><div class="lablinks">Wat deze prijs landelijk is</div><div class="track"><div class="fill" style="left:4%;width:92%"></div><div class="tick" style="left:${med}%"></div><div class="jij" style="left:${pos}%"></div></div><div class="lab num"><span>${eur(lo)}</span><span>${eur(hi)}</span></div></div>`:''}
       </div>
-      <div class="acties"><button class="btn btn-groen" onclick="belWinkel(${i})">${TEL}Bel de winkel</button>${
-        w.aan?`<button class="btn btn-lijn" onclick="vraagPrijs(${i})">Vraag een prijs</button>`:''
+      <div class="acties">${
+        /* VANDAAG DICHT? DAN IS BELLEN GEEN WEG.
+           Om negen uur 's avonds is elke winkel dicht en levert de belknop een
+           voicemail op. De aanvraag ligt er 's ochtends wel, dus die hoort dan
+           de hoofdknop te zijn en bellen de tweede. Andersom bij een winkel die
+           open is: dan is bellen het snelst. */
+        dicht&&w.aan
+          ?`<button class="btn btn-groen" onclick="vraagPrijs(${i})">Vraag een prijs</button><button class="btn btn-lijn" onclick="belWinkel(${i})">${TEL}Bel de winkel</button>`
+          :`<button class="btn btn-groen" onclick="belWinkel(${i})">${TEL}Bel de winkel</button>${
+             w.aan?`<button class="btn btn-lijn" onclick="vraagPrijs(${i})">Vraag een prijs</button>`:''}`
+        }${
+        /* WHATSAPP: ALLEEN ALS DE WINKEL HET NUMMER ZELF GAF.
+           Geen knop afleiden uit het gewone telefoonnummer. Dat een zaak een
+           nummer heeft, betekent niet dat daar iemand op WhatsApp zit, en een
+           knop naar een nummer dat nooit antwoordt is erger dan geen knop.
+           Het bericht is vooringevuld met het toestel en de reparatie, zonder
+           onze gemeten prijs. */
+        waLink(w,S.model.n,schaderegels(false))
+          ?`<a class="btn btn-lijn btn-wa" href="${link(waLink(w,S.model.n,schaderegels(false)))}" rel="nofollow noopener" target="_blank" onclick="waMatch(${i})">${WAICOON}WhatsApp</a>`
+          :''
         }${routeLink(w)?`<a class="btn btn-lijn" href="${link(routeLink(w))}" rel="nofollow noopener" target="_blank">Route</a>`:''}${
         /* Geen profielknop zonder profiel: winkelLink geeft null voor een echte
            winkel die er nog geen heeft, en de schets van een verzonnen winkel
@@ -1296,9 +1351,19 @@ function stap3(){
      "Dichtstbij eerst, knop", of de sortering nu aanstond of niet. */
   const fknop=(id,aan,klik,tekst)=>
     `<button id="${id}" class="fchip${aan?' aan':''}" aria-pressed="${aan?'true':'false'}" onclick="${klik}">${tekst}</button>`;
-  const sorteer=BEZOEKERPUNT?fknop('f-dichtbij',S.dichtbij,'S.dichtbij=!S.dichtbij;teken()','Dichtstbij eerst'):'';
-  const filters=`<div class="filters"><span class="lab">Filter</span>${FILTERS.map(([id,n])=>fknop('f-'+id,S.filters[id],`zetFilter('${id}')`,n)).join('')}${sorteer}</div>`;
+  const sorteer=BEZOEKERPUNT?fknop('f-dichtbij',S.dichtbij,'S.dichtbij=!S.dichtbij;S.opprijs=false;teken()','Dichtstbij eerst'):'';
+  /* Goedkoopste eerst is een keuze van de BEZOEKER, niet iets wat een winkel
+     koopt, dus de eerlijke standaardvolgorde blijft de standaard; deze knop is
+     een tijdelijke sortering. Winkels zonder prijs voor deze reparatie zakken
+     naar onderen met "op aanvraag". */
+  const sorteerprijs=fknop('f-opprijs',S.opprijs,'S.opprijs=!S.opprijs;S.dichtbij=false;teken()','Goedkoopste eerst');
+  const filters=`<div class="filters"><span class="lab">Filter</span>${FILTERS.map(([id,n])=>fknop('f-'+id,S.filters[id],`zetFilter('${id}')`,n)).join('')}${sorteerprijs}${sorteer}</div>`;
   const uit=ws.filter(w=>w.uit),rest=ws.filter(w=>!w.uit);
+  /* De lijst zoals hij hier wordt getekend, zonder de uitgelichte plek. Het
+     aanvraagvenster biedt hieruit de volgende aangesloten winkels aan; een
+     betaalde plek hoort geen gratis extra aanvragen op te leveren, en een lijst
+     die de bezoeker niet zo heeft gezien evenmin. */
+  S.eerlijk=rest;
   return `<button class="terug" onclick="terug()">&larr; Schade</button><h2 class="vraag">${kop}</h2><p class="sub">Voor ${S.model.n}, ${lijstZin(g.map(k=>REP[k].n.toLowerCase()))}. Bel, loop binnen of vraag een offerte.</p>
   <div class="plaats">${plaats}</div>${filters}
   <div class="winkels">${ws.length
@@ -1428,15 +1493,35 @@ function toonMeer(sleutel){S.open[sleutel]=!S.open[sleutel];teken()}
 /* De kiezer weet wat je hebt aangetikt; winkels.js weet dat niet en moet het
    dus meekrijgen. De regels zijn de tekst die de winkel te lezen krijgt, en
    het is precies wat er op je scherm stond. */
+/* Wat er kapot is, als gewone tekst. Geen HTML: dit gaat in een e-mail, in de
+   database en in een WhatsApp-bericht. eur() geeft "&euro; 149" terug en dat
+   hoort in een pagina, niet in een bericht.
+
+   MET OF ZONDER ONZE METING. In een aanvraag staat erbij wat wij maten: dat is
+   de vergelijking waarmee de bezoeker binnenkwam, en de winkel mag weten waar
+   die vandaan komt. In een WhatsApp-bericht niet. Dat bericht staat op naam van
+   de bezoeker, en een bedrag dat wij in zijn mond leggen is een onderhandeling
+   die hij niet zelf begon. */
+function schaderegels(metPrijs){
+  return gekozen().map(k=>{const gk=S.schade[k];
+    const prijs=metPrijs?((gk&&gk.prijs?' (onze meting: € '+gk.prijs+')':'')
+      +(gk&&gk.land?' (landelijk € '+gk.land.prijs+', niet voor dit toestel gemeten)':'')):'';
+    return REP[k].n+(gk&&gk.naam?': '+gk.naam:'')+prijs}).join('\n');
+}
 function vraagPrijs(i){
-  const w=WINKELS[i],g=gekozen();
-  /* Gewone tekst, geen HTML: dit gaat in een e-mail en in de database. eur()
-     geeft "&euro; 149" terug en dat hoort in een pagina, niet in een mail. */
-  const regels=g.map(k=>{const gk=S.schade[k];
-    return REP[k].n+(gk&&gk.naam?': '+gk.naam:'')
-      +(gk&&gk.prijs?' (onze meting: € '+gk.prijs+')':'')
-      +(gk&&gk.land?' (landelijk € '+gk.land.prijs+', niet voor dit toestel gemeten)':'')}).join('\n');
-  verzoekDialoog(w,S.model.n,regels);
+  const w=WINKELS[i];
+  const regels=schaderegels(true);
+  /* De eerste twee ANDERE aangesloten winkels uit dezelfde eerlijke lijst.
+     Meestal tikt iemand de bovenste aan, en dan zijn dit letterlijk de twee
+     daaronder. Tikt hij er een verderop aan, dan bieden wij nog steeds de best
+     geplaatste alternatieven aan en niet wat er toevallig onder staat. */
+  const anderen=(S.eerlijk||[]).filter(a=>a!==w&&a.aan&&a.id).slice(0,2);
+  /* De gestructureerde ids naast de tekst (T11): de sleutel is de reparatietype-id,
+     en de kwaliteit staat in S.schade[k].sleutel. 'band' en 'onbekend' zijn geen
+     kwaliteit, dus die gaan als null mee. */
+  const reparaties=gekozen().map(k=>{const gk=S.schade[k],s=gk&&gk.sleutel;
+    return {reparatietype_id:k,onderdeelkwaliteit_id:(s&&s!=='band'&&s!=='onbekend')?s:null};});
+  verzoekDialoog(w,S.model.n,regels,anderen,reparaties);
 }
 function ga(n){if(n===3&&!gekozen().length)return;S.stap=n;teken();document.querySelector('.kaart').scrollIntoView({behavior:'smooth',block:'start'})}
 function terug(){if(S.stap===3)S.stap=2;else if(S.stap===2)S.stap=1;else if(S.sub==='model'){S.sub='serie'}else if(S.sub==='serie'){S.sub='zoek';S.merk=null}teken()}
@@ -1463,7 +1548,7 @@ function zetPlaats(v){
   }
   S.plaatsFout=null;S.plaatsEdit=false;teken();
 }
-function reset(){S.stap=1;S.sub='zoek';S.merk=null;S.serie=null;S.model=null;S.kleur=null;S.schade={};S.filters={};S.laatst=null;S.plaatsEdit=false;S.open={};teken()}
+function reset(){S.stap=1;S.sub='zoek';S.merk=null;S.serie=null;S.model=null;S.kleur=null;S.schade={};S.filters={};S.laatst=null;S.plaatsEdit=false;S.opprijs=false;S.open={};teken()}
 function opendlg(){zetOS('ios');document.getElementById('hulp').showModal()}
 function zetOS(os){document.querySelectorAll('.tabs button').forEach(b=>b.classList.toggle('aan',b.dataset.os===os));document.getElementById('stappenlijst').innerHTML=OS[os].map(t=>'<li>'+t+'</li>').join('')}
 document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>zetOS(b.dataset.os));

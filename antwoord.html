@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="nl">
+<meta charset="utf-8">
+<title>Heb je antwoord gekregen? | snelrepareren.nl</title>
+<meta name="description" content="Twee dagen na je aanvraag vragen wij of de winkel je antwoord heeft gegeven. Dat is het enige wat wij over reactiesnelheid weten, en het kost je een tik per winkel.">
+<!-- zoekmachinekop: afgeleid uit de pagina zelf, niet met de hand aanpassen -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="snelrepareren.nl">
+<meta property="og:locale" content="nl_NL">
+<meta property="og:url" content="https://snelrepareren.nl/antwoord.html">
+<meta property="og:title" content="Heb je antwoord gekregen? | snelrepareren.nl">
+<meta property="og:description" content="Twee dagen na je aanvraag vragen wij of de winkel je antwoord heeft gegeven. Dat is het enige wat wij over reactiesnelheid weten, en het kost je een tik per winkel.">
+<meta property="og:image" content="https://snelrepareren.nl/deelplaatje.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="snelrepareren.nl: zie eerst wat een reparatie hoort te kosten. 198 prijzen zelf gemeten bij 29 Nederlandse winkels.">
+<meta name="twitter:card" content="summary_large_image">
+<!-- /zoekmachinekop -->
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<link rel="stylesheet" href="lettertype/outfit.css">
+<link rel="stylesheet" href="basis.css?v=efb36082">
+<style>
+:root{--groen-50:#F0FDF4;--groen-100:#DCFCE7;--groen-200:#BBF7D0;--groen-300:#86EFAC;--groen-500:#22C55E;--groen:#008934;--groen-800:#007B2E;--marine:#0B1F4E;--marine-100:#E8ECF5;--marine-200:#C5CEE3;--inkt:#111827;--inkt-2:#4A5878;--inkt-3:#616A76;--lijn:#E3E6EE;--vlak:#F6F8FA;--amber:#B45309;--amber-soft:#FEF3C7;color-scheme:light}
+
+body{margin:0;background:var(--vlak);color:var(--inkt);font-family:'Outfit',system-ui,sans-serif;font-size:16px;line-height:1.55}
+button{font:inherit}
+
+.top{display:flex;align-items:center;padding:16px 24px;max-width:720px;margin:0 auto}
+.wrap{max-width:720px;margin:0 auto;padding:8px 24px 70px}
+.kaart{background:#fff;border:1px solid var(--lijn);border-radius:22px;padding:30px}
+h1{font-size:26px;font-weight:800;letter-spacing:-.02em;margin:0 0 8px;text-wrap:balance}
+.sub{color:var(--inkt-2);font-size:16px;margin:0 0 4px}
+
+/* Een winkel per rij: naam links, twee knoppen rechts. Onder de 520 px komen de
+   knoppen onder de naam te staan; naast elkaar zouden ze dan elk 60 px breed
+   zijn en dat tikt niemand goed aan. */
+.winkels{display:grid;gap:10px;margin:22px 0 8px}
+.wrij{display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:var(--vlak);border-radius:16px;padding:14px 16px}
+.wrij .av{width:40px;height:40px;border-radius:12px;background:var(--marine-100);color:var(--marine);display:grid;place-items:center;font-weight:800;flex:none}
+.wrij .wie{flex:1 1 160px;min-width:0}
+.wrij .wie b{display:block;font-size:15.5px;overflow-wrap:anywhere}
+.wrij .wie span{font-size:13px;color:var(--inkt-3)}
+.keuze{display:flex;gap:8px;flex:none}
+.kn{padding:9px 18px;border-radius:999px;border:1.5px solid var(--lijn);background:#fff;font-size:14.5px;font-weight:600;color:var(--inkt-2);cursor:pointer}
+.kn:hover{border-color:var(--groen)}
+.kn.aan{background:var(--groen);border-color:var(--groen);color:#fff}
+.kn.aan.nee{background:var(--amber);border-color:var(--amber)}
+.kn:disabled{opacity:.55;cursor:default}
+.na{flex:1 1 100%;font-size:13.5px;color:var(--inkt-2);margin:0}
+.na a{color:var(--groen);font-weight:600}
+.k4{font-size:14px;color:var(--inkt-2);margin:0 0 14px;font-weight:600}
+.opgave{flex:1 1 100%;background:var(--groen-50);border:1px solid var(--groen-200);border-radius:12px;padding:12px 14px;margin-top:4px}
+.opgave .prijs{font-size:22px;font-weight:800;color:var(--inkt);letter-spacing:-.02em}
+.opgave .opgavedetail{font-size:13.5px;color:var(--inkt-2);margin-top:2px}
+.opgave .opgavetoel{font-size:13.5px;color:var(--inkt-2);margin-top:6px;font-style:italic}
+.snelrij{flex:1 1 100%;margin-top:2px}
+.snelrij .kn{font-size:13.5px;padding:7px 14px}
+
+.regels{background:var(--groen-50);border:1px solid var(--groen-200);border-radius:14px;padding:16px 18px;margin:22px 0 0}
+.regels b{font-size:14.5px}
+.regels ul{margin:8px 0 0;padding:0;list-style:none;display:grid;gap:7px}
+.regels li{display:flex;gap:9px;align-items:flex-start;font-size:13.5px;color:var(--inkt-2)}
+.regels li svg{width:16px;height:16px;color:var(--groen);flex:none;margin-top:2px}
+.voet{font-size:12.5px;color:var(--inkt-3);margin:16px 0 0}
+.verborgen{display:none}
+@media(max-width:600px){.wrap{padding:8px 16px 60px}.kaart{padding:22px}}
+.jurvoet{border-top:1px solid var(--lijn);margin-top:40px;padding:22px 32px 48px;max-width:1160px;margin-left:auto;margin-right:auto;color:var(--inkt-3);font-size:13px}
+.jurvoet .jur{display:flex;flex-wrap:wrap;gap:18px;margin-bottom:10px}
+.jurvoet .jur a{text-decoration:none;color:var(--inkt-2);font-weight:600}
+.jurvoet .jur a:hover{color:var(--groen)}
+@media(max-width:760px){.jurvoet{padding:20px 16px 44px}}
+</style>
+
+<a class="naar-inhoud" href="#inhoud">Naar de inhoud</a>
+<div class="schets">Ontwerpschets. Deze pagina bereik je via de e-mail die wij twee dagen na je aanvraag sturen. De winkels hieronder zijn een voorbeeld.</div>
+<header class="top"><a class="logo" href="index.html">snel<i>repareren</i>.nl</a></header>
+<main id="inhoud">
+<div class="wrap">
+
+  <!-- ZONDER LINK UIT DE MAIL GEEN LIJST.
+       Dezelfde regel als op beoordelen.html: wie deze pagina zonder sleutel
+       opent, hoort niet een ingevulde lijst te zien die van iemand anders is. -->
+  <div class="kaart verborgen" id="geenlink">
+    <h1>Deze pagina hoort bij de mail over je aanvraag</h1>
+    <p class="sub">Twee dagen nadat je via ons een prijs aanvroeg, sturen wij je een mail met een
+    link. Alleen via die link weten wij om welke aanvraag het gaat.</p>
+    <p class="sub" id="geenlink-reden">Heb je die mail niet gekregen, kijk dan ook in je ongewenste
+    post. Kom je er niet uit, dan kun je het ons <a href="melden.html">melden</a>.</p>
+  </div>
+
+  <div class="kaart" id="kaart">
+    <h1>Heb je antwoord gekregen?</h1>
+    <p class="sub">Je vroeg twee dagen geleden een prijs aan. Laat per winkel weten of er
+    antwoord kwam. Zei je ja, dan vragen wij er nog bij hoe snel dat ging.</p>
+
+    <p class="k4" id="k4" hidden></p>
+    <div class="winkels" id="winkels"></div>
+
+    <div class="regels">
+      <b>Waarom wij het vragen</b>
+      <ul>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Wij kunnen zelf niet zien of een winkel jou heeft teruggebeld of gemaild. Alleen jij weet dat.</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Een winkel kan bij ons afvinken dat hij jouw vraag heeft gezien. Dat is iets anders dan antwoord geven, en daar zetten wij geen label op.</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Wij geven je hier niets voor terug, en je antwoord verandert niets aan de prijs die je betaalt.</span></li>
+      </ul>
+    </div>
+    <p class="voet">Kreeg je antwoord en ben je bij de winkel geweest? Dan kun je hem daarna beoordelen.
+    Dat kan alleen als je hier &quot;ja&quot; hebt gezegd, zodat er geen cijfers komen van bezoeken die niet hebben plaatsgevonden.</p>
+  </div>
+</div>
+</main>
+<footer class="jurvoet">
+  <div class="jur"><a href="voorwaarden.html">Voorwaarden</a><a href="privacy.html">Privacy</a><a href="cookies.html">Cookies</a><a href="toegankelijkheid.html">Toegankelijkheid</a><a href="melden.html">Iets melden</a></div>
+  Wij bewaren je antwoord bij je aanvraag. Wat wij daarmee doen staat in de <a href="privacy.html">privacyverklaring</a>.
+</footer>
+
+<script src="formulier.js?v=4f04e007"></script>
+<script>
+/* De lijst komt van de server, uit de sleutel in de link. Zonder server blijft
+   het ontwerpvoorbeeld staan; dat is precies wat de schetsbalk bovenaan zegt. */
+const VOORBEELD=[{id:1,winkel:'Telefoonhulp Leeuwarden',antwoord:null,snelheid:null,heeft_opgave:true,bedrag:'179.00',kwaliteit:'Origineel',garantie:12,klaar:'zelfde_dag',opgave_toelichting:'Origineel scherm, terwijl je wacht'},
+                 {id:2,winkel:'De Schermwerkplaats',antwoord:null,snelheid:null,heeft_opgave:false}];
+const KLAAR_T={zelfde_dag:'zelfde dag klaar',paar_dagen:'in een paar dagen klaar',langer:'langer'};
+/* De tweede vraag, alleen na een ja. Drie hokjes en niet meer: een klant weet
+   niet op de minuut wanneer het antwoord binnenkwam, en grove klassen kan hij
+   wel eerlijk invullen. De sleutels zijn dezelfde als in de database. */
+const SNEL=[['binnen_uur','Binnen een uur'],['zelfde_dag','Dezelfde dag'],['later','Later']];
+const SNELTEKST={binnen_uur:'binnen een uur',zelfde_dag:'dezelfde dag',later:'later'};
+const S={sleutel:new URLSearchParams(location.search).get('sleutel')||'',winkels:VOORBEELD,gereageerd:1,totaal:2,bezig:0};
+
+const esc=t=>String(t==null?'':t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+function teken(){
+  const k4=document.getElementById('k4');
+  if(k4){
+    if(S.totaal){k4.hidden=false;
+      const g=S.gereageerd||0;
+      const znw=S.totaal===1?'winkel':'winkels';
+      const ww=g===1?'heeft':'hebben';
+      k4.textContent=`${g} van de ${S.totaal} ${znw} ${ww} gereageerd.`;
+    } else k4.hidden=true;
+  }
+  document.getElementById('winkels').innerHTML=S.winkels.map((w,i)=>{
+    const gaf=w.antwoord;
+    /* De regel eronder verschijnt pas NA een antwoord, en zegt per geval iets
+       anders. Bij "nee" geen verwijt aan de winkel en geen belofte van ons: wij
+       kunnen een winkel niet dwingen te antwoorden. */
+    const beoordeel=w.bewijs
+      ?` Ben je er ook geweest? <a href="beoordelen.html?bewijs=${encodeURIComponent(w.bewijs)}">Beoordeel deze winkel</a>.`
+      :'';
+    /* Na een ja de tweede vraag. Overslaan mag: wie hem niet beantwoordt, heeft
+       nog steeds verteld DAT hij antwoord kreeg, en dat telt gewoon mee. Alleen
+       voor een uitspraak over snelheid hebben wij dit hokje nodig. */
+    const na=gaf==='ja'
+      ?(w.snelheid
+        ?`<p class="na">Genoteerd: je kreeg ${SNELTEKST[w.snelheid]} antwoord.${beoordeel}</p>`
+        :`<p class="na">Fijn. Hoe snel kwam dat antwoord?${beoordeel}</p>
+          <div class="keuze snelrij">${SNEL.map(([k,t])=>
+            `<button class="kn" aria-label="${esc(t)}, antwoord van ${esc(w.winkel)}" ${S.bezig?'disabled':''} onclick="snelheid(${i},'${k}')">${t}</button>`).join('')}</div>`)
+      :gaf==='nee'
+      ?'<p class="na">Genoteerd. Je kunt de winkel gewoon bellen; het nummer staat op zijn profiel. Wij kunnen een winkel niet dwingen te antwoorden.</p>'
+      :'';
+    /* De prijsopgave, als de winkel er een op het platform plaatste. Dit is het
+       hart van de vergelijking: bedrag, onderdeel, garantie, wanneer klaar. */
+    const opgave=w.heeft_opgave
+      ?`<div class="opgave"><div class="prijs">&euro; ${esc(w.bedrag)}</div>
+          <div class="opgavedetail">${[w.kwaliteit,w.garantie?esc(w.garantie)+' mnd garantie':null,KLAAR_T[w.klaar]].filter(Boolean).map(esc).join(' &middot; ')}</div>
+          ${w.opgave_toelichting?`<div class="opgavetoel">${esc(w.opgave_toelichting)}</div>`:''}</div>`
+      :'';
+    return `<div class="wrij">
+      <div class="av">${esc(w.winkel.trim().charAt(0).toUpperCase())}</div>
+      <div class="wie"><b>${esc(w.winkel)}</b><span>${w.heeft_opgave?'gaf een prijs':(gaf?'je antwoord is opgeslagen':'kreeg je antwoord van deze winkel?')}</span></div>
+      ${opgave}
+      <div class="keuze">
+        <button class="kn${gaf==='ja'?' aan':''}" aria-pressed="${gaf==='ja'?'true':'false'}" aria-label="Ja, ${esc(w.winkel)} gaf antwoord" ${S.bezig?'disabled':''} onclick="antwoord(${i},'ja')">Ja</button>
+        <button class="kn nee${gaf==='nee'?' aan nee':''}" aria-pressed="${gaf==='nee'?'true':'false'}" aria-label="Nee, ${esc(w.winkel)} gaf geen antwoord" ${S.bezig?'disabled':''} onclick="antwoord(${i},'nee')">Nee</button>
+      </div>${na}
+    </div>`;
+  }).join('');
+}
+
+function toonGeenLink(uitleg){
+  document.getElementById('kaart').classList.add('verborgen');
+  const vak=document.getElementById('geenlink');
+  vak.classList.remove('verborgen');
+  if(uitleg) document.getElementById('geenlink-reden').textContent=uitleg;
+}
+
+/* De tweede vraag stuurt hetzelfde antwoord nog een keer, met de snelheid erbij.
+   De server maakt dan geen tweede beoordeelsleutel aan; die hebben wij hier al
+   uit het eerste antwoord. */
+async function snelheid(i,keus){
+  const w=S.winkels[i];
+  if(!snelFormulier.HEEFT_SERVER){w.snelheid=keus;teken();return}
+  S.bezig=1;teken();
+  try{
+    const a=await fetch('/api/aanvraag-antwoord',{
+      method:'POST',headers:{'content-type':'application/json'},
+      body:JSON.stringify({sleutel:S.sleutel,verzoek_id:w.id,antwoord:'ja',snelheid:keus}),
+    });
+    if(!a.ok)throw new Error((await a.json()).fout||'Er ging iets mis.');
+    w.snelheid=keus;
+  }catch(fout){
+    S.bezig=0;teken();
+    document.getElementById('winkels').insertAdjacentHTML('beforeend',
+      `<p class="na" style="color:var(--amber)">Dat lukte niet: ${esc(fout.message)}</p>`);
+    return;
+  }
+  S.bezig=0;teken();
+}
+
+async function antwoord(i,keus){
+  const w=S.winkels[i];
+  /* Zonder server verandert de schets alleen op het scherm. Er wordt niets
+     verstuurd en er wordt ook niet gedaan alsof. */
+  if(!snelFormulier.HEEFT_SERVER){w.antwoord=keus;teken();return}
+  S.bezig=1;teken();
+  try{
+    const a=await fetch('/api/aanvraag-antwoord',{
+      method:'POST',headers:{'content-type':'application/json'},
+      body:JSON.stringify({sleutel:S.sleutel,verzoek_id:w.id,antwoord:keus}),
+    });
+    const uit=await a.json();
+    if(!a.ok)throw new Error(uit.fout||'Er ging iets mis.');
+    w.antwoord=keus;
+    if(uit.bewijs)w.bewijs=uit.bewijs;
+  }catch(fout){
+    S.bezig=0;teken();
+    document.getElementById('winkels').insertAdjacentHTML('beforeend',
+      `<p class="na" style="color:var(--amber)">Dat lukte niet: ${esc(fout.message)}</p>`);
+    return;
+  }
+  S.bezig=0;teken();
+}
+
+(async function(){
+  teken();
+  if(!snelFormulier.HEEFT_SERVER)return;           // de ontwerpschets blijft de schets
+  if(!S.sleutel)return toonGeenLink();
+  let uit,antw;
+  try{
+    antw=await fetch('/api/aanvraag/'+encodeURIComponent(S.sleutel));
+    uit=await antw.json();
+  }catch(e){
+    /* Geen json terug: dan kent deze omgeving de route niet en staat de site als
+       losse bestanden. Dan blijft het voorbeeld staan, zoals overal op de
+       preview, en doen wij niet alsof er iets mis is met de link. */
+    return;
+  }
+  if(!antw.ok)return toonGeenLink(uit.fout);
+  S.winkels=uit.winkels;
+  S.gereageerd=uit.gereageerd;
+  S.totaal=uit.totaal;
+  teken();
+})();
+</script>

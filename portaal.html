@@ -167,7 +167,42 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.02em;margin:0 0 3px}
 .reactieveld{margin-top:10px;display:flex;gap:8px}
 .reactieveld input{flex:1;padding:10px 13px;border:1.5px solid var(--lijn);border-radius:10px;font:inherit;font-size:14px}
 .reactieveld input:focus{outline:none;border-color:var(--groen);box-shadow:0 0 0 3px var(--groen-100)}
+/* De prijsband (W5). Een regel per reparatie met een balkje van laag naar hoog,
+   een streep voor de middelste prijs en een stip voor de eigen prijs. */
+.bandrij{padding:14px 0;border-top:1px solid var(--lijn)}
+.bandrij:first-child{border-top:none}
+.bandkop{display:flex;justify-content:space-between;gap:10px;font-size:14px;font-weight:600;color:var(--inkt);margin-bottom:12px}
+.bandkop span{font-weight:400;color:var(--inkt-3);white-space:nowrap}
+.bandbalk{position:relative;height:6px;border-radius:3px;background:var(--vlak);margin:22px 0 8px}
+.bandmid{position:absolute;top:-5px;width:2px;height:16px;background:var(--inkt-3);transform:translateX(-1px)}
+.bandjij{position:absolute;top:-7px;width:20px;height:20px;border-radius:50%;background:var(--groen);border:3px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.2);transform:translateX(-10px)}
+.bandcijfers{display:flex;justify-content:space-between;font-size:12.5px;color:var(--inkt-3)}
+.bandstand{margin-top:8px;font-size:13.5px;color:var(--inkt-2)}
+.bandstand b{color:var(--inkt)}
 .acmregel{display:flex;gap:10px;align-items:flex-start;background:var(--amber-soft);color:var(--amber);border-radius:12px;padding:12px 14px;font-size:13.5px;margin-top:14px}
+/* Een aanvraag is meer dan een regel: er staat een toestel in, wat de klant
+   wil, hoe hij bereikt wil worden, en wat hij ons later terugmeldde. Daarom een
+   blok en geen tabelrij. */
+.vzkaart{border-top:1px solid var(--lijn);padding:16px 0}
+.vzkaart:first-of-type{border-top:0}
+.vzkop{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.vzkop b{font-size:15.5px}
+.vzkop .st{font-size:11.5px;font-weight:700;padding:3px 10px;border-radius:999px;white-space:nowrap}
+.vzkop .dat{font-size:13px;color:var(--inkt-3);margin-left:auto}
+.vzfeit{display:flex;gap:8px;flex-wrap:wrap;margin:9px 0 0}
+.vzfeit span{font-size:12.5px;font-weight:600;padding:3px 10px;border-radius:999px;background:var(--vlak);color:var(--inkt-2)}
+.vzfeit span.nu{background:var(--amber-soft);color:var(--amber)}
+.vzfeit span.ja{background:var(--groen-100);color:var(--groen-800)}
+.vzregels{white-space:pre-line;font-size:14px;color:var(--inkt-2);margin:9px 0 0}
+.vzcontact{font-size:13.5px;color:var(--inkt-2);margin:9px 0 0}
+.vzcontact a{color:var(--groen);font-weight:600;text-decoration:none}
+.vzknoppen{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.opgaveform{margin-top:12px;border-top:1px solid var(--lijn);padding-top:12px}
+.opgaveform .tweekolom{margin-bottom:2px}
+.opgave-klaar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:12px;border-top:1px solid var(--lijn);padding-top:12px}
+.opgave-klaar b{font-size:15.5px}
+.opgave-klaar span{font-size:13.5px;color:var(--inkt-2)}
+.opgave-klaar .btn{margin-left:auto}
 .acmregel svg{width:17px;height:17px;flex:none;margin-top:1px}
 
 /* formulier */
@@ -274,6 +309,7 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.02em;margin:0 0 3px}
     <div class="merksub">Winkelportaal</div>
     <button class="navlink aan" data-p="overzicht"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg><span class="txt">Overzicht</span></button>
     <button class="navlink" data-p="vertoningen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20V10M9 20V4M15 20v-7M21 20V8"/></svg><span class="txt">Vertoningen</span></button>
+    <button class="navlink" data-p="verzoeken"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H8l-4 4z"/><path d="M9 10h6"/></svg><span class="txt">Aanvragen</span></button>
     <button class="navlink" data-p="beoordelingen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.6 5.6 6.1.8-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6L3.3 9.4l6.1-.8z"/></svg><span class="txt">Beoordelingen</span></button>
     <button class="navlink" data-p="profiel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg><span class="txt">Profiel en prijzen</span></button>
     <button class="navlink" data-p="formulier"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h14v18H5z"/><path d="M9 8h6M9 12h6M9 16h3"/></svg><span class="txt">Reparatieformulier</span></button>
@@ -290,10 +326,10 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.02em;margin:0 0 3px}
       <div class="stats">
         <div class="stat"><div class="lab">Getoond in zoekresultaten</div><b class="num">1.240</b><div class="op up">&uarr; 12% t.o.v. juli</div></div>
         <div class="stat"><div class="lab">Doorgeklikt naar profiel</div><b class="num">86</b><div class="op flat">7% van de vertoningen</div></div>
-        <div class="stat"><div class="lab">Gebeld of route <span class="ster">&#9733; kerngetal</span></div><b class="num">31</b><div class="op up">&uarr; 5 t.o.v. juli</div></div>
+        <div class="stat"><div class="lab">Contact via ons <span class="ster">&#9733; kerngetal</span></div><b class="num">31</b><div class="op up">&uarr; 5 t.o.v. juli</div></div>
       </div>
       <div class="botsregel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg><span class="botstekst">210 vertoningen zijn niet meegerekend omdat ze van bots kwamen. Wij tellen alleen echte mensen.</span></div>
-      <div class="kaart" style="margin-top:14px"><h2>Gebeld of route, per maand</h2><p class="toel">Je belangrijkste getal: hoe vaak mensen echt actie ondernamen.</p>
+      <div class="kaart" style="margin-top:14px"><h2>Contact via ons, per maand</h2><p class="toel">Je belangrijkste getal: hoe vaak mensen echt actie ondernamen.</p>
         <div class="grafiekwrap"><div class="grafiek" id="grafiek"></div></div>
       </div>
       <div class="rijkaarten">
@@ -335,12 +371,21 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.02em;margin:0 0 3px}
           <div class="veld"><label for="p-adres">Adres</label><input id="p-adres" autocomplete="street-address" value="Nieuwestad 112"></div>
           <div class="veld"><label for="p-postcodeplaats">Postcode en plaats</label><input id="p-postcodeplaats" autocomplete="address-level2" value="8911 KX Leeuwarden"></div>
         </div>
+        <div class="veld"><label for="p-whatsapp">WhatsApp (mag leeg)</label><input id="p-whatsapp" autocomplete="tel" placeholder="06 12 34 56 78">
+          <p class="toel">Vul je dit in, dan krijgt jouw kaart een WhatsApp-knop. Een klant opent daarmee een gesprek met het toestel en de reparatie al ingevuld; jij antwoordt in de app die je toch al open hebt. Laat je het leeg, dan staat de knop er niet. Wij lezen niet mee: wij tellen alleen dat er op de knop is geklikt.</p></div>
         <div class="veld"><label for="p-omschrijving">Korte omschrijving (max 3 zinnen)</label><textarea id="p-omschrijving" rows="2">Wij repareren sinds 2014 aan de Nieuwestad en doen bijna alles terwijl je wacht.</textarea></div>
         <fieldset class="veld betaalveld" id="p-tijden">
           <legend>Openingstijden</legend>
           <p class="toel">Laat een dag leeg als je dan dicht bent. Klanten kunnen filteren op "vandaag open".
             Wij zeggen op de site nooit dat je NU open bent, want dit rooster kent geen feestdagen.</p>
           <div class="tijdenrijen" id="p-tijdenrijen"></div>
+        </fieldset>
+        <fieldset class="veld betaalveld">
+          <legend>Tijdelijk gesloten</legend>
+          <p class="toel">Op vakantie of even dicht? Vul de dag in waarop je weer open bent. Je kaart toont
+            dat je gesloten bent, en aanvragen die in die tijd binnenkomen tellen niet mee voor je
+            reactielabel. Laat leeg als je gewoon open bent.</p>
+          <input id="p-gesloten-tot" type="date" aria-label="Datum waarop je weer open bent" style="max-width:220px">
         </fieldset>
         <fieldset class="veld betaalveld" id="p-betaal">
           <legend>Waarmee kan een klant bij je betalen?</legend>
@@ -362,6 +407,34 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.02em;margin:0 0 3px}
         <div class="ptabel" id="ptabel"></div>
         <div class="bevestig"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg><span id="p-bevestigd"></span></div>
         <div class="opslaan"><button class="btn btn-lijn" id="prijzenbevestigen">Alles klopt nog, bevestigen</button><button class="btn btn-groen" id="prijzenopslaan">Opslaan en bevestigen</button></div>
+      </div>
+
+      <div class="kaart" id="zonder-prijs-kaart" hidden><h2>Modellen zonder prijs</h2>
+        <p class="toel">Deze modellen worden door andere winkels bij jou in de plaats wel geprijsd, en door
+        jou nog niet. Een klant kan hen dus wel vergelijken en jou niet. Vul een prijs in, of neem hem
+        hieronder over van een model dat je al hebt.</p>
+        <div id="zonder-prijs"></div>
+      </div>
+
+      <div class="kaart" id="band-kaart" hidden><h2>Waar sta jij in de band</h2>
+        <p class="toel">Per reparatie die je prijst: de laagste, middelste en hoogste prijs bij jou in de
+        plaats, en waar jij daarin staat. Dit zijn dezelfde getallen die een bezoeker op de plaatspagina
+        al ziet; namen van andere winkels noemen wij hier niet. Alleen reparaties waar minstens drie
+        winkels een prijs voor hebben, anders is er geen band.</p>
+        <div id="band"></div>
+      </div>
+
+      <div class="kaart"><h2>Prijzen overnemen van een ander model</h2>
+        <p class="toel">Heb je een model helemaal ingevuld, neem het dan in één keer over op een broertje.
+        Je kunt er een bedrag bij optellen of aftrekken (bijvoorbeeld -10 voor een kleiner scherm). Dit
+        overschrijft bestaande prijzen van het doelmodel; een prijs die door de correctie op nul of lager
+        uitkomt, slaan wij over.</p>
+        <div class="tweekolom">
+          <div class="veld"><label for="kopie-van">Van dit model</label><select id="kopie-van"><option>Laden...</option></select></div>
+          <div class="veld"><label for="kopie-naar">Naar dit model</label><select id="kopie-naar"><option>Laden...</option></select></div>
+        </div>
+        <div class="veld" style="max-width:220px"><label for="kopie-aanpassing">Correctie in euro (mag leeg)</label><input id="kopie-aanpassing" inputmode="decimal" placeholder="bijv. -10"></div>
+        <div class="opslaan"><button class="btn btn-groen" id="kopie-knop">Prijzen overnemen</button></div>
       </div>
 
       <div class="kaart"><h2>Help ons met een modelnummer</h2>
@@ -415,11 +488,29 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.02em;margin:0 0 3px}
       </div>
     </section>
 
+    <!-- AANVRAGEN -->
+    <section class="paneel" data-p="verzoeken">
+      <div class="paginakop"><div><h1>Aanvragen</h1><p>Bezoekers die via de site een prijs bij je opvroegen. Plaats je prijs hieronder; de klant ziet hem naast die van de andere winkels. Bellen mag ook. Wij onderhandelen niet en zijn geen partij.</p></div></div>
+      <div class="kaart"><h2>Wat je binnenkreeg</h2><p class="toel">Een aanvraag ligt soms ook bij een of twee andere winkels. Welke dat zijn zeggen wij niet, en zij horen niet van jou wie jij bent.</p>
+        <div id="verzoeken"></div>
+      </div>
+      <div class="kaart"><h2>Hoe snel je reageert</h2><p class="toel">Per aanvraag telt één antwoord mee, over de laatste periode. Wat jij alleen afvinkt zonder prijs, telt hier niet mee.</p>
+        <div class="stats">
+          <div class="stat"><div class="lab">Meegetelde antwoorden</div><b class="num" id="r-bevestigd">0</b><div class="op flat" id="r-venster">in de laatste 90 dagen</div></div>
+          <div class="stat"><div class="lab">Daarvan: kreeg antwoord</div><b class="num" id="r-ja">0</b><div class="op flat" id="r-deel">nog niets gemeten</div></div>
+          <div class="stat"><div class="lab">Label op je kaart</div><b class="num" id="r-label" style="font-size:17px">Nog geen</b><div class="op flat" id="r-drempel">vanaf 5 antwoorden</div></div>
+        </div>
+      </div>
+      <div class="kaart"><h2>Hoe wij snelheid meten</h2>
+        <p class="toel">Plaats je hier een prijs, dan zien wij zelf hoe snel dat ging, want wij zetten het tijdstip. Bel je in plaats daarvan, dan kunnen wij niets meten; dan vragen wij de klant twee dagen later of hij antwoord kreeg en hoe snel, en alleen dat telt. Alleen "beantwoord" of "ik heb gebeld" aantikken zegt dat je de aanvraag hebt gezien, niet dat de klant antwoord kreeg, en telt dus niet mee. Zo kan geen winkel een label halen door alleen af te vinken, en kan geen winkel er traag uitzien omdat hij belde in plaats van klikte.</p>
+      </div>
+    </section>
+
     <!-- BEOORDELINGEN -->
     <section class="paneel" data-p="beoordelingen">
       <div class="paginakop"><div><h1>Beoordelingen</h1><p>Klanten die via ons bij je kwamen, krijgen twee dagen later de vraag hoe het ging.</p></div></div>
       <div class="stats">
-        <div class="stat"><div class="lab">Klanten via ons deze maand</div><b class="num">31</b><div class="op flat">gebeld of route opgevraagd</div></div>
+        <div class="stat"><div class="lab">Klanten via ons deze maand</div><b class="num">31</b><div class="op flat">bel, route, WhatsApp of aanvraag</div></div>
         <div class="stat"><div class="lab">Beoordelingen ontvangen</div><b class="num">6</b><div class="op up">19% van de klanten</div></div>
         <div class="stat"><div class="lab">Je gemiddelde</div><b class="num">9,1</b><div class="op flat">over 48 beoordelingen</div></div>
       </div>
@@ -456,6 +547,16 @@ h1{font-size:26px;font-weight:800;letter-spacing:-.02em;margin:0 0 3px}
       <div class="kaart"><h2>Adres</h2><p class="toel">Het adres waarop je winkel bij ons staat. Wijzigen doe je bij Profiel en prijzen.</p>
         <div class="vestiging"><span><b id="a-adres">wordt geladen</b></span></div>
         <p class="toel" style="margin:12px 0 0">Een tweede vestiging onder hetzelfde account kan nog niet. Zijn het er meer, meld ze dan los aan; dan heeft elke vestiging zijn eigen prijzen en zijn eigen plaatspagina.</p>
+      </div>
+      <div class="kaart"><h2>Meldingen</h2><p class="toel">Hoe wil je horen dat een bezoeker een prijs bij je opvraagt? Elke aanvraag staat sowieso in je portaal onder Aanvragen; dit gaat alleen over de mail erover.</p>
+        <div class="veld" style="max-width:360px">
+          <label for="a-meldingen">Wanneer wij je mailen</label>
+          <select id="a-meldingen">
+            <option value="direct">Een mail per aanvraag (meteen)</option>
+            <option value="dagelijks">Eén samenvatting per dag (in de ochtend)</option>
+          </select>
+        </div>
+        <div class="opslaan"><button class="btn btn-groen btn-klein" id="a-meldingen-opslaan">Opslaan</button></div>
       </div>
       <div class="kaart"><h2>Stoppen</h2><p class="toel">Je zit nergens aan vast, en er is geen abonnement om op te zeggen.</p>
         <div class="gevaar">
@@ -523,4 +624,4 @@ function ga(p){
 document.querySelectorAll('.navlink').forEach(n=>n.onclick=()=>ga(n.dataset.p));
 matches();beoordelingen();
 </script>
-<script src="portaal.js?v=ff7f98d7"></script>
+<script src="portaal.js?v=c2d0fb94"></script>

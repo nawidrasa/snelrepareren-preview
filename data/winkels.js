@@ -475,7 +475,7 @@ const vermeldingenIn = plaats => VERMELDINGEN.filter(v => zelfdePlaats(v, plaats
    een controleerbare erkenning, dan of de prijs recent is bevestigd, dan het
    Google-cijfer en het aantal Google-beoordelingen. Betalen verandert hier niets aan.
    Zodra een winkel genoeg eigen beoordelingen heeft, wegen die mee; die drempel
-   moet nog gekozen worden en staat open bij Nawid. */
+   moet nog gekozen worden en staat open. */
 const cijferVan = w => (w.g ? parseFloat(String(w.g).replace(',', '.')) : 0);
 
 const rangschik = ws => ws.slice().sort((a, b) =>
@@ -500,6 +500,25 @@ const keurlabel = w => 'Garantie gecontroleerd ' + esc(w.keurdatum);
    zegt alleen hoe actueel onze controle is. */
 const garantielabel = w => w.keurmaanden
   ? esc(w.keurmaanden) + ' maanden garantie op het onderdeel' : null;
+
+/* Het label over reageren. De zin staat HIER en nergens anders, en de sleutel
+   komt uit de database; app/src/reactiesnelheid.ts rekent uit welke het is.
+
+   WAAROM DIT LABEL ER BIJNA NOOIT STAAT. Een winkel moet minstens vijf klanten
+   hebben die ons zelf hebben laten weten dat zij antwoord kregen, in een half
+   jaar. Wat de winkel in zijn eigen portaal afvinkt, telt niet mee: dat is het
+   moment van klikken en niet het moment van antwoorden.
+
+   En er bestaat geen tegenhanger. Wie de drempel niet haalt, krijgt geen label
+   en geen waarschuwing. Dat is niet hetzelfde als traag zijn; het kan ook
+   betekenen dat er nog te weinig antwoorden zijn, en dat verschil kan een
+   bezoeker aan een chip niet zien. */
+const REACTIETEKST = {
+  binnen_uur: 'Reageert meestal binnen een uur',
+  zelfde_dag: 'Reageert meestal dezelfde dag',
+  antwoordt: 'Reageert op aanvragen',
+};
+const reactielabel = w => REACTIETEKST[w && w.reactie] || null;
 
 const waarom = w => [w.keur ? 'garantie gecontroleerd ' + esc(w.keurdatum) : null, esc(w.erk) || null,
   w.g ? 'cijfer ' + esc(w.g) + ' op Google' : null,
@@ -636,8 +655,11 @@ const vandaagTekst = (w, nu = new Date()) => {
 };
 
 /** Is de winkel vandaag open? Voor het filter, niet voor een uitspraak over nu. */
+/* Een winkel met een vakantiestand (dichttot) is vandaag niet open, wat het
+   rooster ook zegt. Zo weet elke plek die dit gebruikt (de dicht-chip, "vandaag
+   klaar", de knopvolgorde) het in een keer. */
 const vandaagOpen = (w, nu = new Date()) =>
-  roosterVan(w).some(r => r[0] === vandaagKort(nu));
+  !w.dichttot && roosterVan(w).some(r => r[0] === vandaagKort(nu));
 
 /* Kan deze winkel de reparatie vandaag doen?
  *
@@ -829,6 +851,7 @@ async function belMatch(w) {
     <p class="vraag">Wil je anderen straks helpen?</p>
     <p class="vraaguitleg">Laat je e-mailadres achter, dan vragen wij over twee dagen hoe het ging. Zo weten anderen bij welke winkel het goed zit.</p>
     <input type="email" id="matchmail" placeholder="je@email.nl">
+    <p id="vzmelding" role="alert" hidden style="color:var(--amber);font-size:13px;font-weight:600;margin:0 0 10px"></p>
     <div class="knoppen">
       <button class="btn btn-lijn" onclick="document.getElementById('matchdlg').close()">Nee, bedankt</button>
       <button class="btn btn-groen" onclick="matchJa()">Ja, herinner mij</button>
@@ -845,7 +868,8 @@ async function belMatch(w) {
 async function matchJa() {
   const veld = document.getElementById('matchmail');
   const email = (veld?.value || '').trim();
-  if (!email) { veld?.focus(); return; }
+  wisVeldFouten(['matchmail']);
+  if (!email) return toonVeldFout('matchmail', 'Vul je e-mailadres in, dan kunnen wij je de vraag sturen.');
   try {
     const a = await fetch('/api/match/herinnering', {
       method: 'POST',
@@ -872,6 +896,65 @@ async function matchJa() {
 const MATCHTEL = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>';
 const MATCHVINK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
 
+/* ---------- WhatsApp ----------
+ *
+ * WAAROM DIT EEN GEWONE LINK IS EN GEEN KNOP MET JAVASCRIPT. Een link opent
+ * WhatsApp door de klik van de bezoeker zelf. Zou het een knop zijn die eerst
+ * iets naar ons stuurt en daarna window.open doet, dan blokkeert de browser dat
+ * venster: na een await is het geen handeling van de gebruiker meer. De telling
+ * gaat er los naast en mag mislukken; WhatsApp openen niet.
+ *
+ * WAT ER IN HET BERICHT STAAT. Het toestel, wat er kapot is en welk onderdeel,
+ * en de vraag wanneer het kan. NIET onze gemeten prijs: dat is wat de bezoeker
+ * op onze site zag, en het in zijn mond leggen alsof hij ermee begint, is een
+ * onderhandeling starten die niet van hem is.
+ *
+ * WIJ METEN ALLEEN DE KLIK. Wat er daarna in WhatsApp wordt gezegd, gaat langs
+ * ons heen, en dat hoort ook zo: het is een gesprek tussen twee partijen.
+ */
+const waLink = (w, toestel, regels) => {
+  if (!w.wa) return null;
+  const tekst = `Hallo, ik zag jullie op snelrepareren.nl.\n\n`
+    + `Mijn toestel: ${toestel}\n${regels}\n\nWanneer kunnen jullie dit doen, en wat kost het?`;
+  return `https://wa.me/${w.wa}?text=${encodeURIComponent(tekst)}`;
+};
+
+/* De klik tellen, zonder de bezoeker op te houden. Lukt het niet, dan is er een
+   gesprek dat wij niet hebben geteld; dat is hinderlijk voor onze cijfers en
+   onschadelijk voor hem. */
+async function waMatch(i) {
+  const w = WINKELS[i];
+  if (!w || !w.id) return;
+  try {
+    const a = await fetch('/api/match', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ winkel_id: w.id, soort: 'whatsapp' }),
+    });
+    if (!a.ok) return;
+    laatsteMatch = (await a.json()).bewijs;
+  } catch (fout) { return; }
+  /* Pas hierna het venster, en alleen als het tellen lukte. Het opent achter
+     WhatsApp; de bezoeker ziet het als hij terugkomt. Zonder server (de
+     ontwerpschets) gebeurt er niets, precies zoals bij de belknop. */
+  vulVenster(`
+    <h3>Je bericht staat klaar in WhatsApp</h3>
+    <p class="waar">Je spreekt de winkel rechtstreeks. Wij lezen niet mee en rekenen niets.</p>
+    <div class="streep"></div>
+    <p class="vraag">Wil je anderen straks helpen?</p>
+    <p class="vraaguitleg">Laat je e-mailadres achter, dan vragen wij over twee dagen hoe het ging. Zo weten anderen bij welke winkel het goed zit.</p>
+    <input type="email" id="matchmail" placeholder="je@email.nl">
+    <p id="vzmelding" role="alert" hidden style="color:var(--amber);font-size:13px;font-weight:600;margin:0 0 10px"></p>
+    <div class="knoppen">
+      <button class="btn btn-lijn" onclick="document.getElementById('matchdlg').close()">Nee, bedankt</button>
+      <button class="btn btn-groen" onclick="matchJa()">Ja, herinner mij</button>
+    </div>
+    <p class="klein">Wij gebruiken je adres alleen voor deze ene vraag en verwijderen het daarna. Afmelden kan met een klik.</p>`);
+  document.getElementById('matchdlg').showModal();
+}
+
+const WAICOON = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.8 14.13c-.24.68-1.42 1.31-1.96 1.36-.5.05-.98.24-3.3-.69-2.78-1.1-4.55-3.93-4.69-4.11-.14-.18-1.12-1.49-1.12-2.84s.71-2.01.96-2.29c.25-.28.55-.35.73-.35.18 0 .37 0 .53.01.17.01.4-.06.62.48.24.57.8 1.97.87 2.11.07.14.12.31.02.49-.09.18-.14.29-.28.45-.14.16-.29.35-.42.47-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.93 1.07.95 1.97 1.25 2.25 1.39.28.14.44.12.6-.07.16-.19.7-.81.88-1.09.18-.28.37-.23.62-.14.25.09 1.6.75 1.87.89.28.14.46.21.53.32.07.12.07.66-.17 1.34z"/></svg>';
+
 /* ---------- een reparatieverzoek naar de winkel ----------
  *
  * De knop staat ALLEEN bij een winkel met een portaalaccount (w.aan). Die heeft
@@ -888,48 +971,133 @@ const MATCHVINK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" st
    zou uit die tekst breken; esc() dekt HTML af, niet een JS-tekenreeks. */
 let verzoekGegevens = null;
 
-function verzoekDialoog(w, toestel, regels) {
-  verzoekGegevens = { w, toestel, regels };
+/* Wat de winkel moet weten om goed te kunnen antwoorden.
+   Zonder deze twee belt hij iemand die niet opneemt, of mailt hij iemand die
+   had willen bellen. Twee tikjes hier, veel minder mislukt contact daar. */
+const VZWANNEER = [['vandaag', 'Het liefst vandaag'], ['deze_week', 'Deze week'],
+                   ['geen_haast', 'Geen haast']];
+const VZKANAAL = [['mail', 'Mail me'], ['bel', 'Bel me']];
+
+const vzKeuze = (naam, opties, gekozen) => opties.map(([w, t]) =>
+  `<label class="vzkeus"><input type="radio" name="${naam}" value="${w}"${w === gekozen ? ' checked' : ''} onchange="verzoekBijwerken()"><span>${t}</span></label>`).join('');
+
+/* ANDEREN zijn de volgende aangesloten winkels uit dezelfde lijst, in dezelfde
+   volgorde. Niet de uitgelichte: een betaalde plek hoort geen gratis extra
+   aanvragen op te leveren. De pagina die dit venster opent, levert ze aan; deze
+   functie verzint er zelf geen. */
+function verzoekDialoog(w, toestel, regels, anderen, reparaties) {
+  const ook = (anderen || []).filter(a => a && a.id && a.id !== w.id).slice(0, 2);
+  // reparaties: de gestructureerde ids van wat de bezoeker aantikte (T11), zodat
+  // de winkel de opgave later als vaste prijs kan overnemen. De pagina levert ze
+  // aan; dit bestand weet niet wat er in de kiezer stond.
+  verzoekGegevens = { w, toestel, regels, ook, reparaties: reparaties || [] };
   vulVenster(`
     <h3>Vraag een prijs aan ${esc(w.n)}</h3>
-    <p class="waar">De winkel antwoordt rechtstreeks aan jou. Wij zitten er niet tussen en rekenen niets.</p>
+    <p class="waar">De winkel plaatst zijn prijs bij ons; over twee dagen krijg je een link waarmee je de prijzen naast elkaar ziet. Wij onderhandelen niet en rekenen niets.</p>
     <div class="nummer" style="display:block">
       <b style="font-size:15px">${esc(toestel)}</b>
       <div style="font-size:13.5px;color:var(--inkt-2);margin-top:4px;white-space:pre-line">${esc(regels)}</div>
     </div>
+    ${ook.length ? `<fieldset class="vzblok">
+      <legend>Ook vragen aan</legend>
+      ${ook.map((a, i) => `<label class="vzvink"><input type="checkbox" id="vzook${i}" value="${a.id}"><span>${esc(a.n)}</span></label>`).join('')}
+      <p class="klein" style="margin:8px 0 0">Zij horen dat je het ook elders vroeg, niet bij wie. Hoogstens drie winkels tegelijk.</p>
+    </fieldset>` : ''}
+    <fieldset class="vzblok">
+      <legend>Wanneer komt het je uit?</legend>
+      <div class="vzrij">${vzKeuze('vzwanneer', VZWANNEER, 'deze_week')}</div>
+    </fieldset>
+    <fieldset class="vzblok">
+      <legend>Hoe wil je antwoord?</legend>
+      <div class="vzrij">${vzKeuze('vzkanaal', VZKANAAL, 'mail')}</div>
+    </fieldset>
     <label class="veld"><input id="vznaam" placeholder=" " autocomplete="name"><span>Je naam</span></label>
     <label class="veld"><input id="vzmail" type="email" placeholder=" " autocomplete="email"><span>Je e-mailadres</span></label>
-    <label class="veld"><input id="vztel" placeholder=" " autocomplete="tel"><span>Telefoon (mag leeg)</span></label>
+    <label class="veld"><input id="vztel" placeholder=" " autocomplete="tel"><span id="vztellab">Telefoon (mag leeg)</span></label>
     <label class="veld"><input id="vztoel" placeholder=" "><span>Iets erbij te zeggen? (mag leeg)</span></label>
     <div style="position:absolute;left:-9999px" aria-hidden="true"><label>Laat dit veld leeg<input id="website_url" tabindex="-1" autocomplete="off"></label></div>
+    <p id="vzmelding" role="alert" hidden style="color:var(--amber);font-size:13px;font-weight:600;margin:0 0 10px"></p>
     <div class="knoppen">
       <button class="btn btn-lijn" onclick="document.getElementById('matchdlg').close()">Annuleren</button>
       <button class="btn btn-groen" onclick="verzoekVerstuur()">Verstuur</button>
     </div>
-    <p class="klein">Je naam, adres en toelichting gaan naar deze winkel en naar niemand anders. Wij bewaren ze 90 dagen en wissen ze daarna.</p>`);
+    <p class="klein">Je naam, adres en toelichting gaan naar de winkels die je aantikt en naar niemand anders. Wij bewaren ze 90 dagen en wissen ze daarna.</p>`);
   document.getElementById('matchdlg').showModal();
 }
 
+/* Wie gebeld wil worden, heeft een nummer nodig. Dat zeggen wij op het moment
+   dat hij het aanvinkt, en niet pas bij het versturen. */
+/* Een toegankelijke inline-fout. Hiervoor sprong de focus wel naar het veld
+   maar hoorde een schermlezer niet waarom. Nu zetten wij aria-invalid op het
+   veld en schrijven de reden in een role="alert", die een schermlezer vanzelf
+   voorleest zodra hij inhoud krijgt. De focus gaat naar het veld zodat de
+   bezoeker meteen kan verbeteren. Eén meldingsregel per venster (id vzmelding);
+   er is er altijd maar één open. */
+function toonVeldFout(veldId, tekst) {
+  const m = document.getElementById('vzmelding');
+  if (m) { m.textContent = tekst; m.hidden = false; }
+  const el = document.getElementById(veldId);
+  if (el) { el.setAttribute('aria-invalid', 'true'); el.focus(); }
+}
+function wisVeldFouten(ids) {
+  const m = document.getElementById('vzmelding');
+  if (m) { m.textContent = ''; m.hidden = true; }
+  ids.forEach(id => { const el = document.getElementById(id); if (el) el.removeAttribute('aria-invalid'); });
+}
+
+function verzoekBijwerken() {
+  const lab = document.getElementById('vztellab');
+  if (!lab) return;
+  const bel = vzGekozen('vzkanaal') === 'bel';
+  lab.textContent = bel ? 'Telefoon (nodig om je te bellen)' : 'Telefoon (mag leeg)';
+  /* Zo weet een schermlezer dat het nummer nu verplicht is VOOR hij verstuurt,
+     niet pas als de focus er na een mislukte verzending heen springt. */
+  const tel = document.getElementById('vztel');
+  if (tel) tel.setAttribute('aria-required', bel ? 'true' : 'false');
+}
+
+/* "A, B en C". Eigen naam, want de kiezerpagina heeft een lijstZin van
+   zichzelf en twee keer dezelfde const in dezelfde scope is een foutmelding. */
+const vzLijst = d => d.length < 2 ? (d[0] || '') : d.slice(0, -1).join(', ') + ' en ' + d[d.length - 1];
+
+const vzGekozen = naam => {
+  const g = document.querySelector(`input[name="${naam}"]:checked`);
+  return g ? g.value : null;
+};
+
 async function verzoekVerstuur() {
-  const { w, toestel, regels } = verzoekGegevens;
+  const { w, toestel, regels, ook } = verzoekGegevens;
   const veld = id => document.getElementById(id);
   const naam = (veld('vznaam').value || '').trim();
   const email = (veld('vzmail').value || '').trim();
-  if (!naam) { veld('vznaam').focus(); return; }
-  if (!email) { veld('vzmail').focus(); return; }
+  const telefoon = (veld('vztel').value || '').trim();
+  const kanaal = vzGekozen('vzkanaal') || 'mail';
+  wisVeldFouten(['vznaam', 'vzmail', 'vztel']);
+  if (!naam) return toonVeldFout('vznaam', 'Vul je naam in.');
+  if (!email) return toonVeldFout('vzmail', 'Vul je e-mailadres in.');
+  if (kanaal === 'bel' && !telefoon) {
+    return toonVeldFout('vztel', 'Je wilt gebeld worden. Vul je telefoonnummer in, of kies "Mail me".');
+  }
+  const ookIds = ook.map((a, i) => veld('vzook' + i).checked ? a.id : null).filter(Boolean);
+  let gekregen = [w.n];
   try {
     const a = await fetch('/api/verzoek', {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({
-        winkel_id: w.id, naam, email,
-        telefoon: (veld('vztel').value || '').trim(),
+        winkel_id: w.id, ook_winkel_ids: ookIds, naam, email, telefoon,
         toelichting: (veld('vztoel').value || '').trim(),
         website_url: (veld('website_url').value || '').trim(),
-        toestel, regels,
+        wanneer: vzGekozen('vzwanneer') || 'deze_week', kanaal,
+        toestel, regels, reparaties: verzoekGegevens.reparaties || [],
       }),
     });
     if (!a.ok) throw new Error((await a.json()).fout || 'Er ging iets mis.');
+    /* De namen komen uit het ANTWOORD en niet uit wat wij hadden aangetikt. Was
+       een winkel er net mee gestopt, dan heeft hij hem niet gekregen, en dan
+       hoort er ook niet te staan dat hij hem heeft. */
+    const uit = await a.json();
+    if (Array.isArray(uit.winkels) && uit.winkels.length) gekregen = uit.winkels;
   } catch (fout) {
     /* Zelfde regel als bij de belknop: liever eerlijk dan netjes. Een groen
        vinkje boven een verzoek dat nooit is verstuurd, is het ergste wat dit
@@ -942,7 +1110,7 @@ async function verzoekVerstuur() {
     <div class="gelukt">
       <div class="bal">${MATCHVINK}</div>
       <h3>Verstuurd</h3>
-      <p class="waar" style="margin-bottom:18px">Je vraag staat bij ${esc(w.n)}. Je krijgt een kopie in je mail. De winkel antwoordt rechtstreeks aan jou; wij kunnen geen antwoord beloven.</p>
+      <p class="waar" style="margin-bottom:18px">Je vraag staat bij ${esc(vzLijst(gekregen))}. Je krijgt een kopie in je mail. De ${gekregen.length > 1 ? 'winkels plaatsen hun prijs' : 'winkel plaatst zijn prijs'} bij ons; over twee dagen sturen wij je een link waarmee je ze naast elkaar ziet. Bellen mag ook, en wij kunnen geen antwoord beloven.</p>
       <button class="btn btn-groen" style="width:100%" onclick="document.getElementById('matchdlg').close()">Sluiten</button>
     </div>`);
 }
@@ -956,7 +1124,7 @@ async function verzoekVerstuur() {
  * GEEN echte logo's. Het beeldmerk van iDEAL, Apple Pay of Mastercard is van hen,
  * en die mag je niet zomaar natekenen of overnemen; er horen merkregels bij en
  * daar hoort iemand naar te kijken voordat wij ze gebruiken. Wat hier staat is
- * een eigen pictogram plus de naam, in de kleur die erbij hoort. Wil Nawid de
+ * een eigen pictogram plus de naam, in de kleur die erbij hoort. Willen wij de
  * echte merken, dan is dat een aparte stap met hun richtlijnen erbij. */
 const BETAALICOON = {
   kaart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5" width="19" height="14" rx="3"/><path d="M2.5 10h19"/></svg>',
@@ -1040,7 +1208,7 @@ function sterrenBalk(cijfer) {
  * officiële onderdelen bij Apple mag inkopen zonder een Apple-vestiging te zijn.
  * Uitgeschreven zegt het wel iets.
  *
- * DE ECHTE MERKLOGO'S. Nawid heeft ze aangeleverd en gekozen. Wat een merkje wel
+ * DE ECHTE MERKLOGO'S. Die zijn aangeleverd en gekozen. Wat een merkje wel
  * en niet mag zeggen: een merk noemen en tonen om aan te wijzen over wie het
  * gaat, mag. De indruk wekken dat de merkhouder erachter staat, niet. Bij Apple
  * ligt dat extra nauw, want een Independent Repair Provider is uitdrukkelijk
