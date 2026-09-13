@@ -756,6 +756,11 @@ function onderDrempel(){
 function teken(){
   const had=document.activeElement, hadId=had&&had.id, eind=had&&had.selectionStart!=null;
   if(!genoegIn(PLAATS)){onderDrempel();return}
+  /* De plaats is open. Een noindex die bij het bouwen statisch is meegebakken
+     (toen de plaats de drempel nog niet haalde) hoort er nu af, anders zou een
+     plaats die live wel open is toch buiten de zoekmachine blijven. */
+  const oudeRobots=document.querySelector('meta[name="robots"]');
+  if(oudeRobots&&/noindex/i.test(oudeRobots.content))oudeRobots.remove();
   for(const id of ['kies','filters','mob'])document.getElementById(id).hidden=false;
   kies();filters();mob();lijst();zijkolom();kop();
   if(hadId){
