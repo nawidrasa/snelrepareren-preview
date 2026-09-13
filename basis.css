@@ -169,3 +169,13 @@ main:focus{outline:none}
    smal scherm niet op elkaar geplakt staat. */
 .mdlg .vzblok{margin-top:16px}
 .mdlg .knoppen{margin-top:18px}
+
+/* De keuzechips (wanneer / hoe wil je antwoord) exact even breed en even hoog,
+   ook als een label langer is en over twee regels valt. flex:1 1 0 verdeelt de
+   ruimte gelijk; min-width:0 laat de tekst binnen de chip afbreken in plaats van
+   uit te lopen; de span vult de hele chip en centreert de tekst. Hogere
+   specificiteit dan de inline .mdlg .vzkeus, dus dit wint ongeacht de volgorde. */
+.mdlg .vzblok .vzrij{flex-wrap:nowrap}
+.mdlg .vzblok .vzkeus{flex:1 1 0;min-width:0;display:flex}
+.mdlg .vzblok .vzkeus span{flex:1;display:flex;align-items:center;justify-content:center;
+  text-align:center;padding:10px 6px;min-height:46px;line-height:1.2}
