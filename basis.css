@@ -145,3 +145,27 @@ footer .jur a:hover{color:var(--groen)}
 }
 .naar-inhoud:focus{left:0}
 main:focus{outline:none}
+
+/* ----------------------------------------------------------------------------
+   Aanvraagvenster (verzoekDialoog): velden netjes en mobiel-vriendelijk.
+
+   Het gedeelde .veld staat elders op max-width:300px (voor formulieren met twee
+   kolommen naast elkaar). In dit venster staat elk veld op een eigen regel en
+   hoort het de volle breedte te vullen, gelijk met de keuzechips en de knoppen.
+   Deze selectors zijn specifieker dan het inline .veld, dus ze winnen ongeacht
+   de laadvolgorde. font-size 16px voorkomt de auto-inzoom van iOS bij focus.
+---------------------------------------------------------------------------- */
+.mdlg .veld{position:relative;display:block;flex:none;max-width:none;margin:12px 0 0}
+.mdlg .veld input{width:100%;box-sizing:border-box;padding:22px 14px 8px;margin:0;
+  border:1.5px solid var(--lijn);border-radius:12px;
+  font:inherit;font-size:16px;color:var(--inkt);background:#fff}
+.mdlg .veld input:focus{outline:none;border-color:var(--groen);
+  box-shadow:0 0 0 4px var(--groen-100,#DCFCE7)}
+.mdlg .veld span{position:absolute;left:14px;top:16px;font-size:16px;color:var(--inkt-3);
+  transition:top .15s,font-size .15s;pointer-events:none}
+.mdlg .veld input:focus+span,
+.mdlg .veld input:not(:placeholder-shown)+span{top:7px;font-size:11px;color:var(--groen);font-weight:600}
+/* Iets meer lucht tussen de blokken en boven de knoppenrij, zodat het op een
+   smal scherm niet op elkaar geplakt staat. */
+.mdlg .vzblok{margin-top:16px}
+.mdlg .knoppen{margin-top:18px}
