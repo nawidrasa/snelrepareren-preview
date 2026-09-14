@@ -15,7 +15,7 @@
 <meta property="og:image" content="https://snelrepareren.nl/deelplaatje.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="snelrepareren.nl: zie eerst wat een reparatie hoort te kosten. 198 prijzen zelf gemeten bij 29 Nederlandse winkels.">
+<meta property="og:image:alt" content="snelrepareren.nl: zie eerst wat een reparatie hoort te kosten. 557 prijzen zelf gemeten bij 30 Nederlandse winkels.">
 <meta name="twitter:card" content="summary_large_image">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://snelrepareren.nl/"},{"@type":"ListItem","position":2,"name":"Reparaties","item":"https://snelrepareren.nl/reparaties.html"},{"@type":"ListItem","position":3,"name":"Scherm vervangen"}]}</script>
 <!-- /zoekmachinekop -->
@@ -168,7 +168,7 @@ footer{border-top:1px solid var(--lijn);padding:28px 0 60px;color:var(--inkt-3);
 </style>
 
 <a class="naar-inhoud" href="#inhoud">Naar de inhoud</a>
-<div class="schets">Ontwerpschets. De prijzen zijn echt gemeten bij Nederlandse winkels (peildatum 3 september 2026). De vormgeving is een voorstel.</div>
+<div class="schets">Ontwerpschets. De prijzen zijn echt gemeten bij Nederlandse winkels (gemeten op 3 en 14 september 2026). De vormgeving is een voorstel.</div>
 
 <header class="top">
   <a class="logo" href="index.html">snel<i>repareren</i>.nl</a>
@@ -182,7 +182,7 @@ footer{border-top:1px solid var(--lijn);padding:28px 0 60px;color:var(--inkt-3);
 
   <div class="hero">
     <h1>Telefoonscherm laten vervangen</h1>
-    <p class="intro">Een gebarsten of kapot scherm is de meest voorkomende telefoonreparatie. Wat het kost hangt vooral af van je model en van het soort scherm dat erin komt. In Nederland ligt de prijs <b>tussen 65 en 579 euro</b>, met 169 euro als middelste prijs. De bovenkant is een scherm voor het nieuwste toestel; voor een model van een paar jaar oud zit je daar ruim onder. Op deze pagina leggen we uit welke schermen er bestaan, waar je op moet letten, en wat het voor jouw toestel kost.</p>
+    <p class="intro">Een gebarsten of kapot scherm is de meest voorkomende telefoonreparatie. Wat het kost hangt vooral af van je model en van het soort scherm dat erin komt. In Nederland ligt de prijs <b>tussen 65 en 579 euro</b>, met 189 euro als middelste prijs. De bovenkant is een scherm voor het nieuwste toestel; voor een model van een paar jaar oud zit je daar ruim onder. Op deze pagina leggen we uit welke schermen er bestaan, waar je op moet letten, en wat het voor jouw toestel kost.</p>
     <div class="heroknoppen">
       <a class="btn btn-groen btn-groot" href="reparatiekiezer.html">Bereken het voor mijn toestel</a>
       <span class="los">Gratis, en je hoeft niets aan te maken</span>
@@ -265,7 +265,7 @@ footer{border-top:1px solid var(--lijn);padding:28px 0 60px;color:var(--inkt-3);
 
   <section>
     <div class="bronblok">
-      <b>Waar de prijzen vandaan komen.</b> De bedragen op deze pagina komen uit ons eigen prijsonderzoek: 198 gemeten prijspunten bij Nederlandse winkels, peildatum 3 september 2026, elk met winkel en kwaliteitslabel. Prijzen zijn een indicatie, geen aanbod. De winkel bepaalt de prijs en de garantie.
+      <b>Waar de prijzen vandaan komen.</b> De bedragen op deze pagina komen uit ons eigen prijsonderzoek: 285 gemeten schermprijzen bij 16 Nederlandse winkels, gemeten op 3 en 14 september 2026, elk met winkel en kwaliteitslabel. Prijzen zijn een indicatie, geen aanbod. De winkel bepaalt de prijs en de garantie.
     </div>
   </section>
 </div>
@@ -300,10 +300,53 @@ const SOORTEN=[
   body:'Een fabrieksnieuw onderdeel van de fabrikant zelf. De duurste optie en niet elke winkel biedt hem aan.',
   v:'Nieuw fabrieksonderdeel, alle functies werken gegarandeerd (zoals True Tone).',d:'De hoogste prijs; bij iPhone vaak alleen op aanvraag.'},
 ];
-/* landelijk gemeten schermprijzen per model, bron: prijsonderzoek 3 sept 2026 */
+/* landelijk gemeten schermprijzen per model, uit prijzen.json via maak_reparatiecijfers.py.
+   Alleen modellen die de drempel halen; elke rij linkt naar zijn prijspagina. */
 const MODELLEN=[
- ['iPhone 15',109,179,389],['iPhone 14',89,159,259],['iPhone 13',79,154,309],
- ['iPhone 12',79,179,299],['iPhone 11',65,97,135],['iPhone 16',115,199,299],
+ ["iPhone 11",65,97,135,'prijspagina-iphone11-scherm.html'],
+ ["iPhone 12",79,179,299,'prijspagina-iphone12-scherm.html'],
+ ["iPhone 12 Pro",79,139,189,'prijspagina-iphone12pro-scherm.html'],
+ ["iPhone 12 Pro Max",89,149,250,'prijspagina-iphone12promax-scherm.html'],
+ ["iPhone 12 mini",79,149,260,'prijspagina-iphone12mini-scherm.html'],
+ ["iPhone 13",79,154,309,'prijspagina-iphone13-scherm.html'],
+ ["iPhone 13 Pro",109,159,260,'prijspagina-iphone13pro-scherm.html'],
+ ["iPhone 13 Pro Max",109,179,290,'prijspagina-iphone13promax-scherm.html'],
+ ["iPhone 13 mini",85,149,240,'prijspagina-iphone13mini-scherm.html'],
+ ["iPhone 14",89,159,259,'prijspagina-iphone14-scherm.html'],
+ ["iPhone 14 Plus",99,169,290,'prijspagina-iphone14plus-scherm.html'],
+ ["iPhone 14 Pro",119,179,320,'prijspagina-iphone14pro-scherm.html'],
+ ["iPhone 14 Pro Max",119,189,400,'prijspagina-iphone14promax-scherm.html'],
+ ["iPhone 15",109,179,389,'prijspagina-iphone15-scherm.html'],
+ ["iPhone 15 Plus",119,189,370,'prijspagina-iphone15plus-scherm.html'],
+ ["iPhone 15 Pro",129,199,390,'prijspagina-iphone15pro-scherm.html'],
+ ["iPhone 15 Pro Max",129,220,400,'prijspagina-iphone15promax-scherm.html'],
+ ["iPhone 16",115,199,299,'prijspagina-iphone16-scherm.html'],
+ ["iPhone 16 Plus",125,199,420,'prijspagina-iphone16plus-scherm.html'],
+ ["iPhone 16 Pro",135,225,400,'prijspagina-iphone16pro-scherm.html'],
+ ["iPhone 16 Pro Max",149,250,470,'prijspagina-iphone16promax-scherm.html'],
+ ["iPhone 17",149,374,579,'prijspagina-iphone17-scherm.html'],
+ ["iPhone 17 Pro",175,349,475,'prijspagina-iphone17pro-scherm.html'],
+ ["iPhone 17 Pro Max",199,379,539,'prijspagina-iphone17promax-scherm.html'],
+ ["iPhone Air",220,430,575,'prijspagina-iphoneair-scherm.html'],
+ ["Galaxy A15",89,99,119,'prijspagina-galaxy-a15-scherm.html'],
+ ["Galaxy A25",129,139,139,'prijspagina-galaxy-a25-scherm.html'],
+ ["Galaxy A35",99,149,179,'prijspagina-galaxy-a35-scherm.html'],
+ ["Galaxy A36",109,159,169,'prijspagina-galaxy-a36-scherm.html'],
+ ["Galaxy A54",139,154,169,'prijspagina-galaxy-a54-scherm.html'],
+ ["Galaxy A55",99,139,149,'prijspagina-galaxy-a55-scherm.html'],
+ ["Galaxy A56",109,149,159,'prijspagina-galaxy-a56-scherm.html'],
+ ["Galaxy S23",169,209,220,'prijspagina-galaxy-s23-scherm.html'],
+ ["Galaxy S23 FE",129,169,169,'prijspagina-galaxy-s23fe-scherm.html'],
+ ["Galaxy S23 Ultra",129,249,329,'prijspagina-galaxy-s23ultra-scherm.html'],
+ ["Galaxy S24",129,202,229,'prijspagina-galaxy-s24-scherm.html'],
+ ["Galaxy S24 Ultra",199,294,359,'prijspagina-galaxy-s24ultra-scherm.html'],
+ ["Galaxy S24+",159,224,269,'prijspagina-galaxy-s24plus-scherm.html'],
+ ["Galaxy S25",119,199,229,'prijspagina-galaxy-s25-scherm.html'],
+ ["Galaxy S25 Ultra",199,269,359,'prijspagina-galaxy-s25ultra-scherm.html'],
+ ["Galaxy S25+",149,244,269,'prijspagina-galaxy-s25plus-scherm.html'],
+ ["Galaxy S26",199,229,239,'prijspagina-galaxy-s26-scherm.html'],
+ ["Galaxy S26 Ultra",249,319,329,'prijspagina-galaxy-s26ultra-scherm.html'],
+ ["Galaxy S26+",229,279,289,'prijspagina-galaxy-s26plus-scherm.html'],
 ];
 function soorten(){
   document.getElementById('soortenlijst').innerHTML=SOORTEN.map(s=>`<div class="soort ${s.kl}">
@@ -317,9 +360,9 @@ function soorten(){
     </div>
   </div>`).join('');
 }
-const prijslinkModel=m=>'prijspagina-'+m.toLowerCase().replace(/ /g,'').replace('galaxy','galaxy-')+'-scherm.html';
+const prijslinkModel=m=>'prijspagina-'+m.toLowerCase().replace(/ /g,'').replace(/\+/g,'plus').replace('galaxy','galaxy-')+'-scherm.html';
 function modellen(){
-  document.getElementById('mtabel').innerHTML=MODELLEN.map(([m,lo,md,hi])=>`<a class="mrij" href="${prijslinkModel(m)}">
+  document.getElementById('mtabel').innerHTML=MODELLEN.map(([m,lo,md,hi,link])=>`<a class="mrij" href="${link||prijslinkModel(m)}">
     <span class="mm">${m} scherm</span>
     <span class="g num" data-l="Laagste">${eur(lo)}</span>
     <span class="g num mid" data-l="Mediaan">${eur(md)}</span>
