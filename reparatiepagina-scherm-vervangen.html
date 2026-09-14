@@ -15,7 +15,7 @@
 <meta property="og:image" content="https://snelrepareren.nl/deelplaatje.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="snelrepareren.nl: zie eerst wat een reparatie hoort te kosten. 1510 prijzen zelf gemeten bij 43 Nederlandse winkels.">
+<meta property="og:image:alt" content="snelrepareren.nl: zie eerst wat een reparatie hoort te kosten. 1681 prijzen zelf gemeten bij 52 Nederlandse winkels.">
 <meta name="twitter:card" content="summary_large_image">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://snelrepareren.nl/"},{"@type":"ListItem","position":2,"name":"Reparaties","item":"https://snelrepareren.nl/reparaties.html"},{"@type":"ListItem","position":3,"name":"Scherm vervangen"}]}</script>
 <!-- /zoekmachinekop -->
@@ -182,7 +182,7 @@ footer{border-top:1px solid var(--lijn);padding:28px 0 60px;color:var(--inkt-3);
 
   <div class="hero">
     <h1>Telefoonscherm laten vervangen</h1>
-    <p class="intro">Een gebarsten of kapot scherm is de meest voorkomende telefoonreparatie. Wat het kost hangt vooral af van je model en van het soort scherm dat erin komt. In Nederland ligt de prijs <b>tussen 65 en 850 euro</b>, met 209 euro als middelste prijs. De bovenkant is het binnenscherm van een vouwtelefoon; voor een gewoon toestel van een paar jaar oud zit je daar ruim onder. Op deze pagina leggen we uit welke schermen er bestaan, waar je op moet letten, en wat het voor jouw toestel kost.</p>
+    <p class="intro">Een gebarsten of kapot scherm is de meest voorkomende telefoonreparatie. Wat het kost hangt vooral af van je model en van het soort scherm dat erin komt. In Nederland ligt de prijs <b>tussen 65 en 850 euro</b>, met 214 euro als middelste prijs. De bovenkant is het binnenscherm van een vouwtelefoon; voor een gewoon toestel van een paar jaar oud zit je daar ruim onder. Op deze pagina leggen we uit welke schermen er bestaan, waar je op moet letten, en wat het voor jouw toestel kost.</p>
     <div class="heroknoppen">
       <a class="btn btn-groen btn-groot" href="reparatiekiezer.html">Bereken het voor mijn toestel</a>
       <span class="los">Gratis, en je hoeft niets aan te maken</span>
@@ -265,7 +265,7 @@ footer{border-top:1px solid var(--lijn);padding:28px 0 60px;color:var(--inkt-3);
 
   <section>
     <div class="bronblok">
-      <b>Waar de prijzen vandaan komen.</b> De bedragen op deze pagina komen uit ons eigen prijsonderzoek: 783 gemeten schermprijzen bij 32 Nederlandse winkels, gemeten op 3 en 14 september 2026, elk met winkel en kwaliteitslabel. Prijzen zijn een indicatie, geen aanbod. De winkel bepaalt de prijs en de garantie.
+      <b>Waar de prijzen vandaan komen.</b> De bedragen op deze pagina komen uit ons eigen prijsonderzoek: 868 gemeten schermprijzen bij 37 Nederlandse winkels, gemeten op 3 en 14 september 2026, elk met winkel en kwaliteitslabel. Prijzen zijn een indicatie, geen aanbod. De winkel bepaalt de prijs en de garantie.
     </div>
   </section>
 </div>
@@ -328,6 +328,7 @@ const MODELLEN=[
  ["iPhone 17",149,374,579,'prijspagina-iphone17-scherm.html'],
  ["iPhone 17 Pro",175,349,475,'prijspagina-iphone17pro-scherm.html'],
  ["iPhone 17 Pro Max",199,379,539,'prijspagina-iphone17promax-scherm.html'],
+ ["iPhone 17e",99,232,399,'prijspagina-iphone17e-scherm.html'],
  ["iPhone Air",220,430,575,'prijspagina-iphoneair-scherm.html'],
  ["Galaxy A14",75,99,149,'prijspagina-galaxy-a14-scherm.html'],
  ["Galaxy A15",89,99,119,'prijspagina-galaxy-a15-scherm.html'],
@@ -342,6 +343,8 @@ const MODELLEN=[
  ["Galaxy A55",99,139,149,'prijspagina-galaxy-a55-scherm.html'],
  ["Galaxy A56",109,149,159,'prijspagina-galaxy-a56-scherm.html'],
  ["Galaxy A57",118,169,199,'prijspagina-galaxy-a57-scherm.html'],
+ ["Galaxy S22",174,219,259,'prijspagina-galaxy-s22-scherm.html'],
+ ["Galaxy S22 Ultra",129,299,359,'prijspagina-galaxy-s22ultra-scherm.html'],
  ["Galaxy S23",169,209,220,'prijspagina-galaxy-s23-scherm.html'],
  ["Galaxy S23 FE",129,169,169,'prijspagina-galaxy-s23fe-scherm.html'],
  ["Galaxy S23 Ultra",129,249,329,'prijspagina-galaxy-s23ultra-scherm.html'],
@@ -398,6 +401,10 @@ const MODELLEN=[
  ["OnePlus 13R",119,259,299,'prijspagina-oneplus13r-scherm.html'],
  ["OnePlus Nord 3",119,239,275,'prijspagina-oneplusnord3-scherm.html'],
  ["OnePlus Nord 4",139,209,229,'prijspagina-oneplusnord4-scherm.html'],
+ ["Nothing Phone (2)",106,166,215,'prijspagina-nothingphone2-scherm.html'],
+ ["Nothing Phone (3a)",83,169,199,'prijspagina-nothingphone3a-scherm.html'],
+ ["Fairphone 5",67,152,220,'prijspagina-fairphone5-scherm.html'],
+ ["Fairphone Gen 6",67,142,220,'prijspagina-fairphonegen6-scherm.html'],
 ];
 function soorten(){
   document.getElementById('soortenlijst').innerHTML=SOORTEN.map(s=>`<div class="soort ${s.kl}">
@@ -411,7 +418,7 @@ function soorten(){
     </div>
   </div>`).join('');
 }
-const prijslinkModel=m=>'prijspagina-'+m.toLowerCase().replace(/ /g,'').replace(/\+/g,'plus').replace('galaxy','galaxy-')+'-scherm.html';
+const prijslinkModel=m=>'prijspagina-'+m.toLowerCase().replace(/ /g,'').replace(/\+/g,'plus').replace(/[()]/g,'').replace('galaxy','galaxy-')+'-scherm.html';
 function modellen(){
   document.getElementById('mtabel').innerHTML=MODELLEN.map(([m,lo,md,hi,link])=>`<a class="mrij" href="${link||prijslinkModel(m)}">
     <span class="mm">${m} scherm</span>
