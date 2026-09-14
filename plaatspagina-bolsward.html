@@ -356,7 +356,7 @@ dialog.match::backdrop{background:rgba(11,31,78,.45)}
 <script src="data/postcodes.js?v=d47fe545"></script>
 <script src="data/winkelpunten.js?v=447191cb"></script>
 <script src="data/locatie.js?v=9ca1d462"></script>
-<script src="data/winkels.js?v=f81ffa7d"></script>
+<script src="data/winkels.js?v=2ccfa361"></script>
 <script>
 /* De bandbreedtes komen uit data/kiezer.js, dat uit het prijsonderzoek wordt
    gegenereerd. Ze stonden hier met de hand overgetypt en weken op vijf van de
@@ -673,14 +673,18 @@ function onderDrempel(){
      zonder aangesloten winkel maar mét bekende winkels toonde een lege pagina.
      Precies de winkels die een bezoeker hier zoekt, vielen weg. */
   const verm=vermeldingenIn(PLAATS);
+  /* De tekst noemt het ECHTE aantal (n en verm.length), niet een vast "de winkels".
+     Zo leest elke plaats naar zijn eigen situatie in plaats van dezelfde zin, en
+     het getal wordt geteld, niet ingetypt. telw houdt kleine getallen leesbaar. */
+  const telw=k=>({1:'één',2:'twee',3:'drie',4:'vier',5:'vijf'})[k]||String(k);
   document.getElementById('onderkop').innerHTML=n
-    ? `<b>In ${PLAATS} zijn nog geen ${DREMPEL_WINKELS} winkels aangesloten</b>, dus valt er hier nog
-       niets eerlijk te vergelijken. ${n===1?'De winkel die wij wel kennen, staat':'De winkels die wij wel kennen, staan'}
-       hieronder, met wat een reparatie landelijk kost.`
+    ? `<b>In ${PLAATS} ${n===1?'is nog maar één winkel':'zijn nog maar '+telw(n)+' winkels'} bij ons aangesloten</b>,
+       en dat is minder dan de ${DREMPEL_WINKELS} die wij nodig hebben om eerlijk te vergelijken.
+       ${n===1?'Die winkel staat':'Ze staan'} hieronder, met wat een reparatie landelijk kost.`
     : verm.length
-    ? `<b>In ${PLAATS} is nog geen winkel bij ons aangesloten.</b> De winkels die wij uit openbare bronnen
-       kennen, staan hieronder, met wat een reparatie landelijk kost. Bij een vermelding hebben wij
-       geen prijs en geen garantiecontrole.`
+    ? `<b>In ${PLAATS} is nog geen winkel bij ons aangesloten.</b> Wel ${verm.length===1?'kennen wij één winkel':'kennen wij '+telw(verm.length)+' winkels'}
+       uit openbare bronnen; ${verm.length===1?'die staat':'die staan'} hieronder, met wat een reparatie landelijk kost.
+       Bij een vermelding hebben wij geen prijs en geen garantiecontrole.`
     : `<b>Er is in ${PLAATS} nog geen winkel aangesloten.</b> Wat een reparatie landelijk kost, staat er wel:
        dat komt uit ons eigen prijsonderzoek.`;
 

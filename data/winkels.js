@@ -645,11 +645,44 @@ const roosterVan = w => String(w.ot || '').split('\n').map(r => {
 /** Welke dag het vandaag is, in onze afkortingen. Zondag is 0 in javascript. */
 const vandaagKort = (nu = new Date()) => DAGVOLGORDE[(nu.getDay() + 6) % 7];
 
+/* De landelijke feestdagen waarop een winkel breed gesloten is. Het rooster in de
+   database kent ze niet, dus zonder deze check zou "Vandaag open" en "Vandaag klaar"
+   op bijvoorbeeld Tweede Kerstdag op een doordeweekse dag ten onrechte aanstaan. Wij
+   nemen alleen de dagen waarop een winkel vrijwel zeker dicht is; twijfelgevallen
+   (Goede Vrijdag, Bevrijdingsdag) laten wij eruit, want een onterecht "gesloten" is
+   net zo misleidend als een onterecht "open". De bewegende dagen volgen uit de
+   paasdatum (algoritme van Meeus). Deze check sluit alleen een open-uitspraak uit;
+   hij claimt nooit dat een winkel op een gewone dag dicht is. Vakantie zit apart in
+   w.dichttot; een winkelspecifieke feestdagsluiting kan de winkel daar ook zetten. */
+const paasZondag = (jaar) => {
+  const a = jaar % 19, b = Math.floor(jaar / 100), c = jaar % 100,
+    d = Math.floor(b / 4), e = b % 4, f = Math.floor((b + 8) / 25),
+    g = Math.floor((b - f + 1) / 3), h = (19 * a + b - d - g + 15) % 30,
+    i = Math.floor(c / 4), k = c % 4, l = (32 + 2 * e + 2 * i - h - k) % 7,
+    m = Math.floor((a + 11 * h + 22 * l) / 451),
+    maand = Math.floor((h + l - 7 * m + 114) / 31),
+    dag = ((h + l - 7 * m + 114) % 31) + 1;
+  return new Date(jaar, maand - 1, dag);
+};
+const isFeestdag = (nu = new Date()) => {
+  const j = nu.getFullYear(), md = (nu.getMonth() + 1) * 100 + nu.getDate();
+  if (md === 101 || md === 1225 || md === 1226) return true;   // nieuwjaar, beide kerstdagen
+  const kd = new Date(j, 3, 27);                                // Koningsdag: 27 april,
+  if (md === (kd.getDay() === 0 ? 426 : 427)) return true;      // of 26 april als 27 een zondag is
+  const p = paasZondag(j);
+  return [0, 1, 39, 49, 50].some((n) => {                       // 1e/2e Paasdag, Hemelvaart, 1e/2e Pinksterdag
+    const x = new Date(p); x.setDate(p.getDate() + n);
+    return (x.getMonth() + 1) * 100 + x.getDate() === md;
+  });
+};
+
 /* Wat er vandaag geldt, in woorden. Null als wij het rooster niet kennen; dan
-   laat de pagina die regel weg in plaats van iets te verzinnen. */
+   laat de pagina die regel weg in plaats van iets te verzinnen. Op een landelijke
+   feestdag noemt hij geen openingstijd, want die zou dan onwaar zijn. */
 const vandaagTekst = (w, nu = new Date()) => {
   const rooster = roosterVan(w);
   if (!rooster.length) return null;
+  if (isFeestdag(nu)) return 'Vandaag mogelijk gesloten (feestdag)';
   const dag = rooster.find(r => r[0] === vandaagKort(nu));
   return dag ? 'Vandaag ' + dag[1] + ' tot ' + dag[2] : 'Vandaag gesloten';
 };
@@ -657,9 +690,10 @@ const vandaagTekst = (w, nu = new Date()) => {
 /** Is de winkel vandaag open? Voor het filter, niet voor een uitspraak over nu. */
 /* Een winkel met een vakantiestand (dichttot) is vandaag niet open, wat het
    rooster ook zegt. Zo weet elke plek die dit gebruikt (de dicht-chip, "vandaag
-   klaar", de knopvolgorde) het in een keer. */
+   klaar", de knopvolgorde) het in een keer. Op een landelijke feestdag zetten wij
+   de open-uitspraak ook uit, want het rooster kent die dagen niet. */
 const vandaagOpen = (w, nu = new Date()) =>
-  !w.dichttot && roosterVan(w).some(r => r[0] === vandaagKort(nu));
+  !w.dichttot && !isFeestdag(nu) && roosterVan(w).some(r => r[0] === vandaagKort(nu));
 
 /* Kan deze winkel de reparatie vandaag doen?
  *
